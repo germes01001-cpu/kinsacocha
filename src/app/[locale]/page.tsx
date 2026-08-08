@@ -9,11 +9,14 @@ import Footer from "@/components/Footer";
 import Formats from "@/components/Formats";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Lakes from "@/components/Lakes";
 import NotPublished from "@/components/NotPublished";
 import PhotoMosaic from "@/components/PhotoMosaic";
 import Preparation from "@/components/Preparation";
 import Reviews from "@/components/Reviews";
+import Road from "@/components/Road";
 import RoutesSection from "@/components/RoutesSection";
+import StickyWhatsApp from "@/components/StickyWhatsApp";
 import Story from "@/components/Story";
 import Weaving from "@/components/Weaving";
 import { SITE } from "@/config/site";
@@ -61,9 +64,11 @@ export default async function HomePage({
         <Hero t={t} />
         <Story t={t} />
         <NotPublished t={t} />
+        <Lakes t={t} locale={locale} />
         <Formats t={t} />
         <Food t={t} />
         <Amenities t={t} />
+        <Road t={t} />
         <RoutesSection t={t} locale={locale} />
         <Fauna t={t} />
         <Flora t={t} />
@@ -75,6 +80,7 @@ export default async function HomePage({
       </main>
 
       <Footer t={t} locale={locale} />
+      <StickyWhatsApp t={t} />
     </>
   );
 }

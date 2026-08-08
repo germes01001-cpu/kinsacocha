@@ -15,13 +15,7 @@ export default function Formats({ t }: { t: Dict }) {
     const { from, unit } = PRICING.formats[key];
     if (from === null) return t.formats.individual;
 
-    const per =
-      unit === "person-night"
-        ? t.formats.perPersonNight
-        : unit === "person-day"
-          ? t.formats.perPersonDay
-          : t.formats.perNight;
-
+    const per = unit === "person-day" ? t.formats.perPersonDay : t.formats.perDay;
     return `${t.formats.priceFrom} ${from} ${PRICING.currency} · ${per}`;
   };
 
@@ -31,6 +25,10 @@ export default function Formats({ t }: { t: Dict }) {
         <Reveal>
           <h2 className="text-3xl sm:text-4xl">{t.formats.title}</h2>
           <p className="mt-4 max-w-lg text-muted">{t.formats.lead}</p>
+          {/* Главный немой вопрос гостя — «а сколько это по времени». Отвечаем сразу. */}
+          <p className="mt-5 max-w-xl border-l-2 border-clay/40 pl-4 text-[15px] leading-relaxed text-ink/75">
+            {t.formats.dayNote}
+          </p>
         </Reveal>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2">

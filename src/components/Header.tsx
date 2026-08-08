@@ -10,6 +10,7 @@ import type { Dict } from "@/i18n/dict";
 
 const SECTIONS = [
   { id: "story", key: "story" },
+  { id: "lakes", key: "lakes" },
   { id: "formats", key: "formats" },
   { id: "routes", key: "routes" },
   { id: "fauna", key: "life" },

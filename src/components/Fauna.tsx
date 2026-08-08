@@ -85,6 +85,26 @@ export default function Fauna({ t }: { t: Dict }) {
           </div>
         ))}
 
+        {/* Домашние животные: на тропе их встречаешь чаще всего.
+            Честно говорим, что это не дикая природа. */}
+        <Reveal className="mt-20 border-t border-paper/10 pt-12">
+          <h3 className="text-xs uppercase tracking-[0.22em] text-clay">
+            {t.fauna.herded.title}
+          </h3>
+          <p className="mt-4 max-w-lg text-paper/55">{t.fauna.herded.lead}</p>
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-3">
+            {t.fauna.herded.items.map((item, i) => (
+              <Reveal key={item.name} delay={(i % 3) as 0 | 1 | 2}>
+                <h4 className="text-lg text-paper">{item.name}</h4>
+                <p className="mt-2 text-sm leading-relaxed text-paper/65">
+                  {item.body}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </Reveal>
+
         {/* Пума. Кадр намеренно пустой — фотографии пумы нет и не будет. */}
         <Reveal className="mt-24">
           <h3 className="text-xs uppercase tracking-[0.22em] text-clay">

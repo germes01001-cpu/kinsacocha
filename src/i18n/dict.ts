@@ -19,6 +19,7 @@ export type Dict = {
   meta: { title: string; description: string };
   nav: {
     story: string;
+    lakes: string;
     formats: string;
     routes: string;
     life: string;
@@ -42,14 +43,31 @@ export type Dict = {
     items: string[];
     footer: string;
   };
+  lakes: {
+    title: string;
+    name: string;
+    lead: string;
+    items: { name: string; altitude: string; body: string }[];
+    cta: string;
+  };
+  road: {
+    title: string;
+    lead: string;
+    pisac: string;
+    cusco: string;
+    minutes: string;
+    note: string;
+    cta: string;
+    wa: string;
+  };
   formats: {
     title: string;
     lead: string;
     kids: string;
     priceFrom: string;
-    perPersonNight: string;
     perPersonDay: string;
-    perNight: string;
+    perDay: string;
+    dayNote: string;
     individual: string;
     cta: string;
     items: Record<
@@ -92,6 +110,11 @@ export type Dict = {
     title: string;
     lead: string;
     tiers: { title: string; items: { name: string; quechua?: string; body: string }[] }[];
+    herded: {
+      title: string;
+      lead: string;
+      items: { name: string; body: string }[];
+    };
     puma: { title: string; body: string[]; safety: string };
   };
   flora: {
@@ -133,7 +156,13 @@ export type Dict = {
     wa: string;
     emailLabel: string;
   };
-  footer: { nav: string; rights: string; instagram: string };
+  footer: {
+    nav: string;
+    rights: string;
+    instagram: string;
+    tagline: string;
+    lakesTitle: string;
+  };
   gallery: {
     title: string;
     lead: string;
@@ -166,6 +195,7 @@ export const dict: Record<Locale, Dict> = {
     },
     nav: {
       story: "Место",
+      lakes: "Озёра",
       formats: "Форматы",
       routes: "Маршруты",
       life: "Живое",
@@ -203,20 +233,54 @@ export const dict: Record<Locale, Dict> = {
       footer:
         "Не из вредности. Эти тропы держатся на том, что о них не пишут.",
     },
+    lakes: {
+      title: "Три озера",
+      name: "Kinsa qucha на кечуа — «три озера». Место названо счётом.",
+      lead: "За ними сюда и едут. Мы называем высоты и цвет воды — и не рассказываем, как дойти.",
+      items: [
+        {
+          name: "Пума Коча",
+          altitude: "4325 м",
+          body: "Самое высокое. «Озеро пумы» на кечуа: пума у инков означала силу и связь с землёй. Саму пуму здесь не видели.",
+        },
+        {
+          name: "Асуль Коча",
+          altitude: "4247 м",
+          body: "Насыщенно-синяя, почти бирюзовая вода. В ясный день граница между водой и небом почти исчезает.",
+        },
+        {
+          name: "Кинса Коча",
+          altitude: "Самое большое",
+          body: "Ближайшее. У него стоит дом, и оно дало имя всему месту. Здесь община разводит форель.",
+        },
+      ],
+      cta: "Подробнее про три озера",
+    },
+    road: {
+      title: "Дорога",
+      lead: "Если вы уже в Священной долине — это ближе, чем кажется.",
+      pisac: "от Писака",
+      cusco: "от Куско",
+      minutes: "минут",
+      note: "Трансфер до двери заказывается отдельно, через WhatsApp. Дорогу лучше не проезжать в спешке — она часть впечатления.",
+      cta: "Заказать трансфер",
+      wa: "Здравствуйте! Хочу узнать про трансфер до Kinsacocha.",
+    },
     formats: {
       title: "Как сюда приезжают",
       lead: "Четыре формата. С детьми комфортно в любом.",
       kids: "С детьми — да",
       priceFrom: "от",
-      perPersonNight: "с человека за ночь",
-      perPersonDay: "с человека за день",
-      perNight: "за ночь",
+      perPersonDay: "с человека за сутки",
+      perDay: "за сутки",
+      dayNote:
+        "Сутки считаются от утра до утра: приезжаете утром — уезжаете следующим. Для групп цена тоже с человека.",
       individual: "Обсуждается индивидуально",
       cta: "Написать в WhatsApp",
       items: {
         access: {
-          name: "Доступ к пространству",
-          body: "Приехал, кинул вещи, гуляй сам. Базовый доступ к дому и территории.",
+          name: "Сутки в доме",
+          body: "Дом и территория ваши на сутки. Никакой программы: гуляете сами, возвращаетесь к печи когда захотите.",
           host: "Хозяин не нужен",
           hint: "Самый доступный",
           wa: "Здравствуйте! Интересует доступ к пространству в Kinsacocha.",
@@ -426,6 +490,15 @@ export const dict: Record<Locale, Dict> = {
           ],
         },
       ],
+      herded: {
+        title: "И те, кого пасут",
+        lead: "Это не дикая природа. Это чей-то заработок, который идёт вам навстречу по тропе.",
+        items: [
+          { name: "Овцы", body: "Стадами, чаще всего с пастухом где-то рядом." },
+          { name: "Коровы", body: "На склонах, там, где трава погуще." },
+          { name: "Ослы", body: "Возят всё, что здесь нужно возить. Дорог наверху нет." },
+        ],
+      },
       puma: {
         title: "Почти никогда",
         body: [
@@ -550,6 +623,8 @@ export const dict: Record<Locale, Dict> = {
       nav: "Навигация",
       rights: "Все права защищены",
       instagram: "Instagram",
+      tagline: "Дом — частный. Всё вокруг — общее.",
+      lakesTitle: "Три озера",
     },
     gallery: {
       title: "Фотографии",
@@ -595,6 +670,7 @@ export const dict: Record<Locale, Dict> = {
     },
     nav: {
       story: "The place",
+      lakes: "The lakes",
       formats: "Ways to stay",
       routes: "Walking",
       life: "Wild",
@@ -628,20 +704,54 @@ export const dict: Record<Locale, Dict> = {
       footer:
         "Not out of stubbornness. These trails survive because nobody writes about them.",
     },
+    lakes: {
+      title: "Three lakes",
+      name: "Kinsa qucha is Quechua for “three lakes”. The place is named after a count.",
+      lead: "This is what people come for. We give you the altitudes and the colour of the water. We do not tell you how to get there.",
+      items: [
+        {
+          name: "Puma Cocha",
+          altitude: "4,325 m",
+          body: "The highest. “Lake of the puma” in Quechua: to the Inca the puma meant strength and the bond with the earth. Nobody here has seen her.",
+        },
+        {
+          name: "Azul Cocha",
+          altitude: "4,247 m",
+          body: "Deep blue water going to turquoise. On a clear day the line between water and sky nearly disappears.",
+        },
+        {
+          name: "Kinsa Cocha",
+          altitude: "The largest",
+          body: "The closest one. The house stands by it and it named the whole place. The community farms trout here.",
+        },
+      ],
+      cta: "More about the three lakes",
+    },
+    road: {
+      title: "Getting here",
+      lead: "If you are already in the Sacred Valley, this is closer than it sounds.",
+      pisac: "from Pisac",
+      cusco: "from Cusco",
+      minutes: "minutes",
+      note: "A transfer to the door is arranged separately over WhatsApp. The road is best not rushed — it is part of the experience.",
+      cta: "Ask about a transfer",
+      wa: "Hello! I'd like to ask about a transfer to Kinsacocha.",
+    },
     formats: {
       title: "Ways to come",
       lead: "Four of them. All of them work with children.",
       kids: "Good with kids",
       priceFrom: "from",
-      perPersonNight: "per person, per night",
       perPersonDay: "per person, per day",
-      perNight: "per night",
+      perDay: "per day",
+      dayNote:
+        "A day runs morning to morning: you arrive one morning and leave the next. Groups are priced per person too.",
       individual: "Priced case by case",
       cta: "Message on WhatsApp",
       items: {
         access: {
-          name: "Access to the place",
-          body: "Arrive, drop your bags, wander on your own. The house and the land, nothing scheduled.",
+          name: "A day in the house",
+          body: "The house and the land are yours for a day. Nothing scheduled: you walk where you like and come back to the fire when you want.",
           host: "No host needed",
           hint: "Most affordable",
           wa: "Hello! I'd like to ask about staying at Kinsacocha.",
@@ -845,6 +955,15 @@ export const dict: Record<Locale, Dict> = {
           ],
         },
       ],
+      herded: {
+        title: "And the ones being herded",
+        lead: "This is not wildlife. This is somebody's livelihood walking towards you on the trail.",
+        items: [
+          { name: "Sheep", body: "In flocks, usually with a shepherd somewhere close." },
+          { name: "Cattle", body: "On the slopes, wherever the grass is thicker." },
+          { name: "Donkeys", body: "They carry everything that needs carrying. There are no roads up here." },
+        ],
+      },
       puma: {
         title: "Almost never",
         body: [
@@ -969,6 +1088,8 @@ export const dict: Record<Locale, Dict> = {
       nav: "Navigation",
       rights: "All rights reserved",
       instagram: "Instagram",
+      tagline: "The house is private. Everything around it belongs to the community.",
+      lakesTitle: "Three lakes",
     },
     gallery: {
       title: "Photographs",
@@ -1014,6 +1135,7 @@ export const dict: Record<Locale, Dict> = {
     },
     nav: {
       story: "El lugar",
+      lakes: "Las lagunas",
       formats: "Cómo venir",
       routes: "Caminatas",
       life: "Lo vivo",
@@ -1047,20 +1169,54 @@ export const dict: Record<Locale, Dict> = {
       footer:
         "No por terquedad. Estos caminos siguen existiendo porque nadie escribe sobre ellos.",
     },
+    lakes: {
+      title: "Tres lagunas",
+      name: "Kinsa qucha en quechua es «tres lagunas». El lugar lleva el nombre de una cuenta.",
+      lead: "Por esto viene la gente. Damos las alturas y el color del agua. No decimos cómo llegar.",
+      items: [
+        {
+          name: "Puma Cocha",
+          altitude: "4325 m",
+          body: "La más alta. «Laguna del puma» en quechua: para los incas el puma era la fuerza y el vínculo con la tierra. Aquí nadie lo ha visto.",
+        },
+        {
+          name: "Azul Cocha",
+          altitude: "4247 m",
+          body: "Agua azul intensa, casi turquesa. En un día despejado el límite entre el agua y el cielo casi desaparece.",
+        },
+        {
+          name: "Kinsa Cocha",
+          altitude: "La más grande",
+          body: "La más cercana. Junto a ella está la casa y de ella viene el nombre del lugar. Aquí la comunidad cría trucha.",
+        },
+      ],
+      cta: "Más sobre las tres lagunas",
+    },
+    road: {
+      title: "Cómo llegar",
+      lead: "Si ya estás en el Valle Sagrado, queda más cerca de lo que parece.",
+      pisac: "desde Písac",
+      cusco: "desde Cusco",
+      minutes: "minutos",
+      note: "El traslado hasta la puerta se coordina aparte por WhatsApp. El camino conviene no apurarlo — es parte de la experiencia.",
+      cta: "Consultar por el traslado",
+      wa: "¡Hola! Quisiera consultar por el traslado a Kinsacocha.",
+    },
     formats: {
       title: "Cómo se viene",
       lead: "Cuatro formas. Todas funcionan con niños.",
       kids: "Con niños, sí",
       priceFrom: "desde",
-      perPersonNight: "por persona, por noche",
       perPersonDay: "por persona, por día",
-      perNight: "por noche",
+      perDay: "por día",
+      dayNote:
+        "El día va de mañana a mañana: llegas una mañana y te vas a la siguiente. Para grupos el precio también es por persona.",
       individual: "Se conversa caso por caso",
       cta: "Escribir por WhatsApp",
       items: {
         access: {
-          name: "Acceso al lugar",
-          body: "Llegas, dejas las cosas y caminas por tu cuenta. La casa y el terreno, sin programa.",
+          name: "Un día en la casa",
+          body: "La casa y el terreno son tuyos por un día. Sin programa: caminas por donde quieras y vuelves al fogón cuando quieras.",
           host: "Sin anfitrión",
           hint: "El más accesible",
           wa: "¡Hola! Quisiera consultar por una estadía en Kinsacocha.",
@@ -1264,6 +1420,15 @@ export const dict: Record<Locale, Dict> = {
           ],
         },
       ],
+      herded: {
+        title: "Y los que se pastorean",
+        lead: "Esto no es fauna silvestre. Es el sustento de alguien que viene caminando hacia ti.",
+        items: [
+          { name: "Ovejas", body: "En rebaños, casi siempre con un pastor cerca." },
+          { name: "Vacas", body: "En las laderas, donde el pasto está más tupido." },
+          { name: "Burros", body: "Cargan todo lo que hay que cargar. Aquí arriba no hay carreteras." },
+        ],
+      },
       puma: {
         title: "Casi nunca",
         body: [
@@ -1388,6 +1553,8 @@ export const dict: Record<Locale, Dict> = {
       nav: "Navegación",
       rights: "Todos los derechos reservados",
       instagram: "Instagram",
+      tagline: "La casa es privada. Todo lo que la rodea es de la comunidad.",
+      lakesTitle: "Tres lagunas",
     },
     gallery: {
       title: "Fotografías",

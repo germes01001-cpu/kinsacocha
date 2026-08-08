@@ -50,18 +50,36 @@ export const SITE = {
  */
 export const PRICING = {
   currency: "USD",
+
+  /**
+   * Единица — СУТКИ, от утра до утра: приехал утром, уехал следующим.
+   * Для групп цена тоже с человека.
+   *
+   * TODO: все числа — заглушки, заказчик подставит реальные.
+   * from: null → на сайте останется текстовый ориентир, вёрстка не сломается.
+   */
   formats: {
-    /** Приехал, кинул вещи, гуляй сам. */
-    access: { from: 40 as number | null, unit: "person-night" },
-    /** Хозяин сопровождает на маршруте. */
+    /** Сутки в доме, территория ваша, программы нет. */
+    access: { from: 40 as number | null, unit: "person-day" },
+    /** Хозяин идёт с вами. */
     guided: { from: 90 as number | null, unit: "person-day" },
-    /** Группа арендует спальные места. */
-    beds: { from: 220 as number | null, unit: "night" },
+    /** Группа занимает спальные места, цена с человека. */
+    beds: { from: 55 as number | null, unit: "person-day" },
     /** Весь дом, хозяин уезжает. */
-    exclusive: { from: null as number | null, unit: "night" },
+    exclusive: { from: null as number | null, unit: "day" },
   },
+
   /** Трансфер из Писака оплачивается отдельно. */
   transferIncluded: false,
+} as const;
+
+/**
+ * Дорога. Без карты, без координат, без описания пути — только время.
+ * ✔ Подтверждено заказчиком.
+ */
+export const TRAVEL = {
+  fromPisac: 40,
+  fromCusco: 90,
 } as const;
 
 export type FormatKey = keyof typeof PRICING.formats;
