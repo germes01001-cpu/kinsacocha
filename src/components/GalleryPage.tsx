@@ -4,7 +4,12 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import Photo from "@/components/ui/Photo";
-import { photos, photoTags, type PhotoTag } from "@/data/photos.generated";
+import {
+  photoMonths,
+  photos,
+  photoTags,
+  type PhotoTag,
+} from "@/data/photos.generated";
 import type { Dict } from "@/i18n/dict";
 
 /** Сколько фото добавляем за раз при подгрузке по скроллу. */
@@ -12,19 +17,30 @@ const PAGE = 24;
 
 export default function GalleryPage({ t }: { t: Dict }) {
   const [tag, setTag] = useState<PhotoTag | null>(null);
+  const [month, setMonth] = useState<string | null>(null);
   const [limit, setLimit] = useState(PAGE);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const sentinel = useRef<HTMLDivElement>(null);
 
+  /** «2026-07» → «Июль 2026» на языке страницы. */
+  const monthLabel = (value: string) => {
+    const [year, num] = value.split("-");
+    return `${t.gallery.months[Number(num) - 1]} ${year}`;
+  };
+
   const filtered = useMemo(
-    () => (tag ? photos.filter((p) => p.tags.includes(tag)) : photos),
-    [tag],
+    () =>
+      photos.filter(
+        (p) =>
+          (!tag || p.tags.includes(tag)) && (!month || p.month === month),
+      ),
+    [tag, month],
   );
 
   const visible = filtered.slice(0, limit);
 
   // Смена фильтра — начинаем показ заново.
-  useEffect(() => setLimit(PAGE), [tag]);
+  useEffect(() => setLimit(PAGE), [tag, month]);
 
   // Догрузка по мере прокрутки.
   useEffect(() => {
@@ -85,7 +101,48 @@ export default function GalleryPage({ t }: { t: Dict }) {
         <h1 className="text-4xl sm:text-5xl">{t.gallery.title}</h1>
         <p className="mt-4 text-muted">{t.gallery.lead}</p>
 
-        <div className="mt-10 flex flex-wrap gap-2">
+        {/*
+         * Месяцы идут первыми и намеренно: в горах месяц меняет больше,
+         * чем сюжет. Один и тот же склон в июле и в ноябре — два разных места.
+         */}
+        <div className="mt-10">
+          <p className="text-xs uppercase tracking-[0.16em] text-muted">
+            {t.gallery.byMonth}
+          </p>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setMonth(null)}
+              aria-pressed={month === null}
+              className={`border px-4 py-1.5 text-sm transition-colors duration-300 ${
+                month === null
+                  ? "border-clay bg-clay text-paper"
+                  : "border-fog text-muted hover:border-clay hover:text-clay"
+              }`}
+            >
+              {t.gallery.allMonths}
+            </button>
+
+            {photoMonths.map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setMonth(item)}
+                aria-pressed={month === item}
+                className={`border px-4 py-1.5 text-sm transition-colors duration-300 ${
+                  month === item
+                    ? "border-clay bg-clay text-paper"
+                    : "border-fog text-muted hover:border-clay hover:text-clay"
+                }`}
+              >
+                {monthLabel(item)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => setTag(null)}

@@ -175,6 +175,15 @@ export type Dict = {
     all: string;
     noGeo: string;
     tags: Record<string, string>;
+    /**
+     * Фильтр по месяцу съёмки. Главный, выше тегов: в горах месяц
+     * меняет всё — цвет воды, снег на вершинах, цветение. Один и тот
+     * же склон в июле и в ноябре выглядит как два разных места.
+     */
+    byMonth: string;
+    allMonths: string;
+    /** Двенадцать названий, январь первым. */
+    months: string[];
     close: string;
     prev: string;
     next: string;
@@ -327,23 +336,23 @@ export const dict: Record<Locale, Dict> = {
       items: [
         {
           name: "Готовят соседи",
-          body: "Еду приносят в дом или вы идёте в соседний дом, где её готовят при вас. Договариваемся заранее: наверху ничего не покупают в последнюю минуту, продукты поднимают снизу.",
+          body: "Обед и ужин — 50 солей. Заказывать за день: наверху ничего не покупают в последнюю минуту, продукты поднимают снизу. Еду приносят в дом или вы идёте в соседний дом, где её готовят при вас.",
         },
         {
           name: "Труча",
-          body: "Форель. Её разводит община прямо в лагуне — единственное, что здесь не нужно везти снизу. Заказывается за день.",
+          body: "Форель. Её разводит община в Асуль Коче — единственное, что здесь не нужно везти снизу. Заказывается за день.",
         },
         {
           name: "Чуньо и морайя",
           body: "Картошка, высушенная морозом и солнцем. Чёрная и белая. Технологии пять тысяч лет, и она всё ещё работает.",
         },
         {
-          name: "Кухня в доме",
-          body: "Плита, посуда, утварь. Если вам спокойнее со своим — везите и готовьте сами. Оба варианта нормальны.",
+          name: "Готовить самим",
+          body: "Плита, посуда, утварь — всё в доме. Привезите продукты снизу и готовьте что хотите. А можно на живом огне: получается совсем другая еда.",
         },
         {
           name: "Чича",
-          body: "Ферментированный напиток Анд. Делают в общине, не для туристов.",
+          body: "Здесь её пьют горячей — так придумал хозяин: мёд, имбирь, специи. На 4200 всё время хочется горячего, а это ещё и разогревает изнутри. Нигде больше так не делают.",
         },
         {
           name: "Чай",
@@ -506,7 +515,7 @@ export const dict: Record<Locale, Dict> = {
             },
             {
               name: "Труча",
-              body: "Форель. Её разводит община. Ловить нельзя — можно заказать к ужину.",
+              body: "Форель. Её разводит община в Асуль Коче. Ловить нельзя — можно заказать к ужину.",
             },
           ],
         },
@@ -689,6 +698,22 @@ export const dict: Record<Locale, Dict> = {
         plants: "Растения",
         crafts: "Ремёсла",
       },
+      byMonth: "Когда снято",
+      allMonths: "Любой месяц",
+      months: [
+        "Январь",
+        "Февраль",
+        "Март",
+        "Апрель",
+        "Май",
+        "Июнь",
+        "Июль",
+        "Август",
+        "Сентябрь",
+        "Октябрь",
+        "Ноябрь",
+        "Декабрь"
+      ],
       close: "Закрыть",
       prev: "Предыдущее",
       next: "Следующее",
@@ -825,23 +850,23 @@ export const dict: Record<Locale, Dict> = {
       items: [
         {
           name: "The neighbours cook",
-          body: "They bring the food to the house, or you walk over and eat where it was cooked. Arrange it the day before — nothing is bought last-minute up here, everything comes up from below.",
+          body: "Lunch and dinner, 50 soles. Order the day before — nothing is bought last-minute up here, everything comes up from below. They bring it to the house, or you walk over and eat where it was cooked.",
         },
         {
           name: "Trucha",
-          body: "Trout, farmed by the community in the lake itself. The one thing you don't have to carry up. Order a day ahead.",
+          body: "Trout, farmed by the community in Azul Cocha. The one thing you don't have to carry up. Order a day ahead.",
         },
         {
           name: "Chuño and moraya",
           body: "Potatoes freeze-dried by frost and sun, black and white. Five thousand years old as a technique, and still the best one up here.",
         },
         {
-          name: "The kitchen is yours",
-          body: "Stove, pots, plates. If you'd rather cook your own, bring it up and cook it. Either way is fine.",
+          name: "Cook it yourself",
+          body: "Stove, pots, plates — all in the house. Bring food up from below and cook whatever you like. Or cook it over the fire: it comes out a different thing entirely.",
         },
         {
           name: "Chicha",
-          body: "The fermented drink of the Andes. Made in the community, not for tourists.",
+          body: "Here it is served hot — the owner's own idea: honey, ginger, spices. At 4,200 metres you want something hot all day, and this one warms you from the inside. Nobody else makes it this way.",
         },
         {
           name: "Tea",
@@ -991,7 +1016,7 @@ export const dict: Record<Locale, Dict> = {
             { name: "Alpacas", body: "Not afraid of small guests." },
             {
               name: "Trout",
-              body: "Farmed by the community. No fishing — but you can order it for dinner.",
+              body: "Farmed by the community in Azul Cocha. No fishing — but you can order it for dinner.",
             },
           ],
         },
@@ -1167,6 +1192,22 @@ export const dict: Record<Locale, Dict> = {
         plants: "Plants",
         crafts: "Crafts",
       },
+      byMonth: "When it was taken",
+      allMonths: "Any month",
+      months: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ],
       close: "Close",
       prev: "Previous",
       next: "Next",
@@ -1303,23 +1344,23 @@ export const dict: Record<Locale, Dict> = {
       items: [
         {
           name: "Cocinan las vecinas",
-          body: "Traen la comida a la casa, o vas tú a la casa donde se cocinó y comes ahí. Se coordina el día antes: aquí arriba nada se compra a última hora, todo sube desde abajo.",
+          body: "Almuerzo y cena, 50 soles. Se encarga el día antes: aquí arriba nada se compra a última hora, todo sube desde abajo. Lo traen a la casa, o vas tú a la casa donde se cocinó y comes ahí.",
         },
         {
           name: "Trucha",
-          body: "La cría la comunidad en la laguna misma. Lo único que no hay que subir. Se encarga con un día de anticipación.",
+          body: "La cría la comunidad en Azul Cocha. Lo único que no hay que subir. Se encarga con un día de anticipación.",
         },
         {
           name: "Chuño y moraya",
           body: "Papa deshidratada por la helada y el sol, negra y blanca. Cinco mil años de técnica, y sigue siendo la mejor aquí arriba.",
         },
         {
-          name: "La cocina es tuya",
-          body: "Fogón, ollas, vajilla. Si prefieres lo tuyo, súbelo y cocina. Las dos formas están bien.",
+          name: "Cocinar tú mismo",
+          body: "Fogón, ollas, vajilla — todo está en la casa. Sube tus productos y cocina lo que quieras. O hazlo sobre el fuego vivo: sale otra cosa.",
         },
         {
           name: "Chicha",
-          body: "La bebida fermentada de los Andes. La hace la comunidad, no es para turistas.",
+          body: "Aquí se toma caliente — invento del dueño: miel, jengibre, especias. A 4200 el cuerpo pide algo caliente todo el día, y esta además calienta por dentro. En ningún otro lado la hacen así.",
         },
         {
           name: "Té",
@@ -1469,7 +1510,7 @@ export const dict: Record<Locale, Dict> = {
             { name: "Alpacas", body: "No le temen a los invitados chicos." },
             {
               name: "Trucha",
-              body: "La cría la comunidad. No se pesca — pero se puede encargar para la cena.",
+              body: "La cría la comunidad en Azul Cocha. No se pesca — pero se puede encargar para la cena.",
             },
           ],
         },
@@ -1645,6 +1686,22 @@ export const dict: Record<Locale, Dict> = {
         plants: "Plantas",
         crafts: "Artesanía",
       },
+      byMonth: "Cuándo se tomó",
+      allMonths: "Cualquier mes",
+      months: [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre"
+      ],
       close: "Cerrar",
       prev: "Anterior",
       next: "Siguiente",

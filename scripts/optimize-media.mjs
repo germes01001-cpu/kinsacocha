@@ -52,6 +52,25 @@ function pickTags(id) {
   return first === second ? [first] : [first, second];
 }
 
+/**
+ * Месяц съёмки — «2026-07».
+ *
+ * Берём из EXIF: даты там лежат обычным текстом «2026:07:22 15:54:17»,
+ * поэтому ищем их прямо в буфере, без отдельной библиотеки. Сам EXIF
+ * при этом в готовые файлы не попадает — его снимает пайплайн ниже
+ * вместе с GPS-метками.
+ *
+ * Если даты в снимке нет, месяц остаётся пустым: фото просто не попадёт
+ * в фильтр по месяцам, но останется в галерее и в тегах.
+ */
+function pickMonth(exif) {
+  if (!exif) return "";
+  const match = /(\d{4}):(\d{2}):\d{2} \d{2}:\d{2}:\d{2}/.exec(
+    exif.toString("latin1"),
+  );
+  return match ? `${match[1]}-${match[2]}` : "";
+}
+
 async function main() {
   await Promise.all([
     mkdir(OUT_FULL, { recursive: true }),
@@ -98,6 +117,7 @@ async function main() {
       w: width ?? 4096,
       h: height ?? 2304,
       blur: `data:image/webp;base64,${blur.toString("base64")}`,
+      month: pickMonth(meta.exif),
       tags: pickTags(id),
     });
 
@@ -118,12 +138,19 @@ export type Photo = {
   w: number;
   h: number;
   blur: string;
+  /** Месяц съёмки, «2026-07». Пустая строка — даты в снимке не было. */
+  month: string;
   tags: PhotoTag[];
 };
 
 export const photos: Photo[] = ${JSON.stringify(manifest, null, 2)};
 
 export const photoTags: PhotoTag[] = ${JSON.stringify(TAGS)};
+
+/** Месяцы, в которые здесь снимали, от новых к старым. */
+export const photoMonths: string[] = ${JSON.stringify(
+    [...new Set(manifest.map((p) => p.month).filter(Boolean))].sort().reverse(),
+  )};
 
 /** Путь к файлу нужного размера. */
 export function photoSrc(id: string, size: "full" | "grid" = "grid") {

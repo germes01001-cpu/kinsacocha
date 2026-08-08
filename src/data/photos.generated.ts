@@ -20,6 +20,8 @@ export type Photo = {
   w: number;
   h: number;
   blur: string;
+  /** Месяц съёмки, «2026-07». Пустая строка — даты в снимке не было. */
+  month: string;
   tags: PhotoTag[];
 };
 
@@ -32,7 +34,8 @@ export const photos: Photo[] = [
     "tags": [
       "alpacas",
       "food"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034281923",
@@ -42,7 +45,8 @@ export const photos: Photo[] = [
     "tags": [
       "sunset",
       "plants"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034282146",
@@ -52,7 +56,8 @@ export const photos: Photo[] = [
     "tags": [
       "tipi",
       "house"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034282323",
@@ -62,7 +67,8 @@ export const photos: Photo[] = [
     "tags": [
       "tipi",
       "house"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034282520",
@@ -72,7 +78,8 @@ export const photos: Photo[] = [
     "tags": [
       "mountains",
       "night"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034282812",
@@ -82,7 +89,8 @@ export const photos: Photo[] = [
     "tags": [
       "night",
       "sunset"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034283030",
@@ -91,7 +99,8 @@ export const photos: Photo[] = [
     "blur": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQAgCdASoQAAkAA4BaJQBOgCIAdDUO+4EAAPjlzC83I8AEuik/pnGsgm3tHMJDKqN5FII5SRsn45d2CeTXAc1k9CndRkr3cWLX1d72+mjJHIRZAnmWAMzJAAA=",
     "tags": [
       "night"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034283537",
@@ -101,7 +110,8 @@ export const photos: Photo[] = [
     "tags": [
       "life",
       "trails"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034284242",
@@ -111,7 +121,8 @@ export const photos: Photo[] = [
     "tags": [
       "tipi",
       "food"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034284406",
@@ -121,7 +132,8 @@ export const photos: Photo[] = [
     "tags": [
       "alpacas",
       "house"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034284460",
@@ -131,7 +143,8 @@ export const photos: Photo[] = [
     "tags": [
       "food",
       "mountains"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034284544",
@@ -141,7 +154,8 @@ export const photos: Photo[] = [
     "tags": [
       "alpacas",
       "food"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034284738",
@@ -151,7 +165,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "night"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034284907",
@@ -161,7 +176,8 @@ export const photos: Photo[] = [
     "tags": [
       "tipi",
       "mountains"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034285121",
@@ -171,7 +187,8 @@ export const photos: Photo[] = [
     "tags": [
       "life",
       "night"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034285426 2",
@@ -181,7 +198,8 @@ export const photos: Photo[] = [
     "tags": [
       "life",
       "trails"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034285663",
@@ -191,7 +209,8 @@ export const photos: Photo[] = [
     "tags": [
       "trails",
       "sunset"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034285805",
@@ -201,7 +220,8 @@ export const photos: Photo[] = [
     "tags": [
       "crafts",
       "tipi"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034285997",
@@ -211,7 +231,8 @@ export const photos: Photo[] = [
     "tags": [
       "tipi",
       "life"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034286144",
@@ -221,7 +242,8 @@ export const photos: Photo[] = [
     "tags": [
       "tipi",
       "lakes"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034286431",
@@ -231,7 +253,8 @@ export const photos: Photo[] = [
     "tags": [
       "night",
       "trails"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034286509",
@@ -241,7 +264,8 @@ export const photos: Photo[] = [
     "tags": [
       "night",
       "alpacas"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034286920",
@@ -251,7 +275,8 @@ export const photos: Photo[] = [
     "tags": [
       "mountains",
       "sunset"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034287065",
@@ -261,7 +286,8 @@ export const photos: Photo[] = [
     "tags": [
       "house",
       "plants"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034288291",
@@ -271,7 +297,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "life"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034288345",
@@ -281,7 +308,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "alpacas"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034288512",
@@ -291,7 +319,8 @@ export const photos: Photo[] = [
     "tags": [
       "mountains",
       "life"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034288639",
@@ -301,7 +330,8 @@ export const photos: Photo[] = [
     "tags": [
       "sunset",
       "food"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034289822",
@@ -311,7 +341,8 @@ export const photos: Photo[] = [
     "tags": [
       "trails",
       "food"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034615246",
@@ -321,7 +352,8 @@ export const photos: Photo[] = [
     "tags": [
       "house",
       "trails"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034615716",
@@ -331,7 +363,8 @@ export const photos: Photo[] = [
     "tags": [
       "crafts",
       "sunset"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034615806",
@@ -340,7 +373,8 @@ export const photos: Photo[] = [
     "blur": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAQCdASoQAAkAA4BaJQBOgCIbhLqQAPa6SyWpzy6ZwU5TfEJSs7G3q6mjpzzAaaLl3DoixNSX3OKn37W1k590RpwGSsJ4jPEUTR97AAA=",
     "tags": [
       "life"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034616006",
@@ -350,7 +384,8 @@ export const photos: Photo[] = [
     "tags": [
       "life",
       "sunset"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034616196",
@@ -360,7 +395,8 @@ export const photos: Photo[] = [
     "tags": [
       "tipi",
       "life"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034617504",
@@ -370,7 +406,8 @@ export const photos: Photo[] = [
     "tags": [
       "mountains",
       "trails"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034618856",
@@ -380,7 +417,8 @@ export const photos: Photo[] = [
     "tags": [
       "crafts",
       "lakes"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034618982",
@@ -390,7 +428,8 @@ export const photos: Photo[] = [
     "tags": [
       "house",
       "mountains"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034619097",
@@ -400,7 +439,8 @@ export const photos: Photo[] = [
     "tags": [
       "food",
       "house"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034619199",
@@ -410,7 +450,8 @@ export const photos: Photo[] = [
     "tags": [
       "food",
       "trails"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034619639",
@@ -419,7 +460,8 @@ export const photos: Photo[] = [
     "blur": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAkAA4BaJYwCsAEPhDOvagAA/vUHsfn7Zd2GBusSyhkDGym8/8dy2skx4PJuWpmaAm931fSmAAAA",
     "tags": [
       "life"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034619803",
@@ -429,7 +471,8 @@ export const photos: Photo[] = [
     "tags": [
       "trails",
       "house"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034620095",
@@ -439,7 +482,8 @@ export const photos: Photo[] = [
     "tags": [
       "alpacas",
       "night"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034620497",
@@ -449,7 +493,8 @@ export const photos: Photo[] = [
     "tags": [
       "plants",
       "trails"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034620629",
@@ -459,7 +504,8 @@ export const photos: Photo[] = [
     "tags": [
       "food",
       "sunset"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034621049",
@@ -468,7 +514,8 @@ export const photos: Photo[] = [
     "blur": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAQAgCdASoQAAkAA4BaJaACdAEefxYclS3AAP6QLTEiSNFMWvFXMqYjP95wjnXTNiwqMtGokncfLb6MVOBMhjVtUqHK5r5DSz0WHJrbOQAAAA==",
     "tags": [
       "life"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034621171",
@@ -478,7 +525,8 @@ export const photos: Photo[] = [
     "tags": [
       "alpacas",
       "mountains"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034621297",
@@ -488,7 +536,8 @@ export const photos: Photo[] = [
     "tags": [
       "trails",
       "mountains"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034824926",
@@ -498,7 +547,8 @@ export const photos: Photo[] = [
     "tags": [
       "plants",
       "crafts"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825060",
@@ -508,7 +558,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "tipi"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825231",
@@ -518,7 +569,8 @@ export const photos: Photo[] = [
     "tags": [
       "mountains",
       "life"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825300",
@@ -528,7 +580,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "plants"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825387",
@@ -538,7 +591,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "plants"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825415",
@@ -548,7 +602,8 @@ export const photos: Photo[] = [
     "tags": [
       "sunset",
       "house"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825457",
@@ -558,7 +613,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "night"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825556",
@@ -568,7 +624,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "mountains"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825587",
@@ -578,7 +635,8 @@ export const photos: Photo[] = [
     "tags": [
       "alpacas",
       "tipi"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825654",
@@ -587,7 +645,8 @@ export const photos: Photo[] = [
     "blur": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoQAAkAA4BaJZgCdADpIPQpAAD+vHIAP/Ln/zHScm5hTlTG4OzhphHFkf+DhBDdnXed9PlMoXpqTdQa+i511yn1I8UCHQAA",
     "tags": [
       "plants"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825688",
@@ -597,7 +656,8 @@ export const photos: Photo[] = [
     "tags": [
       "crafts",
       "lakes"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034825892",
@@ -607,7 +667,8 @@ export const photos: Photo[] = [
     "tags": [
       "house",
       "food"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034826211",
@@ -617,7 +678,8 @@ export const photos: Photo[] = [
     "tags": [
       "tipi",
       "crafts"
-    ]
+    ],
+    "month": "2026-08"
   },
   {
     "id": "1786034826369",
@@ -627,7 +689,8 @@ export const photos: Photo[] = [
     "tags": [
       "food",
       "tipi"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034909919",
@@ -637,7 +700,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "trails"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034909952",
@@ -647,7 +711,8 @@ export const photos: Photo[] = [
     "tags": [
       "house",
       "crafts"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034909984",
@@ -657,7 +722,8 @@ export const photos: Photo[] = [
     "tags": [
       "alpacas",
       "food"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910019",
@@ -667,7 +733,8 @@ export const photos: Photo[] = [
     "tags": [
       "sunset",
       "alpacas"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910057",
@@ -677,7 +744,8 @@ export const photos: Photo[] = [
     "tags": [
       "sunset",
       "night"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910116",
@@ -687,7 +755,8 @@ export const photos: Photo[] = [
     "tags": [
       "house",
       "food"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910370",
@@ -696,7 +765,8 @@ export const photos: Photo[] = [
     "blur": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAQAgCdASoQAAkAA4BaJZgCdAEQ5OwNndQAAP3ho0RGaUDT6iDJlUd50ZfF8pa0N6F4aNsWzO9ZVJMabkB5+6awkHi9gAAA",
     "tags": [
       "food"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910430",
@@ -706,7 +776,8 @@ export const photos: Photo[] = [
     "tags": [
       "crafts",
       "house"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910576",
@@ -716,7 +787,8 @@ export const photos: Photo[] = [
     "tags": [
       "plants",
       "sunset"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910666",
@@ -726,7 +798,8 @@ export const photos: Photo[] = [
     "tags": [
       "house",
       "trails"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910750",
@@ -736,7 +809,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "plants"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910771",
@@ -746,7 +820,8 @@ export const photos: Photo[] = [
     "tags": [
       "mountains",
       "sunset"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910854",
@@ -756,7 +831,8 @@ export const photos: Photo[] = [
     "tags": [
       "crafts",
       "plants"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034910897",
@@ -766,7 +842,8 @@ export const photos: Photo[] = [
     "tags": [
       "sunset",
       "house"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034911065",
@@ -776,7 +853,8 @@ export const photos: Photo[] = [
     "tags": [
       "plants",
       "crafts"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034911222",
@@ -786,7 +864,8 @@ export const photos: Photo[] = [
     "tags": [
       "trails",
       "crafts"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034911300",
@@ -796,7 +875,8 @@ export const photos: Photo[] = [
     "tags": [
       "night",
       "sunset"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034911417",
@@ -806,7 +886,8 @@ export const photos: Photo[] = [
     "tags": [
       "plants",
       "crafts"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034911453",
@@ -816,7 +897,8 @@ export const photos: Photo[] = [
     "tags": [
       "mountains",
       "lakes"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034912093",
@@ -826,7 +908,8 @@ export const photos: Photo[] = [
     "tags": [
       "night",
       "lakes"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034912115",
@@ -836,7 +919,8 @@ export const photos: Photo[] = [
     "tags": [
       "life",
       "crafts"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034912178",
@@ -846,7 +930,8 @@ export const photos: Photo[] = [
     "tags": [
       "night",
       "lakes"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034912225",
@@ -856,7 +941,8 @@ export const photos: Photo[] = [
     "tags": [
       "mountains",
       "tipi"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034912477",
@@ -866,7 +952,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "trails"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034912506",
@@ -876,7 +963,8 @@ export const photos: Photo[] = [
     "tags": [
       "trails",
       "lakes"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034912522",
@@ -886,7 +974,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "plants"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034912647",
@@ -896,7 +985,8 @@ export const photos: Photo[] = [
     "tags": [
       "house",
       "mountains"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034912837",
@@ -906,7 +996,8 @@ export const photos: Photo[] = [
     "tags": [
       "night",
       "food"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786034913152",
@@ -916,7 +1007,8 @@ export const photos: Photo[] = [
     "tags": [
       "mountains",
       "tipi"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035197486",
@@ -926,7 +1018,8 @@ export const photos: Photo[] = [
     "tags": [
       "life",
       "trails"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035197561",
@@ -936,7 +1029,8 @@ export const photos: Photo[] = [
     "tags": [
       "night",
       "trails"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035197654",
@@ -946,7 +1040,8 @@ export const photos: Photo[] = [
     "tags": [
       "sunset",
       "house"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035197671",
@@ -956,7 +1051,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "night"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035197790",
@@ -966,7 +1062,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "trails"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035197842",
@@ -976,7 +1073,8 @@ export const photos: Photo[] = [
     "tags": [
       "tipi",
       "crafts"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035197858",
@@ -986,7 +1084,8 @@ export const photos: Photo[] = [
     "tags": [
       "crafts",
       "mountains"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035197926",
@@ -996,7 +1095,8 @@ export const photos: Photo[] = [
     "tags": [
       "house",
       "food"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035197985",
@@ -1006,7 +1106,8 @@ export const photos: Photo[] = [
     "tags": [
       "night",
       "house"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035198220",
@@ -1016,7 +1117,8 @@ export const photos: Photo[] = [
     "tags": [
       "lakes",
       "alpacas"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035198253",
@@ -1025,7 +1127,8 @@ export const photos: Photo[] = [
     "blur": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoQAAkAA4BaJYgCdADLrkxjAAD5P4AByCGgmvvsmVDx5Wr4EC5967rFYXKMVvMb7K1EHffK4GqloICbymgfZCk3cJhgCZDlHA10AA==",
     "tags": [
       "crafts"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035198370",
@@ -1035,7 +1138,8 @@ export const photos: Photo[] = [
     "tags": [
       "trails",
       "night"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035198697",
@@ -1045,7 +1149,8 @@ export const photos: Photo[] = [
     "tags": [
       "life",
       "tipi"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035199196",
@@ -1055,7 +1160,8 @@ export const photos: Photo[] = [
     "tags": [
       "plants",
       "lakes"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035200055",
@@ -1065,7 +1171,8 @@ export const photos: Photo[] = [
     "tags": [
       "alpacas",
       "lakes"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "1786035200232",
@@ -1075,7 +1182,8 @@ export const photos: Photo[] = [
     "tags": [
       "food",
       "lakes"
-    ]
+    ],
+    "month": "2026-07"
   },
   {
     "id": "IMG_20260801_110828_945",
@@ -1085,11 +1193,15 @@ export const photos: Photo[] = [
     "tags": [
       "life",
       "mountains"
-    ]
+    ],
+    "month": "2026-07"
   }
 ];
 
 export const photoTags: PhotoTag[] = ["lakes","mountains","house","tipi","alpacas","sunset","night","trails","life","food","plants","crafts"];
+
+/** Месяцы, в которые здесь снимали, от новых к старым. */
+export const photoMonths: string[] = ["2026-08","2026-07"];
 
 /** Путь к файлу нужного размера. */
 export function photoSrc(id: string, size: "full" | "grid" = "grid") {
