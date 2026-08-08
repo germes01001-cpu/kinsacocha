@@ -70,7 +70,6 @@ export default function Formats({ t }: { t: Dict }) {
                     <p className="font-display text-base text-clay">
                       {price(key)}
                     </p>
-                    <p className="mt-1 text-xs text-muted">{f.hint}</p>
 
                     <WhatsAppButton
                       message={f.wa}

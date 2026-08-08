@@ -20,3 +20,9 @@ yarn-error.log*
 next-env.d.ts
 *.tsbuildinfo
 IM.jpg
+PROMPT_AUDIT.txt
+AUDIT_FABLE_RAW.json
+.anthropic.key
+REVISION_PLAN.md
+AUDIT_OPUS.md
+AUDIT_FABLE.md

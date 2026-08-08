@@ -34,7 +34,7 @@ export async function generateMetadata({
         ...Object.fromEntries(
           locales.map((l) => [l, `${SITE.domain}/${l}/blog`]),
         ),
-        "x-default": `${SITE.domain}/ru/blog`,
+        "x-default": `${SITE.domain}/en/blog`,
       },
     },
     openGraph: { title, description: t.blog.lead },

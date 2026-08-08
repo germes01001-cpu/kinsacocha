@@ -72,7 +72,7 @@ export type Dict = {
     cta: string;
     items: Record<
       "access" | "guided" | "beds" | "exclusive",
-      { name: string; body: string; host: string; hint: string; wa: string }
+      { name: string; body: string; host: string; wa: string }
     >;
   };
   food: {
@@ -153,6 +153,12 @@ export type Dict = {
     lead: string;
     cta: string;
     reply: string;
+    /**
+     * ⚠️ Добавлено после аудита. Для англоязычного гостя в Перу вопрос
+     * «сможем ли мы вообще объясниться» — реальный и часто первый.
+     * Молчание об этом стоит дороже, чем честный ответ.
+     */
+    languages: string;
     wa: string;
     emailLabel: string;
   };
@@ -224,10 +230,10 @@ export const dict: Record<Locale, Dict> = {
     },
     notFound: {
       title: "Чего вы здесь не найдёте",
-      lead: "Все пишут о себе всё. Мы — нет.",
+      lead: "Три озера найдёт любой — маршрут к ним давно в интернете, и мы не делаем вид, что это не так. Мы не пишем о другом.",
       items: [
         "Координат",
-        "Маршрутов и треков",
+        "Троп за озёрами",
         "Мест, где видели пуму",
       ],
       footer:
@@ -282,47 +288,62 @@ export const dict: Record<Locale, Dict> = {
           name: "Сутки в доме",
           body: "Дом и территория ваши на сутки. Никакой программы: гуляете сами, возвращаетесь к печи когда захотите.",
           host: "Хозяин не нужен",
-          hint: "Самый доступный",
           wa: "Здравствуйте! Интересует доступ к пространству в Kinsacocha.",
         },
         guided: {
           name: "С проводником",
           body: "Хозяин лично идёт с вами. Тропы, которых нет на картах.",
           host: "Хозяин рядом",
-          hint: "Средний",
           wa: "Здравствуйте! Интересует визит с проводником в Kinsacocha.",
         },
         beds: {
           name: "Аренда мест",
           body: "Группа арендует спальные места. Хозяин может быть в доме.",
           host: "Хозяин может быть",
-          hint: "Выше среднего",
           wa: "Здравствуйте! Интересует аренда спальных мест в Kinsacocha.",
         },
         exclusive: {
           name: "Эксклюзивная аренда",
           body: "Весь дом ваш. Хозяин уезжает. Абсолютная приватность.",
           host: "Хозяин уезжает",
-          hint: "Индивидуально",
           wa: "Здравствуйте! Интересует эксклюзивная аренда дома Kinsacocha.",
         },
       },
     },
+    /*
+     * ⚠️ Переписано после аудита. Старый лид «Продукты привозят с собой»
+     * стоял первым и в одиночку убивал главный сценарий: человек, который
+     * уже в Куско и решает за сутки, не поедет закупать продукты и тащить
+     * их на 4200. Еду готовят соседи — это снимает возражение №1.
+     *
+     * 🔴 Вопрос 11 в Notion: цена ужина и срок заказа. «Заранее» без числа
+     * не работает — как только ответят, ставим в site.ts.
+     * 🔴 Вопрос 16: чичу здесь действительно пьют горячей? Чича де хора
+     * ферментированная и подаётся холодной. До ответа claim снят.
+     */
     food: {
       title: "Еда и напитки",
-      lead: "Ресторана нет. Продукты привозят с собой — кроме одного.",
+      lead: "Ресторана здесь нет — есть соседи, которые готовят. Заказ через WhatsApp за день.",
       items: [
         {
+          name: "Готовят соседи",
+          body: "Еду приносят в дом или вы идёте в соседний дом, где её готовят при вас. Договариваемся заранее: наверху ничего не покупают в последнюю минуту, продукты поднимают снизу.",
+        },
+        {
           name: "Труча",
-          body: "Форель. Её разводит община прямо в лагуне — единственное, что здесь не нужно везти снизу. Заказывается заранее.",
+          body: "Форель. Её разводит община прямо в лагуне — единственное, что здесь не нужно везти снизу. Заказывается за день.",
         },
         {
           name: "Чуньо и морайя",
           body: "Картошка, высушенная морозом и солнцем. Чёрная и белая. Технологии пять тысяч лет, и она всё ещё работает.",
         },
         {
+          name: "Кухня в доме",
+          body: "Плита, посуда, утварь. Если вам спокойнее со своим — везите и готовьте сами. Оба варианта нормальны.",
+        },
+        {
           name: "Чича",
-          body: "Ферментированный напиток, который здесь пьют горячим.",
+          body: "Ферментированный напиток Анд. Делают в общине, не для туристов.",
         },
         {
           name: "Чай",
@@ -330,24 +351,39 @@ export const dict: Record<Locale, Dict> = {
         },
       ],
     },
+    /*
+     * ⚠️ Переработано после аудита. «Горячая вода» — не то же самое,
+     * что горячий душ, и это оказалось главным, о чём говорят гости.
+     * Страх «обесценить суровость» пуст: тезис сайта — суровость снаружи,
+     * тепло внутри, и душ есть буквальное доказательство второй половины.
+     * Обесценило бы перечисление мелочёвки вроде фена и утюга.
+     */
     amenities: {
       title: "Что есть в доме",
       items: [
+        {
+          name: "Горячий душ",
+          body: "Не «горячая вода» — душ. После дня на ветру на 4200 это не удобство, это событие. Гости говорят о нём чаще, чем о звёздах, — и нам не обидно.",
+        },
         {
           name: "Живой огонь",
           body: "Дровяная печь. Единственный источник тепла и главный повод не расходиться по комнатам.",
         },
         {
-          name: "Горячая вода",
-          body: "На 4200 метрах это редкость, а не удобство.",
+          name: "Кухня ваша",
+          body: "Плита, посуда, утварь. Привезите продукты — готовьте что хотите.",
+        },
+        {
+          name: "Типи",
+          body: "Ночёвка под звёздами для тех, кому дома мало.",
         },
         {
           name: "Трансфер",
           body: "Такси из Писака до двери. Вызывается под гостей, оплачивается отдельно.",
         },
         {
-          name: "Типи",
-          body: "Ночёвка под звёздами для тех, кому дома мало.",
+          name: "Стиральная машина",
+          body: "Да, на 4200. Мы сами удивляемся.",
         },
       ],
     },
@@ -446,7 +482,7 @@ export const dict: Record<Locale, Dict> = {
           title: "Увидите точно",
           items: [
             {
-              name: "Анский гусь",
+              name: "Андский гусь",
               quechua: "huallata",
               body: "Летают парами. Одной и той же парой — всю жизнь. На 4200 это выглядит как заявление, а не как факт из справочника.",
             },
@@ -479,11 +515,11 @@ export const dict: Record<Locale, Dict> = {
           items: [
             {
               name: "Кондор",
-              body: "Над горами и над тропой. Не каждый день, но бывает.",
+              body: "Несколько раз в год. Если увидите — вам очень повезло.",
             },
             {
               name: "Тарука",
-              body: "Андский олень. Увидите раньше, чем он вас, — редко.",
+              body: "Андский олень. Он увидит вас первым и уйдёт. Если наоборот — вам очень повезло.",
             },
             { name: "Андская лиса", body: "Чаще след, чем сама лиса." },
             { name: "Скунс", body: "Лучше издалека." },
@@ -530,14 +566,14 @@ export const dict: Record<Locale, Dict> = {
         },
         {
           name: "Кеуния",
-          body: "Растёт выше всех деревьев на планете, кора слоится как старая бумага. У дома её нет — она по дороге, как награда за то, что пошёл.",
+          body: "Деревья её рода растут выше всех на планете, кора слоится как старая бумага. У дома её нет — она по дороге, как награда за то, что пошёл.",
         },
         {
           name: "Ичу",
           body: "Трава пуны. Из неё здесь крыши, верёвки, подстилка. Жёсткая настолько, что режет руку.",
         },
       ],
-      note: "Мы не ботанический справочник. Названия уточняем — и не пишем наугад.",
+      note: "Названия уточняем по фотографиям. Наугад не пишем.",
     },
     weaving: {
       title: "Ткачество",
@@ -550,7 +586,7 @@ export const dict: Record<Locale, Dict> = {
         "Музей с выставкой тканого. Вход платный, 5–10 солей. Фотографировать можно — но мы всё равно спрашиваем разрешение.",
       makes: "Здесь делают",
       makesList: ["Пояса", "Накидки", "Шапки", "Сумки", "Перчатки", "Пончо"],
-      park: "Рядом — Parque de la Papa.",
+      park: "Пару-Пару — одна из пяти общин, которым принадлежит Parque de la Papa: земля, где хранят больше тысячи сортов картошки. Дом стоит внутри неё.",
     },
     mosaic: { title: "Как это выглядит", cta: "Смотреть все фото" },
     prep: {
@@ -579,9 +615,16 @@ export const dict: Record<Locale, Dict> = {
         title: "Это уже есть — везти не надо",
         body: "Одеяла, посуда, вода, дрова, свет.",
       },
+      /*
+       * ⚠️ Исправлено после аудита. Старый текст обещал, что воду можно
+       * не брать — это ложное обещание с санитарным риском: выше источников
+       * пасут овец и коров, о чём сайт сам пишет в блоке про фауну.
+       * Образ спасаем, обещание убираем: сила переезжает из «можно не брать»
+       * в «местные пьют её всю жизнь».
+       */
       water: {
-        title: "Вода из скалы",
-        body: "Воду на весь день брать не нужно. В горах есть источники: чистая вода течёт прямо из камня, и её можно пить.",
+        title: "Вода",
+        body: "Полтора литра на человека — с собой. По дороге будут источники: вода выходит прямо из камня, и местные пьют её всю жизнь. Наберите и вы — но вечером вскипятите на печи. Выше по склону пасут овец, а высота не прощает желудку ничего.",
       },
       hands: {
         title: "Не с пустыми руками",
@@ -615,7 +658,8 @@ export const dict: Record<Locale, Dict> = {
       title: "Приезжайте",
       lead: "Формы бронирования нет. Есть человек, которому можно написать.",
       cta: "Написать в WhatsApp",
-      reply: "Обычно отвечаю в течение часа.",
+      reply: "Обычно отвечаю в течение часа — но если я наверху, связь ловит не всегда: тогда ответ придёт вечером или утром.",
+      languages: "Пишите по-русски, по-английски или по-испански.",
       wa: "Здравствуйте! Хочу узнать про Kinsacocha.",
       emailLabel: "Почта",
     },
@@ -673,7 +717,7 @@ export const dict: Record<Locale, Dict> = {
       lakes: "The lakes",
       formats: "Ways to stay",
       routes: "Walking",
-      life: "Wild",
+      life: "Wildlife",
       gallery: "Photos",
       contact: "Get in touch",
       menu: "Menu",
@@ -699,8 +743,8 @@ export const dict: Record<Locale, Dict> = {
     },
     notFound: {
       title: "What you won't find here",
-      lead: "Everyone publishes everything about themselves. We don't.",
-      items: ["Coordinates", "Routes or GPS tracks", "Where the puma was seen"],
+      lead: "Anyone can find the three lakes — the trail has been online for years, and we won't pretend otherwise. It's the rest we keep quiet about.",
+      items: ["Coordinates", "The trails beyond the lakes", "Where the puma was seen"],
       footer:
         "Not out of stubbornness. These trails survive because nobody writes about them.",
     },
@@ -753,47 +797,51 @@ export const dict: Record<Locale, Dict> = {
           name: "A day in the house",
           body: "The house and the land are yours for a day. Nothing scheduled: you walk where you like and come back to the fire when you want.",
           host: "No host needed",
-          hint: "Most affordable",
           wa: "Hello! I'd like to ask about staying at Kinsacocha.",
         },
         guided: {
           name: "With a guide",
           body: "The owner walks with you. Trails that are on no map anywhere.",
           host: "Host with you",
-          hint: "Mid range",
           wa: "Hello! I'm interested in a guided walk at Kinsacocha.",
         },
         beds: {
           name: "Beds for a group",
           body: "Your group takes the beds. The host may be in the house.",
           host: "Host may be around",
-          hint: "Above mid",
           wa: "Hello! I'd like to ask about booking beds at Kinsacocha.",
         },
         exclusive: {
           name: "The whole house",
           body: "All of it is yours. The host leaves. Complete privacy.",
           host: "Host leaves",
-          hint: "Case by case",
           wa: "Hello! I'd like to ask about renting the whole house at Kinsacocha.",
         },
       },
     },
     food: {
       title: "Food and drink",
-      lead: "There is no restaurant. You bring your food — except for one thing.",
+      lead: "There is no restaurant. There are neighbours who cook. Arrange it on WhatsApp a day ahead.",
       items: [
         {
+          name: "The neighbours cook",
+          body: "They bring the food to the house, or you walk over and eat where it was cooked. Arrange it the day before — nothing is bought last-minute up here, everything comes up from below.",
+        },
+        {
           name: "Trucha",
-          body: "Trout, farmed by the community in the lake itself. The one thing you don't have to carry up. Order ahead.",
+          body: "Trout, farmed by the community in the lake itself. The one thing you don't have to carry up. Order a day ahead.",
         },
         {
           name: "Chuño and moraya",
           body: "Potatoes freeze-dried by frost and sun, black and white. Five thousand years old as a technique, and still the best one up here.",
         },
         {
+          name: "The kitchen is yours",
+          body: "Stove, pots, plates. If you'd rather cook your own, bring it up and cook it. Either way is fine.",
+        },
+        {
           name: "Chicha",
-          body: "The fermented drink of the Andes. Here it is served hot.",
+          body: "The fermented drink of the Andes. Made in the community, not for tourists.",
         },
         {
           name: "Tea",
@@ -805,20 +853,28 @@ export const dict: Record<Locale, Dict> = {
       title: "What the house has",
       items: [
         {
+          name: "A hot shower",
+          body: "Not “hot water” — a shower. After a day in the wind at 4,200 metres that isn't an amenity, it's an event. Guests talk about it more than the stars, and we've made our peace with that.",
+        },
+        {
           name: "Real fire",
           body: "A wood stove. The only heat in the building, and the reason nobody goes off to their own room.",
         },
         {
-          name: "Hot water",
-          body: "At 4,200 metres this is rare, not standard.",
+          name: "The kitchen is yours",
+          body: "Stove, pots, plates. Bring food up and cook whatever you like.",
+        },
+        {
+          name: "Tipi",
+          body: "Sleeping under the stars, for anyone who finds a roof excessive.",
         },
         {
           name: "Transfer",
           body: "A taxi from Pisac to the door, arranged for guests. Paid separately.",
         },
         {
-          name: "Tipi",
-          body: "Sleeping under the stars, for anyone who finds a roof excessive.",
+          name: "Washing machine",
+          body: "Yes. At 4,200 metres. We're surprised too.",
         },
       ],
     },
@@ -944,11 +1000,11 @@ export const dict: Record<Locale, Dict> = {
           items: [
             {
               name: "Condor",
-              body: "Over the ridges and over the trail. Not every day, but it happens.",
+              body: "A few times a year. If you see one, it's your day.",
             },
             {
               name: "Taruca",
-              body: "The Andean deer. You'll see it before it sees you — rarely.",
+              body: "The Andean deer. She sees you first and leaves. If it happens the other way round, it's your day.",
             },
             { name: "Andean fox", body: "More often the tracks than the fox." },
             { name: "Skunk", body: "Best from a distance." },
@@ -995,14 +1051,14 @@ export const dict: Record<Locale, Dict> = {
         },
         {
           name: "Queuña",
-          body: "Grows higher than any tree on earth, bark peeling like old paper. Not by the house — it waits along the way, for whoever walked.",
+          body: "Trees of its genus grow higher than any on earth, bark peeling like old paper. Not by the house — it waits along the way, for whoever walked.",
         },
         {
           name: "Ichu",
           body: "The grass of the puna. Roofs, rope, bedding. Stiff enough to cut your hand.",
         },
       ],
-      note: "We are not a field guide. Names are being confirmed — we don't guess in public.",
+      note: "Names are confirmed against photographs. We don't guess in public.",
     },
     weaving: {
       title: "Weaving",
@@ -1015,7 +1071,7 @@ export const dict: Record<Locale, Dict> = {
         "A museum with an exhibition of the weaving. Entry is 5–10 soles. Photography is allowed — we ask first anyway.",
       makes: "What they make",
       makesList: ["Belts", "Shawls", "Hats", "Bags", "Gloves", "Ponchos"],
-      park: "Parque de la Papa is nearby.",
+      park: "Paru-Paru is one of the five communities that own Parque de la Papa — the land that keeps more than a thousand varieties of potato. The house stands inside it.",
     },
     mosaic: { title: "What it looks like", cta: "See all photos" },
     prep: {
@@ -1045,8 +1101,8 @@ export const dict: Record<Locale, Dict> = {
         body: "Blankets, dishes, water, firewood, light.",
       },
       water: {
-        title: "Water from the rock",
-        body: "You don't need to carry a day's water. There are springs in these mountains: clean water straight out of the stone, and you can drink it.",
+        title: "Water",
+        body: "Carry a litre and a half per person. You'll pass springs on the way — water straight out of the rock, and people here have drunk it all their lives. Fill up if you like, but boil it on the stove at night: there are sheep grazing above every spring, and altitude forgives your stomach nothing.",
       },
       hands: {
         title: "Don't arrive empty-handed",
@@ -1080,7 +1136,8 @@ export const dict: Record<Locale, Dict> = {
       title: "Come up",
       lead: "There is no booking form. There is a person you can write to.",
       cta: "Message on WhatsApp",
-      reply: "I usually reply within the hour.",
+      reply: "I usually reply within the hour — but when I'm up at the house the signal comes and goes, and the answer may reach you that evening or the next morning.",
+      languages: "Write in English, Spanish or Russian.",
       wa: "Hello! I'd like to know more about Kinsacocha.",
       emailLabel: "Email",
     },
@@ -1164,8 +1221,8 @@ export const dict: Record<Locale, Dict> = {
     },
     notFound: {
       title: "Lo que aquí no vas a encontrar",
-      lead: "Todos publican todo sobre sí mismos. Nosotros no.",
-      items: ["Coordenadas", "Rutas ni tracks", "Dónde se vio al puma"],
+      lead: "Las tres lagunas las encuentra cualquiera — la ruta lleva años en internet y no vamos a fingir lo contrario. Lo que callamos es lo demás.",
+      items: ["Coordenadas", "Los caminos más allá de las lagunas", "Dónde se vio al puma"],
       footer:
         "No por terquedad. Estos caminos siguen existiendo porque nadie escribe sobre ellos.",
     },
@@ -1195,7 +1252,7 @@ export const dict: Record<Locale, Dict> = {
     road: {
       title: "Cómo llegar",
       lead: "Si ya estás en el Valle Sagrado, queda más cerca de lo que parece.",
-      pisac: "desde Písac",
+      pisac: "desde Pisac",
       cusco: "desde Cusco",
       minutes: "minutos",
       note: "El traslado hasta la puerta se coordina aparte por WhatsApp. El camino conviene no apurarlo — es parte de la experiencia.",
@@ -1218,47 +1275,51 @@ export const dict: Record<Locale, Dict> = {
           name: "Un día en la casa",
           body: "La casa y el terreno son tuyos por un día. Sin programa: caminas por donde quieras y vuelves al fogón cuando quieras.",
           host: "Sin anfitrión",
-          hint: "El más accesible",
           wa: "¡Hola! Quisiera consultar por una estadía en Kinsacocha.",
         },
         guided: {
           name: "Con guía",
           body: "El dueño camina contigo. Caminos que no están en ningún mapa.",
           host: "Anfitrión contigo",
-          hint: "Intermedio",
           wa: "¡Hola! Me interesa una caminata con guía en Kinsacocha.",
         },
         beds: {
           name: "Camas para un grupo",
           body: "El grupo toma las camas. El anfitrión puede estar en la casa.",
           host: "Anfitrión quizá",
-          hint: "Sobre el promedio",
           wa: "¡Hola! Quisiera consultar por camas en Kinsacocha.",
         },
         exclusive: {
           name: "La casa entera",
           body: "Toda la casa es tuya. El anfitrión se va. Privacidad completa.",
           host: "El anfitrión se va",
-          hint: "Caso por caso",
           wa: "¡Hola! Quisiera consultar por alquilar toda la casa de Kinsacocha.",
         },
       },
     },
     food: {
       title: "Comida y bebida",
-      lead: "No hay restaurante. La comida se trae — salvo una cosa.",
+      lead: "Aquí no hay restaurante: hay vecinas que cocinan. Se coordina por WhatsApp con un día de anticipación.",
       items: [
         {
+          name: "Cocinan las vecinas",
+          body: "Traen la comida a la casa, o vas tú a la casa donde se cocinó y comes ahí. Se coordina el día antes: aquí arriba nada se compra a última hora, todo sube desde abajo.",
+        },
+        {
           name: "Trucha",
-          body: "La cría la comunidad en la laguna misma. Lo único que no hay que subir. Se encarga con anticipación.",
+          body: "La cría la comunidad en la laguna misma. Lo único que no hay que subir. Se encarga con un día de anticipación.",
         },
         {
           name: "Chuño y moraya",
           body: "Papa deshidratada por la helada y el sol, negra y blanca. Cinco mil años de técnica, y sigue siendo la mejor aquí arriba.",
         },
         {
+          name: "La cocina es tuya",
+          body: "Fogón, ollas, vajilla. Si prefieres lo tuyo, súbelo y cocina. Las dos formas están bien.",
+        },
+        {
           name: "Chicha",
-          body: "La bebida fermentada de los Andes. Aquí se toma caliente.",
+          body: "La bebida fermentada de los Andes. La hace la comunidad, no es para turistas.",
         },
         {
           name: "Té",
@@ -1270,20 +1331,28 @@ export const dict: Record<Locale, Dict> = {
       title: "Lo que tiene la casa",
       items: [
         {
+          name: "Ducha caliente",
+          body: "No «agua caliente» — ducha. Después de un día de viento a 4200 eso no es una comodidad, es un acontecimiento. Los huéspedes hablan más de ella que de las estrellas, y no nos ofende.",
+        },
+        {
           name: "Fuego de verdad",
           body: "Fogón a leña. El único calor de la casa, y la razón por la que nadie se va a su cuarto.",
         },
         {
-          name: "Agua caliente",
-          body: "A 4200 metros esto es raro, no es estándar.",
-        },
-        {
-          name: "Traslado",
-          body: "Taxi desde Písac hasta la puerta, se coordina para los huéspedes. Se paga aparte.",
+          name: "La cocina es tuya",
+          body: "Fogón, ollas, vajilla. Sube la comida y cocina lo que quieras.",
         },
         {
           name: "Tipi",
           body: "Dormir bajo las estrellas, para quien encuentra excesivo un techo.",
+        },
+        {
+          name: "Traslado",
+          body: "Taxi desde Pisac hasta la puerta, se coordina para los huéspedes. Se paga aparte.",
+        },
+        {
+          name: "Lavadora",
+          body: "Sí. A 4200 metros. Nosotros también nos sorprendemos.",
         },
       ],
     },
@@ -1409,11 +1478,11 @@ export const dict: Record<Locale, Dict> = {
           items: [
             {
               name: "Cóndor",
-              body: "Sobre los cerros y sobre el camino. No todos los días, pero pasa.",
+              body: "Unas pocas veces al año. Si lo ves, es tu día.",
             },
             {
               name: "Taruca",
-              body: "El venado andino. Lo vas a ver antes de que él te vea — pocas veces.",
+              body: "El venado andino. Te ve primero y se va. Si pasa al revés, es tu día.",
             },
             { name: "Zorro andino", body: "Más seguido la huella que el zorro." },
             { name: "Zorrino", body: "Mejor de lejos." },
@@ -1460,14 +1529,14 @@ export const dict: Record<Locale, Dict> = {
         },
         {
           name: "Queuña",
-          body: "Crece más alto que cualquier árbol del planeta, con la corteza en láminas como papel viejo. No está junto a la casa: espera en el camino, para quien caminó.",
+          body: "Los árboles de su género crecen más alto que cualquiera del planeta, con la corteza en láminas como papel viejo. No está junto a la casa: espera en el camino, para quien caminó.",
         },
         {
           name: "Ichu",
           body: "El pasto de la puna. Techos, sogas, cama. Tan duro que corta la mano.",
         },
       ],
-      note: "No somos una guía botánica. Los nombres se están confirmando — no adivinamos en público.",
+      note: "Los nombres se confirman con fotografías. No adivinamos en público.",
     },
     weaving: {
       title: "Tejido",
@@ -1480,7 +1549,7 @@ export const dict: Record<Locale, Dict> = {
         "Un museo con exposición de tejidos. La entrada cuesta 5–10 soles. Se puede fotografiar — igual preguntamos antes.",
       makes: "Lo que se hace aquí",
       makesList: ["Fajas", "Mantas", "Chullos", "Bolsos", "Guantes", "Ponchos"],
-      park: "Cerca está el Parque de la Papa.",
+      park: "Paru-Paru es una de las cinco comunidades dueñas del Parque de la Papa: la tierra que guarda más de mil variedades de papa. La casa está dentro.",
     },
     mosaic: { title: "Cómo se ve", cta: "Ver todas las fotos" },
     prep: {
@@ -1510,8 +1579,8 @@ export const dict: Record<Locale, Dict> = {
         body: "Frazadas, vajilla, agua, leña, luz.",
       },
       water: {
-        title: "Agua de la roca",
-        body: "No hace falta cargar agua para todo el día. En estos cerros hay manantiales: agua limpia que sale de la piedra, y se puede tomar.",
+        title: "Agua",
+        body: "Litro y medio por persona, contigo. En el camino hay manantiales: agua que sale de la piedra, y la gente de aquí la toma toda la vida. Llena tu botella si quieres — pero hiérvela en el fogón por la noche: ladera arriba pastan ovejas, y la altura no le perdona nada al estómago.",
       },
       hands: {
         title: "No llegues con las manos vacías",
@@ -1545,7 +1614,8 @@ export const dict: Record<Locale, Dict> = {
       title: "Vengan",
       lead: "No hay formulario de reserva. Hay una persona a la que puedes escribir.",
       cta: "Escribir por WhatsApp",
-      reply: "Normalmente respondo dentro de la hora.",
+      reply: "Normalmente respondo dentro de la hora — pero cuando estoy arriba la señal va y viene: la respuesta puede llegarte esa noche o a la mañana siguiente.",
+      languages: "Escríbeme en español, inglés o ruso.",
       wa: "¡Hola! Quisiera saber más sobre Kinsacocha.",
       emailLabel: "Correo",
     },

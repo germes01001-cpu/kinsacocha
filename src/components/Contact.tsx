@@ -16,7 +16,10 @@ export default function Contact({ t }: { t: Dict }) {
           className="mt-10"
         />
 
-        <p className="mt-5 text-sm text-muted">{t.contact.reply}</p>
+        <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-muted">
+          {t.contact.reply}
+        </p>
+        <p className="mt-2 text-sm text-muted">{t.contact.languages}</p>
 
         <p className="mt-12 text-sm text-muted">
           {t.contact.emailLabel}:{" "}

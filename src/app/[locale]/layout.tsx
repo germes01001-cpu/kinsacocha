@@ -58,7 +58,7 @@ export async function generateMetadata({
     description: meta.description,
     alternates: {
       canonical: `${SITE.domain}/${locale}`,
-      languages: { ...languages, "x-default": `${SITE.domain}/ru` },
+      languages: { ...languages, "x-default": `${SITE.domain}/en` },
     },
     openGraph: {
       type: "website",

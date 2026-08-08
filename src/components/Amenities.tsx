@@ -1,11 +1,15 @@
-import { Car, Droplets, Flame, Tent } from "lucide-react";
+import { Car, ChefHat, Flame, ShowerHead, Tent, WashingMachine } from "lucide-react";
 
 import Photo from "@/components/ui/Photo";
 import Reveal from "@/components/ui/Reveal";
 import { AMENITIES } from "@/config/photos";
 import type { Dict } from "@/i18n/dict";
 
-const ICONS = [Flame, Droplets, Car, Tent];
+/**
+ * Порядок соответствует `amenities.items` в словаре.
+ * Горячий душ идёт первым намеренно: гости говорят о нём чаще, чем о звёздах.
+ */
+const ICONS = [ShowerHead, Flame, ChefHat, Tent, Car, WashingMachine];
 
 /** Bento: асимметричная сетка, первая карточка крупная. */
 const SPANS = [
@@ -13,6 +17,8 @@ const SPANS = [
   "sm:col-span-2",
   "",
   "",
+  "sm:col-span-2",
+  "sm:col-span-2",
 ];
 
 export default function Amenities({ t }: { t: Dict }) {

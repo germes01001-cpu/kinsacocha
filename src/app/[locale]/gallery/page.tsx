@@ -32,7 +32,7 @@ export async function generateMetadata({
         ...Object.fromEntries(
           locales.map((l) => [l, `${SITE.domain}/${l}/gallery`]),
         ),
-        "x-default": `${SITE.domain}/ru/gallery`,
+        "x-default": `${SITE.domain}/en/gallery`,
       },
     },
     openGraph: { title, description: t.gallery.lead },
