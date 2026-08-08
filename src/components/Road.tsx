@@ -40,6 +40,11 @@ export default function Road({ t }: { t: Dict }) {
             <p className="text-[15px] leading-relaxed text-ink/80">
               {t.road.note}
             </p>
+
+            {/* Долина — одной строкой. Отдельной страницы экскурсий нет намеренно. */}
+            <p className="mt-5 border-l-2 border-clay/40 pl-4 text-[15px] leading-relaxed text-muted">
+              {t.road.valley}
+            </p>
             <WhatsAppButton
               message={t.road.wa}
               label={t.road.cta}

@@ -57,9 +57,23 @@ export type Dict = {
     cusco: string;
     minutes: string;
     note: string;
+    /**
+     * Долина — одной строкой и намеренно. Отдельная страница экскурсий
+     * превратила бы дом в турагентство и размыла единственное отличие.
+     */
+    valley: string;
     cta: string;
     wa: string;
   };
+  /** Кто отвечает на том конце. Личный мессенджер требует лица и имени. */
+  about: { title: string; name: string; body: string[] };
+  /** Гость не гуляет на 4200 — он здесь спит. Это разные вещи. */
+  altitude: { title: string; lead: string; items: string[]; footer: string };
+  /** Продаём сутки — значит обязаны их показать. */
+  oneDay: { title: string; lead: string; items: { time: string; body: string }[] };
+  sleep: { title: string; items: { name: string; body: string }[]; total: string };
+  /** Вопросы, которые иначе уходят в переписку и убивают половину заявок. */
+  faq: { title: string; lead: string; items: { q: string; a: string }[] };
   formats: {
     title: string;
     lead: string;
@@ -278,8 +292,68 @@ export const dict: Record<Locale, Dict> = {
       cusco: "от Куско",
       minutes: "минут",
       note: "Трансфер до двери заказывается отдельно, через WhatsApp. Дорогу лучше не проезжать в спешке — она часть впечатления.",
+      valley: "Если после гор захочется дальше — возьмём водителя и поедем по долине: Марас, Морай, Ольянтайтамбо. Об этом просто спросите.",
       cta: "Заказать трансфер",
       wa: "Здравствуйте! Хочу узнать про трансфер до Kinsacocha.",
+    },
+    about: {
+      title: "Кому вы пишете",
+      name: "Ян",
+      body: [
+        "Меня зовут Ян. Это мой дом, и я же ваш проводник.",
+        "Дом стоит на первой линии у Кинса Кочи — от двери до воды шаги, а не дорога.",
+        "Когда вы нажмёте кнопку внизу, отвечу вам я, не менеджер. Выберу тропу под вас, встречу на дороге и растоплю печь к приезду.",
+      ],
+    },
+    altitude: {
+      title: "Высота",
+      lead: "Дом стоит на 4200. Куско — 3400, Писак — 2900. Разница чувствуется в первую ночь: сердце бьётся чаще, сон рваный, утром может болеть голова. Это нормально и проходит.",
+      items: [
+        "Не приезжайте сюда в первый или второй день после прилёта в Перу. Две-три ночи в Куско или в долине — и вы подниметесь другим человеком.",
+        "Пейте больше воды, ешьте меньше, спиртное — не в первый вечер.",
+        "Если ночью станет по-настоящему плохо, лечение здесь одно и работает всегда — спуститься. Машина есть, до Писака сорок минут, вниз ещё быстрее.",
+      ],
+      footer: "Мы предпочтём отговорить вас от неудачной даты, чем принять и смотреть, как вам плохо.",
+    },
+    oneDay: {
+      title: "Сутки здесь",
+      lead: "Цена — за сутки, от утра до утра. Вот как они выглядят.",
+      items: [
+        { time: "10:00", body: "Приезжаете. Такси доходит до двери, вещи внутрь, чай." },
+        { time: "12:00", body: "Первый выход. Ближнее озеро — или просто вокруг дома, если высота ещё не отпустила." },
+        { time: "17:30", body: "Солнце уходит за хребет, и температура падает на десять градусов за час." },
+        { time: "18:00", body: "Печь. Дальше все сидят вокруг неё, потому что больше нигде не тепло." },
+        { time: "19:30", body: "Ужин, если заказывали у соседей." },
+        { time: "21:00", body: "Выходим во двор. Это то, ради чего вы ехали." },
+        { time: "06:00", body: "Вода в лагуне неподвижная, ровно один час. Потом поднимается ветер." },
+        { time: "10:00", body: "Уезжаете. Либо остаётесь ещё на сутки — второе бывает чаще." },
+      ],
+    },
+    sleep: {
+      title: "Где вы будете спать",
+      items: [
+        { name: "Комната", body: "Две кровати, одеяла, своя дверь." },
+        { name: "Гостиная", body: "Диван у печи. Самое тёплое место в доме." },
+        { name: "Типи", body: "Шесть-восемь мест. Дрова и газовая печка. Под звёздами, но не под открытым небом." },
+      ],
+      total: "Итого до одиннадцати мест. Постель есть везде, спальник всё равно берите — со своим теплее.",
+    },
+    faq: {
+      title: "Практика",
+      lead: "Всё, что обычно выясняют в переписке.",
+      items: [
+        { q: "Сколько человек помещается", a: "Две кровати в комнате, диван у печи и типи на шесть-восемь. До одиннадцати человек." },
+        { q: "Туалет и душ", a: "Туалет со смывом. Горячий душ, вода греется газом." },
+        { q: "Электричество", a: "Сеть. Розетки есть, свет ночью есть. Перебои случаются — это горы." },
+        { q: "Связь и интернет", a: "Кларо ловит нормально, Бител с перебоями. Wi-Fi нет и не будет. Гарантий на сигнал не даём: погода, электричество." },
+        { q: "Сколько градусов ночью", a: "Около четырёх-шести. Одеяла, грелки с горячей водой, печь. Спальник всё равно берите." },
+        { q: "Как платить", a: "Любым способом: наличные, соли или доллары, Yape." },
+        { q: "Нужна ли предоплата", a: "Да, 30% при брони. Остальное на месте." },
+        { q: "Если передумали", a: "Скажите за три дня — вопросов нет. Не приехали молча — предоплата остаётся." },
+        { q: "Дети", a: "С любого возраста. Ехать или нет — решают родители, рекомендаций мы не даём." },
+        { q: "Дорога в сезон дождей", a: "Доезжает любая машина. Полный привод не нужен." },
+        { q: "Еда", a: "Обед и ужин у соседей — 30 солей с человека, заказ за день. Или везите своё и готовьте сами." },
+      ],
     },
     formats: {
       title: "Как сюда приезжают",
@@ -804,8 +878,68 @@ export const dict: Record<Locale, Dict> = {
       cusco: "from Cusco",
       minutes: "minutes",
       note: "A transfer to the door is arranged separately over WhatsApp. The road is best not rushed — it is part of the experience.",
+      valley: "If the mountains leave you wanting more, we'll find a driver and take the valley: Maras, Moray, Ollantaytambo. Just ask.",
       cta: "Ask about a transfer",
       wa: "Hello! I'd like to ask about a transfer to Kinsacocha.",
+    },
+    about: {
+      title: "Who you're writing to",
+      name: "Yan",
+      body: [
+        "My name is Yan. This is my house, and I am also your guide.",
+        "The house stands on the first line of Kinsa Cocha — from the door to the water is a few steps, not a drive.",
+        "When you press the button below, it is me who answers, not a manager. I'll pick the trail to suit you, meet you on the road, and have the stove going before you arrive.",
+      ],
+    },
+    altitude: {
+      title: "Altitude",
+      lead: "The house sits at 4,200 metres. Cusco is 3,400, Pisac 2,900. You feel the difference on the first night: a faster heartbeat, broken sleep, maybe a headache in the morning. That is normal and it passes.",
+      items: [
+        "Don't come up on your first or second day in Peru. Two or three nights in Cusco or the valley, and you'll arrive a different person.",
+        "Drink more water, eat less, and leave the alcohol for another evening.",
+        "If a night goes genuinely wrong, there is one cure here and it always works — go down. There is a car, Pisac is forty minutes away, and downhill is faster.",
+      ],
+      footer: "We would rather talk you out of a bad date than take your money and watch you suffer.",
+    },
+    oneDay: {
+      title: "A day and a night",
+      lead: "The price is for a day, morning to morning. Here is what that looks like.",
+      items: [
+        { time: "10:00", body: "You arrive. The taxi reaches the door, bags inside, tea." },
+        { time: "12:00", body: "First walk. The near lake — or just around the house, if the altitude hasn't let go yet." },
+        { time: "17:30", body: "The sun drops behind the ridge and the temperature falls ten degrees in an hour." },
+        { time: "18:00", body: "The stove. After this everyone sits around it, because nowhere else is warm." },
+        { time: "19:30", body: "Dinner, if you ordered from the neighbours." },
+        { time: "21:00", body: "Out into the yard. This is the thing you came for." },
+        { time: "06:00", body: "The lake goes perfectly still for exactly one hour. Then the wind gets up." },
+        { time: "10:00", body: "You leave. Or you stay another day — which happens more often." },
+      ],
+    },
+    sleep: {
+      title: "Where you'll sleep",
+      items: [
+        { name: "The room", body: "Two beds, blankets, a door of your own." },
+        { name: "The living room", body: "The sofa by the stove. The warmest place in the house." },
+        { name: "The tipi", body: "Six to eight places. Firewood and a gas stove. Under the stars, but not under open sky." },
+      ],
+      total: "Eleven places in all. There is bedding everywhere; bring a sleeping bag anyway, your own is warmer.",
+    },
+    faq: {
+      title: "Practical",
+      lead: "Everything people usually work out over messages.",
+      items: [
+        { q: "How many people fit", a: "Two beds in the room, the sofa by the stove, and a tipi for six to eight. Up to eleven." },
+        { q: "Toilet and shower", a: "Flush toilet. Hot shower, water heated by gas." },
+        { q: "Electricity", a: "Mains. Sockets, light at night. Cuts happen — these are mountains." },
+        { q: "Signal and internet", a: "Claro works well, Bitel comes and goes. No Wi-Fi, and there won't be. We don't promise signal: weather, power." },
+        { q: "How cold at night", a: "Around four to six degrees. Blankets, hot water bottles, the stove. Bring a sleeping bag anyway." },
+        { q: "How to pay", a: "Any way you like: cash, soles or dollars, Yape." },
+        { q: "Is a deposit needed", a: "Yes, 30% to hold the date. The rest on arrival." },
+        { q: "If you change your mind", a: "Tell us three days ahead and that's the end of it. Don't turn up without a word and the deposit stays." },
+        { q: "Children", a: "Any age. Whether to bring yours is the parents' call — we don't give advice on it." },
+        { q: "The road in the rainy season", a: "Any car gets through. You don't need four-wheel drive." },
+        { q: "Food", a: "Lunch and dinner from the neighbours — 30 soles a head, ordered a day ahead. Or bring your own and cook." },
+      ],
     },
     formats: {
       title: "Ways to come",
@@ -1299,8 +1433,68 @@ export const dict: Record<Locale, Dict> = {
       cusco: "desde Cusco",
       minutes: "minutos",
       note: "El traslado hasta la puerta se coordina aparte por WhatsApp. El camino conviene no apurarlo — es parte de la experiencia.",
+      valley: "Si después de los cerros quieres seguir, conseguimos chofer y bajamos al valle: Maras, Moray, Ollantaytambo. Solo pregunta.",
       cta: "Consultar por el traslado",
       wa: "¡Hola! Quisiera consultar por el traslado a Kinsacocha.",
+    },
+    about: {
+      title: "A quién le escribes",
+      name: "Yan",
+      body: [
+        "Me llamo Yan. Esta es mi casa, y también soy tu guía.",
+        "La casa está en la primera línea de Kinsa Cocha — de la puerta al agua son pasos, no un camino.",
+        "Cuando aprietes el botón de abajo te respondo yo, no un gestor. Elijo la ruta según tú, te recibo en el camino y prendo el fogón antes de que llegues.",
+      ],
+    },
+    altitude: {
+      title: "La altura",
+      lead: "La casa está a 4200 metros. Cusco está a 3400, Pisac a 2900. La diferencia se siente la primera noche: el corazón late más rápido, el sueño se corta, en la mañana puede doler la cabeza. Es normal y pasa.",
+      items: [
+        "No subas el primer ni el segundo día en el Perú. Dos o tres noches en Cusco o en el valle, y subes siendo otra persona.",
+        "Toma más agua, come menos, y deja el trago para otra noche.",
+        "Si una noche se pone de verdad mal, aquí hay una sola cura y siempre funciona — bajar. Hay carro, Pisac está a cuarenta minutos, y para abajo es más rápido.",
+      ],
+      footer: "Preferimos convencerte de cambiar la fecha antes que recibirte y verte mal.",
+    },
+    oneDay: {
+      title: "Un día y una noche",
+      lead: "El precio es por día, de mañana a mañana. Así se ve.",
+      items: [
+        { time: "10:00", body: "Llegas. El taxi llega hasta la puerta, las cosas adentro, un mate." },
+        { time: "12:00", body: "Primera salida. La laguna cercana — o solo alrededor de la casa, si la altura todavía no suelta." },
+        { time: "17:30", body: "El sol se va detrás del cerro y la temperatura cae diez grados en una hora." },
+        { time: "18:00", body: "El fogón. De ahí en adelante todos se sientan alrededor, porque no hay otro lugar tibio." },
+        { time: "19:30", body: "La cena, si la encargaste con las vecinas." },
+        { time: "21:00", body: "Salimos al patio. Esto es por lo que viniste." },
+        { time: "06:00", body: "La laguna se queda quieta exactamente una hora. Después se levanta el viento." },
+        { time: "10:00", body: "Te vas. O te quedas un día más — eso pasa más seguido." },
+      ],
+    },
+    sleep: {
+      title: "Dónde vas a dormir",
+      items: [
+        { name: "El cuarto", body: "Dos camas, frazadas, puerta propia." },
+        { name: "La sala", body: "El sofá junto al fogón. El lugar más tibio de la casa." },
+        { name: "El tipi", body: "De seis a ocho lugares. Leña y estufa a gas. Bajo las estrellas, pero no a la intemperie." },
+      ],
+      total: "Once lugares en total. Hay cama en todos lados; igual trae saco de dormir, el propio abriga más.",
+    },
+    faq: {
+      title: "Práctica",
+      lead: "Todo lo que normalmente se resuelve por mensajes.",
+      items: [
+        { q: "Cuánta gente entra", a: "Dos camas en el cuarto, el sofá junto al fogón y un tipi para seis u ocho. Hasta once." },
+        { q: "Baño y ducha", a: "Baño con desagüe. Ducha caliente, el agua se calienta a gas." },
+        { q: "Electricidad", a: "Red. Hay enchufes y luz de noche. Hay cortes — son los cerros." },
+        { q: "Señal e internet", a: "Claro entra bien, Bitel va y viene. Wi-Fi no hay ni va a haber. No prometemos señal: clima, electricidad." },
+        { q: "Cuántos grados de noche", a: "Unos cuatro a seis. Frazadas, bolsas de agua caliente, el fogón. Igual trae saco." },
+        { q: "Cómo pagar", a: "Como quieras: efectivo, soles o dólares, Yape." },
+        { q: "Hace falta adelanto", a: "Sí, 30% para separar la fecha. El resto al llegar." },
+        { q: "Si cambias de idea", a: "Avísanos con tres días y ahí queda. Si no llegas y no dices nada, el adelanto se queda." },
+        { q: "Niños", a: "De cualquier edad. Traerlos lo deciden los padres — nosotros no damos recomendaciones." },
+        { q: "El camino en época de lluvias", a: "Pasa cualquier carro. No hace falta doble tracción." },
+        { q: "Comida", a: "Almuerzo y cena con las vecinas — 30 soles por persona, encargado un día antes. O trae lo tuyo y cocina." },
+      ],
     },
     formats: {
       title: "Cómo se viene",
