@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/* ── Дизайн-система ──────────────────────────────────────────────
+   Землистая палитра: камень, глина, пергамент, холодная синева озёр.
+   Меняется здесь — подхватывается везде.                          */
+
+@theme {
+  --color-paper: #ede6da; /* фон, почти бумажный */
+  --color-paper-deep: #e3dacb; /* фон вторичных блоков */
+  --color-stone: #1f1d1a; /* тёмный фон: Подготовка, Фауна */
+  --color-ink: #26231f; /* основной текст */
+  --color-muted: #6b645a; /* приглушённый текст, подписи */
+  --color-clay: #9c5a32; /* акцент — глина */
+  --color-lake: #33555c; /* холодный акцент — вода */
+  --color-fog: #cfc7b8; /* границы, разделители */
+
+  --font-display: var(--font-bitter); /* заголовки — тяжёлый плитный serif */
+  --font-sans: var(--font-inter); /* текст — нейтральный гротеск */
+
+  --ease-heavy: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: var(--color-clay);
+    color: var(--color-paper);
+  }
+}
+
+/* ── Film grain ──────────────────────────────────────────────────
+   Зернистость 35мм плёнки поверх всего сайта. CSS + SVG-фильтр, не GIF.
+   z-index ниже навигации (z-50) и модалок (z-100).                 */
+
+.film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: var(--grain-src);
+  background-size: 220px 220px;
+}
+
+/* ── Появление при скролле ───────────────────────────────────────
+   Тяжёлое, медленное. Класс is-visible вешает IntersectionObserver. */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 1100ms var(--ease-heavy),
+    transform 1100ms var(--ease-heavy);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Каскад для групп: карточки проявляются друг за другом. */
+.reveal-delay-1 { transition-delay: 120ms; }
+.reveal-delay-2 { transition-delay: 240ms; }
+.reveal-delay-3 { transition-delay: 360ms; }
+
+/* ── Уважение к системным настройкам ─────────────────────────────
+   Если человек попросил меньше движения — отдаём статику.          */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
