@@ -39,9 +39,9 @@ export default function Preparation({ t }: { t: Dict }) {
 
         <div className="mt-14 grid gap-8 sm:grid-cols-2">
           {[
-            { icon: Moon, block: t.prep.night },
-            { icon: Sun, block: t.prep.day },
-          ].map(({ icon: Icon, block }, i) => (
+            { icon: Moon, block: t.prep.night, note: t.prep.night.note },
+            { icon: Sun, block: t.prep.day, note: null },
+          ].map(({ icon: Icon, block, note }, i) => (
             <Reveal
               key={block.title}
               delay={i as 0 | 1}
@@ -64,6 +64,13 @@ export default function Preparation({ t }: { t: Dict }) {
                   </li>
                 ))}
               </ul>
+
+              {/* Чем греются, если своего спальника не хватило. */}
+              {note && (
+                <p className="mt-5 text-sm leading-relaxed text-paper/55">
+                  {note}
+                </p>
+              )}
             </Reveal>
           ))}
         </div>

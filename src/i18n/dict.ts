@@ -139,7 +139,7 @@ export type Dict = {
   prep: {
     title: string;
     lead: string;
-    night: { title: string; items: string[] };
+    night: { title: string; items: string[]; note: string };
     day: { title: string; items: string[] };
     have: { title: string; body: string };
     water: { title: string; body: string };
@@ -221,8 +221,8 @@ export const dict: Record<Locale, Dict> = {
       blog: "Блог",
     },
     hero: {
-      title: "Дом на высоте 4200",
-      subtitle: "Три озера, живой огонь и небо, которого не видно из города.",
+      title: "Ночь у трёх озёр Кинса Коча",
+      subtitle: "4200 метров. Печь, горячий душ и небо, которого не видно из города. Сюда приезжают на день. Здесь можно остаться.",
       watchFilm: "Смотреть фильм",
       scroll: "Листайте",
     },
@@ -232,7 +232,7 @@ export const dict: Record<Locale, Dict> = {
       body: [
         "С печью, горячей водой и кухней. На высоте 4200 метров это уже роскошь.",
         "Вокруг — горные озёра. Рядом живут люди, которые разводят альпак, сушат картошку морозом и почти никогда не спускаются в город. Это их мир. Мы — его часть и готовы разделить его с теми, кому нужно вырваться из шума.",
-        "Здесь холодно, и здесь нет интернета. Именно поэтому сюда привозят детей: чтобы один раз в жизни увидеть настоящее звёздное небо и не смотреть в телефон.",
+        "Здесь холодно, и здесь нет Wi-Fi. Мобильная связь то есть, то нет — и это лучшее, что может случиться с вами за год: один раз увидеть настоящее звёздное небо и ни разу не посмотреть в телефон.",
       ],
       name: "Kinsa qucha на кечуа — «три озера». Место названо счётом.",
       ownership: "Дом — частный. Всё вокруг — общее.",
@@ -336,7 +336,7 @@ export const dict: Record<Locale, Dict> = {
       items: [
         {
           name: "Готовят соседи",
-          body: "Обед и ужин — 50 солей. Заказывать за день: наверху ничего не покупают в последнюю минуту, продукты поднимают снизу. Еду приносят в дом или вы идёте в соседний дом, где её готовят при вас.",
+          body: "Обед и ужин — 30 солей с человека. Заказывать за день: наверху ничего не покупают в последнюю минуту, продукты поднимают снизу. Еду приносят в дом или вы идёте в соседний дом, где её готовят при вас.",
         },
         {
           name: "Труча",
@@ -609,6 +609,7 @@ export const dict: Record<Locale, Dict> = {
           "Шерстяные носки",
           "Термос",
         ],
+        note: "Ночью в доме около четырёх-шести градусов. Одеяла есть — укрываются двумя, тремя. Есть грелки: наливаешь горячую воду и кладёшь в постель. В типи — дрова и газовая печка. Жить можно, и живут.",
       },
       day: {
         title: "День на маршруте",
@@ -642,8 +643,8 @@ export const dict: Record<Locale, Dict> = {
       },
       pets: { title: "Питомцы", body: "Собаки и кошки — можно." },
       family: {
-        title: "Семья",
-        body: "С детьми комфортно. Маршрут подбирается под возраст, а не наоборот.",
+        title: "Дети",
+        body: "Здесь высоко и сурово. Здесь живут местные дети, и сюда приезжают дети из долины. Ехать ли с ребёнком — решают родители: рекомендаций мы не даём. Маршрут подберём под возраст, высоту под него подобрать нельзя.",
       },
     },
     reviews: {
@@ -750,8 +751,8 @@ export const dict: Record<Locale, Dict> = {
       blog: "Journal",
     },
     hero: {
-      title: "A house at 4,200 metres",
-      subtitle: "Three lakes, a wood fire, and a sky the city hides from you.",
+      title: "A night at the Kinsa Cocha lakes",
+      subtitle: "4,200 metres above the Sacred Valley. A stove, a hot shower and a sky the city hides from you. People come here for the day. You can stay.",
       watchFilm: "Watch the film",
       scroll: "Scroll",
     },
@@ -761,7 +762,7 @@ export const dict: Record<Locale, Dict> = {
       body: [
         "With a wood stove, hot water and a kitchen. At 4,200 metres that already counts as luxury.",
         "Mountain lakes all around. The neighbours raise alpacas, freeze-dry potatoes the way their grandparents did, and rarely go down to town. This is their world. We are part of it, and we share it with people who need out of the noise.",
-        "It is cold here and there is no internet. That is precisely why people bring their children: to see a real night sky once in their life, and not look at a phone while it happens.",
+        "It is cold here and there is no Wi-Fi. The mobile signal comes and goes — which may be the best thing to happen to you all year: to see a real night sky once, and not look at a phone while it happens.",
       ],
       name: "Kinsa qucha is Quechua for “three lakes”. The place is named after a count.",
       ownership: "The house is private. Everything around it belongs to the community.",
@@ -850,7 +851,7 @@ export const dict: Record<Locale, Dict> = {
       items: [
         {
           name: "The neighbours cook",
-          body: "Lunch and dinner, 50 soles. Order the day before — nothing is bought last-minute up here, everything comes up from below. They bring it to the house, or you walk over and eat where it was cooked.",
+          body: "Lunch and dinner, 30 soles per person. Order the day before — nothing is bought last-minute up here, everything comes up from below. They bring it to the house, or you walk over and eat where it was cooked.",
         },
         {
           name: "Trucha",
@@ -1110,6 +1111,7 @@ export const dict: Record<Locale, Dict> = {
           "Wool socks",
           "Thermos",
         ],
+        note: "The house sits at about four to six degrees at night. There are blankets — people sleep under two or three. There are hot water bottles: fill one and take it to bed. The tipi has firewood and a gas stove. It is livable, and people live it.",
       },
       day: {
         title: "Day on the trail",
@@ -1136,8 +1138,8 @@ export const dict: Record<Locale, Dict> = {
       },
       pets: { title: "Pets", body: "Dogs and cats are welcome." },
       family: {
-        title: "Family",
-        body: "Children do well here. The walk is chosen to fit the child, not the other way round.",
+        title: "Children",
+        body: "It is high here, and it is harsh. Local children live here, and children come up from the valley. Whether to bring yours is the parents' call — we don't give advice on it. We'll fit the walk to the child; the altitude can't be fitted to anyone.",
       },
     },
     reviews: {
@@ -1244,8 +1246,8 @@ export const dict: Record<Locale, Dict> = {
       blog: "Diario",
     },
     hero: {
-      title: "Una casa a 4200 metros",
-      subtitle: "Tres lagunas, un fogón y un cielo que en la ciudad no existe.",
+      title: "Una noche en las lagunas de Kinsa Cocha",
+      subtitle: "4200 metros sobre el Valle Sagrado. Fogón, ducha caliente y un cielo que en la ciudad no existe. Aquí la gente viene por el día. Tú puedes quedarte.",
       watchFilm: "Ver la película",
       scroll: "Desliza",
     },
@@ -1255,7 +1257,7 @@ export const dict: Record<Locale, Dict> = {
       body: [
         "Con fogón, agua caliente y cocina. A 4200 metros eso ya es lujo.",
         "Alrededor, las lagunas. Al lado viven personas que crían alpacas, hacen chuño y casi nunca bajan al pueblo. Este es su mundo. Nosotros somos parte de él y lo compartimos con quien necesita salir del ruido.",
-        "Hace frío y no hay internet. Justamente por eso traen a los niños: para ver una vez en la vida un cielo estrellado de verdad, y no mirar el celular mientras pasa.",
+        "Hace frío y no hay Wi-Fi. La señal va y viene — y quizá sea lo mejor que te pase en todo el año: ver una vez en la vida un cielo estrellado de verdad, y no mirar el celular mientras pasa.",
       ],
       name: "Kinsa qucha en quechua es «tres lagunas». El lugar lleva el nombre de una cuenta.",
       ownership: "La casa es privada. Todo lo que la rodea es de la comunidad.",
@@ -1344,7 +1346,7 @@ export const dict: Record<Locale, Dict> = {
       items: [
         {
           name: "Cocinan las vecinas",
-          body: "Almuerzo y cena, 50 soles. Se encarga el día antes: aquí arriba nada se compra a última hora, todo sube desde abajo. Lo traen a la casa, o vas tú a la casa donde se cocinó y comes ahí.",
+          body: "Almuerzo y cena, 30 soles por persona. Se encarga el día antes: aquí arriba nada se compra a última hora, todo sube desde abajo. Lo traen a la casa, o vas tú a la casa donde se cocinó y comes ahí.",
         },
         {
           name: "Trucha",
@@ -1604,6 +1606,7 @@ export const dict: Record<Locale, Dict> = {
           "Medias de lana",
           "Termo",
         ],
+        note: "De noche la casa está a unos cuatro o seis grados. Hay frazadas — se duerme con dos o tres. Hay bolsas de agua caliente: la llenas y te la llevas a la cama. El tipi tiene leña y una estufa a gas. Se puede vivir, y se vive.",
       },
       day: {
         title: "El día en el camino",
@@ -1630,8 +1633,8 @@ export const dict: Record<Locale, Dict> = {
       },
       pets: { title: "Mascotas", body: "Perros y gatos, bienvenidos." },
       family: {
-        title: "Familia",
-        body: "Con niños se está bien. La caminata se elige según el niño, y no al revés.",
+        title: "Niños",
+        body: "Aquí es alto y es duro. Aquí viven niños de la comunidad, y suben niños del valle. Traer al tuyo lo deciden los padres: nosotros no damos recomendaciones. La caminata la ajustamos al niño; la altura no se ajusta a nadie.",
       },
     },
     reviews: {
