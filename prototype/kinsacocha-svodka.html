@@ -1,0 +1,253 @@
+<title>Kinsacocha — где мы находимся</title>
+<style>
+  :root {
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    --bg: #e6eae9;
+    --surface: #f2f5f4;
+    --ink: #1a1f1e;
+    --ink-2: #3d4645;
+    --muted: #6b7472;
+    --edge: #c7cfcc;
+    --edge-soft: #d7dedb;
+    --accent: #2e6a6b;
+    --open: #9a3f26;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14181a;
+      --surface: #1a1f21;
+      --ink: #e6ebe9;
+      --ink-2: #c2cac8;
+      --muted: #8d9a97;
+      --edge: #2d3538;
+      --edge-soft: #242b2d;
+      --accent: #6fb3ae;
+      --open: #d98567;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #14181a;
+    --surface: #1a1f21;
+    --ink: #e6ebe9;
+    --ink-2: #c2cac8;
+    --muted: #8d9a97;
+    --edge: #2d3538;
+    --edge-soft: #242b2d;
+    --accent: #6fb3ae;
+    --open: #d98567;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 { margin: 0; text-wrap: balance; }
+  a { color: var(--accent); }
+  code {
+    font-family: var(--mono); font-size: 0.85em;
+    background: var(--surface); border: 1px solid var(--edge-soft); padding: 1px 5px;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 100px; }
+
+  .top { padding: 52px 0 28px; border-bottom: 1px solid var(--edge); }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .top h1 { font-family: var(--mono); font-size: clamp(26px, 5vw, 38px); font-weight: 600; letter-spacing: -0.02em; margin-top: 12px; }
+  .top p { color: var(--ink-2); margin: 16px 0 0; }
+
+  .sect { margin-top: 46px; }
+  .sect > h2 {
+    font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    padding-bottom: 12px; border-bottom: 2px solid var(--ink);
+  }
+  .sect > p { color: var(--ink-2); margin: 16px 0 0; }
+
+  .lead {
+    font-size: 19px; line-height: 1.5; color: var(--ink);
+    border-left: 2px solid var(--accent); padding-left: 18px; margin: 22px 0;
+  }
+
+  .open {
+    border: 1px solid var(--open); padding: 20px 22px; margin-top: 22px;
+    background: var(--surface);
+  }
+  .open h3 { font-size: 18px; margin-bottom: 6px; }
+  .open p { margin: 8px 0 0; color: var(--ink-2); font-size: 15px; }
+  .open .num {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--open); display: block; margin-bottom: 8px;
+  }
+
+  .rows { margin-top: 20px; display: flex; flex-direction: column; gap: 2px; }
+  .row {
+    display: grid; grid-template-columns: 180px 1fr; gap: 18px;
+    padding: 13px 0; border-bottom: 1px solid var(--edge-soft);
+  }
+  .row > b { font-size: 14.5px; font-weight: 600; }
+  .row > span { color: var(--ink-2); font-size: 15px; }
+  @media (max-width: 620px) {
+    .row { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  .links { margin-top: 20px; display: flex; flex-direction: column; gap: 2px; }
+  .link {
+    display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline;
+    padding: 13px 0; border-bottom: 1px solid var(--edge-soft);
+  }
+  .link a { font-weight: 600; text-decoration: none; font-size: 15.5px; }
+  .link a:hover { text-decoration: underline; }
+  .link span { color: var(--muted); font-size: 14px; }
+
+  .next { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 620px) { .next { grid-template-columns: 1fr; } }
+  .next > div { border: 1px solid var(--edge); padding: 18px; }
+  .next h3 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .next ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 15px; }
+  .next li { margin-bottom: 7px; }
+
+  .tail { margin-top: 50px; padding-top: 24px; border-top: 2px solid var(--ink); color: var(--muted); font-size: 14.5px; }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <p class="eyebrow">Kinsacocha · 14 августа 2026</p>
+    <h1>Где мы находимся</h1>
+    <p>
+      Одна страница вместо всей переписки. Что это за проект, что уже решено окончательно,
+      что осталось решить и что происходит дальше. Если запутались — читайте только эту страницу,
+      остального можно не открывать.
+    </p>
+  </header>
+
+  <section class="sect">
+    <h2>Что мы строим</h2>
+    <p class="lead">
+      Сайт частного дома на 4200 в общине Пару-Пару. Не отель, не ретрит, не глэмпинг.
+      Дом с печью, горячей водой и кухней — и всё, что вокруг него.
+    </p>
+    <p>
+      Сайт продаёт сутки в доме. Цель — 10–15 занятых суток в месяц; всё остальное, что появится
+      на сайте, работает на эту цифру или не появляется вовсе.
+    </p>
+    <p>
+      Главный парадокс, который сайт обязан раскрыть: здесь холодно, а связь ловит через раз —
+      именно поэтому сюда везут детей. Один раз в жизни увидеть настоящее звёздное небо
+      и не смотреть в телефон.
+    </p>
+    <p>
+      И главное правило, отличающее нас ото всех остальных: <b>мы не публикуем маршруты,
+      координаты и тропы.</b> Не из вредности. Эти места существуют в нынешнем виде ровно потому,
+      что о них не пишут.
+    </p>
+  </section>
+
+  <section class="sect">
+    <h2>Что решено окончательно</h2>
+    <p>К этому не возвращаемся. Если что-то из списка перестало вас устраивать — скажите, поменяем.</p>
+
+    <div class="rows">
+      <div class="row"><b>Что на сайте</b><span>Главная из 23 блоков · Полевые заметки · Атлас · Блог · Галерея · Правила дома · Артефакты</span></div>
+      <div class="row"><b>Три языка</b><span>Русский, английский, испанский. Адреса разделов переведены: <code>/en/journal</code>, <code>/es/diario</code> и так далее</span></div>
+      <div class="row"><b>Атлас</b><span>Три равные ветви: животные · растения · камни. Открываем сразу, не ждём пятнадцати карточек. У каждой карточки честный статус: подтверждено, со слов местных, не подтверждено</span></div>
+      <div class="row"><b>Заметки</b><span>Два-три раза в месяц, на русском. Готовятся впрок, публикуются отложенно. Три источника работают без вас: фотоловушка, кадр с одной точки, серия «Мешок»</span></div>
+      <div class="row"><b>Блог</b><span>Остаётся живым. Статья ловит незнакомого человека из поиска, карточка Атласа объясняет, заметка удерживает своего. Одна статья — один поисковый запрос, 3–4 в год</span></div>
+      <div class="row"><b>Артефакты</b><span>Бывшая «Коллекция». В главном меню, но это не магазин: ни корзины, ни цен сеткой. Продаём звук и ткани. Цены фиксированные, оплата переводом или криптой, эквайринга не делаем</span></div>
+      <div class="row"><b>Отпечатки</b><span>Печатаем в Куско и отправляем конвертом с перуанским штемпелем. Печать в стране покупателя отменена: мы продаём не изображение, а то, что оно пришло отсюда</span></div>
+      <div class="row"><b>Камни</b><span>Не продаём. Остаются знанием — ветвь Атласа и отпечаток. Вернуться к этому можно в любой момент</span></div>
+      <div class="row"><b>Ткани</b><span>Проект закупает у мастериц и продаёт сам. Пишем это прямо, без слова «комиссия» и без интонации благотворительности</span></div>
+      <div class="row"><b>Правила дома</b><span>Алкоголь — не на территории дома. Вещества — только с проводником и только в микродозе, с причиной и строкой «мы ничего не предоставляем». Дрова 30 солей за пачку, уборка 50. Собака Матвей и кот Пума</span></div>
+      <div class="row"><b>Связь</b><span>WiFi нет, мобильный интернет иногда ловит. Говорим прямо: не обещаем связь и не обещаем её отсутствия</span></div>
+      <div class="row"><b>Отзывы</b><span>Выдуманных не будет. Вместо них — «работаем по рекомендации» и гостевая книга от руки</span></div>
+      <div class="row"><b>Фотографии</b><span>Снимаем по списку, когда прототип закрыт целиком. Первый список готов: 50 кадров по блогу</span></div>
+      <div class="row"><b>Второй объект</b><span>Когда появится — главная становится брендовой, этот лендинг переезжает в <code>/mesta/kinsacocha</code>. Прочие места партнёрские. Архитектура заложена, стройка не начата</span></div>
+    </div>
+  </section>
+
+  <section class="sect">
+    <h2>Что осталось решить — два вопроса</h2>
+    <p>Всё остальное закрыто. Работу не блокирует ничего.</p>
+
+    <div class="open">
+      <span class="num">вопрос 1 · нужен ваш ответ</span>
+      <h3>Что есть в доме на случай, если ночью человеку стало по-настоящему плохо</h3>
+      <p>
+        Есть ли кислород, машина наготове, договорённость с кем-то внизу. На сайте будет написано
+        «спускаемся немедленно», и это правильный ответ. Но родитель, который читает про 4200
+        и везёт ребёнка, ищет глазами вторую строку: а если ночью и сразу нельзя вниз.
+      </p>
+      <p>
+        Есть — скажем, и это сильнее любого маркетинга. Нет — тоже скажем прямо, но тогда правило
+        про акклиматизацию в текстах становится жёстче.
+      </p>
+    </div>
+
+    <div class="open">
+      <span class="num">вопрос 2 · обсуждаем при проходе по блокам</span>
+      <h3>Цены на четыре формата визита</h3>
+      <p>
+        По вашему решению — отдельно, когда дойдём до этого блока. Цена здесь не цифра,
+        а позиционирование, и в общем списке вопросов ей тесно.
+      </p>
+      <p>
+        До этого момента в схемах стоят заглушки, и сайт не открываем поисковикам:
+        выдуманные цены — единственное, чего нам нельзя.
+      </p>
+    </div>
+  </section>
+
+  <section class="sect">
+    <h2>Что дальше</h2>
+    <div class="next">
+      <div>
+        <h3>За мной</h3>
+        <ul>
+          <li>Держать схемы в актуальном виде по прежним ссылкам</li>
+          <li>Идти с вами по блокам — с первого до двадцать третьего</li>
+          <li>Написать английский и испанский текст правила про вещества отдельно, не переводом, и показать до публикации</li>
+          <li>Вернуться к коду, когда схемы вас устроят</li>
+        </ul>
+      </div>
+      <div>
+        <h3>За вами</h3>
+        <ul>
+          <li>Ответить на вопрос про тяжёлый случай ночью</li>
+          <li>Снять три-четыре мешка подряд — серия начинается с этого</li>
+          <li>Записать десять минут ночи у воды и прислать файл как есть</li>
+          <li>Напечатать один тестовый отпечаток в Куско</li>
+          <li>Фотографии — по списку, когда прототип закрыт</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sect">
+    <h2>Где что лежит</h2>
+    <div class="links">
+      <div class="link"><a href="https://claude.ai/code/artifact/6dad331b-84a1-4129-820c-3feda14bfd8a">Схема для компьютера</a><span>23 блока главной и все страницы, подробно</span></div>
+      <div class="link"><a href="https://claude.ai/code/artifact/6a27bb80-a5b1-40f1-bb4f-b4daf3197821">Схема для телефона</a><span>то же самое, экран за экраном</span></div>
+      <div class="link"><a href="https://claude.ai/code/artifact/bd7b6844-702f-4057-9285-bf92bb16af8e">Блог: тексты и кадры</a><span>12 статей и 50 мест под фотографии</span></div>
+      <div class="link"><a href="https://claude.ai/code/artifact/f05b3dbf-9b72-4117-a129-f43673924ff3">Все вопросы</a><span>сорок штук, из них открыто два</span></div>
+      <div class="link"><a href="https://claude.ai/code/artifact/99f2a6d1-18c7-497a-b83a-8acca0968999">Эксперимент: 14 блоков вместо 23</a><span>отдельная линия, решения по ней нет</span></div>
+      <div class="link"><a href="https://kinsacocha.vercel.app">Живой сайт</a><span>предыдущая версия, от поисковиков закрыт</span></div>
+    </div>
+  </section>
+
+  <p class="tail">
+    Обсуждаем по номерам блоков: «06 поднять выше 05», «в 10 вместо карточек лента».
+    Перерисую по тем же ссылкам — адреса не меняются.
+  </p>
+
+</div>
