@@ -1,0 +1,1101 @@
+<title>Kinsacocha — эксперимент: 14 блоков вместо 23</title>
+<style>
+  :root {
+    --bg: #e8e8e6;
+    --paper: #f5f5f3;
+    --ink: #16171a;
+    --ink-2: #43464b;
+    --muted: #767a80;
+    --edge: #cbcbc7;
+    --edge-2: #dededa;
+    --accent: #a02c22;
+    --dark: #1a1b1d;
+    --dark-ink: #e6e6e2;
+    --dark-edge: #34363a;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141517;
+      --paper: #1d1e21;
+      --ink: #e7e7e3;
+      --ink-2: #b3b5b8;
+      --muted: #85888d;
+      --edge: #34363a;
+      --edge-2: #2a2c2f;
+      --accent: #e0685c;
+      --dark: #0e0f11;
+      --dark-ink: #e7e7e3;
+      --dark-edge: #33353a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141517;
+    --paper: #1d1e21;
+    --ink: #e7e7e3;
+    --ink-2: #b3b5b8;
+    --muted: #85888d;
+    --edge: #34363a;
+    --edge-2: #2a2c2f;
+    --accent: #e0685c;
+    --dark: #0e0f11;
+    --dark-ink: #e7e7e3;
+    --dark-edge: #33353a;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 46px 24px 90px; }
+
+  h1, h2, h3 { margin: 0; font-weight: 600; text-wrap: balance; }
+  h1 { font-family: var(--serif); font-size: 40px; line-height: 1.12; letter-spacing: -0.01em; }
+  h2 { font-family: var(--serif); font-size: 25px; line-height: 1.2; }
+  h3 { font-family: var(--serif); font-size: 20px; line-height: 1.25; }
+  p { margin: 0; }
+  code { font-family: var(--mono); font-size: 12px; background: var(--edge-2); padding: 1px 5px; border-radius: 2px; }
+
+  .eyebrow { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .lede { font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--ink-2); max-width: 66ch; }
+  .body { max-width: 68ch; color: var(--ink-2); }
+  .stack { display: flex; flex-direction: column; gap: 10px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* ── шапка документа ── */
+  header.top { border-bottom: 2px solid var(--ink); padding-bottom: 26px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--accent); color: var(--accent);
+    font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+    padding: 4px 10px; margin-bottom: 18px;
+  }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 20px; font-size: 11.5px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  /* ── счёт ── */
+  .score { display: flex; flex-wrap: wrap; gap: 0; margin: 26px 0 0; border: 1px solid var(--edge); background: var(--paper); }
+  .score > div { flex: 1 1 130px; padding: 14px 16px; border-right: 1px solid var(--edge); }
+  .score > div:last-child { border-right: 0; }
+  .score .n { font-family: var(--serif); font-size: 30px; line-height: 1; }
+  .score .k { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+  .score .was { color: var(--muted); text-decoration: line-through; font-size: 15px; margin-left: 6px; }
+
+  /* ── разделы документа ── */
+  section.doc { margin-top: 54px; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--ink); padding-bottom: 9px; margin-bottom: 22px; }
+  .sec-head .idx { font-size: 11px; color: var(--muted); letter-spacing: .1em; }
+
+  /* ── проходы ── */
+  .pass { display: grid; grid-template-columns: 44px 1fr; gap: 0 18px; padding: 16px 0; border-bottom: 1px solid var(--edge); }
+  .pass:last-child { border-bottom: 0; }
+  .pass .p-n { font-family: var(--serif); font-size: 26px; color: var(--accent); line-height: 1; }
+  .pass h3 { margin-bottom: 5px; }
+  .pass .did { margin-top: 8px; font-size: 12px; color: var(--muted); border-left: 2px solid var(--edge); padding-left: 12px; }
+
+  /* ── таблица соответствия ── */
+  .map { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .map th { text-align: left; font-weight: 600; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 0 10px 8px 0; border-bottom: 1px solid var(--edge); }
+  .map td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--edge-2); vertical-align: top; }
+  .map td:first-child { color: var(--muted); width: 42px; font-variant-numeric: tabular-nums; }
+  .map td.to { width: 130px; }
+  .map .gone { color: var(--accent); }
+  .scroller { overflow-x: auto; }
+
+  /* ── блок ── */
+  .block { display: grid; grid-template-columns: 1fr 250px; gap: 0 28px; padding: 34px 0; border-top: 1px solid var(--edge); }
+  .block:first-of-type { border-top: 2px solid var(--ink); }
+  .block-head { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .block-head .num { font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid var(--accent); padding: 2px 7px; }
+  .block-head .file { font-size: 11px; color: var(--muted); }
+  .chip { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--edge); padding: 2px 7px; }
+  .chip.merged { border-color: var(--accent); color: var(--accent); }
+  .chip.future { border-style: dashed; }
+
+  /* ── эскиз ── */
+  .spec { border: 1px solid var(--edge); background: var(--paper); padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .spec.dark { background: var(--dark); border-color: var(--dark-edge); color: var(--dark-ink); }
+  .spec.dark .lbl { color: #8f9298; }
+  .spec.dark .ph { background: #232528; border-color: #35373b; color: #7e8187; }
+  .spec.dark .bars i { background: #3a3d41; }
+  .spec.dark .cell { border-color: #35373b; }
+  .spec.dark .btn { border-color: #55585d; color: var(--dark-ink); }
+
+  .lbl { font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+  .ph {
+    background: var(--edge-2); border: 1px solid var(--edge);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 9.5px; letter-spacing: .1em; text-align: center; padding: 6px;
+    min-height: 46px;
+  }
+  .r219 { aspect-ratio: 21/9; } .r169 { aspect-ratio: 16/9; } .r43 { aspect-ratio: 4/3; }
+  .r45 { aspect-ratio: 4/5; } .r11 { aspect-ratio: 1/1; } .r34 { aspect-ratio: 3/4; }
+  .bars { display: flex; flex-direction: column; gap: 5px; }
+  .bars i { height: 5px; background: var(--edge); display: block; }
+  .w100 { width: 100%; } .w90 { width: 90%; } .w80 { width: 80%; }
+  .w70 { width: 70%; } .w60 { width: 60%; } .w45 { width: 45%; }
+  .t-h { font-family: var(--serif); font-size: 19px; line-height: 1.2; }
+  .t-h.big { font-size: 26px; }
+  .t-h.sm { font-size: 15px; }
+  .t-acc { font-family: var(--serif); font-size: 16px; color: var(--accent); }
+  .cell { border: 1px solid var(--edge); padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .cell.tight { padding: 9px; gap: 6px; }
+  .btn {
+    border: 1px solid var(--ink); color: var(--ink);
+    font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 7px 12px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    align-self: flex-start;
+  }
+  .btn.wa { border-color: var(--accent); color: var(--accent); }
+  .btn.ghost { border-color: var(--edge); color: var(--muted); }
+  .btn.full { align-self: stretch; }
+  .pill { font-size: 10.5px; border: 1px solid var(--edge); padding: 2px 8px; color: var(--ink-2); }
+  .pill.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .rule { height: 1px; background: var(--edge); }
+  .g2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .split.narrow-l { grid-template-columns: 92px 1fr; }
+  .quote { border-left: 2px solid var(--accent); padding-left: 12px; }
+  .strike { text-decoration: line-through; text-decoration-thickness: 1px; opacity: .75; }
+
+  /* ── поля: заметки на полях ── */
+  .side { display: flex; flex-direction: column; gap: 14px; padding-top: 2px; }
+  .side .purpose { font-family: var(--serif); font-size: 15px; line-height: 1.45; color: var(--ink); }
+  .side .n { font-size: 11.5px; line-height: 1.5; color: var(--ink-2); border-left: 2px solid var(--edge); padding-left: 10px; }
+  .side .n.acc { border-color: var(--accent); }
+  .side .n b { color: var(--accent); font-weight: 600; display: block; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2px; }
+  .side .n.q b { color: var(--ink); }
+
+  .callout { border: 1px solid var(--accent); padding: 18px; margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .callout h3 { color: var(--accent); }
+
+  .kept { border: 1px solid var(--edge); background: var(--paper); padding: 16px 18px; display: flex; flex-direction: column; gap: 9px; }
+  .kept .k-i { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 12px; color: var(--ink-2); }
+  .kept .k-i span:first-child { color: var(--accent); }
+
+  footer.end { margin-top: 60px; border-top: 2px solid var(--ink); padding-top: 20px; font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 8px; }
+
+  @media (max-width: 860px) {
+    .block { grid-template-columns: 1fr; gap: 18px; }
+    .side { border-top: 1px solid var(--edge); padding-top: 14px; }
+    .split, .g3, .g4 { grid-template-columns: 1fr 1fr; }
+    .split.narrow-l { grid-template-columns: 70px 1fr; }
+    h1 { font-size: 30px; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 30px 16px 70px; }
+    .g2, .g3, .g4, .split { grid-template-columns: 1fr; }
+    .split.narrow-l { grid-template-columns: 62px 1fr; }
+  }
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <span class="badge">Экспериментальная версия · пять проходов упрощения</span>
+  <h1>Двадцать три блока стали четырнадцатью</h1>
+  <p class="lede" style="margin-top:16px">
+    Это не замена рабочей схеме — это отдельный вариант, собранный из неё же.
+    Задача была одна: сделать проще и понятнее, потом упростить получившееся ещё раз,
+    и так пять раз подряд. Ниже — результат и дорога к нему.
+  </p>
+  <div class="meta">
+    <span><b>14 августа 2026</b></span>
+    <span>основа — <b>прототип v1</b>, он остался нетронутым</span>
+    <span>код не тронут · ветка <b>redesign</b></span>
+  </div>
+
+  <div class="score">
+    <div><div class="n">14<span class="was">23</span></div><div class="k">блока на главной</div></div>
+    <div><div class="n">1</div><div class="k">блок удалён совсем</div></div>
+    <div><div class="n">8</div><div class="k">слились попарно</div></div>
+    <div><div class="n">0</div><div class="k">фактов потеряно</div></div>
+  </div>
+</header>
+
+<!-- ══════════ ПЯТЬ ПРОХОДОВ ══════════ -->
+<section class="doc">
+  <div class="sec-head"><h2>Пять проходов</h2><span class="idx">что делал каждый</span></div>
+
+  <div class="pass">
+    <div class="p-n">1</div>
+    <div>
+      <h3>Слить то, что отвечает на один вопрос</h3>
+      <p class="body">Блоки писались по очереди, и часть из них незаметно отвечала на один и тот же вопрос гостя разными словами. «Просто дом» и «Кому вы пишете» — оба про то, что здесь живёт человек. «Что есть в доме» и «Где вы будете спать» — оба про дом внутри. «Дорога» и «Высота» — оба про «доеду ли я».</p>
+      <div class="did">23 → 15. Восемь блоков сложились в четыре.</div>
+    </div>
+  </div>
+
+  <div class="pass">
+    <div class="p-n">2</div>
+    <div>
+      <h3>Переставить по вопросам, которые человек задаёт</h3>
+      <p class="body">Старый порядок шёл от того, как нам удобно рассказывать. Новый — от того, как человек спрашивает: что это → ради чего ехать → доеду ли → кому я пишу → сколько стоит → где сплю → что буду делать → правда ли это → что взять → как написать.</p>
+      <div class="did">Главная перестановка: «Чего вы здесь не найдёте» уехал с четвёртого места на одиннадцатое. Правило про приватность теперь стоит там, где вопрос о нём и возникает, — сразу после маршрутов и живности.</div>
+    </div>
+  </div>
+
+  <div class="pass">
+    <div class="p-n">3</div>
+    <div>
+      <h3>Один блок — одна мысль и одно действие</h3>
+      <p class="body">Прошёл внутрь каждого блока и убрал вторые и третьи мысли. Самое крупное — в «Маршрутах»: там четыре полосы времени суток и интерактив «проводник отвечает» говорили одно и то же дважды. Теперь полосы <b>и есть</b> способ ответить: вы выбираете время суток, нажав на полосу, и проводник отвечает прямо под ней.</p>
+      <div class="did">Три измеренные цифры (4200 м, тишина, класс неба) переехали из «Трёх озёр» в «Дорогу и высоту» — там, где речь и идёт о высоте.</div>
+    </div>
+  </div>
+
+  <div class="pass">
+    <div class="p-n">4</div>
+    <div>
+      <h3>Телефон — исходник, компьютер — производное</h3>
+      <p class="body">Раньше мобильная схема выводилась из компьютерной. Перевернул: раскладка рождается на телефоне, а на большом экране получает воздух и вторую колонку. Основной трафик придёт из Instagram — значит телефон и есть настоящий сайт, а не его уменьшенная копия.</p>
+      <div class="did">Что изменилось от этого: четыре карточки форматов стали компактным списком, первый экран потерял слайдер на двенадцать кадров, ступени живности стали лентами с горизонтальной прокруткой вместо сеток на восемь карточек.</div>
+    </div>
+  </div>
+
+  <div class="pass">
+    <div class="p-n">5</div>
+    <div>
+      <h3>Тест на удаление</h3>
+      <p class="body">Каждый оставшийся блок проверен одним вопросом: если убрать — что сломается? Если ничего не сломается, блок уходит.</p>
+      <div class="did">Убрана «Фото-мозаика». Она стояла как визуальная пауза после четырёх тяжёлых блоков подряд, но тяжёлых блоков подряд больше нет, а фотографии есть в каждом блоке и целиком в галерее. Ссылка на галерею переехала в «Полевые заметки» и в подвал. Остальные тринадцать тест прошли.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ГДЕ ЧТО ══════════ -->
+<section class="doc">
+  <div class="sec-head"><h2>Где что теперь</h2><span class="idx">все 23 старых блока, ни один не потерян</span></div>
+  <p class="body" style="margin-bottom:18px">Таблица нужна для одного: убедиться, что ничего не пропало молча. Каждая старая строка имеет адрес в новой схеме.</p>
+  <div class="scroller">
+  <table class="map">
+    <thead><tr><th></th><th>Было</th><th>Стало</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td>01</td><td>Первый экран</td><td class="to">01 Первый экран</td><td>Без изменений по смыслу, легче по весу</td></tr>
+      <tr><td>02</td><td>Просто дом</td><td class="to">04 Кто здесь живёт</td><td rowspan="2">Оба говорили «здесь человек, а не отель». Теперь это один блок с лицом и текстом</td></tr>
+      <tr><td>03</td><td>Кому вы пишете</td><td class="to">04 Кто здесь живёт</td></tr>
+      <tr><td>04</td><td>Чего вы здесь не найдёте</td><td class="to">11 Чего вы здесь не найдёте</td><td>Переехал вниз и вобрал в себя блок 21</td></tr>
+      <tr><td>05</td><td>Три озера</td><td class="to">02 Три озера</td><td>Поднялся: это ответ на «ради чего ехать»</td></tr>
+      <tr><td>06</td><td>Дорога</td><td class="to">03 Дорога и высота</td><td rowspan="2">Оба отвечают «доеду ли я и выдержу ли». Общая строка: «Добраться просто. Привыкнуть — нет»</td></tr>
+      <tr><td>07</td><td>Высота</td><td class="to">03 Дорога и высота</td></tr>
+      <tr><td>08</td><td>Как сюда приезжают</td><td class="to">05 Сутки здесь</td><td rowspan="2">Единица продажи — сутки. Сначала что такое эти сутки, потом четыре способа их провести</td></tr>
+      <tr><td>09</td><td>Сутки здесь</td><td class="to">05 Сутки здесь</td></tr>
+      <tr><td>10</td><td>Еда и напитки</td><td class="to">07 Еда</td><td>Без изменений</td></tr>
+      <tr><td>11</td><td>Что есть в доме</td><td class="to">06 Дом внутри</td><td rowspan="2">Они и так «прилипали» друг к другу — были одним блоком с двумя заголовками</td></tr>
+      <tr><td>12</td><td>Где вы будете спать</td><td class="to">06 Дом внутри</td></tr>
+      <tr><td>13</td><td>Маршруты</td><td class="to">08 Маршруты</td><td>Два слоя схлопнуты в один: полосы стали способом задать вопрос</td></tr>
+      <tr><td>14</td><td>Кого вы увидите</td><td class="to">09 Что здесь живёт</td><td rowspan="2">Появился Атлас — на главной хватает короткого показа, подробности живут на своих страницах</td></tr>
+      <tr><td>15</td><td>То, что под ногами</td><td class="to">09 Что здесь живёт</td></tr>
+      <tr><td>16</td><td>Ткачество</td><td class="to">10 Ткачество</td><td>Без изменений</td></tr>
+      <tr><td>17</td><td>Фото-мозаика</td><td class="to gone">удалена</td><td class="gone">Пауза между тяжёлыми блоками, которых больше нет. Ссылка в галерею осталась в 12 и в подвале</td></tr>
+      <tr><td>18</td><td>Полевые заметки</td><td class="to">12 Полевые заметки</td><td>Поднялись выше: живая лента — сильное доказательство, ей не место в самом низу</td></tr>
+      <tr><td>19</td><td>Подготовка</td><td class="to">13 Подготовка</td><td rowspan="2">Оба отвечают «что мне надо знать заранее». Вопросы стали хвостом подготовки</td></tr>
+      <tr><td>20</td><td>Практика</td><td class="to">13 Подготовка</td></tr>
+      <tr><td>21</td><td>По рекомендации</td><td class="to">11 Чего вы здесь не найдёте</td><td>Одно правило вместо двух: не публикуем ни троп, ни лиц</td></tr>
+      <tr><td>22</td><td>Приезжайте</td><td class="to">14 Приезжайте</td><td rowspan="2">Кнопка WhatsApp стояла дважды подряд на расстоянии одного экрана</td></tr>
+      <tr><td>23</td><td>Подвал</td><td class="to">14 Приезжайте</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ══════════ БЛОКИ ══════════ -->
+<section class="doc">
+  <div class="sec-head"><h2>Четырнадцать блоков</h2><span class="idx">сверху вниз, как на сайте</span></div>
+  <p class="body" style="margin-bottom:8px">Серый прямоугольник — фотография. Полоски — текст. Рамка с подписью — кнопка. Справа от каждого эскиза — зачем блок и что в нём поменялось.</p>
+</section>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">01</span><h3>Первый экран</h3><span class="file">Hero.tsx</span>
+    <span class="chip">камень</span><span class="chip">высота экрана</span>
+  </div>
+  <div class="spec dark">
+    <div class="lbl">Фото на весь экран · три кадра, смена медленная</div>
+    <div class="ph r219"><span>ФОТО 1 / 3</span></div>
+    <div class="stack" style="align-items:center;margin-top:-70px;position:relative;z-index:1">
+      <div class="t-h big">Ночь у трёх озёр Кинса Коча</div>
+      <div class="bars" style="width:60%"><i class="w100"></i><i class="w70"></i></div>
+      <div class="btn" style="align-self:center">▶ СМОТРЕТЬ ФИЛЬМ</div>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">Одно обещание и одно действие. Дальше — ответ на «ради чего ехать», без промежуточных шагов.</p>
+    <div class="n acc"><b>изменено</b>Было двенадцать кадров, стало три. Двенадцать — это двенадцать загрузок на телефоне ради эффекта, который человек видит четыре секунды.</div>
+    <div class="n"><b>вопрос</b>Кнопка ведёт на демо-ролик Vimeo — ваши шесть видео ещё не загружены.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">02</span><h3>Три озера</h3><span class="file">Lakes.tsx</span>
+    <span class="chip">бумага</span><span class="chip">три карточки</span>
+  </div>
+  <div class="spec">
+    <div class="t-h">Три озера</div>
+    <div class="t-acc">Kinsa qucha — три озера. Место названо счётом.</div>
+    <div class="bars"><i class="w90"></i><i class="w60"></i></div>
+    <div class="g3">
+      <div class="stack" style="gap:6px">
+        <div class="ph r45"><span>ФОТО</span></div>
+        <div class="t-h sm" style="margin-top:-44px;position:relative;z-index:1;padding:0 8px">4325 м<br><span style="font-size:12px;opacity:.7">Пума Коча</span></div>
+        <div class="bars" style="margin-top:22px"><i class="w100"></i><i class="w70"></i></div>
+      </div>
+      <div class="stack" style="gap:6px">
+        <div class="ph r45"><span>ФОТО</span></div>
+        <div class="t-h sm" style="margin-top:-44px;position:relative;z-index:1;padding:0 8px">4247 м<br><span style="font-size:12px;opacity:.7">Асуль Коча</span></div>
+        <div class="bars" style="margin-top:22px"><i class="w100"></i><i class="w80"></i></div>
+      </div>
+      <div class="stack" style="gap:6px">
+        <div class="ph r45"><span>ФОТО</span></div>
+        <div class="t-h sm" style="margin-top:-44px;position:relative;z-index:1;padding:0 8px">? м<br><span style="font-size:12px;opacity:.7">Кинса Коча</span></div>
+        <div class="bars" style="margin-top:22px"><i class="w100"></i><i class="w60"></i></div>
+      </div>
+    </div>
+    <div class="btn ghost">ЧИТАТЬ ПРО ТРИ ОЗЕРА →</div>
+  </div>
+  <div class="side">
+    <p class="purpose">Единственный ответ на вопрос «ради чего ехать». Поднят на второе место — раньше человек добирался до него через три блока.</p>
+    <div class="n acc"><b>изменено</b>Три измеренные цифры (высота, тишина, класс неба) отсюда ушли в блок 03 — они про высоту, а не про озёра.</div>
+    <div class="n"><b>вопрос</b>Высота Кинса Кочи не названа — на третьей карточке пусто.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">03</span><h3>Дорога и высота</h3><span class="file">Approach.tsx</span>
+    <span class="chip merged">06 + 07</span><span class="chip">камень</span>
+  </div>
+  <div class="spec dark">
+    <div class="t-h">Дорога и высота</div>
+    <div class="t-acc">Добраться просто. Привыкнуть — нет.</div>
+    <div class="row" style="gap:34px;margin-top:4px">
+      <div class="stack" style="gap:3px"><div class="t-h big">40</div><div class="lbl">минут от Писака</div></div>
+      <div class="stack" style="gap:3px"><div class="t-h big">1,5</div><div class="lbl">часа от Куско</div></div>
+    </div>
+    <div class="rule"></div>
+    <div class="lbl">измерено, а не написано</div>
+    <div class="g3">
+      <div class="stack" style="gap:2px"><div class="t-h">4200</div><div class="lbl">метров · барометр</div></div>
+      <div class="stack" style="gap:2px"><div class="t-h">‹25</div><div class="lbl">децибел ночью</div></div>
+      <div class="stack" style="gap:2px"><div class="t-h">2</div><div class="lbl">класс неба по Бортлю</div></div>
+    </div>
+    <div class="rule"></div>
+    <div class="stack" style="gap:7px">
+      <div class="quote"><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
+      <div class="quote"><div class="bars"><i class="w90"></i></div></div>
+      <div class="quote"><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
+      <div class="quote"><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
+    </div>
+    <div class="t-h sm">Мы предпочтём отговорить вас от неудачной даты, чем принять и смотреть, как вам плохо.</div>
+    <div class="row">
+      <div class="btn wa">НАПИСАТЬ ПРО ТРАНСФЕР</div>
+      <div class="btn ghost">ПРО ГОРНУЮ БОЛЕЗНЬ →</div>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">«Далеко ли» и «выдержу ли» — один вопрос, заданный дважды. Теперь и ответ один.</p>
+    <div class="n acc"><b>слито</b>Два блока в один. Заголовок делает работу обоих: сначала снимает страх дороги, потом ставит серьёзность высоты.</div>
+    <div class="n acc"><b>переехало</b>Три измеренные цифры из блока «Три озера». Здесь они на месте: 4200 — это и есть высота, о которой речь.</div>
+    <div class="n"><b>вопрос</b>Время от Куско — полтора часа с ваших слов, внешние источники дают два. На сайте стоит ваша цифра.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">04</span><h3>Кто здесь живёт</h3><span class="file">Story.tsx</span>
+    <span class="chip merged">02 + 03</span><span class="chip">бумага</span>
+  </div>
+  <div class="spec">
+    <div class="split narrow-l">
+      <div class="ph r11"><span>ФОТО ВЛАДЕЛЬЦА</span></div>
+      <div class="stack">
+        <div class="t-h">Кто здесь живёт</div>
+        <div class="t-acc">Это не отель, не ретрит и не глэмпинг. Это дом.</div>
+        <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w70"></i></div>
+        <div class="quote"><div class="t-h sm">Дом — частный. Всё вокруг — общее.</div></div>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="lbl">четыре кадра быта · вразнобой, как поляроиды</div>
+    <div class="g4">
+      <div class="ph r43"><span>ФОТО</span></div>
+      <div class="ph r43" style="margin-top:16px"><span>ФОТО</span></div>
+      <div class="ph r43"><span>ФОТО</span></div>
+      <div class="ph r43" style="margin-top:16px"><span>ФОТО</span></div>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">Лицо и имя до того, как человек нажмёт «написать». Он пишет человеку, а не бренду.</p>
+    <div class="n acc"><b>слито</b>«Просто дом» и «Кому вы пишете» стояли рядом и говорили одно. Теперь портрет и текст в одном блоке: фраза «это не отель» звучит от лица, а не из воздуха.</div>
+    <div class="n"><b>сохранено</b>Строка «Дом — частный. Всё вокруг — общее» — она объясняет и статус дома, и отношения с общиной.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">05</span><h3>Сутки здесь</h3><span class="file">Stay.tsx</span>
+    <span class="chip merged">08 + 09</span><span class="chip">бумага</span><span class="chip">главный блок</span>
+  </div>
+  <div class="spec">
+    <div class="t-h">Сутки здесь</div>
+    <div class="bars"><i class="w70"></i></div>
+    <div class="lbl">сутки считаются от утра до утра</div>
+    <div class="stack" style="gap:8px;border-left:1px solid var(--edge);padding-left:14px">
+      <div class="row" style="gap:14px"><span class="pill">15:00</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
+      <div class="row" style="gap:14px"><span class="pill">18:00</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
+      <div class="row" style="gap:14px"><span class="pill">21:00</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
+      <div class="row" style="gap:14px"><span class="pill">06:00</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+      <div class="row" style="gap:14px"><span class="pill">10:00</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
+    </div>
+    <div class="rule"></div>
+    <div class="lbl">четыре способа провести эти сутки · строкой, а не карточками</div>
+    <div class="stack" style="gap:0">
+      <div class="row" style="justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--edge)">
+        <div class="stack" style="gap:3px;flex:1"><div class="t-h sm">Сутки в доме</div><div class="bars"><i class="w80"></i></div></div>
+        <div class="row" style="align-items:center;gap:12px"><span class="lbl">от 40 USD</span><span class="btn wa">НАПИСАТЬ</span></div>
+      </div>
+      <div class="row" style="justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--edge)">
+        <div class="stack" style="gap:3px;flex:1"><div class="t-h sm">С проводником</div><div class="bars"><i class="w70"></i></div></div>
+        <div class="row" style="align-items:center;gap:12px"><span class="lbl">от 90 USD</span><span class="btn wa">НАПИСАТЬ</span></div>
+      </div>
+      <div class="row" style="justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--edge)">
+        <div class="stack" style="gap:3px;flex:1"><div class="t-h sm">Аренда мест</div><div class="bars"><i class="w80"></i></div></div>
+        <div class="row" style="align-items:center;gap:12px"><span class="lbl">от 55 USD</span><span class="btn wa">НАПИСАТЬ</span></div>
+      </div>
+      <div class="row" style="justify-content:space-between;align-items:center;padding:11px 0">
+        <div class="stack" style="gap:3px;flex:1"><div class="t-h sm">Весь дом ваш</div><div class="bars"><i class="w70"></i></div></div>
+        <div class="row" style="align-items:center;gap:12px"><span class="lbl">индивидуально</span><span class="btn wa">НАПИСАТЬ</span></div>
+      </div>
+    </div>
+    <div class="lbl">одной строкой под списком: с детьми комфортно во всех четырёх</div>
+  </div>
+  <div class="side">
+    <p class="purpose">Сначала показываем, что такое сутки здесь. Потом — четыре способа их провести. Раньше это были два блока, и второй объяснял первый задним числом.</p>
+    <div class="n acc"><b>изменено</b>Четыре карточки с фотографиями стали четырьмя строками. На телефоне карточки — это четыре экрана прокрутки ради одного решения; строки — один экран, всё видно разом и сравнимо.</div>
+    <div class="n acc"><b>убрано</b>Повторяющаяся на каждой карточке пометка «с детьми комфортно» — теперь одна строка под списком. Было четыре раза одно и то же.</div>
+    <div class="n"><b>цены</b>Все четыре цифры — заглушки, лежат в одном файле, меняются в одну строку.</div>
+    <div class="n"><b>вопрос</b>Время в расписании суток проставлено на глаз — нужно ваше подтверждение.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">06</span><h3>Дом внутри</h3><span class="file">House.tsx</span>
+    <span class="chip merged">11 + 12</span><span class="chip">бумага</span>
+  </div>
+  <div class="spec">
+    <div class="t-h">Дом внутри</div>
+    <div class="g4" style="grid-auto-rows:minmax(54px,auto)">
+      <div class="ph" style="grid-column:span 2;grid-row:span 2;min-height:118px"><span>ГОРЯЧИЙ ДУШ</span></div>
+      <div class="ph" style="grid-column:span 2"><span>ЖИВОЙ ОГОНЬ</span></div>
+      <div class="ph"><span>КУХНЯ</span></div>
+      <div class="ph"><span>ТИПИ</span></div>
+      <div class="ph" style="grid-column:span 2"><span>КОМНАТА</span></div>
+      <div class="ph" style="grid-column:span 2"><span>ГОСТИНАЯ</span></div>
+    </div>
+    <div class="rule"></div>
+    <div class="row" style="justify-content:space-between;align-items:baseline">
+      <div class="t-h sm">Всего спальных мест — N</div>
+      <div class="lbl">группы спрашивают это первым сообщением</div>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">Что есть в доме и где вы будете спать — это одна экскурсия, а не две.</p>
+    <div class="n acc"><b>слито</b>Блоки 11 и 12 в старой схеме уже «прилипали» друг к другу при прокрутке — то есть были одним блоком с двумя заголовками. Теперь честно один.</div>
+    <div class="n acc"><b>изменено</b>Горячий душ стоит первым и крупным. Гости говорят о нём чаще, чем о звёздах, — это не догадка, это то, что вы рассказывали.</div>
+    <div class="n"><b>фото</b>Ни печи, ни душа, ни типи, ни интерьера в исходниках нет. Весь блок сейчас на пейзажных заглушках.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">07</span><h3>Еда</h3><span class="file">Food.tsx</span>
+    <span class="chip">бумага тёмная</span>
+  </div>
+  <div class="spec">
+    <div class="t-h">Еда</div>
+    <div class="t-acc">Ресторана нет. Есть соседи, которые готовят.</div>
+    <div class="g3">
+      <div class="stack" style="gap:6px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Труча из лагуны</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
+      <div class="stack" style="gap:6px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Чуньо и морайя</div><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
+      <div class="stack" style="gap:6px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Яйца и молоко</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
+      <div class="stack" style="gap:6px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Чича горячей</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
+      <div class="stack" style="gap:6px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Чай и муня</div><div class="bars"><i class="w90"></i></div></div>
+      <div class="stack" style="gap:6px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Готовить самим</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
+    </div>
+    <div class="btn wa">ЗАКАЗАТЬ ЕДУ ЗАРАНЕЕ</div>
+    <div class="lbl">строка: заказ через WhatsApp за день — наверху не магазин</div>
+  </div>
+  <div class="side">
+    <p class="purpose">Снимает главное возражение целиком: приехать в горы и не найти еды.</p>
+    <div class="n acc"><b>изменено</b>Было семь карточек, стало шесть: «готовят соседи» из карточки превратилось в заголовок блока. Это не одна из позиций меню — это устройство всей еды здесь.</div>
+    <div class="n"><b>фото</b>Кадров еды нет ни одного — стоят пейзажи. Самая заметная подмена на сайте.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">08</span><h3>Маршруты</h3><span class="file">RoutesSection.tsx</span>
+    <span class="chip merged">два слоя в один</span><span class="chip">камень</span>
+  </div>
+  <div class="spec dark">
+    <div class="t-h">Маршруты</div>
+    <div class="t-acc">Здесь нет карты. И не будет.</div>
+    <div class="lbl">выберите время — проводник ответит</div>
+    <div class="stack" style="gap:8px">
+      <div class="ph r219" style="min-height:56px"><span>🌅 РАССВЕТ · ФОТО-ПОЛОСА</span></div>
+      <div class="ph r219" style="min-height:56px"><span>☀ УТРО С ДЕТЬМИ · ФОТО-ПОЛОСА</span></div>
+      <div class="cell" style="border-color:var(--accent);gap:10px">
+        <div class="ph r219" style="min-height:56px"><span>🌿 ДЕНЬ · ВЫБРАНО</span></div>
+        <div class="row" style="gap:6px">
+          <span class="lbl" style="align-self:center">кто идёт:</span>
+          <span class="pill">с детьми</span><span class="pill on">вдвоём</span><span class="pill">компания</span><span class="pill">один</span>
+        </div>
+        <div class="quote"><div class="bars"><i class="w100"></i><i class="w90"></i><i class="w45"></i></div><div class="lbl" style="margin-top:6px">одна из 16 реплик — появляется прямо под выбранной полосой</div></div>
+      </div>
+      <div class="stack" style="gap:8px">
+        <div class="ph r219" style="min-height:56px"><span>🌕 ПОЛНАЯ ЛУНА · ФОТО-ПОЛОСА</span></div>
+        <div class="cell tight" style="align-items:flex-start">
+          <div class="lbl">☾ лунное окно · считается в браузере</div>
+          <div class="t-h sm">23 августа · через 11 дней</div>
+          <div class="btn ghost">СПРОСИТЬ ПРО ЭТУ ДАТУ</div>
+        </div>
+      </div>
+    </div>
+    <div class="bars"><i class="w80"></i></div>
+    <div class="lbl">тихая строка внизу: проводник выберет тропу утром — по погоде и по тому, кто с вами идёт</div>
+  </div>
+  <div class="side">
+    <p class="purpose">Не сайт показывает маршруты — гость описывает себя, и проводник отвечает.</p>
+    <div class="n acc"><b>главное упрощение</b>Было два слоя: четыре полосы времени суток, а <i>под ними</i> отдельный интерактив с теми же четырьмя вариантами времени. Одно и то же спрашивалось дважды. Теперь полоса <b>и есть</b> вопрос: нажали на «День» — ответ раскрылся внутри неё.</div>
+    <div class="n acc"><b>следствие</b>Осталось два выбора вместо трёх шагов, и блок перестал быть самым длинным на странице.</div>
+    <div class="n"><b>сохранено</b>Лунное окно живёт внутри полосы «Полная луна», а не висит сбоку. Шестнадцать реплик — на месте.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">09</span><h3>Что здесь живёт</h3><span class="file">Life.tsx</span>
+    <span class="chip merged">14 + 15</span><span class="chip">камень → бумага</span>
+  </div>
+  <div class="spec dark">
+    <div class="t-h">Что здесь живёт</div>
+    <div class="lbl">лента слева направо · увидите точно</div>
+    <div class="g4">
+      <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Вискача</div><div class="lbl">каждый день</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Андский гусь</div><div class="lbl">каждый день</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Яна вико</div><div class="lbl">каждый день</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="lbl">→ ещё пять</div></div>
+    </div>
+    <div class="lbl">лента вторая · если повезёт — кадры темнее</div>
+    <div class="g4">
+      <div class="stack" style="gap:5px"><div class="ph r43" style="opacity:.6"><span>ФОТО</span></div><div class="t-h sm">Кондор</div><div class="lbl">несколько раз в год</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r43" style="opacity:.6"><span>ФОТО</span></div><div class="t-h sm">Тарука</div><div class="lbl">редко</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r43" style="opacity:.6"><span>ФОТО</span></div><div class="t-h sm">Лиса</div><div class="lbl">редко</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r43" style="opacity:.6"><span>ФОТО</span></div><div class="lbl">→ ещё два</div></div>
+    </div>
+    <div class="split" style="align-items:center">
+      <div class="ph r169" style="opacity:.35"><span>ПУСТОЙ СКЛОН · ФОТОГРАФИИ ПУМЫ НЕТ</span></div>
+      <div class="stack" style="gap:6px">
+        <div class="t-h sm">Пума здесь есть. Её здесь не видели.</div>
+        <div class="t-h sm" style="opacity:.7">У нас нет её фотографии. Поэтому её здесь не будет.</div>
+        <div class="lbl">+ строка для родителей: опасности нет, пума уходит от человека</div>
+      </div>
+    </div>
+  </div>
+  <div class="spec" style="margin-top:12px">
+    <div class="lbl">вторая половина блока · другая текстура: бумага, макро, полевой дневник</div>
+    <div class="t-acc">Здесь всё носит шерсть. Даже кактусы.</div>
+    <div class="g4">
+      <div class="stack" style="gap:5px"><div class="ph r11"><span>МАКРО</span></div><div class="lbl">кактус-подушка</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r11"><span>МАКРО</span></div><div class="lbl">жёлтые цветы</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r11"><span>МАКРО</span></div><div class="lbl">ичу</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r11"><span>МАКРО</span></div><div class="lbl">кеуния · по дороге</div></div>
+    </div>
+    <div class="lbl">мелкой строкой: эвкалипт, муня и кока растут ниже — вы проедете мимо, поднимаясь</div>
+    <div class="btn ghost">ОТКРЫТЬ АТЛАС →</div>
+  </div>
+  <div class="side">
+    <p class="purpose">Кто и что здесь живёт — коротко и с честными частотами. Подробности живут в Атласе, у каждого своя страница.</p>
+    <div class="n acc"><b>слито</b>«Кого вы увидите» и «То, что под ногами» были двумя большими блоками подряд. Теперь один блок с двумя половинами: тёмная — звери, светлая — растения. Смена фона делает ровно то, что делал разрыв на два блока: заставляет посмотреть под ноги.</div>
+    <div class="n acc"><b>изменено</b>Восемь карточек в ступени превратились в ленту из трёх плюс «ещё пять». Полный список — в Атласе, ради него он и заводится.</div>
+    <div class="n acc"><b>добавлено</b>Словесная частота на каждой карточке: «каждый день», «несколько раз в год». Раньше это было в очереди задач, теперь стоит в схеме.</div>
+    <div class="n"><b>сохранено</b>Пума в конце: пустой кадр и одна строка. Единственное место, где блок не сокращён ни на слово.</div>
+    <div class="n"><b>вопрос</b>Чайки и кролики — какие именно виды? До ответа их нет на схеме.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">10</span><h3>Ткачество</h3><span class="file">Weaving.tsx</span>
+    <span class="chip">бумага тёмная</span>
+  </div>
+  <div class="spec">
+    <div class="split">
+      <div class="ph r45"><span>ФОТО · ТКУТ НА ХОДУ</span></div>
+      <div class="stack">
+        <div class="t-h">Здесь ткут на ходу. Пока идут за стадом.</div>
+        <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w60"></i></div>
+        <div class="quote"><div class="t-h sm">Это не сувенир. Это заработок.</div></div>
+        <div class="row" style="gap:6px">
+          <span class="pill">пояса</span><span class="pill">накидки</span><span class="pill">шапки</span><span class="pill">сумки</span><span class="pill">пончо</span>
+        </div>
+        <div class="lbl">музей при общине · вход 5–10 солей · рядом Parque de la Papa</div>
+      </div>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">Одна деталь объясняет место лучше страницы текста — и её гость проверит сам, увидев по дороге.</p>
+    <div class="n"><b>без изменений</b>Блок прошёл все пять проходов нетронутым. Он и так был одной мыслью с одним образом.</div>
+    <div class="n"><b>фото</b>Музея и ткачества нет ни одного кадра, а «ткут на ходу» без фотографии не работает вовсе.</div>
+    <div class="n"><b>вопрос</b>Пару-Пару входит в Parque de la Papa или парк просто рядом? Формулировка пока осторожная.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">11</span><h3>Чего вы здесь не найдёте</h3><span class="file">NotPublished.tsx</span>
+    <span class="chip merged">04 + 21</span><span class="chip">бумага тёмная</span>
+  </div>
+  <div class="spec">
+    <div class="stack" style="align-items:center;text-align:center">
+      <div class="t-h">Чего вы здесь не найдёте</div>
+      <div class="stack" style="gap:7px;margin:4px 0">
+        <div class="t-h sm strike">координат</div>
+        <div class="t-h sm strike">маршрутов и километража</div>
+        <div class="t-h sm strike">мест, где видели пуму</div>
+        <div class="t-h sm strike">лиц тех, кто здесь был</div>
+      </div>
+      <div class="bars" style="width:60%"><i class="w100"></i><i class="w70"></i></div>
+      <div class="lbl">не из вредности — эти тропы держатся на том, что о них не пишут</div>
+    </div>
+    <div class="rule"></div>
+    <div class="stack">
+      <div class="t-h sm">Отзывов у нас нет. Есть тетрадь.</div>
+      <div class="lbl">интернета наверху нет — гости пишут от руки. Показываем развороты, не имена</div>
+      <div class="g3">
+        <div class="ph r43"><span>РАЗВОРОТ · ПОЧЕРК</span></div>
+        <div class="ph r43"><span>РАЗВОРОТ · ДРУГОЙ ЯЗЫК</span></div>
+        <div class="ph r43"><span>РАЗВОРОТ · ДЕТСКИЙ РИСУНОК</span></div>
+      </div>
+      <div class="lbl">ни одного имени, ни одного лица — только то, что человек написал сам</div>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">Одно правило вместо двух: мы не публикуем ни троп, ни людей. Тропы и гостей бережём одинаково.</p>
+    <div class="n acc"><b>слито</b>Блок про приватность и блок «мы не публикуем отзывы» говорили одну и ту же мысль в разных концах страницы. Соединённые, они усиливают друг друга: четвёртая зачёркнутая строка — «лиц тех, кто здесь был».</div>
+    <div class="n acc"><b>переставлено</b>Стоял четвёртым, стал одиннадцатым. Раньше правило звучало раньше, чем человек успевал полюбить место, — и читалось как отказ. Теперь оно приходит после маршрутов и живности и читается как характер.</div>
+    <div class="n acc"><b>решено попутно</b>Прежнее противоречие «гостей не публикуем, но вот их записи» снимается само: теперь тетрадь стоит внутри блока про непубликацию, и объяснять нечего.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">12</span><h3>Полевые заметки</h3><span class="file">NotesTeaser.tsx</span>
+    <span class="chip">бумага</span><span class="chip">обновляется само</span>
+  </div>
+  <div class="spec">
+    <div class="row" style="justify-content:space-between;align-items:baseline">
+      <div class="t-h">Полевые заметки</div>
+      <div class="lbl">все заметки →</div>
+    </div>
+    <div class="lbl">не путеводитель, а записи о том, что здесь происходит</div>
+    <div class="g3">
+      <div class="stack" style="gap:6px"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="lbl">12 августа</div><div class="t-h sm">Туман лёг в долину и не ушёл до полудня</div></div>
+      <div class="stack" style="gap:6px"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="lbl">4 августа</div><div class="t-h sm">Вискачи вышли на камни в пятом часу</div></div>
+      <div class="stack" style="gap:6px"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="lbl">28 июля</div><div class="t-h sm">Первый лёд у берега</div></div>
+    </div>
+    <div class="rule"></div>
+    <div class="btn ghost">СМОТРЕТЬ ВСЕ ФОТОГРАФИИ →</div>
+  </div>
+  <div class="side">
+    <p class="purpose">Доказательство, что место живое и здесь кто-то ходит прямо сейчас. Единственный блок, который обновляется без переделки сайта.</p>
+    <div class="n acc"><b>переставлено</b>Стояли восемнадцатыми, стали двенадцатыми. Живая лента — самый сильный аргумент после фотографий, ей нечего делать в самом низу.</div>
+    <div class="n acc"><b>принято</b>Ссылка в галерею переехала сюда из удалённой фото-мозаики. Место логичное: человек уже смотрит на кадры.</div>
+    <div class="n"><b>вопрос</b>Как часто реально будут выходить заметки? Лента, замёрзшая на позапрошлом месяце, читается хуже, чем её отсутствие.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">13</span><h3>Подготовка</h3><span class="file">Preparation.tsx</span>
+    <span class="chip merged">19 + 20</span><span class="chip">камень</span>
+  </div>
+  <div class="spec dark">
+    <div class="t-h">Подготовка</div>
+    <div class="t-acc">Днём вы обгорите. Ночью замёрзнете. Обе проблемы решаются заранее.</div>
+    <div class="g2">
+      <div class="cell"><div class="lbl">☾ ночь в доме</div><div class="bars"><i class="w100"></i><i class="w90"></i><i class="w100"></i><i class="w70"></i></div></div>
+      <div class="cell"><div class="lbl">☀ день на маршруте</div><div class="bars"><i class="w100"></i><i class="w90"></i><i class="w100"></i><i class="w80"></i><i class="w60"></i></div></div>
+    </div>
+    <div class="g2">
+      <div class="cell tight"><div class="t-h sm">Это уже есть — везти не надо</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
+      <div class="cell tight"><div class="t-h sm">Воду не берите. Она течёт из скалы</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
+    </div>
+    <div class="cell quote">
+      <div class="t-h sm">Не с пустыми руками</div>
+      <div class="bars"><i class="w100"></i><i class="w90"></i></div>
+      <div class="t-h sm" style="opacity:.8">Это не подарок. Это то, как здесь здороваются.</div>
+    </div>
+    <div class="rule"></div>
+    <div class="lbl">остальные вопросы · раскрывающиеся строки</div>
+    <div class="stack" style="gap:0">
+      <div class="row" style="justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--dark-edge)"><span class="bars" style="flex:1"><i class="w45"></i></span><span class="lbl">+</span></div>
+      <div class="row" style="justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--dark-edge)"><span class="bars" style="flex:1"><i class="w60"></i></span><span class="lbl">+</span></div>
+      <div class="stack" style="padding:9px 0;border-bottom:1px solid var(--dark-edge);gap:7px">
+        <div class="row" style="justify-content:space-between"><span class="bars" style="flex:1"><i class="w45"></i></span><span class="lbl">×</span></div>
+        <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+      </div>
+      <div class="row" style="justify-content:space-between;padding:9px 0"><span class="lbl">дети · питомцы · связь · оплата · ещё шесть</span></div>
+    </div>
+    <div class="btn ghost">КАК ЗДЕСЬ ПРИНЯТО · ПРАВИЛА ДОМА →</div>
+  </div>
+  <div class="side">
+    <p class="purpose">Всё, что нужно знать заранее, — в одном месте. Два списка про две разные проблемы плюс ответы на то, что спрашивают в переписке.</p>
+    <div class="n acc"><b>слито</b>«Подготовка» и «Практика» отвечали на один вопрос: что мне надо знать до приезда. Вопросы стали хвостом подготовки, а не отдельным блоком.</div>
+    <div class="n acc"><b>убрано отсюда</b>Аптечка. Она уже описана на странице правил, и держать её в двух местах — значит однажды разойтись в составе.</div>
+    <div class="n"><b>сохранено</b>Вода из скалы и айни — обе детали остались: первая практическая, вторая объясняет, как здесь здороваются.</div>
+    <div class="n"><b>языки</b>Про коку в английской и испанской версиях нужна поясняющая строка — иначе иностранец пугается.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">14</span><h3>Приезжайте</h3><span class="file">Contact.tsx + Footer.tsx</span>
+    <span class="chip merged">22 + 23</span><span class="chip">камень</span>
+  </div>
+  <div class="spec dark">
+    <div class="stack" style="align-items:center;text-align:center">
+      <div class="t-h big">Приезжайте</div>
+      <div class="bars" style="width:50%"><i class="w100"></i></div>
+      <div class="btn wa" style="align-self:center">НАПИСАТЬ В WHATSAPP</div>
+      <div class="lbl">если я наверху, связь ловит не всегда · пишите по-русски, по-английски или по-испански</div>
+    </div>
+    <div class="rule"></div>
+    <div class="g4">
+      <div class="stack" style="gap:5px"><div class="t-h sm">Kinsacocha</div><div class="lbl">Comunidad Paru-Paru, Pisac, Cusco</div><div class="lbl">без координат</div></div>
+      <div class="stack" style="gap:5px"><div class="lbl">три озера</div><div class="bars"><i class="w100"></i><i class="w100"></i><i class="w100"></i></div><div class="lbl">название и высота</div></div>
+      <div class="stack" style="gap:5px"><div class="lbl">разделы</div><div class="bars"><i class="w80"></i><i class="w70"></i><i class="w90"></i><i class="w60"></i></div></div>
+      <div class="stack" style="gap:5px"><div class="lbl">почта · языки</div><div class="row" style="gap:6px"><span class="pill">RU</span><span class="pill">EN</span><span class="pill">ES</span></div></div>
+    </div>
+    <div class="rule"></div>
+    <div class="row" style="justify-content:space-between">
+      <span class="lbl">Дом — частный. Всё вокруг — общее.</span>
+      <span class="lbl">© 2026 · сейчас в Пару-Пару ночь</span>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">Последний экран, а не служебная строка. Одна кнопка, честная строка про связь и подвал, который договаривает главное.</p>
+    <div class="n acc"><b>слито</b>«Приезжайте» и подвал стояли подряд, и кнопка WhatsApp попадалась дважды на расстоянии одного экрана. Теперь один финал.</div>
+    <div class="n acc"><b>добавлено</b>Живая строка «сейчас в Пару-Пару ночь» — считается в браузере, ничего не стоит и делает подвал живым.</div>
+    <div class="n"><b>вопрос</b>Почта пока заглушка <code>hola@kinsacocha.com</code>.</div>
+  </div>
+</article>
+
+<!-- ══════════ ОТДЕЛЬНЫЕ СТРАНИЦЫ ══════════ -->
+<section class="doc">
+  <div class="sec-head"><h2>Отдельные страницы</h2><span class="idx">строим сейчас</span></div>
+  <p class="body">Здесь пятый проход почти ничего не тронул: у страниц по одной задаче каждая, сливать было нечего. Изменения точечные и отмечены на полях.</p>
+</section>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">Д1</span><h3>Лента заметок</h3><span class="file">/dnevnik</span><span class="chip">хронология</span>
+  </div>
+  <div class="spec">
+    <div class="t-h big">Полевые заметки</div>
+    <div class="lbl">Август 2026</div>
+    <div class="split narrow-l">
+      <div class="stack" style="gap:2px"><div class="t-h sm">12 авг</div><div class="lbl">четверг</div></div>
+      <div class="stack" style="gap:6px">
+        <div class="ph r219"><span>ОБЛОЖКА</span></div>
+        <div class="t-h sm">Туман лёг в долину и не ушёл до полудня</div>
+        <div class="row" style="gap:6px"><span class="pill">яна вико</span><span class="pill">ичу</span></div>
+      </div>
+    </div>
+    <div class="split narrow-l">
+      <div class="stack" style="gap:2px"><div class="t-h sm">4 авг</div><div class="lbl">среда</div></div>
+      <div class="stack" style="gap:6px">
+        <div class="ph r219"><span>ОБЛОЖКА</span></div>
+        <div class="t-h sm">Вискачи вышли на камни в пятом часу</div>
+        <div class="row" style="gap:6px"><span class="pill">вискача</span></div>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="lbl">Июль 2026 · дальше вниз по датам</div>
+  </div>
+  <div class="side">
+    <p class="purpose">Не сетка карточек, а хронология: дата слева, запись справа. Читается как дневник, а не как блог.</p>
+    <div class="n acc"><b>убрано</b>Фильтр по сезонам. Пока заметок мало, он пустой, а пустой фильтр говорит «здесь ничего нет» громче, чем сами записи. Вернём, когда записей станет за тридцать.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">Д2</span><h3>Одна заметка</h3><span class="file">/dnevnik/[адрес]</span><span class="chip">узкая колонка</span>
+  </div>
+  <div class="spec">
+    <div class="lbl">← все заметки · 12 августа 2026</div>
+    <div class="t-h big">Туман лёг в долину и не ушёл до полудня</div>
+    <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w60"></i></div>
+    <div class="ph r219"><span>ФОТО ВО ВСЮ ШИРИНУ</span></div>
+    <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w45"></i></div>
+    <div class="cell tight">
+      <div class="row" style="gap:12px;align-items:center">
+        <span class="btn" style="width:32px;height:32px;padding:0;justify-content:center">▶</span>
+        <span style="flex:1;height:2px;background:var(--edge)"></span>
+        <span class="lbl">02:14 · звук этого дня</span>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="ph r43"><span>ФОТО</span></div>
+      <div class="ph r43" style="border-color:var(--accent)"><span>ВИДЕО-ПЕТЛЯ · 6 СЕК</span></div>
+    </div>
+    <div class="cell tight" style="border-left:2px solid var(--accent)">
+      <div class="row" style="gap:10px;align-items:flex-start">
+        <div class="ph r11" style="width:60px;flex:none"><span>ФОТО</span></div>
+        <div class="stack" style="gap:3px">
+          <div class="t-h sm">Яна вико <span style="opacity:.6;font-size:12px">Plegadis ridgwayi</span></div>
+          <div class="lbl">открыть карточку Атласа →</div>
+        </div>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="row" style="justify-content:space-between"><span class="lbl">← 4 августа</span><span class="lbl">18 августа →</span></div>
+  </div>
+  <div class="side">
+    <p class="purpose">Текст и кадры чередуются. Врезка со справкой — там, где вид упомянут, и не разрывает чтение.</p>
+    <div class="n acc"><b>убрано</b>Нижняя сетка «кто попался в этот день» на четыре кадра. Те же виды уже упомянуты врезками по тексту — сетка их повторяла.</div>
+    <div class="n"><b>правило</b>В заметке нет маршрута: что видели — да, куда шли — нет. Координаты снимаются и с фотографий, и с видео.</div>
+    <div class="n"><b>вес</b>Видео-петля тяжелее всей остальной страницы. Грузится только когда доскроллили.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">А1</span><h3>Атлас</h3><span class="file">/atlas</span><span class="chip">оглавление</span>
+  </div>
+  <div class="spec">
+    <div class="t-h big">Атлас</div>
+    <div class="lbl">что здесь живёт, растёт и лежит под ногами</div>
+    <div class="row" style="gap:6px">
+      <span class="pill on">все</span><span class="pill">птицы</span><span class="pill">звери</span><span class="pill">растения</span><span class="pill">камни</span><span class="pill">небо</span>
+    </div>
+    <div class="g4">
+      <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Вискача</div><div class="lbl">каждый день</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Яна вико</div><div class="lbl">каждый день</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кеуния</div><div class="lbl">растение</div></div>
+      <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Тарука</div><div class="lbl">уязвимый вид</div></div>
+    </div>
+    <div class="cell" style="border-color:var(--accent)">
+      <div class="lbl">честный статус источника у каждой карточки</div>
+      <div class="row" style="gap:8px">
+        <span class="pill">✔ подтверждено фотографией</span><span class="pill">◐ со слов местных</span><span class="pill">○ не подтверждено</span>
+      </div>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">Оглавление энциклопедии. Сюда почти не ходят — сюда приходят из поиска сразу на карточку, но раздел нужен как вход и для поисковика.</p>
+    <div class="n"><b>сохранено</b>Честный статус источника. Справочник, который вслух говорит «мы не уверены», в интернете почти не встречается — и это прямое продолжение правила «ни одной выдуманной строки».</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">А2</span><h3>Карточка Атласа</h3><span class="file">/atlas/vizcacha</span><span class="chip">главная страница для поиска</span>
+  </div>
+  <div class="spec">
+    <div class="lbl">← Атлас</div>
+    <div class="t-h big">Вискача</div>
+    <div class="row" style="gap:12px"><span class="lbl">Lagidium viscacia</span><span class="lbl">кечуа: wisk'acha</span><span class="lbl">EN: mountain viscacha</span></div>
+    <div class="split">
+      <div class="ph r43"><span>ГЛАВНЫЙ КАДР</span></div>
+      <div class="g2" style="gap:8px">
+        <div class="ph r11"><span>ФОТО</span></div><div class="ph r11"><span>ФОТО</span></div>
+        <div class="ph r11"><span>ФОТО</span></div><div class="ph r11"><span>ФОТО</span></div>
+      </div>
+    </div>
+    <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w60"></i></div>
+    <div class="cell tight">
+      <div class="row" style="justify-content:space-between"><span class="lbl">кто это</span><span class="lbl">грызун, родня шиншилле</span></div>
+      <div class="row" style="justify-content:space-between"><span class="lbl">как часто видят</span><span class="lbl">каждый день</span></div>
+      <div class="row" style="justify-content:space-between"><span class="lbl">охранный статус</span><span class="lbl">благополучный вид</span></div>
+      <div class="row" style="justify-content:space-between"><span class="lbl" style="color:var(--accent)">откуда знаем</span><span class="pill">✔ подтверждено фотографией</span></div>
+    </div>
+    <div class="lbl">когда её здесь видели — собирается само из заметок</div>
+    <div class="stack" style="gap:7px">
+      <div class="row" style="gap:12px"><span class="pill">4 авг 2026</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
+      <div class="row" style="gap:12px"><span class="pill">19 июл 2026</span><span class="bars" style="flex:1"><i class="w60"></i></span></div>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">Ради этой страницы всё и затевается: её находят люди, которые про дом не знали.</p>
+    <div class="n acc"><b>убрано</b>Строка «где искать глазами». Для уязвимых видов её и так нельзя писать, а держать поле, которое у половины карточек заполнено отказом, — плохо. Где искать, расскажет проводник.</div>
+    <div class="n"><b>сила</b>Ваше преимущество перед энциклопедиями — настоящие кадры с 4200 и наблюдения по датам, которые собираются сами.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">Г</span><h3>Галерея</h3><span class="file">/gallery</span><span class="chip">107 фото</span>
+  </div>
+  <div class="spec">
+    <div class="t-h big">Фотографии</div>
+    <div class="lbl">снято в месяце</div>
+    <div class="row" style="gap:6px"><span class="pill on">все</span><span class="pill">июль</span><span class="pill">август</span><span class="pill">ноябрь</span></div>
+    <div class="lbl">локации не подписаны намеренно</div>
+    <div class="g4">
+      <div class="ph" style="height:60px"><span>ФОТО</span></div><div class="ph" style="height:88px"><span>ФОТО</span></div>
+      <div class="ph" style="height:70px"><span>ФОТО</span></div><div class="ph" style="height:56px"><span>ФОТО</span></div>
+      <div class="ph" style="height:84px"><span>ФОТО</span></div><div class="ph" style="height:62px"><span>ФОТО</span></div>
+      <div class="ph" style="height:78px"><span>ФОТО</span></div><div class="ph" style="height:92px"><span>ФОТО</span></div>
+    </div>
+    <div class="lbl">дальше подгружается само, по 24 кадра · клик — полный экран, стрелки, свайпы, Esc</div>
+  </div>
+  <div class="side">
+    <p class="purpose">Все кадры в одном месте, фильтр по месяцу съёмки — в горах месяц меняет больше, чем сюжет.</p>
+    <div class="n acc"><b>убрано</b>Второй ряд фильтров по темам — двенадцать штук. Два ряда фильтров над сеткой из ста фотографий — это выбор до просмотра, которого никто не делает. Остался один ряд, по месяцам.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">П</span><h3>Правила дома</h3><span class="file">/rules</span><span class="chip">одна колонка</span>
+  </div>
+  <div class="spec">
+    <div class="t-h big">Как здесь принято</div>
+    <div class="lbl">дом живёт на 4200 своими законами — не из строгости, а потому что здесь всё дороже даётся</div>
+    <div class="rule"></div>
+    <div class="lbl">В доме</div>
+    <div class="stack" style="gap:7px">
+      <div class="row" style="gap:12px"><span class="pill">газ</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+      <div class="row" style="gap:12px"><span class="pill">вода</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
+      <div class="row" style="gap:12px"><span class="pill">печь</span><span class="bars" style="flex:1"><i class="w100"></i></span></div>
+      <div class="row" style="gap:12px"><span class="pill">мусор</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+    </div>
+    <div class="lbl">каждая строка — одно правило и одна причина, почему оно есть</div>
+    <div class="rule"></div>
+    <div class="lbl">На прогулке</div>
+    <div class="cell" style="border-left:2px solid var(--accent)">
+      <div class="t-h sm">Всё, что вы принесли с собой, — только в присутствии проводника и только вниз от дома.</div>
+      <div class="lbl">причина: на 4200 сердце работает иначе, а помощь идёт снизу сорок минут</div>
+    </div>
+    <div class="rule"></div>
+    <div class="lbl">Если что-то пошло не так · свет · вода · погода · самочувствие</div>
+    <div class="g4">
+      <div class="cell tight"><div class="t-h sm">Свет</div><div class="bars"><i class="w100"></i></div></div>
+      <div class="cell tight"><div class="t-h sm">Вода</div><div class="bars"><i class="w90"></i></div></div>
+      <div class="cell tight"><div class="t-h sm">Погода</div><div class="bars"><i class="w100"></i></div></div>
+      <div class="cell tight"><div class="t-h sm">Самочувствие</div><div class="bars"><i class="w80"></i></div></div>
+    </div>
+    <div class="rule"></div>
+    <div class="split narrow-l">
+      <div class="ph r43"><span>ФОТО АПТЕЧКИ</span></div>
+      <div class="stack" style="gap:6px">
+        <div class="t-h sm">Аптечка — на видном месте</div>
+        <div class="row" style="gap:6px"><span class="pill">от головы</span><span class="pill">от живота</span><span class="pill">перевязка</span><span class="pill">от высоты</span></div>
+        <div class="lbl">состав перечислен честно — и сказано, чего в ней нет</div>
+      </div>
+    </div>
+  </div>
+  <div class="side">
+    <p class="purpose">Не список запретов, а «как здесь принято». Ссылка идёт в сообщении WhatsApp при договорённости — читается до приезда.</p>
+    <div class="n"><b>единственное место</b>Аптечка описана здесь и больше нигде. Из блока «Подготовка» она убрана, чтобы состав не разошёлся между двумя страницами.</div>
+    <div class="n"><b>решить</b>Точная формулировка про вещества. Я предложил рамку безопасности, без перечисления и без одобрения. В английской и испанской версиях этот абзац особенно осторожно.</div>
+  </div>
+</article>
+
+<article class="block">
+  <div class="block-head">
+    <span class="num">·</span><h3>Сквозные элементы</h3><span class="file">Header.tsx · StickyWhatsApp.tsx</span>
+  </div>
+  <div class="spec">
+    <div class="lbl">шапка · на большом экране</div>
+    <div class="cell tight">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <span class="t-h sm">Kinsacocha</span>
+        <span class="row" style="gap:12px"><span class="lbl">дом</span><span class="lbl">озёра</span><span class="lbl">сутки</span><span class="lbl">маршруты</span><span class="lbl">заметки</span><span class="lbl">фото</span></span>
+        <span class="row" style="gap:5px"><span class="pill on">RU</span><span class="pill">EN</span><span class="pill">ES</span></span>
+      </div>
+    </div>
+    <div class="lbl">шапка · на телефоне — гамбургер, меню на весь экран</div>
+    <div class="cell tight" style="max-width:250px">
+      <div class="row" style="justify-content:space-between"><span class="t-h sm">Kinsacocha</span><span class="lbl">☰</span></div>
+    </div>
+    <div class="lbl">кнопка внизу экрана · только телефон, появляется после первого экрана</div>
+    <div class="cell tight" style="max-width:250px"><div class="btn wa full">НАПИСАТЬ В WHATSAPP</div></div>
+  </div>
+  <div class="side">
+    <p class="purpose">Шапка прозрачная поверх первого экрана и наливается фоном при прокрутке.</p>
+    <div class="n acc"><b>изменено</b>В меню было восемь пунктов, стало шесть — по числу блоков, до которых человек может захотеть прыгнуть. Меню — не оглавление всего сайта.</div>
+  </div>
+</article>
+
+<!-- ══════════ БУДУЩЕЕ ══════════ -->
+<section class="doc">
+  <div class="sec-head"><h2>Заложено на будущее</h2><span class="idx">строим не сейчас</span></div>
+  <p class="body">Эти страницы упрощению не подвергались — их ещё не существует, и сокращать там нечего. Они перенесены как есть, чтобы адреса и структура остались закреплены: сменить адрес позже — значит обнулить всё, что раздел накопит в поиске.</p>
+  <div class="row" style="margin-top:16px;gap:8px">
+    <span class="chip future">Л1 · Локации /mesta</span>
+    <span class="chip future">Л2 · Одна локация</span>
+    <span class="chip future">Б0 · Бренд-главная</span>
+    <span class="chip future">К1 · Коллекция</span>
+    <span class="chip future">К2 · Лот и паспорт момента</span>
+    <span class="chip future">К3 · Private Room</span>
+  </div>
+  <p class="body" style="margin-top:14px">Подробные эскизы всех шести — в прежней схеме, она никуда не делась. Ссылка лежит в Notion рядом с этой.</p>
+</section>
+
+<!-- ══════════ ЧТО НЕ УПРОСТИЛ ══════════ -->
+<section class="doc">
+  <div class="sec-head"><h2>Чего я не стал упрощать</h2><span class="idx">и почему остановился</span></div>
+
+  <div class="kept">
+    <div class="k-i"><span>—</span><span><b>Пума.</b> Пустой кадр и три строки — это самое дорогое место на сайте по отношению смысла к объёму. Здесь резать нечего.</span></div>
+    <div class="k-i"><span>—</span><span><b>Ткачество.</b> Прошло все пять проходов нетронутым. Одна мысль, один образ, и он проверяемый.</span></div>
+    <div class="k-i"><span>—</span><span><b>Четыре формата.</b> Соблазн был свести к двум — «сам» и «с проводником». Не стал: аренда мест и эксклюзив — это разные деньги и разные люди, а не оттенки.</span></div>
+    <div class="k-i"><span>—</span><span><b>Три языка.</b> Ни одного не тронул, хотя это самое дорогое, что есть в проекте.</span></div>
+    <div class="k-i"><span>—</span><span><b>Слово «Кинса Коча» в первом экране.</b> Его ищут в поиске. Это единственный случай, где неудобное слово важнее чистоты фразы.</span></div>
+  </div>
+
+  <div class="callout">
+    <h3>Где пятый проход пришлось придержать</h3>
+    <p class="body">Шестой напрашивался — свести четырнадцать к десяти, слив «Еду» с «Домом внутри», а «Ткачество» с «Что здесь живёт». Я этого не сделал намеренно. Дом и еда — разные обещания, а люди и звери в одном блоке — это ровно та ошибка, которую ваш проект избегает с самого начала. Дальше упрощение начало бы съедать характер, а сайт держится на суровости снаружи и тепле внутри. Самый простой вариант любого сайта — безличный.</p>
+    <p class="body">Четырнадцать — это место, где страница стала короче почти вдвое, но ни одна мысль не потеряла хозяина.</p>
+  </div>
+</section>
+
+<!-- ══════════ ЧТО ЭТО МЕНЯЕТ ══════════ -->
+<section class="doc">
+  <div class="sec-head"><h2>Что это меняет на практике</h2><span class="idx">и какие вопросы поднимает</span></div>
+  <div class="scroller">
+  <table class="map">
+    <tbody>
+      <tr><td></td><td style="width:200px"><b>Длина страницы</b></td><td>Примерно вдвое короче. На телефоне это разница между «долистал» и «закрыл»</td></tr>
+      <tr><td></td><td><b>Число фотографий, которые нужно снять</b></td><td>Меньше: мозаика на двенадцать кадров ушла, ступени живности сократились до трёх карточек каждая</td></tr>
+      <tr><td></td><td><b>Работа в коде</b></td><td>Меньше, чем кажется: девять компонентов сливаются попарно, один удаляется, новых нет</td></tr>
+      <tr><td></td><td><b>Поиск</b></td><td>Не страдает: тексты никуда не делись, они внутри слитых блоков. Заголовков стало меньше — это скорее плюс</td></tr>
+      <tr><td></td><td><b>Новый вопрос</b></td><td>Правило приватности теперь стоит одиннадцатым. Если для вас важно, чтобы оно звучало сразу, — скажите, верну наверх и оставлю слитым с гостевой книгой</td></tr>
+      <tr><td></td><td><b>Второй новый вопрос</b></td><td>Фильтры по темам в галерее убраны. Если вы планировали ими пользоваться сами — верну</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<footer class="end">
+  <span>Kinsacocha · экспериментальная схема, 14 августа 2026 · основа не тронута, метка <code>prototype-v1</code></span>
+  <span>Чтобы что-то поменять — назовите номер блока и скажите словами. Перерисую по этой же ссылке.</span>
+  <span>Мобильная версия этой схемы — отдельной страницей, ссылка в Notion рядом.</span>
+</footer>
+
+</div>
