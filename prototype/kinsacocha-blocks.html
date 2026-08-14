@@ -457,6 +457,12 @@
   .cell { border: 1px solid var(--bar); padding: 12px; display: flex; flex-direction: column; gap: 9px; }
   .cell.tight { padding: 9px; gap: 7px; }
   .pill { font-family: var(--mono); font-size: 9.5px; border: 1px solid var(--bar); padding: 3px 7px; }
+  .pill.on { background: var(--sink); color: var(--g); border-color: var(--sink); }
+  .price { font-family: var(--serif); font-size: 23px; line-height: 1; }
+  .price span { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.06em; opacity: 0.65; }
+  .prow { display: flex; align-items: baseline; gap: 10px; }
+  .prow b { font-family: var(--serif); font-weight: 400; font-size: 15px; }
+  .prow .dots { flex: 1; border-bottom: 1px dotted var(--bar); transform: translateY(-3px); }
   .rule { height: 1px; background: var(--bar); opacity: 0.6; }
   .quote { border-left: 2px solid var(--accent); padding-left: 12px; }
   .strike { text-decoration: line-through; text-decoration-color: var(--accent); opacity: 0.55; }
@@ -944,57 +950,153 @@
           <span>Что покупают и как это устроено · блоки 08–12</span>
         </div>
 
-        <article class="block" id="b08">
+        <article class="block is-new" id="b08">
           <div class="block-head">
             <span class="num">08</span>
             <h3>Как сюда приезжают</h3>
-            <span class="file">Formats.tsx</span>
-            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">2 × 2 карточки</span></div>
+            <span class="file">Pricing.tsx · PriceBuilder.tsx</span>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip new">тарифы утверждены</span><span class="chip ground-l">бумага</span></div>
           </div>
-          <p class="purpose">Главный конверсионный блок: четыре формата, у каждого своя цена за сутки и своя кнопка с готовым текстом сообщения.</p>
+          <p class="purpose">Блок переписан целиком под утверждённые тарифы. Порядок сверху вниз ваш: сначала два готовых решения — чтобы можно было ничего не выбирать; потом конструктор — для тех, кто хочет по-своему; и только в конце условия. Ни корзины, ни оплаты на сайте: любая ветка заканчивается сообщением в WhatsApp.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h">Как сюда приезжают</div>
-              <div class="bars"><i class="w70"></i></div>
-              <div class="quote"><div class="bars"><i class="w100"></i><i class="w60"></i></div><div class="lbl" style="margin-top:6px">сутки считаются от утра до утра</div></div>
-              <div class="g2" style="margin-top:6px">
-                <div class="cell tight">
-                  <div class="ph r219"><span>ФОТО · метка «хозяина нет»</span></div>
-                  <div class="t-h sm">Сутки в доме</div>
-                  <div class="bars"><i class="w100"></i><i class="w80"></i></div>
-                  <div class="lbl">✓ с детьми комфортно</div>
-                  <div class="t-h sm" style="font-size:13px">от 40 USD · с человека за сутки</div>
-                  <div class="ctl wa" style="width:100%;justify-content:center">НАПИСАТЬ</div>
+              <div class="t-accent">Два готовых решения — или соберите своё.</div>
+              <div class="lbl">цена за дом, а не с человека, если не написано иначе · сутки от утра до утра · оплата на месте или переводом</div>
+
+              <div class="rule"></div>
+              <div class="row" style="gap:9px"><span class="pill on">1</span><span class="t-h sm">Готовые решения</span><span class="lbl">две карточки в ряд, на телефоне — друг под другом</span></div>
+              <div class="g2">
+                <div class="cell">
+                  <div class="ph r219"><span>ФОТО · дом на рассвете</span></div>
+                  <div class="t-h sm">Кинсакоча целиком</div>
+                  <div class="lbl">3 дня · 2 ночи</div>
+                  <div class="row" style="gap:6px">
+                    <span class="pill">дом</span><span class="pill">тропа на полдня</span><span class="pill">тропа на целый день</span><span class="pill">дрова</span><span class="pill">ужин у соседей</span>
+                  </div>
+                  <div class="price">S/. 590 <span>НА ДВОИХ</span></div>
+                  <div class="lbl">одному — S/. 490</div>
+                  <div class="lbl">по частям это стоило бы 710 — пакет дешевле на 120</div>
+                  <div class="ctl wa" style="width:100%;justify-content:center">ВЫБРАТЬ ЭТО</div>
                 </div>
-                <div class="cell tight">
-                  <div class="ph r219"><span>ФОТО · «хозяин рядом»</span></div>
-                  <div class="t-h sm">С проводником</div>
-                  <div class="bars"><i class="w100"></i><i class="w70"></i></div>
-                  <div class="lbl">✓ с детьми комфортно</div>
-                  <div class="t-h sm" style="font-size:13px">от 90 USD · с человека за сутки</div>
-                  <div class="ctl wa" style="width:100%;justify-content:center">НАПИСАТЬ</div>
-                </div>
-                <div class="cell tight">
-                  <div class="ph r219"><span>ФОТО · «может быть в доме»</span></div>
-                  <div class="t-h sm">Аренда мест</div>
-                  <div class="bars"><i class="w100"></i><i class="w80"></i></div>
-                  <div class="lbl">✓ с детьми комфортно</div>
-                  <div class="t-h sm" style="font-size:13px">от 55 USD · с человека за сутки</div>
-                  <div class="ctl wa" style="width:100%;justify-content:center">НАПИСАТЬ</div>
-                </div>
-                <div class="cell tight">
-                  <div class="ph r219"><span>ФОТО · «хозяин уезжает»</span></div>
-                  <div class="t-h sm">Эксклюзивная аренда</div>
-                  <div class="bars"><i class="w100"></i><i class="w70"></i></div>
-                  <div class="lbl">✓ с детьми комфортно</div>
-                  <div class="t-h sm" style="font-size:13px">обсуждается индивидуально</div>
-                  <div class="ctl wa" style="width:100%;justify-content:center">НАПИСАТЬ</div>
+                <div class="cell">
+                  <div class="ph r219"><span>ФОТО · печь вечером</span></div>
+                  <div class="t-h sm">Ночь у озера</div>
+                  <div class="lbl">2 дня · 1 ночь</div>
+                  <div class="row" style="gap:6px">
+                    <span class="pill">дом</span><span class="pill">короткая тропа</span><span class="pill">дрова</span>
+                  </div>
+                  <div class="price">S/. 220 <span>НА ДВОИХ</span></div>
+                  <div class="lbl">одному — S/. 170</div>
+                  <div class="lbl" style="color:var(--warn)">цифра под вопросом — заметка ①</div>
+                  <div class="ctl wa" style="width:100%;justify-content:center">ВЫБРАТЬ ЭТО</div>
                 </div>
               </div>
+
+              <div class="rule"></div>
+              <div class="row" style="gap:9px"><span class="pill on">2</span><span class="t-h sm">Или соберите свой формат</span></div>
+              <div class="g2">
+                <div class="cell">
+                  <div class="t-h sm">Дом — только ваш</div>
+                  <div class="lbl">с ночёвкой · за сутки · весь дом, а не место в нём</div>
+                  <div class="prow"><b>один гость</b><span class="dots"></span><b>S/. 70</b></div>
+                  <div class="prow"><b>двое</b><span class="dots"></span><b>S/. 120</b></div>
+                  <div class="prow"><b>трое</b><span class="dots"></span><b>S/. 180</b></div>
+                  <div class="prow"><b>каждый следующий</b><span class="dots"></span><b>+ S/. 50</b></div>
+                  <div class="lbl">дети до семи лет в этот счёт не входят</div>
+                </div>
+                <div class="cell">
+                  <div class="t-h sm">Дом на день</div>
+                  <div class="lbl">без ночёвки</div>
+                  <div class="price">S/. 30 <span>С ЧЕЛОВЕКА</span></div>
+                  <div class="row" style="gap:6px"><span class="pill">дом</span><span class="pill">душ</span><span class="pill">кухня</span><span class="pill">типи</span></div>
+                  <div class="lbl">кинуть вещи, погулять, вернуться в тепло и уехать вниз к вечеру</div>
+                  <div class="lbl">это и есть та половина гостей, что приезжает утром: заголовок сайта обещает им место — здесь оно названо ценой</div>
+                </div>
+              </div>
+
+              <div class="cell" style="border-style:dashed">
+                <div class="lbl">СБОРКА · не корзина: считает вслух и заканчивается сообщением</div>
+                <div class="row" style="gap:6px"><span class="lbl" style="width:78px">сколько дней</span><span class="pill">день без ночи</span><span class="pill on">1 ночь</span><span class="pill">2 ночи</span><span class="pill">3 ночи</span></div>
+                <div class="row" style="gap:6px"><span class="lbl" style="width:78px">сколько вас</span><span class="pill">один</span><span class="pill on">двое</span><span class="pill">трое</span><span class="pill">четверо +</span></div>
+                <div class="row" style="gap:6px"><span class="lbl" style="width:78px">тропа</span><span class="pill">без тропы</span><span class="pill on">короткая</span><span class="pill">полдня</span><span class="pill">целый день</span><span class="pill">под вас</span></div>
+                <div class="row" style="gap:6px"><span class="lbl" style="width:78px">добавить</span><span class="pill on">дрова</span><span class="pill">ужин у соседей</span><span class="pill">завтрак</span><span class="pill">трансфер</span><span class="pill">одни на горе</span></div>
+                <div class="rule"></div>
+                <div class="row" style="justify-content:space-between">
+                  <div class="stack" style="gap:3px">
+                    <div class="price">S/. 280</div>
+                    <div class="lbl">1 ночь · двое · короткая тропа · дрова</div>
+                  </div>
+                  <div class="ctl wa">ОТПРАВИТЬ ЭТОТ РАСЧЁТ →</div>
+                </div>
+                <div class="lbl">кнопка открывает WhatsApp с уже написанным сообщением: набранный состав, число и вопрос про даты. Гостю остаётся нажать «отправить»</div>
+              </div>
+
+              <div class="rule"></div>
+              <div class="row" style="gap:9px"><span class="pill on">3</span><span class="t-h sm">Тропы с хозяином</span><span class="lbl">цена за группу, не с человека</span></div>
+              <div class="g4">
+                <div class="cell tight"><div class="t-h sm">Короткая</div><div class="lbl">около двух часов</div><div class="price" style="font-size:18px">S/. 80</div></div>
+                <div class="cell tight"><div class="t-h sm">Полдня</div><div class="lbl">выход после завтрака</div><div class="price" style="font-size:18px">S/. 150</div></div>
+                <div class="cell tight"><div class="t-h sm">Целый день</div><div class="lbl">с едой у воды</div><div class="price" style="font-size:18px">S/. 220</div></div>
+                <div class="cell tight" style="border-color:var(--sink)"><div class="t-h sm">Тропа хозяина</div><div class="lbl">день, собранный под вас</div><div class="price" style="font-size:18px">S/. 350</div></div>
+              </div>
+              <div class="quote"><div class="t-h sm">Тропы бывают только в те дни, когда хозяин наверху. Даты — в переписке, заранее.</div></div>
+              <div class="lbl">ни названий, ни километража, ни набора высоты: покупается не маршрут, а день с человеком, который его выберет утром по погоде</div>
+
+              <div class="rule"></div>
+              <div class="row" style="gap:9px"><span class="pill on">4</span><span class="t-h sm">Дополнения</span></div>
+              <div class="band">
+                <div class="band-inner">
+                  <div class="t-h sm">Одни на горе · + 50 % к проживанию</div>
+                  <div class="lbl">хозяин в этот день не приезжает. Вы получаете ключи и остаётесь одни. Троп в такие дни нет — некому вести</div>
+                </div>
+              </div>
+              <div class="row" style="gap:8px">
+                <span class="pill">дрова · S/. 20 за вечер</span>
+                <span class="pill">трансфер Писак / Куско · от S/. 100 за машину</span>
+                <span class="pill">ужин у соседей · S/. 30</span>
+                <span class="pill">завтрак у соседей · S/. 20</span>
+                <span class="pill" style="border-style:dashed">уборка при отъезде · S/. 50 · заметка ②</span>
+              </div>
+
+              <div class="rule"></div>
+              <div class="row" style="gap:9px"><span class="pill on">5</span><span class="t-h sm">Честно о горе</span><span class="lbl">блок уходит на тёмный фон — см. ниже</span></div>
+            </div>
+          </div>
+          <div class="spec dark">
+            <div class="stack">
+              <div class="t-h">Честно о горе</div>
+              <div class="t-accent">Никаких залогов. Но есть вещи, которые лучше знать до того, как вы напишете «да».</div>
+              <div class="g2">
+                <div class="cell">
+                  <div class="t-h sm">Дети</div>
+                  <div class="lbl">до семи лет — бесплатно и в счёт гостей не идут. С семи — как все</div>
+                </div>
+                <div class="cell">
+                  <div class="t-h sm">Еда</div>
+                  <div class="lbl">магазинов наверху нет. Продукты покупаются внизу, на рынке в Писаке, до подъёма. Ужин у соседей можно заказать заранее</div>
+                </div>
+                <div class="cell">
+                  <div class="t-h sm">Бронь и отмена</div>
+                  <div class="lbl">половина вперёд. Отменили за три дня и раньше — возвращаем. Позже — нет: дом в эти сутки уже никому не сдан</div>
+                </div>
+                <div class="cell">
+                  <div class="t-h sm">Высота · 4200</div>
+                  <div class="lbl">ночью холодно, поэтому дрова. Первые сутки — чай из коки и без спешки. Подробно — на отдельной странице</div>
+                </div>
+              </div>
+              <div class="quote"><div class="t-h sm">Хозяин живёт рядом или находится на территории и не мешает — кроме тех дней, когда вы выбрали «одни на горе». Тогда наверху нет никого, кроме вас.</div></div>
+              <div class="ctl ghost">ПРАВИЛА ДОМА →</div>
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark">ЦЕНЫ</span> Все четыре цифры — заглушки, стоят в одном файле и меняются в одну строку.</li>
+            <li><span class="mark ok">ВНЕДРЕНО</span> Структура из пяти блоков стоит ровно в вашем порядке, ни один блок не переставлен. Все числа лежат в одном файле и правятся одной строкой — ни одна цифра не вшита в вёрстку.</li>
+            <li><span class="mark q">① АРИФМЕТИКА</span> «Кинсакоча целиком» дешевле, чем то же по частям, на 120 солей — пакет имеет смысл. «Ночь у озера» стоит ровно столько же, сколько по частям: 120 + 80 + 20 = 220, и соло 70 + 80 + 20 = 170. Скидки нет ни на соль. Кто-то обязательно сложит и решит, что его пробуют обмануть. Два выхода: сделать 190 на двоих и 150 одному — или оставить как есть, но написать вслух «это не скидка, это готовый выбор». Первое лучше.</li>
+            <li><span class="mark q">② ДРОВА И УБОРКА</span> В правилах дома у нас записано «пачка дров — 30 солей, десять поленьев», а в тарифах «20 за вечер». Пусть будет одна цифра: я поставил 20 за вечер везде и поправил правила. Уборки 50 солей в вашем списке нет, а в правилах она есть — я оставил её пунктирной строкой: скажите, входит она теперь в цену или платится отдельно.</li>
+            <li><span class="mark ok">НАЗВАНИЯ ТРОП</span> «Тропа 1 / 2 / 3» переименованы в «короткую / полдня / целый день». Цены и логика не тронуты — только подписи: пронумерованный список троп читается как каталог маршрутов, а мы по всему сайту говорим, что маршрутов не публикуем. Длительность — не адрес, её называть можно.</li>
+            <li><span class="mark q">ПОТОЛОК</span> Тропа стоит одинаково для двоих и для восьмерых, а дом на день — 30 с человека без ограничения. Нужна верхняя граница: сколько человек мы вообще пускаем в дом с ночёвкой и сколько — на день.</li>
+            <li><span class="mark q">ПРЕДОПЛАТА</span> Эквайринга у нас нет, значит половина вперёд приходит переводом или криптой. Это надо сказать прямо здесь же, иначе человек ищет кнопку «оплатить» и не находит.</li>
+            <li><span class="mark ok">СБОРКА</span> Калькулятор сделан так, чтобы не стать магазином: он ничего не резервирует и не принимает денег, а собирает сообщение и отдаёт его в WhatsApp. Итог подписан «ориентировочно» — точную цифру называет человек, и это единственный честный вариант, пока даты и присутствие хозяина решаются в переписке.</li>
           </ul>
         </article>
 
@@ -2144,6 +2246,43 @@
           </div>
         </article>
 
+        <article class="block is-new" id="p-price">
+          <div class="block-head">
+            <span class="num">Ц</span>
+            <h3>Две страницы цен: открытая и личная</h3>
+            <span class="file">/ceny · /p/&lt;код&gt; · pricing.ts</span>
+            <div class="chips"><span class="chip new">решение</span><span class="chip">одна таблица, две колонки</span></div>
+          </div>
+          <p class="purpose">Вы просили две страницы: своим — в солях, открытому рынку — в долларах. Делаем, но не двумя одинаковыми страницами сайта: гость всегда находит ту, где дешевле, и читает это не как «друзьям скидка», а как «с меня взяли лишнего». На сайте, который весь стоит на правде, это самая дорогая из возможных ошибок.</p>
+          <div class="spec">
+            <div class="stack">
+              <div class="g2">
+                <div class="cell">
+                  <div class="row" style="gap:8px"><span class="pill on">открытая</span><span class="lbl">/ceny · /en/rates · /es/precios</span></div>
+                  <div class="t-h sm">Видна всем, стоит в меню, ловит поиск</div>
+                  <div class="lbl">числа рыночные. Показываем обе валюты: <b>S/. 220 · ≈ 60 USD</b> — соль первой, платить всё равно здесь</div>
+                </div>
+                <div class="cell" style="border-style:dashed">
+                  <div class="row" style="gap:8px"><span class="pill">личная</span><span class="lbl">/p/kinsa-2026 — адрес не угадывается</span></div>
+                  <div class="t-h sm">Только по прямой ссылке, закрыта от поисковиков</div>
+                  <div class="lbl">не в меню, не в карте сайта, <code>noindex</code>. Тот же макет, те же пакеты, ваши числа в солях</div>
+                  <div class="quote"><div class="lbl">и одна строка вверху: «Это личные условия. Открытая цена — здесь →». Если ссылка утечёт, она читается как приглашение, а не как разоблачение</div></div>
+                </div>
+              </div>
+              <div class="rule"></div>
+              <div class="stack" style="gap:6px">
+                <div class="t-h sm">Как это устроено внутри</div>
+                <div class="lbl">все числа — в одном файле, двумя колонками: «личная» и «открытая». Страница берёт нужную. Правите в одном месте — меняется везде, и две страницы не могут разойтись</div>
+                <div class="lbl">курс доллара — тоже одна строка с датой, руками. Никаких живых курсов из интернета: цена на сайте не должна дёргаться сама по себе</div>
+              </div>
+            </div>
+          </div>
+          <ul class="notes">
+            <li><span class="mark ok">РЕШЕНО</span> Утверждённые вами тарифы — это личная колонка, в солях. Открытую в долларах соберём, когда скажете: структура и блоки те же, меняются только числа.</li>
+            <li><span class="mark">ПЕРЕД ЗАПУСКОМ</span> Пока открытой колонки нет, сайт не открываем поисковикам. Это то самое последнее условие, которое держало запуск.</li>
+          </ul>
+        </article>
+
         <article class="block is-new" id="p-rules">
           <div class="block-head">
             <span class="num">П</span>
@@ -2174,8 +2313,8 @@
                 <div class="lbl" style="color:var(--accent)">цифры получены 14 августа</div>
                 <div class="t-h sm">Уезжая, оставьте дом таким, каким вошли. Не хочется возиться — скажите заранее, уберём за вас.</div>
                 <div class="row" style="gap:8px"><span class="pill">уборка · 50 солей</span></div>
-                <div class="t-h sm">Дрова лежат под навесом. Пачка — десять поленьев, тридцать солей. Берите сколько нужно и посчитайтесь при отъезде.</div>
-                <div class="row" style="gap:8px"><span class="pill">пачка · 30 солей</span><span class="pill">10 поленьев</span></div>
+                <div class="t-h sm">Дрова лежат под навесом. Вечер топки — двадцать солей. Берите сколько нужно и посчитайтесь при отъезде.</div>
+                <div class="row" style="gap:8px"><span class="pill">вечер · 20 солей</span></div>
                 <div class="lbl">расход не пишем: сколько уйдёт за вечер, зависит от того, как топить. Обещать «двух пачек хватит» нельзя — это первое, в чём нас поймают</div>
                 <div class="lbl">и одна строка, которую стоит сказать вслух: дрова сюда привозят снизу, на 4200 они не растут. Это не про деньги, это про то, почему их считают</div>
               </div>
@@ -2257,7 +2396,7 @@
           <ul class="notes">
             <li><span class="mark ok">РЕШЕНО</span> Вопрос 27 закрыт вашей формулировкой: алкоголь — не на территории дома, вещества — только с проводником и только в микродозе. Я добавил к ней причину и строку «мы ничего не предоставляем»: без неё абзац читается как предложение услуги, и это меняет статус дома в глазах читателя и не только его.</li>
             <li><span class="mark q">ЯЗЫКИ</span> В EN и ES этот абзац пишется отдельно, не переводом. По-русски это правило дома; дословный английский текст на ту же тему звучит как реклама. Черновик покажу перед тем, как ставить.</li>
-            <li><span class="mark ok">ЦИФРЫ ЕСТЬ</span> Пачка дров — 30 солей, десять поленьев. Уборка — 50 солей. Обе цифры вы обещали пересчитать точно; в схеме и в коде они лежат в одном месте и правятся одной строкой.</li>
+            <li><span class="mark ok">ЦИФРЫ ЕСТЬ</span> Дрова — 20 солей за вечер: цифра приведена к тарифам, прежние «30 за пачку» убраны, чтобы сайт не спорил сам с собой. Уборка — 50 солей, ждёт вашего слова: входит в цену или платится отдельно.</li>
             <li><span class="mark q">ОДНО СЛОВО</span> Собаку зовут Матвей. Кота я назвал Пумой — скажите да или своё имя.</li>
           </ul>
         </article>
