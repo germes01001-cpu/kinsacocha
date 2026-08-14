@@ -517,22 +517,23 @@
     </div>
 
     <p style="margin-top:18px;max-width:64ch;color:var(--ink-2)">
-      <b>Обновлено 14 августа, вечер.</b> Разнесены ответы на вторую пачку вопросов.
-      Переписана страница «Правила дома»: алкоголь, вещества, дрова, уборка, собака и кот.
-      В блоке 11 появилась связь — интернет здесь есть, просто ловит по-разному, и говорим
-      мы об этом прямо. В блок 15 добавлена третья ступень: камни. В Атласе камни стали
-      полноценной ветвью наравне с животными и растениями. Добавлена памятка «Звук —
-      что записывать и как».
+      <b>Обновлено 15 августа.</b> Переделаны блоки 01–07 по вашим правкам.
+      Новый заголовок первого экрана, Vimeo и кнопка «смотреть фильм» убраны совсем.
+      Блоки 02, 03, 06, 07 получили готовые тексты вместо полосок. Блок 04 переработан:
+      вместо зачёркнутого списка — пары «чего нет / что вместо». Блок 05 стал главным
+      на странице: три полосы с фотографиями и видео воды плюс три отдельные страницы,
+      по одной на озеро.
     </p>
     <p style="margin-top:12px;max-width:64ch;color:var(--ink-2)">
-      Раздел «Коллекция» переименован в <b>Артефакты</b>, адрес <code>/artefakty</code>,
-      место — в главном меню; это не магазин. Каждому из 23 блоков проставлена метка
-      принадлежности: что останется на странице дома, а что уедет на бренд-уровень.
-      Все двенадцать статей блога с текстами и местами под фотографии — на отдельной странице.
+      <b>Название общины убрано со всего сайта</b> по вашему решению.
+      <b>Кечуа стал языком названий:</b> имя кечуа стоит первым и крупно, испанское — в адресе
+      и в тексте, латынь — в Атласе. <b>Видео:</b> никаких внешних площадок, только короткие
+      петли без звука до полутора мегабайт — выглядят как гифки, весят как фотографии.
     </p>
     <p style="margin-top:12px;max-width:64ch;color:var(--ink-2)">
-      Мобильная схема, статьи блога и список вопросов — отдельные страницы,
-      ссылки на них лежат в Notion рядом с этой.
+      Тексты всех семи блоков целиком, вопросы интервью и устройство тегов галереи —
+      на отдельной странице «Экраны 01–07», ссылка в Notion. Мобильная схема, статьи блога
+      и список вопросов — тоже отдельными страницами.
     </p>
   </header>
 
@@ -661,6 +662,7 @@
       </ol>
       <p class="chapter-label">Страницы</p>
       <ol>
+        <li><a href="#p-lake"><span class="n">О</span> Страница лагуны ★</a></li>
         <li><a href="#p-sound"><span class="n">З</span> Звук — памятка ★</a></li>
         <li><a href="#p-gallery"><span class="n">Г</span> Галерея</a></li>
         <li><a href="#p-blog"><span class="n">Б</span> Блог</a></li>
@@ -695,16 +697,19 @@
             <span class="num">01</span>
             <h3>Первый экран</h3>
             <span class="file">Hero.tsx</span>
-            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-d">камень</span><span class="chip">высота экрана</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip new">переделан</span><span class="chip ground-d">камень</span></div>
           </div>
-          <p class="purpose">Одно обещание и одно действие. Слайдер из 12 кадров, кадры меняются сами каждые 4 секунды и от колеса мыши.</p>
+          <p class="purpose">Одно обещание и одно действие. Слайдер из 12 отобранных кадров, смена каждые четыре секунды и от колеса мыши.</p>
           <div class="spec dark">
             <div class="lbl">Фото на весь экран · 12 кадров по кругу</div>
             <div class="ph r219"><span>ФОТО 01 / 12 · СМЕНА ПО ТАЙМЕРУ</span></div>
             <div class="stack center" style="margin-top:-72px;position:relative;z-index:1">
-              <div class="t-h big">Ночь у трёх озёр Кинса Коча</div>
-              <div class="bars" style="width:70%"><i class="w100"></i><i class="w80"></i></div>
-              <div class="ctl">▶ СМОТРЕТЬ ФИЛЬМ → VIMEO В ОКНЕ</div>
+              <div class="t-h big">Дом у трёх озёр</div>
+              <div class="t-accent">4200 метров над Священной долиной.<br>Приезжают на день — остаются на ночь.</div>
+              <div class="row" style="gap:10px;margin-top:8px">
+                <div class="ctl wa">НАПИСАТЬ В WHATSAPP</div>
+                <div class="ctl ghost">↓ ПОСМОТРЕТЬ ДОМ</div>
+              </div>
               <div class="row" style="justify-content:center;gap:4px;margin-top:6px">
                 <span style="width:22px;height:2px;background:var(--sink)"></span>
                 <span style="width:9px;height:2px;background:var(--bar)"></span>
@@ -714,7 +719,9 @@
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark q">ВОПРОС</span> Кнопка ведёт на демо-ролик Vimeo — ваши шесть видео ещё не загружены.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Заголовок сменён. «Ночь у трёх озёр» отсекала половину аудитории на первой секунде: тот, кто планирует день из Куско, читал это как «мне сюда нельзя». Вторая строка теперь открывает обе двери и заодно продаёт ночь тем, кто ехал на день.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Кнопка «Смотреть фильм» и Vimeo убраны совсем. Кнопка, уводящая на чужую площадку с первого экрана, — самая дорогая ошибка лендинга. Вместо неё WhatsApp и стрелка вниз: обе оставляют человека здесь.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Название общины на сайте не пишем нигде. «Над Священной долиной» работает лучше: долину знает каждый, кто едет в Перу.</li>
           </ul>
         </article>
 
@@ -723,32 +730,39 @@
             <span class="num">02</span>
             <h3>Просто дом</h3>
             <span class="file">Story.tsx</span>
-            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">две колонки</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip new">текст готов</span><span class="chip ground-l">бумага</span></div>
           </div>
-          <p class="purpose">Объясняет, что это не отель. Текст слева прилипает и стоит на месте, пока справа проезжают фотографии.</p>
+          <p class="purpose">Объясняет, что это не отель. Текст слева прилипает и стоит на месте, пока справа проезжают фотографии дома — их немного, поэтому вся нагрузка на текст.</p>
           <div class="spec">
             <div class="split">
               <div class="stack">
                 <div class="lbl">Текст прилипает при прокрутке</div>
                 <div class="t-h">Просто дом</div>
-                <div class="t-accent">Это не отель, не ретрит-центр и не глэмпинг. Это дом.</div>
-                <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w100"></i><i class="w70"></i></div>
+                <div class="t-accent">Не отель, не ретрит-центр, не глэмпинг. Дом, в котором живут.</div>
+                <div class="lbl">4200 метров, андская община над Священной долиной, рядом три лагуны. Вокруг пуна: ни одного дерева, видно на десятки километров, по склонам ходят альпаки</div>
+                <div class="lbl">печь топится дровами и греет всерьёз · кухня · горячая вода и душ · кровати с тёплыми одеялами · стиральная машина</div>
+                <div class="lbl">каждое удобство с причиной, а не списком: «горячая вода» скучно, «газ привозят снизу» — уже история</div>
                 <div class="quote stack" style="gap:6px">
-                  <div class="t-h sm">Kinsa qucha на кечуа — «три озера»</div>
+                  <div class="t-h sm">Ближайший магазин — сорок минут вниз. Дрова здесь не растут. Всё, что кажется обычным, сюда кто-то поднял.</div>
                   <div class="t-h sm">Дом — частный. Всё вокруг — общее.</div>
                 </div>
               </div>
               <div>
-                <div class="lbl" style="margin-bottom:8px">Четыре «поляроида» вразнобой</div>
+                <div class="lbl" style="margin-bottom:8px">Четыре «поляроида» вразнобой — кадры дома</div>
                 <div class="g2">
-                  <div class="ph r43"><span>ФОТО</span></div>
-                  <div class="ph r43" style="margin-top:22px"><span>ФОТО</span></div>
-                  <div class="ph r43"><span>ФОТО</span></div>
-                  <div class="ph r43" style="margin-top:22px"><span>ФОТО</span></div>
+                  <div class="ph r43"><span>ДОМ СНАРУЖИ</span></div>
+                  <div class="ph r43" style="margin-top:22px"><span>ПЕЧЬ · ВИДЕО-ПЕТЛЯ</span></div>
+                  <div class="ph r43"><span>КУХНЯ</span></div>
+                  <div class="ph r43" style="margin-top:22px"><span>ГДЕ СПАТЬ</span></div>
                 </div>
               </div>
             </div>
           </div>
+          <ul class="notes">
+            <li><span class="mark ok">ФАКТЫ</span> Сорок минут до магазина и стиральная машина подтверждены. Машинка оставлена в тексте специально: на 4200 она звучит почти нелепо, и поэтому запоминается.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Кадр печи — не фотография, а короткая петля. Огонь в движении продаёт тепло лучше любого абзаца, и это первое место на сайте, где появляется видео.</li>
+            <li><span class="mark q">СВЯЗЬ</span> Строка «дом частный, всё вокруг общее» остаётся: она не называет общину, но говорит, что вы здесь не одни.</li>
+          </ul>
         </article>
 
         <article class="block" id="b03">
@@ -756,23 +770,32 @@
             <span class="num">03</span>
             <h3>Кому вы пишете</h3>
             <span class="file">About.tsx</span>
-            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip ground-l">бумага тёмная</span><span class="chip">рамки сверху и снизу</span></div>
+            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip new">текст готов</span><span class="chip ground-l">бумага тёмная</span></div>
           </div>
           <p class="purpose">Лицо и имя перед тем, как человек нажмёт «написать». Стоит выше блока про приватность намеренно: тогда правило звучит от человека, а не от бренда.</p>
           <div class="spec">
             <div class="split narrow-l">
               <div class="stack">
-                <div class="lbl">Единственный портрет на сайте</div>
+                <div class="lbl">Единственный портрет на сайте · фотография есть</div>
                 <div class="ph r11"><span>ФОТО ВЛАДЕЛЬЦА</span></div>
               </div>
               <div class="stack">
                 <div class="t-h">Кому вы пишете</div>
-                <div class="bars"><i class="w100"></i><i class="w90"></i></div>
-                <div class="bars"><i class="w100"></i><i class="w80"></i></div>
-                <div class="bars"><i class="w90"></i><i class="w45"></i></div>
+                <div class="lbl">Москва → джунгли → 4200. Три мира подряд, и человек сразу понимает, что перед ним не «владелец гостевого дома»</div>
+                <div class="lbl">про ковид и джунгли · про войну — одна спокойная фраза без политики · про десять лет и то, что обжился</div>
+                <div class="quote stack" style="gap:6px">
+                  <div class="t-h sm">Одна и та же гора, одно и то же озеро в разное время суток и года — всегда разные. Каждый раз находишь что-то новое, хотя ходишь тем же местом десятый год.</div>
+                </div>
+                <div class="lbl">и честный финал: бываю здесь редко, дом стоит, мне не нравится что он просто стоит — поэтому он стал проектом</div>
+                <div class="lbl">последняя строка: никакого ресепшена и никакой команды. Когда вы пишете — вы пишете мне</div>
               </div>
             </div>
           </div>
+          <ul class="notes">
+            <li><span class="mark ok">РЕШЕНО</span> Текст собран из вашего интервью и лежит целиком на странице «Экраны 01–07». 250 слов, портрет и подпись — не биография.</li>
+            <li><span class="mark ok">РЕШЕНО</span> То, что вы бываете здесь редко, не спрятано, а поставлено в текст. Это снимает будущее недоразумение и объясняет весь проект одной строкой — гораздо симпатичнее, чем «мы рады принимать гостей».</li>
+            <li><span class="mark q">ОДНО СЛОВО</span> Под текстом нужна подпись. Как вас представляем?</li>
+          </ul>
         </article>
 
         <article class="block" id="b04">
@@ -780,21 +803,31 @@
             <span class="num">04</span>
             <h3>Чего вы здесь не найдёте</h3>
             <span class="file">NotPublished.tsx</span>
-            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip ground-l">бумага тёмная</span><span class="chip">по центру</span></div>
+            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip new">переработан</span><span class="chip ground-d">камень</span></div>
           </div>
-          <p class="purpose">Позиция про приватность: к трём озёрам ходят все, и мы это признаём. Не публикуем то, что за ними.</p>
-          <div class="spec">
-            <div class="stack center">
+          <p class="purpose">Был список из трёх зачёркнутых строк — он только отнимал и ничего не давал взамен. Теперь пары: слева то, чего нет, справа то, что вместо. Правая половина проявляется чуть позже левой — человек сначала читает потерю, потом получает компенсацию.</p>
+          <div class="spec dark">
+            <div class="stack">
               <div class="t-h">Чего вы здесь не найдёте</div>
-              <div class="bars" style="width:65%"><i class="w100"></i><i class="w70"></i></div>
-              <div class="stack" style="gap:8px;margin-top:6px">
-                <div class="t-h sm strike">координат</div>
-                <div class="t-h sm strike">маршрутов и километража</div>
-                <div class="t-h sm strike">мест, где видели пуму</div>
+              <div class="stack" style="gap:0;margin-top:6px">
+                <div class="split" style="gap:20px;padding:10px 0;border-bottom:1px solid var(--sedge)"><div class="t-h sm" style="opacity:.55">Нет интернета, как в городе</div><div class="t-h sm">Есть вечер, который некуда деть</div></div>
+                <div class="split" style="gap:20px;padding:10px 0;border-bottom:1px solid var(--sedge)"><div class="t-h sm" style="opacity:.55">Нет программы и расписания</div><div class="t-h sm">Есть утро, в котором вы решаете сами</div></div>
+                <div class="split" style="gap:20px;padding:10px 0;border-bottom:1px solid var(--sedge)"><div class="t-h sm" style="opacity:.55">Нет ресепшена</div><div class="t-h sm">Есть человек, которому вы пишете</div></div>
+                <div class="split" style="gap:20px;padding:10px 0;border-bottom:1px solid var(--sedge)"><div class="t-h sm" style="opacity:.55">Нет соседей за стеной</div><div class="t-h sm">Есть тишина, от которой первую ночь не спится</div></div>
+                <div class="split" style="gap:20px;padding:10px 0;border-bottom:1px solid var(--sedge)"><div class="t-h sm" style="opacity:.55">Нет магазина за углом</div><div class="t-h sm">Есть то, что вы привезли, и форель из озера</div></div>
+                <div class="split" style="gap:20px;padding:10px 0;border-bottom:1px solid var(--sedge)"><div class="t-h sm" style="opacity:.55">Нет городского шума</div><div class="t-h sm">Есть ветер, вода и альпаки на склоне</div></div>
+                <div class="split" style="gap:20px;padding:10px 0"><div class="t-h sm" style="opacity:.55">Нет карт и координат</div><div class="t-h sm">Есть проводник, который выберет тропу утром</div></div>
               </div>
-              <div class="bars" style="width:55%;margin-top:6px"><i class="w100"></i><i class="w60"></i></div>
+              <div class="rule"></div>
+              <div class="lbl">и тихая строка мелким шрифтом, уже без пафоса</div>
+              <div class="t-accent">Мы не публикуем маршруты, координаты и названия троп. Не из вредности: как только появляется координата, появляется поток, а за потоком мусор и очередь на фотографию.</div>
             </div>
           </div>
+          <ul class="notes">
+            <li><span class="mark ok">РЕШЕНО</span> Зачёркнутый список убран совсем. Проблема была не в оформлении, а в том, что блок только отнимал: три «нет» подряд и ничего взамен.</li>
+            <li><span class="mark ok">ХОД</span> Последняя пара — про карты — незаметно переводит разговор от «здесь тихо» к главному правилу проекта. Человек доходит до него сам, а не получает его лекцией.</li>
+            <li><span class="mark">ФОТО</span> Фон блока — одна фотография пустого склона за текстом. Это первая тёмная пауза на сайте после светлого начала.</li>
+          </ul>
         </article>
 
         <article class="block" id="b05">
@@ -802,48 +835,42 @@
             <span class="num">05</span>
             <h3>Три озера</h3>
             <span class="file">Lakes.tsx</span>
-            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">три карточки</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip new">переделан крупно</span><span class="chip ground-l">бумага</span></div>
           </div>
-          <p class="purpose">Ответ на вопрос «ради чего ехать». Высота написана прямо на фотографии. Внизу — ссылка на главную статью блога.</p>
+          <p class="purpose">Точка входа во всём проекте: люди едут смотреть лагуны. Три полосы во всю ширину, по одной на озеро, в каждой фотография и видео воды рядом. Полосы чередуются: фото слева — видео справа, потом наоборот.</p>
           <div class="spec">
             <div class="stack">
-              <div class="t-h">Три озера</div>
-              <div class="t-accent">Kinsa qucha — три озера. Место названо счётом.</div>
-              <div class="bars"><i class="w90"></i><i class="w60"></i></div>
-              <div class="g3" style="margin-top:6px">
-                <div class="stack">
-                  <div class="ph r45"><span>ФОТО</span></div>
-                  <div class="t-h sm" style="margin-top:-46px;position:relative;z-index:1;padding:0 8px">4325 м<br><span style="font-size:12px;opacity:.75">Пума Коча</span></div>
-                  <div class="bars" style="margin-top:24px"><i class="w100"></i><i class="w70"></i></div>
-                </div>
-                <div class="stack">
-                  <div class="ph r45"><span>ФОТО</span></div>
-                  <div class="t-h sm" style="margin-top:-46px;position:relative;z-index:1;padding:0 8px">4247 м<br><span style="font-size:12px;opacity:.75">Асуль Коча</span></div>
-                  <div class="bars" style="margin-top:24px"><i class="w100"></i><i class="w80"></i></div>
-                </div>
-                <div class="stack">
-                  <div class="ph r45"><span>ФОТО</span></div>
-                  <div class="t-h sm" style="margin-top:-46px;position:relative;z-index:1;padding:0 8px">? м<br><span style="font-size:12px;opacity:.75">Кинса Коча</span></div>
-                  <div class="bars" style="margin-top:24px"><i class="w100"></i><i class="w60"></i></div>
-                </div>
-              </div>
-              <div class="ctl ghost">ЧИТАТЬ СТАТЬЮ ПРО ТРИ ОЗЕРА →</div>
+              <div class="t-h big">Три озера</div>
+              <div class="t-accent">Kinsa qucha на кечуа — «три озера». Место названо счётом.</div>
+              <div class="lbl">короткая история: высоты, откуда берётся вода, почему такой цвет — холодная чистая вода, мало органики, много света. И честно: за ними и едут</div>
 
-              <div class="cell" style="border-color:var(--accent);margin-top:6px">
-                <div class="lbl" style="color:var(--accent)">новое · измерено, а не написано</div>
-                <div class="g3">
-                  <div class="stack" style="gap:2px"><div class="t-h big">4200</div><div class="lbl">метров · барометр</div></div>
-                  <div class="stack" style="gap:2px"><div class="t-h big">‹25</div><div class="lbl">децибел ночью · шумомер</div></div>
-                  <div class="stack" style="gap:2px"><div class="t-h big">2</div><div class="lbl">класс неба по Бортлю</div></div>
-                </div>
-                <div class="bars"><i class="w80"></i></div>
-                <div class="lbl">строка под цифрами: мы их измерили. Ни одно агентство в долине этого не сделало</div>
+              <div class="split" style="gap:10px;margin-top:6px">
+                <div class="ph r219"><span>ПУМА КОЧА · ФОТО</span></div>
+                <div class="ph r43"><span>ВИДЕО ВОДЫ · ПЕТЛЯ</span></div>
               </div>
+              <div class="row" style="justify-content:space-between"><span class="t-h sm">Puma qucha · 4325 м</span><span class="ctl ghost">ОТКРЫТЬ →</span></div>
+
+              <div class="split" style="gap:10px">
+                <div class="ph r43"><span>ВИДЕО ВОДЫ · ПЕТЛЯ</span></div>
+                <div class="ph r219"><span>АСУЛЬ КОЧА · ФОТО</span></div>
+              </div>
+              <div class="row" style="justify-content:space-between"><span class="t-h sm">Asul qucha · 4247 м</span><span class="ctl ghost">ОТКРЫТЬ →</span></div>
+
+              <div class="split" style="gap:10px">
+                <div class="ph r219"><span>КИНСА КОЧА · ФОТО</span></div>
+                <div class="ph r43"><span>ВИДЕО ВОДЫ · ПЕТЛЯ</span></div>
+              </div>
+              <div class="row" style="justify-content:space-between"><span class="t-h sm">Kinsa qucha · у него стоит дом</span><span class="ctl ghost">ОТКРЫТЬ →</span></div>
+
+              <div class="rule"></div>
+              <div class="t-accent">Озёра — это то, за чем едут. Не то, ради чего остаются.</div>
+              <div class="lbl">и следом: порядок обхода не задан — его выберет проводник утром, по погоде и по тому, кто с вами идёт</div>
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark q">ВОПРОС</span> Высота Кинса Кочи не названа — на карточке пусто.</li>
-            <li><span class="mark q">НОВОЕ</span> Три измеренные цифры вместо прилагательных. Нужен шумомер (копеечный) и один ясный вечер. Цифры, которых нет ни у кого, — это актив, который не копируется.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Видео воды с приближением стоит рядом с фотографией, а не вместо неё. Цвет этой воды живёт только в движении: на статичном кадре его принимают за обработку, и человек не верит.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Вместо ссылки «читать статью» — три отдельные страницы, по одной на озеро. Люди ищут каждое озеро по имени, три страницы ловят три запроса, а одна статья конкурирует сама с собой.</li>
+            <li><span class="mark ok">КЕЧУА</span> Название кечуа стоит первым и крупно, испанское — в адресе и в тексте. Так человека приводит поиск, а встречает его кечуа.</li>
           </ul>
         </article>
 
@@ -851,37 +878,24 @@
           <div class="block-head">
             <span class="num">06</span>
             <h3>Дорога</h3>
-            <span class="file">Road.tsx</span>
-            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага тёмная</span><span class="chip">две колонки</span></div>
+            <span class="file">GettingThere.tsx</span>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip new">текст готов</span><span class="chip ground-l">бумага</span></div>
           </div>
-          <p class="purpose">Первый вопрос человека, который уже в Куско, — «далеко ли». Только время, без карты и описания пути.</p>
+          <p class="purpose">Аудитория уже в Куско или Писаке, и её первый вопрос — «далеко ли». Только время и кнопка: карты нет и не будет.</p>
           <div class="spec">
-            <div class="split">
-              <div class="stack">
-                <div class="t-h">Дорога</div>
-                <div class="bars"><i class="w90"></i></div>
-                <div class="row" style="gap:40px;margin-top:8px">
-                  <div class="stack" style="gap:4px">
-                    <div class="t-h big">40</div>
-                    <div class="lbl">минут</div>
-                    <div class="bars"><i class="w60"></i></div>
-                  </div>
-                  <div class="stack" style="gap:4px">
-                    <div class="t-h big">120</div>
-                    <div class="lbl">минут</div>
-                    <div class="bars"><i class="w60"></i></div>
-                  </div>
-                </div>
-              </div>
-              <div class="stack">
-                <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w70"></i></div>
-                <div class="quote"><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
-                <div class="ctl wa">НАПИСАТЬ ПРО ТРАНСФЕР</div>
-              </div>
+            <div class="stack">
+              <div class="t-h">Дорога</div>
+              <div class="t-accent">От Писака — сорок минут. От Куско — около полутора часов.</div>
+              <div class="lbl">сначала Священная долина, через полчаса заканчиваются деревья, дальше пуна и холод прямо в машине. Последний участок — грунт</div>
+              <div class="lbl">такси: из Писака быстрее и дешевле, из Куско — без пересадок. Машина доезжает до самой двери, идти пешком с вещами не придётся</div>
+              <div class="quote"><div class="t-h sm">Наверху вы окажетесь примерно на километр выше Куско. Это чувствуется в первый же час.</div></div>
+              <div class="lbl">и вывод: подъём — уже часть акклиматизации, а не потерянное время</div>
+              <div class="ctl wa">ЗАКАЗАТЬ ТРАНСФЕР</div>
+              <div class="lbl">трансфер оплачивается отдельно от проживания</div>
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark q">ВОПРОС</span> Время от Куско стоит 120 минут по внешним источникам — ваша цифра не подтверждена.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Текст написан живым языком, как вы просили. Маршрута нет: тому, кто уже в Куско, нужен ответ на «далеко ли», а дорогу он спросит у водителя, которого мы ему найдём.</li>
           </ul>
         </article>
 
@@ -890,40 +904,35 @@
             <span class="num">07</span>
             <h3>Высота</h3>
             <span class="file">Altitude.tsx</span>
-            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip ground-d">камень</span><span class="chip">одна колонка</span></div>
+            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip new">текст готов</span><span class="chip ground-d">камень</span></div>
           </div>
-          <p class="purpose">Спать на 4200 и подняться на 4200 днём — разные вещи. Четыре просьбы и обещание отговорить от неудачной даты.</p>
+          <p class="purpose">Спать на 4200 и подняться на 4200 днём — разные вещи. Акклиматизация подана как условие, а не как совет.</p>
           <div class="spec dark">
             <div class="stack">
-              <div class="lbl">▲ иконка</div>
               <div class="t-h">Высота</div>
-              <div class="bars"><i class="w100"></i><i class="w90"></i></div>
-              <div class="stack" style="gap:9px;margin-top:6px">
-                <div class="quote"><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
-                <div class="quote"><div class="bars"><i class="w90"></i></div></div>
-                <div class="quote"><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
-                <div class="quote"><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
-              </div>
-              <div class="t-h sm" style="margin-top:6px">Мы предпочтём отговорить вас от неудачной даты, чем принять и смотреть, как вам плохо.</div>
+              <div class="t-accent">4200 метров — это много. Кислорода примерно на сорок процентов меньше, чем на уровне моря.</div>
+              <div class="lbl">воздух тот же, его просто меньше в каждом вдохе. Перестройка занимает не минуты, а дни</div>
 
-              <div class="cell" style="border-left:2px solid var(--accent)">
-                <div class="lbl" style="color:var(--accent)">новое · если станет плохо. Пишем правду, без смягчений</div>
-                <div class="t-h sm">В доме есть аптечка: таблетки от высоты, кислород — и есть дорога вниз.</div>
-                <div class="bars"><i class="w100"></i><i class="w80"></i></div>
-                <div class="t-h sm">Если нужно спускаться, мы звоним водителям: их номера у нас есть. Днём машина приходит скоро. Ночью — ждать: она идёт снизу, и это время.</div>
-                <div class="bars"><i class="w100"></i><i class="w70"></i></div>
-                <div class="t-h sm">Поэтому здесь работает не аптечка, а подготовка.</div>
-                <div class="lbl">два-три дня в Куско или Священной долине перед подъёмом — не совет, а условие. С детьми особенно</div>
+              <div class="t-h sm">Если вы не привыкли к горам</div>
+              <div class="lbl">два-три дня в Куско или Священной долине перед подъёмом. Просто поживите: гуляйте, спите, не спешите. Куско на 3400 — уже достаточно высоко</div>
+              <div class="quote"><div class="t-h sm">Разница между «мне было тяжело и я ничего не запомнил» и «я запомнил этот день» — вот эти два дня.</div></div>
+
+              <div class="t-h sm">Что помогает</div>
+              <div class="row" style="gap:6px">
+                <span class="pill">пить больше</span><span class="pill">идти медленно</span><span class="pill">лёгкий ужин</span><span class="pill">без алкоголя в первые сутки</span><span class="pill">лист коки</span><span class="pill">тепло</span>
               </div>
 
+              <div class="t-h sm">Если станет плохо</div>
+              <div class="lbl">в доме аптечка: таблетки от высоты и кислород. Нужно вниз — звоним водителям, номера есть. Днём машина приходит скоро, ночью её надо ждать: она идёт снизу</div>
+              <div class="quote"><div class="t-h sm">Поэтому здесь работает не аптечка, а подготовка.</div></div>
+              <div class="t-h sm">Мы предпочтём отговорить вас от неудачной даты, чем принять и смотреть, как вам плохо.</div>
               <div class="ctl ghost">СТАТЬЯ ПРО ГОРНУЮ БОЛЕЗНЬ →</div>
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark ok">РЕШЕНО</span> Вопрос 39 закрыт вашим ответом, и закрыт он правдой: кислород будет, но помощь всё равно идёт снизу и ночью идёт долго. Это не слабое место сайта, а сильное — человек, который читает такое, верит и всему остальному. Спрятать это было бы худшим решением из возможных: тот, кто узнает правду ночью на 4200, уже не сможет ничего исправить.</li>
-            <li><span class="mark q">СЛЕДСТВИЕ</span> Раз спасает подготовка, а не аптечка, — акклиматизация перестаёт быть просьбой. Она идёт жирной строкой здесь, повторяется в правилах дома и уходит в сообщение WhatsApp при договорённости. Три места, мимо которых человек не пройдёт.</li>
-            <li><span class="mark">ПЕРЕД ЗАПУСКОМ</span> Кислород показан в составе аптечки, потому что вы покупаете его до запуска. В коде эта строка помечена: <b>не публикуем, пока баллон не куплен.</b> Одна ненастоящая строка в списке медицинской помощи стоит дороже всего остального сайта.</li>
-            <li><span class="mark q">МЕЛОЧЬ, КОТОРАЯ РАБОТАЕТ</span> Номера водителей — распечатать и повесить в доме на видном месте. Гость, которому ночью плохо, не должен искать телефон в переписке, а вы не должны быть единственным, кто знает, куда звонить.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Текст готов. Акклиматизация стоит выше всего остального: раз спасает подготовка, а не аптечка, — она не просьба, а условие.</li>
+            <li><span class="mark">ПЕРЕД ЗАПУСКОМ</span> Кислород показан в составе аптечки, потому что вы покупаете его до запуска. В коде строка помечена: не публикуем, пока баллон не куплен.</li>
+            <li><span class="mark q">МЕЛОЧЬ</span> Распечатать номера водителей и повесить в доме на видном месте.</li>
           </ul>
         </article>
       </section>
@@ -1339,7 +1348,7 @@
           </div>
           <ul class="notes">
             <li><span class="mark">ФОТО</span> Музея и ткачества нет ни одного кадра — а «ткут на ходу» без фотографии не работает.</li>
-            <li><span class="mark q">ВОПРОС</span> Пару-Пару входит в Parque de la Papa или парк просто рядом? Формулировка пока осторожная.</li>
+            <li><span class="mark q">ВОПРОС</span> Входит ли община в Parque de la Papa или парк просто рядом? Формулировка пока осторожная. Название общины на сайте не пишем, так что вопрос теперь только о формулировке «рядом».</li>
           </ul>
         </article>
       </section>
@@ -1576,11 +1585,11 @@
                 <div class="stack"><div class="lbl">контакты</div><div class="bars"><i class="w90"></i><i class="w60"></i></div><div class="row" style="gap:8px"><span class="pill">RU</span><span class="pill">EN</span><span class="pill">ES</span></div></div>
               </div>
               <div class="rule"></div>
-              <div class="lbl">© 2026 Kinsacocha · Comunidad Paru-Paru, Peru</div>
+              <div class="lbl">© 2026 Kinsacocha · Pisac, Cusco, Peru</div>
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark q">В ОЧЕРЕДИ</span> Добавить живую строку («сейчас в Пару-Пару ночь, до полнолуния 11 дней») и пять слов на кечуа.</li>
+            <li><span class="mark q">В ОЧЕРЕДИ</span> Добавить живую строку («сейчас наверху ночь, до полнолуния 11 дней») и пять слов на кечуа.</li>
             <li><span class="mark ok">НОВОЕ</span> Сюда же — одна строка со счётчиком: «в 2026 унесено вниз 34 мешка». Цифра берётся из ленты сама, писать её руками не нужно. Это единственное место, где проект говорит о себе хорошее, и работает оно потому, что говорит цифрой, а не прилагательным.</li>
           </ul>
         </article>
@@ -1974,6 +1983,69 @@
           </ul>
         </article>
 
+        <article class="block is-new" id="p-lake">
+          <div class="block-head">
+            <span class="num">О</span>
+            <h3>Страница лагуны · три штуки</h3>
+            <span class="file">/ozera/pumakocha · /lakes/… · /lagunas/…</span>
+            <div class="chips"><span class="chip new">новая</span><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span></div>
+          </div>
+          <p class="purpose">Три отдельные страницы вместо одной статьи: люди ищут каждое озеро по имени. Здесь живут ваши фотосессии целиком — двадцать кадров одной лагуны на главную не поместятся никогда, а на её странице это ровно то, что нужно.</p>
+          <div class="spec">
+            <div class="stack">
+              <div class="lbl">← три озера</div>
+              <div class="t-h big">Puma qucha</div>
+              <div class="lbl">Pumacocha · «озеро пумы» · 4325 м — кечуа крупно, испанское рядом мелким</div>
+              <div class="ph r219"><span>ГЛАВНЫЙ КАДР ЛАГУНЫ</span></div>
+              <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w60"></i></div>
+              <div class="lbl">400–600 слов: что это за вода, чем отличается от двух других, в какое время суток выглядит лучше всего. Маршрута и координат нет</div>
+
+              <div class="rule"></div>
+              <div class="lbl" style="color:var(--accent)">★ одна точка в разное время — ваша мысль из интервью</div>
+              <div class="g3">
+                <div class="stack"><div class="ph r43"><span>ИЮНЬ · РАССВЕТ</span></div></div>
+                <div class="stack"><div class="ph r43"><span>ОКТЯБРЬ · ПОЛДЕНЬ</span></div></div>
+                <div class="stack"><div class="ph r43"><span>ФЕВРАЛЬ · ЗАКАТ</span></div></div>
+              </div>
+              <div class="lbl">одно и то же озеро с одной и той же точки. Доказательство того, что сюда стоит вернуться — такого нет ни у одного путеводителя, потому что путеводитель приезжает один раз</div>
+
+              <div class="rule"></div>
+              <div class="lbl">Галерея с тремя рядами фильтров</div>
+              <div class="row" style="gap:6px">
+                <span class="pill" style="background:var(--sink);color:var(--g)">все</span>
+                <span class="pill">рассвет</span><span class="pill">утро</span><span class="pill">полдень</span><span class="pill">день</span><span class="pill">закат</span><span class="pill">ночь</span>
+              </div>
+              <div class="lbl">время суток — само, из данных снимка</div>
+              <div class="row" style="gap:6px">
+                <span class="pill">янв</span><span class="pill">фев</span><span class="pill">…</span><span class="pill">дек</span><span class="pill">сухой сезон</span><span class="pill">дожди</span>
+              </div>
+              <div class="lbl">месяц и сезон — тоже сами</div>
+              <div class="row" style="gap:6px">
+                <span class="pill">ясно</span><span class="pill">облака</span><span class="pill">туман</span><span class="pill">дождь</span><span class="pill">снег</span><span class="pill">лёд</span>
+              </div>
+              <div class="lbl">погоду ставите вы, один клик на кадр — её из файла не вытащить</div>
+
+              <div class="g4" style="margin-top:6px">
+                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="lbl">июль · раннее утро · туман</div></div>
+                <div class="stack"><div class="ph r11"><span>ВИДЕО</span></div><div class="lbl">ноябрь · полдень · ясно</div></div>
+                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="lbl">март · закат · облака</div></div>
+                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="lbl">июнь · ночь</div></div>
+              </div>
+              <div class="lbl">точные дату и час не показываем: тег отвечает на вопрос, а точное время — это уже слежка за вашим расписанием</div>
+
+              <div class="rule"></div>
+              <div class="lbl">внизу — два других озера и кнопка</div>
+              <div class="ctl wa">НАПИСАТЬ В WHATSAPP</div>
+            </div>
+          </div>
+          <ul class="notes">
+            <li><span class="mark ok">КАК УСТРОЕНО</span> Время съёмки берём из самой фотографии при сборке сайта, а потом стираем его из файла вместе с GPS. Время знаем — координаты дальше моего компьютера не уезжают.</li>
+            <li><span class="mark ok">ПОЧЕМУ РАБОТАЕТ</span> Мы почти на экваторе: солнце круглый год встаёт и садится примерно в одно время, поэтому часы раскладываются на корзины раз и навсегда. Рассвет 4:30–6:30, утро до 11, полдень до 14, день до 16:30, закат до 18:30, дальше ночь.</li>
+            <li><span class="mark q">ОДНА ПРОВЕРКА</span> Перед первой большой загрузкой пришлите десяток кадров как есть — проверю часовой пояс камеры. Если она думает, что она в Москве, все теги съедут на восемь часов.</li>
+            <li><span class="mark q">СНИМАЯ</span> Иногда возвращайтесь на одну и ту же точку. Не всегда, просто иногда. Через год у вас будет то, что невозможно повторить.</li>
+          </ul>
+        </article>
+
         <article class="block" id="p-gallery">
           <div class="block-head">
             <span class="num">Г</span>
@@ -2033,7 +2105,7 @@
                 <div class="stack"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="t-h sm">Три озера над облаками</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
                 <div class="stack"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="t-h sm">Горная болезнь на 4200</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
                 <div class="stack"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="t-h sm">Что такое чуньо</div><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
-                <div class="stack"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="lbl" style="color:var(--warn)">черновик</div><div class="t-h sm">Ткачество Пару-Пару</div><div class="bars"><i class="w90"></i></div></div>
+                <div class="stack"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="lbl" style="color:var(--warn)">черновик</div><div class="t-h sm">Ткачество на ходу</div><div class="bars"><i class="w90"></i></div></div>
                 <div class="stack"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="lbl" style="color:var(--warn)">черновик</div><div class="t-h sm">Почему кактусы носят шерсть</div><div class="bars"><i class="w80"></i></div></div>
                 <div class="stack"><div class="ph r43"><span>ОБЛОЖКА</span></div><div class="lbl" style="color:var(--warn)">черновик</div><div class="t-h sm">…ещё семь</div><div class="bars"><i class="w70"></i></div></div>
               </div>
@@ -2332,7 +2404,7 @@
               <div class="row" style="gap:6px">
                 <span class="pill">13 маршруты</span><span class="pill">14 кого увидите</span><span class="pill">15 под ногами</span><span class="pill">16 ткачество</span><span class="pill">18 заметки</span>
               </div>
-              <div class="lbl">у второго объекта фауна, флора и община будут те же самые — держать их в шаблоне локации значит переписывать одно и то же дважды</div>
+              <div class="lbl">у второго объекта фауна, флора и жизнь вокруг будут те же самые — держать их в шаблоне локации значит переписывать одно и то же дважды</div>
 
               <div class="lbl">делится надвое · 4 блока — полная версия наверху, врезка со ссылкой здесь</div>
               <div class="row" style="gap:6px">
@@ -2441,7 +2513,7 @@
               <div class="cell" style="border-color:var(--accent)">
                 <div class="lbl" style="color:var(--accent)">очерёдность запуска — из вашего задания</div>
                 <div class="row" style="gap:8px">
-                  <span class="pill">1 · звук</span><span class="pill">2 · ткани Пару-Пару</span><span class="pill">3 · «горный камень»</span><span class="pill">4 · физическое под вопросом</span>
+                  <span class="pill">1 · звук</span><span class="pill">2 · ткани</span><span class="pill">3 · «горный камень»</span><span class="pill">4 · физическое под вопросом</span>
                 </div>
                 <div class="lbl">звук первым: нулевой юридический риск, ни таможни, ни доставки, и записи всё равно нужны Дневнику</div>
               </div>
@@ -2626,7 +2698,7 @@
         </p>
         <ul>
           <li><b>Отступы по главам.</b> Сейчас у всех блоков одинаковое расстояние — страница читается так, будто все блоки равноважны. Внутри главы станет плотнее, между главами — пауза.</li>
-          <li><b>Подвал.</b> Живая строка о том, что сейчас происходит в Пару-Пару, и пять слов на кечуа.</li>
+          <li><b>Подвал.</b> Живая строка о том, что сейчас происходит наверху, и пять слов на кечуа.</li>
           <li><b>Блок 14.</b> Словесная частота на карточках и строка про уязвимые виды.</li>
           <li><b>Свободные даты.</b> Список занятых дат в настройках и строка «ближайшие свободные даты», плюс дата прямо в тексте сообщения WhatsApp.</li>
         </ul>
