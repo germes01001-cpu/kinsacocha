@@ -517,19 +517,21 @@
     </div>
 
     <p style="margin-top:18px;max-width:64ch;color:var(--ink-2)">
-      <b>Обновлено 14 августа, вечер.</b> Закрыты вопросы 01–06. Раздел «Коллекция»
-      переименован в <b>Артефакты</b> и получил адрес <code>/artefakty</code>; он стоит
-      в главном меню, но это не магазин — ни корзины, ни цен сеткой. Разделы получили адреса
-      на трёх языках (внизу, перед сквозными элементами). Каждому из 23 блоков проставлена
-      метка принадлежности: что останется на странице дома, а что уедет на бренд-уровень.
+      <b>Обновлено 14 августа, вечер.</b> Разнесены ответы на вторую пачку вопросов.
+      Переписана страница «Правила дома»: алкоголь, вещества, дрова, уборка, собака и кот.
+      В блоке 11 появилась связь — интернет здесь есть, просто ловит по-разному, и говорим
+      мы об этом прямо. В блок 15 добавлена третья ступень: камни. В Атласе камни стали
+      полноценной ветвью наравне с животными и растениями. Добавлена памятка «Звук —
+      что записывать и как».
     </p>
     <p style="margin-top:12px;max-width:64ch;color:var(--ink-2)">
-      Блог остаётся и продолжает жить — с одним условием: статья пишется под конкретный
-      поисковый запрос, а не по вдохновению. Все двенадцать статей с настоящими текстами
-      и местами под фотографии вынесены на <b>отдельную страницу</b> — ссылка в Notion.
+      Раздел «Коллекция» переименован в <b>Артефакты</b>, адрес <code>/artefakty</code>,
+      место — в главном меню; это не магазин. Каждому из 23 блоков проставлена метка
+      принадлежности: что останется на странице дома, а что уедет на бренд-уровень.
+      Все двенадцать статей блога с текстами и местами под фотографии — на отдельной странице.
     </p>
     <p style="margin-top:12px;max-width:64ch;color:var(--ink-2)">
-      Мобильная схема и список открытых вопросов — тоже отдельные страницы,
+      Мобильная схема, статьи блога и список вопросов — отдельные страницы,
       ссылки на них лежат в Notion рядом с этой.
     </p>
   </header>
@@ -658,6 +660,7 @@
       </ol>
       <p class="chapter-label">Страницы</p>
       <ol>
+        <li><a href="#p-sound"><span class="n">З</span> Звук — памятка ★</a></li>
         <li><a href="#p-gallery"><span class="n">Г</span> Галерея</a></li>
         <li><a href="#p-blog"><span class="n">Б</span> Блог</a></li>
         <li><a href="#p-post"><span class="n">С</span> Статья</a></li>
@@ -1044,10 +1047,19 @@
                 <div class="ph" style="grid-column:span 2"><span>ФОТО · СТИРАЛЬНАЯ МАШИНА</span></div>
               </div>
               <div class="lbl">на каждой карточке: иконка, название, две строки текста — поверх фотографии</div>
+
+              <div class="cell" style="border-color:var(--accent)">
+                <div class="lbl" style="color:var(--accent)">новое · седьмая карточка: связь</div>
+                <div class="t-h sm">WiFi здесь нет. Мобильный интернет иногда ловит — по-разному, в зависимости от места, погоды и оператора.</div>
+                <div class="bars"><i class="w100"></i><i class="w70"></i></div>
+                <div class="lbl">и следом честная строка: мы не обещаем связь и не обещаем её отсутствие. Захотите — найдёте место, где ловит. Не захотите — телефон замолчит сам</div>
+              </div>
             </div>
           </div>
           <ul class="notes">
             <li><span class="mark">ФОТО</span> Ни печи, ни душа, ни типи в исходниках нет — все шесть карточек стоят на пейзажах.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Про интернет говорим прямо. У вас две симкарты и связь ловит по-разному — значит фраза «здесь нет интернета» была бы неправдой, и гость поймал бы нас на ней в первый же вечер. Формулировка выше сохраняет главное обещание (телефон здесь не работает как в городе), но не врёт.</li>
+            <li><span class="mark q">СЛЕДСТВИЕ</span> Раз связь есть — реальная погода в паспорте момента снимается на месте, а не берётся с метеостанции в долине. Вопрос 21 закрыт этим же ответом.</li>
           </ul>
         </article>
 
@@ -1218,7 +1230,7 @@
             <span class="file">Flora.tsx</span>
             <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-l">бумага</span><span class="chip">полевой дневник</span></div>
           </div>
-          <p class="purpose">Единственный блок, который просит смотреть вниз. Снимки будто приколоты к листу, подписи мелкие — другая текстура работает паузой.</p>
+          <p class="purpose">Единственный блок, который просит смотреть вниз. Снимки будто приколоты к листу, подписи мелкие — другая текстура работает паузой. Три ступени: что растёт здесь · что растёт по дороге снизу · <b>на чём всё это держится — камни</b>.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h">То, что под ногами</div>
@@ -1246,13 +1258,26 @@
                 <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кока</div><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
               </div>
 
+              <div class="rule" style="margin-top:6px"></div>
+              <div class="lbl" style="color:var(--accent)">новое · третья ступень: то, на чём всё это держится</div>
+              <div class="t-h sm">Камни</div>
+              <div class="bars"><i class="w100"></i><i class="w70"></i></div>
+              <div class="lbl">переход одной строкой: растения здесь живут не в почве, а между камнями — сначала порода, потом всё остальное</div>
+              <div class="g4">
+                <div class="stack"><div class="ph r11"><span>ФОТО КАМНЯ</span></div><div class="t-h sm">Порода 1</div><div class="lbl">название уточняется</div></div>
+                <div class="stack"><div class="ph r11"><span>ФОТО КАМНЯ</span></div><div class="t-h sm">Порода 2</div><div class="lbl">название уточняется</div></div>
+                <div class="stack"><div class="ph r11"><span>ФОТО КАМНЯ</span></div><div class="t-h sm">Порода 3</div><div class="lbl">название уточняется</div></div>
+                <div class="stack"><div class="ph r11"><span>ФОТО КАМНЯ</span></div><div class="t-h sm">Порода 4</div><div class="lbl">название уточняется</div></div>
+              </div>
+              <div class="lbl">снимать в руке или рядом с монетой: без масштаба камень на фотографии не читается</div>
+
               <div class="cell" style="border-color:var(--accent)">
                 <div class="row" style="justify-content:space-between;align-items:center">
                   <div class="stack" style="gap:4px">
                     <div class="lbl" style="color:var(--accent)">новое · выход в справочник</div>
-                    <div class="t-h sm">Каждое растение — своя страница: как выглядит, когда цветёт, зачем оно здесь</div>
+                    <div class="t-h sm">Каждое растение и каждая порода — своя страница: как выглядит, когда цветёт или откуда взялось, зачем оно здесь</div>
                   </div>
-                  <div class="ctl ghost">ВСЕ РАСТЕНИЯ →</div>
+                  <div class="ctl ghost">В АТЛАС →</div>
                 </div>
               </div>
             </div>
@@ -1261,6 +1286,7 @@
             <li><span class="mark">ФОТО</span> Макро-съёмки растений нет — стоят пейзажные заглушки. Блок держится на крупном плане и без него самый слабый.</li>
             <li><span class="mark q">ВАЖНО</span> Эвкалипт, муня и кока на 4200 не растут — они ниже, по дороге. Ставим их отдельной ступенью, иначе получится ложное обещание, как было с кеунией.</li>
             <li><span class="mark q">ЯЗЫКИ</span> Для английской и испанской версий про коку нужна поясняющая строка: в Перу лист коки легален, традиционен и продаётся на любом рынке. Без неё иностранец пугается.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Камни входят сюда третьей ступенью, а не отдельным блоком главной. Причина: отдельный блок про геологию посреди лендинга читается как школьный учебник и его пролистывают. Внутри «того, что под ногами» камень — это ответ на вопрос, который уже возник: почему здесь всё такое мелкое и жёсткое. Полноценный раздел камни получают в Атласе — там их можно набирать хоть сорок штук, не утяжеляя главную.</li>
           </ul>
         </article>
 
@@ -1701,7 +1727,7 @@
             <span class="file">/atlas</span>
             <div class="chips"><span class="chip new">новая</span><span class="chip ground-l">бумага</span><span class="chip">сетка карточек</span></div>
           </div>
-          <p class="purpose">Общий вход в энциклопедию. Отсюда почти не ходят — сюда приходят из поиска сразу на карточку. Но раздел нужен как оглавление и для поисковика. «Атлас» точнее «Справочника»: обещает связность, а не список.</p>
+          <p class="purpose">Общий вход в энциклопедию. Отсюда почти не ходят — сюда приходят из поиска сразу на карточку. Но раздел нужен как оглавление и для поисковика. «Атлас» точнее «Справочника»: обещает связность, а не список.<br>Три равноправные ветви: <b>кто здесь живёт · что здесь растёт · из чего это сделано</b>. Камни — не приложение к растениям, а третий столб: порода объясняет и воду в озёрах, и то, почему растения здесь такие мелкие.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h big">Атлас</div>
@@ -1719,7 +1745,12 @@
                 <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Тарука</div><div class="lbl">уязвимый вид</div></div>
                 <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кактус-подушка</div><div class="lbl">название уточняется</div></div>
                 <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Ичу</div><div class="lbl">трава пуны</div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Гранит и сланец</div><div class="lbl">порода · новое</div></div>
+                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Порода 1</div><div class="lbl">камень · название уточняется</div></div>
+              </div>
+              <div class="cell" style="border-color:var(--accent)">
+                <div class="lbl" style="color:var(--accent)">новое · камни получают полноценную ветвь</div>
+                <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+                <div class="lbl">карточка камня устроена как карточка животного: как выглядит, где попадается, откуда взялся, чем объясняет остальное. Порядок наполнения: сфотографировать → завести карточку со статусом «не подтверждено» → определить породу позже. Ждать определения, чтобы начать снимать, не надо</div>
               </div>
 
               <div class="cell" style="border-color:var(--accent)">
@@ -1799,6 +1830,64 @@
           <h2>Отдельные страницы</h2>
           <span>Галерея, блог, статья</span>
         </div>
+
+        <article class="block is-new" id="p-sound">
+          <div class="block-head">
+            <span class="num">З</span>
+            <h3>Звук — что записывать и как</h3>
+            <span class="file">памятка, не страница сайта</span>
+            <div class="chips"><span class="chip new">новое</span><span class="chip">для вас, не для гостя</span></div>
+          </div>
+          <p class="purpose">Звук — основа и Дневника, и первой очереди Артефактов, и техника у вас есть. Не хватало структуры: что именно писать и по каким правилам, чтобы запись потом годилась и в заметку, и в лот. Вот она — распечатайте или держите в заметках телефона.</p>
+          <div class="spec">
+            <div class="stack">
+              <div class="lbl">Десять записей, с которых начинается фонотека</div>
+              <div class="g3">
+                <div class="cell tight"><div class="t-h sm">01 · Ночь у воды</div><div class="lbl">самое ценное. Тишина, которой не бывает внизу</div></div>
+                <div class="cell tight"><div class="t-h sm">02 · Гроза</div><div class="lbl">эхо между склонами</div></div>
+                <div class="cell tight"><div class="t-h sm">03 · Ветер на гребне</div><div class="lbl">самый узнаваемый звук высоты</div></div>
+                <div class="cell tight"><div class="t-h sm">04 · Огонь в печи</div><div class="lbl">вечер в доме</div></div>
+                <div class="cell tight"><div class="t-h sm">05 · Рассвет и птицы</div><div class="lbl">уальята, утки, вода</div></div>
+                <div class="cell tight"><div class="t-h sm">06 · Стадо</div><div class="lbl">альпаки, шаги, свист пастуха</div></div>
+                <div class="cell tight"><div class="t-h sm">07 · Дождь по крыше</div><div class="lbl">сезон дождей, ноябрь–март</div></div>
+                <div class="cell tight"><div class="t-h sm">08 · Станок</div><div class="lbl">ткачество, ритм работы</div></div>
+                <div class="cell tight"><div class="t-h sm">09 · Вода из скалы</div><div class="lbl">источник, короткая петля</div></div>
+                <div class="cell tight"><div class="t-h sm">10 · Полнолуние</div><div class="lbl">три ночи в месяц, только по случаю</div></div>
+              </div>
+
+              <div class="rule"></div>
+              <div class="lbl">Пять правил, без которых запись не годится</div>
+              <div class="stack" style="gap:8px">
+                <div class="row" style="gap:12px"><span class="pill">10 минут</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">не двигаться</span><span class="bars" style="flex:1"><i class="w100"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">не говорить</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">микрофон на земле</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">WAV, не mp3</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
+              </div>
+              <div class="lbl">десять минут непрерывно — из них потом вырезается лучшая минута; шорох куртки и шаги слышны в записи громче, чем кажется на месте; ветер требует поролона на микрофоне, иначе всё сдувает в треск</div>
+
+              <div class="rule"></div>
+              <div class="lbl">Что записать в блокнот сразу после — иначе забудется</div>
+              <div class="row" style="gap:6px">
+                <span class="pill">дата</span><span class="pill">время</span><span class="pill">высота</span><span class="pill">погода</span><span class="pill">фаза луны</span><span class="pill">одна строка словами</span>
+              </div>
+              <div class="lbl">это и есть паспорт момента. Пять строк, снятых на месте, стоят дороже самой записи: без них файл — просто звук, с ними — задокументированный момент</div>
+
+              <div class="rule"></div>
+              <div class="lbl">Как одна запись работает трижды</div>
+              <div class="g3">
+                <div class="cell tight"><div class="t-h sm">20 секунд</div><div class="lbl">в заметку Дневника, вместе с кадром</div></div>
+                <div class="cell tight"><div class="t-h sm">1 минута</div><div class="lbl">петля на сайте: фон блока, кнопка «послушать»</div></div>
+                <div class="cell tight"><div class="t-h sm">полная</div><div class="lbl">артефакт с паспортом и номером</div></div>
+              </div>
+              <div class="lbl">поэтому пишем длинно и в хорошем качестве: обрезать можно всегда, дописать — никогда</div>
+            </div>
+          </div>
+          <ul class="notes">
+            <li><span class="mark ok">РЕШЕНО</span> Вопрос 16 закрыт: техника есть, структура — вот эта. Начинать стоит с ночи у воды: она же самый ценный артефакт, она же самая простая запись — поставить микрофон и уйти.</li>
+            <li><span class="mark q">ОДНА ПРОВЕРКА</span> Запишите десять минут ночью и пришлите файл как есть. Послушаю на предмет фона, ветра и уровня — и скажу, надо ли что-то менять в настройках, до того как вы соберёте двадцать записей с одной и той же ошибкой.</li>
+          </ul>
+        </article>
 
         <article class="block" id="p-gallery">
           <div class="block-head">
@@ -1902,40 +1991,70 @@
           <div class="block-head">
             <span class="num">П</span>
             <h3>Правила дома</h3>
-            <span class="file">/rules</span>
-            <div class="chips"><span class="chip new">новая</span><span class="chip ground-l">бумага</span><span class="chip">одна колонка</span></div>
+            <span class="file">/pravila · /en/house-rules · /es/normas</span>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip new">переписана 14 августа</span><span class="chip ground-l">бумага</span></div>
           </div>
-          <p class="purpose">Не список запретов, а «как здесь принято». Отдельная страница, потому что на главной это утяжелило бы разговор, но человеку, который уже решил ехать, нужно прочитать до приезда — ссылка идёт в сообщении WhatsApp при договорённости.</p>
+          <p class="purpose">Не список запретов, а «как здесь принято»: каждая строка — правило и причина, почему оно есть. Отдельная страница, потому что на главной это утяжелило бы разговор, но человеку, который уже решил ехать, прочитать надо до приезда — ссылка идёт в сообщении WhatsApp при договорённости.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h big">Как здесь принято</div>
-              <div class="bars"><i class="w80"></i></div>
               <div class="lbl">открывающая строка: дом живёт на 4200 своими законами — не из строгости, а потому что здесь всё дороже даётся</div>
 
               <div class="rule"></div>
               <div class="lbl">В доме</div>
               <div class="stack" style="gap:8px">
-                <div class="row" style="gap:12px"><span class="pill">газ</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">чистота</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">уборка</span><span class="bars" style="flex:1"><i class="w100"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">алкоголь</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">дрова</span><span class="bars" style="flex:1"><i class="w100"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">печь и газ</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
                 <div class="row" style="gap:12px"><span class="pill">вода</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
-                <div class="row" style="gap:12px"><span class="pill">печь</span><span class="bars" style="flex:1"><i class="w100"></i></span></div>
-                <div class="row" style="gap:12px"><span class="pill">чистота</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
                 <div class="row" style="gap:12px"><span class="pill">мусор</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">связь</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
               </div>
-              <div class="lbl">каждая строка — одно правило и одна причина, почему оно есть</div>
+
+              <div class="cell" style="border-left:2px solid var(--accent)">
+                <div class="lbl" style="color:var(--accent)">новое · уборка и дрова — два пункта, где нужна цифра</div>
+                <div class="t-h sm">Уезжая, оставьте дом таким, каким вошли. Не хочется возиться — скажите заранее, уборку сделаем за вас.</div>
+                <div class="row" style="gap:8px"><span class="pill">уборка · ЦЕНА</span></div>
+                <div class="t-h sm">Дрова лежат под навесом. Берите сколько нужно и посчитайтесь при отъезде — пачка стоит столько-то.</div>
+                <div class="row" style="gap:8px"><span class="pill">пачка дров · ЦЕНА</span></div>
+                <div class="lbl">и одна строка, которую стоит сказать вслух: дрова сюда привозят снизу, на 4200 они не растут. Это не про деньги, это про то, почему их считают</div>
+              </div>
+
+              <div class="cell" style="border-left:2px solid var(--accent)">
+                <div class="lbl" style="color:var(--accent)">новое · собака и кот</div>
+                <div class="t-h sm">В доме живут собака и кот. Они здесь раньше вас и останутся после.</div>
+                <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+                <div class="lbl">если снимаете дом без хозяина — либо вас попросят насыпать им еды, либо придут местные и покормят сами. Об этом договариваемся заранее, сюрпризом это не будет</div>
+              </div>
+
+              <div class="rule"></div>
+              <div class="lbl">Алкоголь и всё остальное</div>
+              <div class="cell" style="border-left:2px solid var(--accent)">
+                <div class="t-h sm">На территории дома не пьют. За её пределами вы взрослые люди и решаете сами.</div>
+                <div class="bars"><i class="w100"></i><i class="w70"></i></div>
+                <div class="rule"></div>
+                <div class="lbl">и отдельный абзац — то, о чём спрашивают, но стесняются</div>
+                <div class="t-h sm">Если вы идёте с проводником и что-то принесли с собой — микродоза и не больше.</div>
+                <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w60"></i></div>
+                <div class="lbl">причина, а не запрет: на 4200 сердце работает иначе, помощь идёт снизу сорок минут, а тропа не прощает потерянной координации. Человек в сильном эффекте на высоте — риск не только для себя</div>
+                <div class="lbl" style="color:var(--accent)">обязательная строка рядом: мы ничего не предоставляем и ничего не организуем. Это правило безопасности, а не услуга</div>
+              </div>
 
               <div class="rule"></div>
               <div class="lbl">На прогулке</div>
-              <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w60"></i></div>
-              <div class="cell" style="border-left:2px solid var(--accent)">
-                <div class="lbl">отдельный абзац — то, что люди спрашивают, но стесняются</div>
-                <div class="t-h sm">Всё, что вы принесли с собой, — только в присутствии проводника и только вниз от дома.</div>
-                <div class="bars"><i class="w100"></i><i class="w80"></i></div>
-                <div class="lbl">причина: на 4200 сердце работает иначе, и помощь идёт снизу сорок минут</div>
+              <div class="stack" style="gap:8px">
+                <div class="row" style="gap:12px"><span class="pill">дети у воды</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">в темноте — с проводником</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">ничего не уносим</span><span class="bars" style="flex:1"><i class="w100"></i></span></div>
+                <div class="row" style="gap:12px"><span class="pill">людей — спросив</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
               </div>
+              <div class="lbl">«ничего не уносим» — это про камни, растения и всё остальное. Тот же принцип, на котором стоит весь сайт: место остаётся таким, какое оно есть</div>
 
               <div class="rule"></div>
               <div class="lbl">Если что-то пошло не так</div>
-              <div class="g2">
+              <div class="g4">
                 <div class="cell tight"><div class="t-h sm">Свет</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
                 <div class="cell tight"><div class="t-h sm">Вода</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
                 <div class="cell tight"><div class="t-h sm">Погода</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
@@ -1944,16 +2063,21 @@
               <div class="lbl">спокойным тоном: это горы, такое бывает, вот что делаем в каждом случае</div>
 
               <div class="rule"></div>
-              <div class="lbl">Аптечка</div>
+              <div class="lbl">Аптечка · мой состав, вы правите</div>
               <div class="split narrow-l">
                 <div class="ph r43"><span>ФОТО АПТЕЧКИ</span></div>
                 <div class="stack">
                   <div class="t-h sm">Аптечка в доме — на видном месте</div>
-                  <div class="bars"><i class="w100"></i><i class="w90"></i></div>
                   <div class="row" style="gap:6px">
-                    <span class="pill">от головы</span><span class="pill">от живота</span><span class="pill">перевязка</span><span class="pill">антисептик</span><span class="pill">от солнца</span><span class="pill">от высоты</span>
+                    <span class="pill">от головы</span><span class="pill">от живота</span><span class="pill">от аллергии</span>
+                    <span class="pill">бинт и пластыри</span><span class="pill">антисептик</span><span class="pill">ножницы, пинцет</span>
+                    <span class="pill">крем от солнца</span><span class="pill">бальзам для губ</span><span class="pill">от высоты</span><span class="pill">лист коки</span>
                   </div>
-                  <div class="lbl">состав перечислен честно — и сказано, чего в ней нет</div>
+                  <div class="lbl" style="color:var(--accent)">и вторая половина, которую почти никто не пишет: чего в ней нет</div>
+                  <div class="row" style="gap:6px">
+                    <span class="pill" style="border-style:dashed">рецептурного</span><span class="pill" style="border-style:dashed">антибиотиков</span><span class="pill" style="border-style:dashed">вашего личного</span>
+                  </div>
+                  <div class="lbl">строка: свои таблетки везите с собой — ближайшая аптека в сорока минутах вниз</div>
                 </div>
               </div>
 
@@ -1962,9 +2086,10 @@
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark q">РЕШИТЬ</span> Формулировка про вещества. Я предложил рамку безопасности, без перечисления и без одобрения — правило звучит как забота, а не как разрешение. Точный текст за вами.</li>
-            <li><span class="mark q">ЯЗЫКИ</span> В английской и испанской версиях этот абзац особенно осторожно: иностранец может прочитать его как предложение услуги, а это меняет статус дома.</li>
-            <li><span class="mark q">СВЯЗИ</span> Ссылки на страницу: из блока «Практика», из «Подготовки», из подвала и в сообщении WhatsApp при договорённости.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Вопрос 27 закрыт вашей формулировкой: алкоголь — не на территории дома, вещества — только с проводником и только в микродозе. Я добавил к ней причину и строку «мы ничего не предоставляем»: без неё абзац читается как предложение услуги, и это меняет статус дома в глазах читателя и не только его.</li>
+            <li><span class="mark q">ЯЗЫКИ</span> В EN и ES этот абзац пишется отдельно, не переводом. По-русски это правило дома; дословный английский текст на ту же тему звучит как реклама. Черновик покажу перед тем, как ставить.</li>
+            <li><span class="mark q">НУЖНЫ ЦИФРЫ</span> Сколько стоит уборка и сколько стоит пачка дров. Без них два пункта не дописать, а они здесь самые полезные — снимают неловкость на месте.</li>
+            <li><span class="mark q">МЕЛОЧЬ</span> Как зовут собаку и кота. Имена в тексте работают лучше, чем «домашние животные», и это единственное место на сайте, где уместна улыбка.</li>
           </ul>
         </article>
 
@@ -2329,20 +2454,20 @@
           и пометкой, что блокирует работу, а что может подождать.
         </p>
         <p>
-          <b>14 августа закрыты шесть:</b> блог остаётся и называется «Блог» · страница локации
-          делится на «дом» и «регион» · адреса разделов на трёх языках приняты · переход
-          на бренд-главную запускает второй объект · прочие места партнёрские · «Коллекция»
-          стала «Артефактами» и встала в главное меню.
+          <b>Ни один вопрос больше не блокирует работу.</b> Девятнадцать закрыты вашими ответами,
+          тринадцать я закрыл сам по своей же рекомендации — они действуют, пока вы не скажете
+          обратного.
         </p>
         <p>
-          Коротко о главном, что осталось: реальные цены, частота выхода заметок, формулировка
-          правила про вещества, языки Дневника и Атласа, кто получает деньги за ткани.
+          Осталось семь. Три цифры, которые знаете только вы: сколько стоит пачка дров, сколько
+          стоит уборка, как зовут собаку и кота. И четыре темы, которые мы договорились обсудить
+          отдельно: цены форматов (при проходе по блоку), камни, отпечатки и гербарий,
+          и что есть в доме на случай тяжёлой горной болезни.
         </p>
         <p>
-          <b>Фотографии больше не вопрос, а очередь.</b> Вы берётесь за них, когда прототип
-          готов целиком и видно, сколько и каких кадров нужно. Первый такой список уже собран:
-          пятьдесят кадров по двенадцати статьям блога, каждый с номером — отдельная страница,
-          ссылка в Notion.
+          <b>Фотографии — не вопрос, а очередь.</b> Снимаем по списку, когда прототип закрыт
+          целиком. Первый список собран: пятьдесят кадров по двенадцати статьям блога,
+          у каждого номер и описание.
         </p>
 
         <h2 style="margin-top:34px">Что уже стоит в очереди</h2>
