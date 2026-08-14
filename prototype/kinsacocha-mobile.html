@@ -1,0 +1,1154 @@
+<title>Kinsacocha — мобильная схема</title>
+<style>
+  :root {
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --serif: Georgia, "Times New Roman", Times, serif;
+
+    --bg: #e6eae9;
+    --ink: #1a1f1e;
+    --ink-2: #3d4645;
+    --muted: #6b7472;
+    --edge: #c7cfcc;
+    --accent: #2e6a6b;
+    --warn: #9a6318;
+
+    --spec-l: #f5f6f6;
+    --spec-l-ink: #23282a;
+    --spec-l-bar: #cdd3d2;
+    --spec-l-edge: #dfe4e3;
+    --spec-d: #24272a;
+    --spec-d-ink: #e8ecea;
+    --spec-d-bar: #4a5053;
+    --spec-d-edge: #383d40;
+
+    --card: #eef1f0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14181a;
+      --ink: #e6ebe9;
+      --ink-2: #c2cac8;
+      --muted: #8d9a97;
+      --edge: #2d3538;
+      --accent: #6fb3ae;
+      --warn: #cf9a55;
+      --spec-l: #d5dad8;
+      --spec-l-ink: #23282a;
+      --spec-l-bar: #b0b8b6;
+      --spec-l-edge: #c2c9c7;
+      --spec-d: #1d2124;
+      --spec-d-ink: #dbe1df;
+      --spec-d-bar: #444b4e;
+      --spec-d-edge: #313739;
+      --card: #191e20;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #14181a;
+    --ink: #e6ebe9;
+    --ink-2: #c2cac8;
+    --muted: #8d9a97;
+    --edge: #2d3538;
+    --accent: #6fb3ae;
+    --warn: #cf9a55;
+    --spec-l: #d5dad8;
+    --spec-l-ink: #23282a;
+    --spec-l-bar: #b0b8b6;
+    --spec-l-edge: #c2c9c7;
+    --spec-d: #1d2124;
+    --spec-d-ink: #dbe1df;
+    --spec-d-bar: #444b4e;
+    --spec-d-edge: #313739;
+    --card: #191e20;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 { margin: 0; text-wrap: balance; }
+  a { color: inherit; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 18px 90px; }
+
+  .top { padding: 46px 0 26px; border-bottom: 1px solid var(--edge); }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .top h1 { font-family: var(--mono); font-size: clamp(24px, 5vw, 34px); font-weight: 600; letter-spacing: -0.02em; margin-top: 10px; }
+  .top p { max-width: 60ch; color: var(--ink-2); margin: 14px 0 0; }
+
+  .rules { padding: 26px 0 30px; border-bottom: 1px solid var(--edge); }
+  .rules h2, .section-head h2 {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600;
+  }
+  .rules table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13.5px; }
+  .rules td { border-bottom: 1px solid var(--edge); padding: 8px 10px 8px 0; vertical-align: top; color: var(--ink-2); }
+  .rules td:first-child { color: var(--ink); width: 42%; }
+  .rules .arrow { color: var(--accent); font-family: var(--mono); }
+
+  .section-head { margin: 46px 0 6px; padding-bottom: 12px; border-bottom: 2px solid var(--ink); display: flex; gap: 14px; align-items: baseline; }
+  .section-head span { font-size: 13px; color: var(--muted); }
+
+  /* ── Экран ─────────────────────────────────────────── */
+
+  .screen { display: grid; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--edge); scroll-margin-top: 16px; }
+  @media (min-width: 900px) { .screen { grid-template-columns: 340px 1fr; gap: 34px; align-items: start; } }
+
+  .screen.is-new { border-left: 2px solid var(--accent); padding-left: 16px; }
+  .screen.is-future { border-left: 2px dashed var(--edge); padding-left: 16px; }
+  .screen.is-future .num { border-style: dashed; }
+
+  .note-col h3 { font-size: 18px; font-weight: 600; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .note-col .num { font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid var(--accent); padding: 2px 7px; }
+  .screen.is-new .num { background: var(--accent); color: var(--bg); }
+  .note-col p { margin: 10px 0 0; color: var(--ink-2); font-size: 14px; max-width: 60ch; }
+  .note-col ul { margin: 12px 0 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .note-col li { font-size: 12.5px; color: var(--muted); display: flex; gap: 8px; }
+  .mark { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; color: var(--warn); border: 1px solid var(--warn); padding: 1px 5px; flex: none; height: fit-content; margin-top: 2px; }
+  .mark.q { color: var(--accent); border-color: var(--accent); }
+
+  /* ── Телефон ───────────────────────────────────────── */
+
+  .phone {
+    --g: var(--spec-l);
+    --bar: var(--spec-l-bar);
+    --sedge: var(--spec-l-edge);
+    --sink: var(--spec-l-ink);
+    width: 100%;
+    max-width: 320px;
+    background: var(--g);
+    color: var(--sink);
+    border: 1px solid var(--edge);
+    border-radius: 22px;
+    padding: 8px;
+    box-shadow: 0 12px 30px -18px rgba(0,0,0,0.5);
+  }
+  .phone.dark { --g: var(--spec-d); --bar: var(--spec-d-bar); --sedge: var(--spec-d-edge); --sink: var(--spec-d-ink); }
+
+  .phone-inner { border: 1px solid var(--sedge); border-radius: 15px; padding: 12px 11px; display: flex; flex-direction: column; gap: 11px; min-height: 120px; }
+
+  .notch { width: 62px; height: 4px; border-radius: 3px; background: var(--bar); margin: 2px auto 6px; }
+
+  .lbl { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bar); filter: brightness(0.82); }
+  .phone.dark .lbl { filter: brightness(1.45); }
+  .lbl.acc { color: var(--accent); filter: none; }
+
+  .t-h { font-family: var(--serif); font-size: 17px; line-height: 1.2; }
+  .t-h.big { font-size: 22px; }
+  .t-h.sm { font-size: 13.5px; }
+  .t-accent { font-family: var(--serif); font-size: 14px; line-height: 1.3; opacity: 0.72; }
+
+  .bars { display: flex; flex-direction: column; gap: 5px; }
+  .bars i { display: block; height: 4px; background: var(--bar); }
+  .w100 { width: 100%; } .w90 { width: 90%; } .w80 { width: 80%; }
+  .w70 { width: 70%; } .w60 { width: 60%; } .w45 { width: 45%; } .w30 { width: 30%; }
+
+  .ph {
+    position: relative;
+    background: color-mix(in srgb, var(--bar) 18%, transparent);
+    border: 1px solid var(--bar);
+    display: grid; place-items: center; min-height: 34px;
+  }
+  .ph::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(to top right, transparent calc(50% - 0.5px), var(--bar) 50%, transparent calc(50% + 0.5px)),
+      linear-gradient(to top left, transparent calc(50% - 0.5px), var(--bar) 50%, transparent calc(50% + 0.5px));
+    opacity: 0.7;
+  }
+  .ph > span { position: relative; font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.06em; background: var(--g); padding: 2px 5px; opacity: 0.75; text-align: center; }
+  .r43 { aspect-ratio: 4/3; } .r45 { aspect-ratio: 4/5; } .r34 { aspect-ratio: 3/4; }
+  .r11 { aspect-ratio: 1/1; } .r169 { aspect-ratio: 16/9; } .r219 { aspect-ratio: 21/9; }
+  .tall { height: 190px; }
+
+  .ctl { display: inline-flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid var(--sink); opacity: 0.8; padding: 7px 10px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.05em; }
+  .ctl.wide { width: 100%; }
+  .ctl.wa { background: var(--accent); border-color: var(--accent); color: #fff; opacity: 1; }
+  .ctl.ghost { border-style: dashed; }
+
+  .stack { display: flex; flex-direction: column; gap: 8px; }
+  .row { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .cell { border: 1px solid var(--bar); padding: 9px; display: flex; flex-direction: column; gap: 6px; }
+  .pill { font-family: var(--mono); font-size: 8.5px; border: 1px solid var(--bar); padding: 3px 6px; white-space: nowrap; }
+  .pill.on { background: var(--sink); color: var(--g); }
+  .rule { height: 1px; background: var(--bar); opacity: 0.6; }
+  .quote { border-left: 2px solid var(--accent); padding-left: 10px; }
+  .center { text-align: center; align-items: center; }
+  .scroller { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 3px; }
+  .scroller .pill { flex: none; }
+  .fixed-cta { position: sticky; bottom: 0; margin: 4px -11px -12px; padding: 9px 11px; background: color-mix(in srgb, var(--g) 92%, transparent); border-top: 1px solid var(--bar); }
+
+  .tail { margin-top: 50px; padding-top: 26px; border-top: 2px solid var(--ink); }
+  .tail h2 { font-family: var(--mono); font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .tail p, .tail ul { max-width: 70ch; color: var(--ink-2); }
+  .tail li { margin-bottom: 7px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <p class="eyebrow">Прототип · телефон</p>
+    <h1>Kinsacocha — мобильная схема</h1>
+    <p>
+      Тот же сайт, но так, как его увидят с телефона — а это почти все, кто придёт из Instagram
+      и с ресепшена хостела. Раскладка на телефоне не «сжатая десктопная»: сетки распадаются
+      в столбик, меню прячется, появляется закреплённая кнопка внизу. Здесь показано, во что
+      превращается каждый блок.
+    </p>
+    <p>
+      Десктопная схема и список открытых вопросов — <b>отдельные страницы</b>, ссылки лежат
+      в Notion рядом с этой. Нумерация блоков общая: блок 06 здесь и там — один и тот же блок.
+    </p>
+    <p>
+      <b>Обновлено 14 августа</b> по заданию на архитектуру бренда: разделы получили окончательные
+      адреса, в заметку добавлены звук и видео-петля, в Атлас — статус источника, в блок 21 —
+      гостевая книга. Экраны с пунктирной полосой слева — заложены на будущее, строим не сейчас.
+    </p>
+  </header>
+
+  <section class="rules">
+    <h2>Что меняется на телефоне</h2>
+    <table>
+      <tr><td>Сетки из 3–4 карточек</td><td><span class="arrow">→</span> столбик, одна карточка под другой</td></tr>
+      <tr><td>Неровная сетка «Что есть в доме»</td><td><span class="arrow">→</span> шесть карточек подряд, крупная первой</td></tr>
+      <tr><td>Две колонки «текст + фото»</td><td><span class="arrow">→</span> сначала текст, под ним фото</td></tr>
+      <tr><td>Меню в шапке</td><td><span class="arrow">→</span> гамбургер, меню открывается на весь экран</td></tr>
+      <tr><td>Широкие полосы «Маршруты»</td><td><span class="arrow">→</span> те же полосы, текст всегда слева</td></tr>
+      <tr><td>Параллакс и наведение мышью</td><td><span class="arrow">→</span> выключены, экономят батарею и трафик</td></tr>
+      <tr><td>Ничего</td><td><span class="arrow">→</span> закреплённая кнопка WhatsApp внизу экрана</td></tr>
+    </table>
+  </section>
+
+  <div class="section-head">
+    <h2>Главная</h2>
+    <span>сверху вниз, как листает гость</span>
+  </div>
+
+  <!-- 01 -->
+  <article class="screen" id="m01">
+    <div class="phone dark">
+      <div class="notch"></div>
+      <div class="phone-inner" style="min-height:330px;justify-content:space-between">
+        <div class="row" style="justify-content:space-between">
+          <span class="t-h sm">Kinsacocha</span>
+          <span class="lbl">☰</span>
+        </div>
+        <div class="stack center" style="gap:10px">
+          <div class="lbl">фото на весь экран</div>
+          <div class="t-h big">Ночь у трёх озёр Кинса Коча</div>
+          <div class="bars" style="width:85%"><i class="w100"></i><i class="w80"></i></div>
+          <div class="ctl">▶ СМОТРЕТЬ ФИЛЬМ</div>
+        </div>
+        <div class="row" style="justify-content:center;gap:3px">
+          <span style="width:16px;height:2px;background:var(--sink)"></span>
+          <span style="width:6px;height:2px;background:var(--bar)"></span>
+          <span style="width:6px;height:2px;background:var(--bar)"></span>
+        </div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">01</span> Первый экран</h3>
+      <p>Занимает экран целиком. Заголовок крупный, кнопка одна. Кадры меняются сами каждые четыре секунды — на телефоне листать пальцем не нужно, но можно.</p>
+      <ul><li><span class="mark q">ПРОВЕРИТЬ</span> Заголовок в три строки на узком экране — не съедает ли он кнопку. Смотреть на реальном телефоне, а не в схеме.</li></ul>
+    </div>
+  </article>
+
+  <!-- меню -->
+  <article class="screen" id="m-menu">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner" style="min-height:330px">
+        <div class="row" style="justify-content:space-between">
+          <span class="t-h sm">Kinsacocha</span>
+          <span class="lbl">✕</span>
+        </div>
+        <div class="stack" style="gap:9px;margin:auto 0">
+          <div class="t-h">Дом</div>
+          <div class="t-h">Озёра</div>
+          <div class="t-h">Форматы</div>
+          <div class="t-h">Маршруты</div>
+          <div class="t-h">Кого увидите</div>
+          <div class="t-h">Заметки <span class="lbl acc">новое</span></div>
+          <div class="t-h">Фотографии</div>
+          <div class="t-h">Контакты</div>
+        </div>
+        <div class="rule"></div>
+        <div class="row" style="gap:14px"><span class="pill on">RU</span><span class="pill">EN</span><span class="pill">ES</span></div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">☰</span> Меню</h3>
+      <p>Открывается на весь экран, прокрутка под ним блокируется. Пункты крупные — попадать пальцем на ходу, а не целиться.</p>
+      <ul><li><span class="mark q">РЕШИТЬ</span> «Заметки» и «Справочник» добавляем в меню оба или только «Заметки»? Восемь пунктов — уже предел.</li></ul>
+    </div>
+  </article>
+
+  <!-- 02-04 -->
+  <article class="screen" id="m02">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Просто дом</div>
+        <div class="t-accent">Это не отель, не ретрит-центр и не глэмпинг. Это дом.</div>
+        <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w100"></i><i class="w60"></i></div>
+        <div class="quote stack" style="gap:5px">
+          <div class="t-h sm">Kinsa qucha — «три озера»</div>
+          <div class="t-h sm">Дом — частный. Всё вокруг — общее.</div>
+        </div>
+        <div class="g2">
+          <div class="ph r43"><span>ФОТО</span></div>
+          <div class="ph r43"><span>ФОТО</span></div>
+          <div class="ph r43"><span>ФОТО</span></div>
+          <div class="ph r43"><span>ФОТО</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">02</span> Просто дом</h3>
+      <p>На десктопе текст стоит на месте, пока справа едут фотографии. На телефоне этого нет: сначала весь текст, потом четыре снимка парами. Поворот кадров сохраняется — он и создаёт ощущение разбросанных поляроидов.</p>
+    </div>
+  </article>
+
+  <article class="screen" id="m03">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="ph r11" style="width:110px"><span>ПОРТРЕТ</span></div>
+        <div class="t-h">Кому вы пишете</div>
+        <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w100"></i><i class="w45"></i></div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">03</span> Кому вы пишете</h3>
+      <p>Фотография уменьшается до 110 пикселей и уходит наверх, текст под ней. Лицо должно быть видно до того, как человек начнёт читать.</p>
+    </div>
+  </article>
+
+  <article class="screen" id="m04">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner center">
+        <div class="t-h">Чего вы здесь не найдёте</div>
+        <div class="bars" style="width:90%"><i class="w100"></i><i class="w70"></i></div>
+        <div class="stack" style="gap:7px">
+          <div class="t-h sm" style="text-decoration:line-through;opacity:.55">координат</div>
+          <div class="t-h sm" style="text-decoration:line-through;opacity:.55">маршрутов и километража</div>
+          <div class="t-h sm" style="text-decoration:line-through;opacity:.55">мест, где видели пуму</div>
+        </div>
+        <div class="bars" style="width:85%"><i class="w100"></i><i class="w60"></i></div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">04</span> Чего вы здесь не найдёте</h3>
+      <p>Центрированный блок, читается за десять секунд. На телефоне работает даже лучше, чем на десктопе: три зачёркнутые строки занимают весь экран и от них некуда деться.</p>
+    </div>
+  </article>
+
+  <!-- 05-07 -->
+  <article class="screen" id="m05">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Три озера</div>
+        <div class="t-accent">Место названо счётом.</div>
+        <div class="bars"><i class="w100"></i><i class="w70"></i></div>
+        <div class="stack">
+          <div style="position:relative">
+            <div class="ph r45"><span>ФОТО</span></div>
+            <div style="position:absolute;left:8px;bottom:8px"><div class="t-h">4325 м</div><div class="lbl">Пума Коча</div></div>
+          </div>
+          <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+        </div>
+        <div class="lbl">↓ ещё два озера тем же порядком</div>
+        <div class="cell" style="border-color:var(--accent)">
+          <div class="lbl acc">измерено, а не написано</div>
+          <div class="row" style="justify-content:space-between">
+            <div class="stack" style="gap:0"><div class="t-h">4200</div><div class="lbl">метров</div></div>
+            <div class="stack" style="gap:0"><div class="t-h">‹25</div><div class="lbl">дБ ночью</div></div>
+            <div class="stack" style="gap:0"><div class="t-h">2</div><div class="lbl">класс неба</div></div>
+          </div>
+        </div>
+        <div class="ctl ghost wide">СТАТЬЯ ПРО ТРИ ОЗЕРА →</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">05</span> Три озера</h3>
+      <p>Три карточки идут в столбик. Высота написана поверх фотографии крупно — это первое, что должно зацепить взгляд при быстрой прокрутке.</p>
+      <ul><li><span class="mark q">ПОДУМАТЬ</span> Три вертикальных кадра 4:5 подряд — это три полных экрана. Может, на телефоне сделать их ниже?</li></ul>
+    </div>
+  </article>
+
+  <article class="screen" id="m06">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Дорога</div>
+        <div class="bars"><i class="w90"></i></div>
+        <div class="row" style="gap:22px">
+          <div class="stack" style="gap:2px"><div class="t-h big">40</div><div class="lbl">минут · Писак</div></div>
+          <div class="stack" style="gap:2px"><div class="t-h big">120</div><div class="lbl">минут · Куско</div></div>
+        </div>
+        <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+        <div class="quote"><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
+        <div class="ctl wa wide">НАПИСАТЬ ПРО ТРАНСФЕР</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">06</span> Дорога</h3>
+      <p>Две цифры рядом — они и есть содержание блока. Человеку, который уже в Куско, этого достаточно, чтобы решить.</p>
+    </div>
+  </article>
+
+  <article class="screen" id="m07">
+    <div class="phone dark">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="lbl">▲</div>
+        <div class="t-h">Высота</div>
+        <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w60"></i></div>
+        <div class="stack" style="gap:7px">
+          <div class="quote"><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
+          <div class="quote"><div class="bars"><i class="w90"></i></div></div>
+          <div class="quote"><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
+        </div>
+        <div class="t-h sm">Мы предпочтём отговорить вас от неудачной даты…</div>
+        <div class="ctl ghost wide">ПРО ГОРНУЮ БОЛЕЗНЬ →</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">07</span> Высота</h3>
+      <p>Тёмный экран посреди светлой ленты — сам по себе сигнал «остановись и прочитай». На телефоне смена фона работает сильнее любого заголовка.</p>
+    </div>
+  </article>
+
+  <!-- 08-09 -->
+  <article class="screen" id="m08">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Как сюда приезжают</div>
+        <div class="bars"><i class="w70"></i></div>
+        <div class="quote"><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
+        <div class="cell">
+          <div class="ph r219"><span>ФОТО · хозяина нет</span></div>
+          <div class="t-h sm">Сутки в доме</div>
+          <div class="bars"><i class="w100"></i><i class="w70"></i></div>
+          <div class="t-h sm" style="font-size:12px">от 40 USD · с человека за сутки</div>
+          <div class="ctl wa wide">НАПИСАТЬ</div>
+        </div>
+        <div class="lbl">↓ ещё три формата тем же порядком</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">08</span> Как сюда приезжают</h3>
+      <p>Четыре карточки в столбик, у каждой своя кнопка. Кнопка внутри карточки обязательна: человек решает «беру этот формат» и пишет сразу, не доскроллив до контактов.</p>
+      <ul><li><span class="mark q">ДЛИННО</span> Четыре карточки с фото — это четыре экрана подряд. Возможно, на телефоне фото стоит убрать и оставить только текст с ценой.</li></ul>
+    </div>
+  </article>
+
+  <article class="screen" id="m09">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Сутки здесь</div>
+        <div class="bars"><i class="w60"></i></div>
+        <div class="stack" style="gap:9px;border-left:1px solid var(--bar);padding-left:11px">
+          <div class="stack" style="gap:3px"><span class="lbl">15:00</span><span class="bars"><i class="w90"></i></span></div>
+          <div class="stack" style="gap:3px"><span class="lbl">17:30</span><span class="bars"><i class="w100"></i></span></div>
+          <div class="stack" style="gap:3px"><span class="lbl">18:00</span><span class="bars"><i class="w80"></i></span></div>
+          <div class="stack" style="gap:3px"><span class="lbl">21:00</span><span class="bars"><i class="w90"></i></span></div>
+          <div class="stack" style="gap:3px"><span class="lbl">06:00</span><span class="bars"><i class="w100"></i></span></div>
+          <div class="stack" style="gap:3px"><span class="lbl">10:00</span><span class="bars"><i class="w70"></i></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">09</span> Сутки здесь</h3>
+      <p>На десктопе время стоит слева от текста, на телефоне — над ним: колонка в 72 пикселя на узком экране съедает половину строки.</p>
+    </div>
+  </article>
+
+  <!-- 10-12 -->
+  <article class="screen" id="m10">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Еда и напитки</div>
+        <div class="bars"><i class="w90"></i><i class="w45"></i></div>
+        <div class="g2">
+          <div class="stack" style="gap:5px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Готовят соседи</div><div class="bars"><i class="w100"></i></div></div>
+          <div class="stack" style="gap:5px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Труча</div><div class="bars"><i class="w90"></i></div></div>
+          <div class="stack" style="gap:5px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Чуньо</div><div class="bars"><i class="w100"></i></div></div>
+          <div class="stack" style="gap:5px"><div class="ph r34"><span>ФОТО</span></div><div class="t-h sm">Яйца и молоко <span class="lbl acc">★</span></div><div class="bars"><i class="w90"></i></div></div>
+        </div>
+        <div class="lbl">↓ чича, чай, готовить самим</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">10</span> Еда и напитки</h3>
+      <p>Единственный блок, где на телефоне остаются две колонки: карточки короткие, и парами они читаются лучше, чем длинной лентой.</p>
+      <ul><li><span class="mark q">НОВОЕ</span> Добавлены деревенские яйца и молоко.</li></ul>
+    </div>
+  </article>
+
+  <article class="screen" id="m11">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Что есть в доме</div>
+        <div class="stack">
+          <div style="position:relative"><div class="ph" style="height:120px"><span>ФОТО</span></div>
+            <div style="position:absolute;left:8px;bottom:8px"><div class="lbl">душ</div><div class="t-h sm">Горячий душ</div></div></div>
+          <div style="position:relative"><div class="ph" style="height:78px"><span>ФОТО</span></div>
+            <div style="position:absolute;left:8px;bottom:8px"><div class="t-h sm">Живой огонь</div></div></div>
+          <div class="g2">
+            <div class="ph" style="height:70px"><span>КУХНЯ</span></div>
+            <div class="ph" style="height:70px"><span>ТИПИ</span></div>
+          </div>
+          <div class="lbl">↓ трансфер, стиральная машина</div>
+        </div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">11</span> Что есть в доме</h3>
+      <p>Неровная сетка на телефоне разбирается: горячий душ остаётся крупным, живой огонь под ним, мелочи парами. Иерархия сохраняется — это важнее, чем повторить раскладку один в один.</p>
+    </div>
+  </article>
+
+  <article class="screen" id="m12">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Где вы будете спать</div>
+        <div class="stack" style="gap:9px">
+          <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Комната</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
+          <div class="lbl">↓ гостиная, типи</div>
+        </div>
+        <div class="rule"></div>
+        <div class="bars"><i class="w90"></i></div>
+        <div class="lbl">итого мест</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">12</span> Где вы будете спать</h3>
+      <p>Идёт вплотную к предыдущему блоку, без обычного отступа: это продолжение разговора про дом, а не новая тема.</p>
+    </div>
+  </article>
+
+  <!-- 13-16 -->
+  <article class="screen" id="m13">
+    <div class="phone dark">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Маршруты</div>
+        <div class="t-accent">Здесь нет карты. И не будет.</div>
+        <div style="position:relative"><div class="ph tall"><span>ФОТО</span></div>
+          <div style="position:absolute;left:9px;bottom:10px;max-width:78%"><span class="lbl">01</span><div class="t-h sm">Рассвет</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div></div>
+        <div class="lbl">↓ утро с детьми · день · полная луна</div>
+        <div class="cell">
+          <div class="t-h sm">Расскажите о себе</div>
+          <div class="lbl">сколько времени</div>
+          <div class="scroller"><span class="pill">пара часов</span><span class="pill on">полдня</span><span class="pill">день</span><span class="pill">ночь</span></div>
+          <div class="lbl">кто идёт</div>
+          <div class="scroller"><span class="pill">с детьми</span><span class="pill on">вдвоём</span><span class="pill">компания</span><span class="pill">один</span></div>
+          <div class="quote"><div class="bars"><i class="w100"></i><i class="w90"></i><i class="w45"></i></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">13</span> Маршруты</h3>
+      <p>Полосы остаются во всю ширину, но текст всегда слева — чередование сторон на узком экране читается как ошибка вёрстки. Кнопки выбора прокручиваются пальцем вбок, чтобы не переносились в три ряда.</p>
+      <ul><li><span class="mark q">ПРОВЕРИТЬ</span> Ответ проводника меняется без перезагрузки — надо убедиться, что при выборе экран не прыгает.</li></ul>
+    </div>
+  </article>
+
+  <article class="screen" id="m14">
+    <div class="phone dark">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Кого вы увидите</div>
+        <div class="bars"><i class="w80"></i></div>
+        <div class="lbl">увидите точно</div>
+        <div class="g2">
+          <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Андский гусь</div><div class="lbl">huallata</div></div>
+          <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Вискача</div><div class="lbl">wisk'acha</div></div>
+          <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Чайки <span class="lbl acc">★</span></div><div class="lbl">новое</div></div>
+          <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Кролики <span class="lbl acc">★</span></div><div class="lbl">новое</div></div>
+        </div>
+        <div class="lbl">↓ если повезёт · те, кого пасут</div>
+        <div class="stack" style="gap:6px">
+          <div class="ph r169" style="opacity:.45"><span>ПУСТОЙ СКЛОН</span></div>
+          <div class="t-h sm">Пума здесь есть. Её здесь не видели.</div>
+        </div>
+        <div class="ctl ghost wide">ВСЕ ЖИВОТНЫЕ →</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">14</span> Кого вы увидите</h3>
+      <p>Карточки идут парами, чтобы блок не растянулся на десять экранов. Пума остаётся во всю ширину и одна — пустой кадр должен занимать весь телефон, иначе приём не срабатывает.</p>
+      <ul>
+        <li><span class="mark q">НОВОЕ</span> Добавлены чайки и кролики. Лиса уже была — стоит в ступени «если повезёт».</li>
+        <li><span class="mark q">НОВОЕ</span> Внизу — выход в справочник: страница на каждое животное.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="screen is-new" id="m15">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">То, что под ногами</div>
+        <div class="t-accent">Кактус, которому холодно.</div>
+        <div class="cell center"><div class="t-h">Здесь всё носит шерсть. Даже кактусы.</div></div>
+        <div class="g2">
+          <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кактусы-подушки</div></div>
+          <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Жёлтые цветы</div></div>
+        </div>
+        <div class="rule"></div>
+        <div class="lbl acc">по дороге снизу · новое</div>
+        <div class="g2">
+          <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Эвкалипт</div></div>
+          <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Муня · мята</div></div>
+        </div>
+        <div class="lbl">↓ кока</div>
+        <div class="ctl ghost wide">ВСЕ РАСТЕНИЯ →</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">15</span> То, что под ногами</h3>
+      <p>Единственный блок, который просит смотреть вниз, — на телефоне это буквально так и происходит. Макро на маленьком экране работает лучше панорам.</p>
+      <ul>
+        <li><span class="mark q">НОВОЕ</span> Вторая ступень: эвкалипт, муня и кока растут ниже, по дороге. Пишем это прямо, иначе получится обещание, которого не выполнить.</li>
+        <li><span class="mark q">ЯЗЫКИ</span> Для EN и ES про коку нужна строка о том, что в Перу лист коки легален и продаётся на рынке.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="screen" id="m16">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Ткачество</div>
+        <div class="bars"><i class="w80"></i></div>
+        <div class="ph r45"><span>ФОТО · ТКУТ НА ХОДУ</span></div>
+        <div class="t-h">Здесь ткут на ходу. Пока идут за стадом.</div>
+        <div class="quote"><div class="t-h sm">Это не сувенир. Это заработок.</div></div>
+        <div class="bars"><i class="w100"></i><i class="w70"></i></div>
+        <div class="scroller"><span class="pill">пояса</span><span class="pill">накидки</span><span class="pill">шапки</span><span class="pill">сумки</span><span class="pill">пончо</span></div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">16</span> Ткачество</h3>
+      <p>Фотография идёт первой, текст под ней: здесь кадр — главный аргумент, а не иллюстрация к словам.</p>
+    </div>
+  </article>
+
+  <!-- 17-18 -->
+  <article class="screen" id="m17">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Как это выглядит</div>
+        <div class="g2">
+          <div class="stack" style="gap:7px">
+            <div class="ph" style="height:56px"><span>ФОТО</span></div>
+            <div class="ph" style="height:74px"><span>ФОТО</span></div>
+            <div class="ph" style="height:50px"><span>ФОТО</span></div>
+          </div>
+          <div class="stack" style="gap:7px">
+            <div class="ph" style="height:76px"><span>ФОТО</span></div>
+            <div class="ph" style="height:52px"><span>ФОТО</span></div>
+            <div class="ph" style="height:70px"><span>ФОТО</span></div>
+          </div>
+        </div>
+        <div class="ctl ghost wide">СМОТРЕТЬ ВСЕ ФОТО →</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">17</span> Как это выглядит</h3>
+      <p>Две колонки разной высоты. Двенадцать кадров — предел: дальше человек устаёт листать и уходит, не дойдя до контактов.</p>
+    </div>
+  </article>
+
+  <article class="screen is-new" id="m18">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="row" style="justify-content:space-between"><div class="t-h">Полевые заметки</div><span class="lbl">все →</span></div>
+        <div class="bars"><i class="w60"></i></div>
+        <div class="stack" style="gap:5px">
+          <div class="ph r43"><span>ОБЛОЖКА</span></div>
+          <div class="lbl">12 августа</div>
+          <div class="t-h sm">Туман лёг в долину и не ушёл до полудня</div>
+        </div>
+        <div class="lbl">↓ ещё две заметки</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">18</span> Полевые заметки <span class="lbl acc">новый блок</span></h3>
+      <p>Три последние записи в столбик. Доказательство, что место живое и здесь кто-то ходит прямо сейчас — обновляется само, когда вы публикуете заметку.</p>
+    </div>
+  </article>
+
+  <!-- 19-23 -->
+  <article class="screen" id="m19">
+    <div class="phone dark">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Подготовка</div>
+        <div class="t-accent">Днём вы обгорите. Ночью замёрзнете.</div>
+        <div class="cell"><div class="lbl">☾</div><div class="t-h sm">Ночь в доме</div><div class="bars"><i class="w100"></i><i class="w90"></i><i class="w70"></i></div></div>
+        <div class="cell"><div class="lbl">☀</div><div class="t-h sm">День на маршруте</div><div class="bars"><i class="w100"></i><i class="w90"></i><i class="w80"></i></div></div>
+        <div class="cell" style="border-color:var(--accent)"><div class="t-h sm">Аптечка <span class="lbl acc">★</span></div><div class="bars"><i class="w100"></i><i class="w60"></i></div><div class="lbl acc">что внутри →</div></div>
+        <div class="lbl">↓ вода · не с пустыми руками · дети</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">19</span> Подготовка</h3>
+      <p>Параллакс фона на телефоне выключен — он съедает батарею и на слабых устройствах дёргается. Смена фона на тёмный остаётся.</p>
+      <ul><li><span class="mark q">НОВОЕ</span> Карточка аптечки со ссылкой на страницу правил.</li></ul>
+    </div>
+  </article>
+
+  <article class="screen" id="m20">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Практика</div>
+        <div class="bars"><i class="w60"></i></div>
+        <div class="stack" style="gap:0">
+          <div class="row" style="justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bar)"><span class="bars" style="flex:1"><i class="w60"></i></span><span class="lbl">+</span></div>
+          <div class="stack" style="padding:9px 0;border-bottom:1px solid var(--bar);gap:6px">
+            <div class="row" style="justify-content:space-between"><span class="bars" style="flex:1"><i class="w45"></i></span><span class="lbl">×</span></div>
+            <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+          </div>
+          <div class="row" style="justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bar)"><span class="bars" style="flex:1"><i class="w70"></i></span><span class="lbl">+</span></div>
+          <div class="lbl" style="padding-top:8px">ещё восемь вопросов</div>
+        </div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">20</span> Практика</h3>
+      <p>Свёртки — лучший формат для телефона: одиннадцать вопросов занимают один экран, а не одиннадцать. Открывается только то, что нужно человеку.</p>
+    </div>
+  </article>
+
+  <article class="screen is-new" id="m21">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner center">
+        <div class="t-h">Мы работаем по рекомендации</div>
+        <div class="bars" style="width:88%"><i class="w100"></i><i class="w90"></i><i class="w60"></i></div>
+        <div class="quote" style="text-align:left"><div class="t-h sm">Тропы и людей мы бережём одинаково.</div></div>
+        <div class="rule"></div>
+        <div class="lbl acc">гостевая книга от руки</div>
+        <div class="g2">
+          <div class="ph r43"><span>РАЗВОРОТ</span></div>
+          <div class="ph r43"><span>РАЗВОРОТ</span></div>
+        </div>
+        <div class="lbl">ни имён, ни лиц — только почерк</div>
+        <div class="ctl wa wide">НАПИСАТЬ В WHATSAPP</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">21</span> По рекомендации <span class="lbl acc">переписан</span></h3>
+      <p>Вместо трёх выдуманных отзывов — объяснение, почему отзывов не будет, и фотографии гостевой книги. Интернета наверху нет, гости пишут на бумаге: чужой почерк, чужой язык, детские каракули. Такой отзыв невозможно подделать, и стоит он ноль.</p>
+      <ul>
+        <li><span class="mark q">РЕШЕНО</span> Выдуманные отзывы уходят с сайта — подделывать больше нечего.</li>
+        <li><span class="mark q">РЕШИТЬ</span> «Гостей не публикуем» и «вот их записи» стоят рядом — нужна одна строка, объясняющая, что почерк без имени человека не выдаёт.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="screen" id="m22">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner center" style="min-height:230px;justify-content:center">
+        <div class="t-h big">Приезжайте</div>
+        <div class="bars" style="width:80%"><i class="w100"></i></div>
+        <div class="ctl wa wide">НАПИСАТЬ В WHATSAPP</div>
+        <div class="bars" style="width:85%"><i class="w100"></i><i class="w70"></i></div>
+        <div class="lbl">почта</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">22</span> Приезжайте</h3>
+      <p>Всё, что здесь есть, — одна кнопка. Никаких форм.</p>
+    </div>
+  </article>
+
+  <article class="screen" id="m23">
+    <div class="phone dark">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h">Дом — частный. Всё вокруг — общее.</div>
+        <div class="ctl wa wide">НАПИСАТЬ В WHATSAPP</div>
+        <div class="rule"></div>
+        <div class="stack" style="gap:9px">
+          <div class="stack" style="gap:3px"><div class="lbl">три озера</div><div class="bars"><i class="w100"></i><i class="w100"></i><i class="w100"></i></div></div>
+          <div class="stack" style="gap:3px"><div class="lbl">навигация</div><div class="bars"><i class="w80"></i><i class="w70"></i><i class="w90"></i></div></div>
+          <div class="row"><span class="pill on">RU</span><span class="pill">EN</span><span class="pill">ES</span></div>
+        </div>
+        <div class="lbl">© 2026 · Comunidad Paru-Paru</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">23</span> Подвал</h3>
+      <p>Четыре колонки складываются в одну. Кнопка остаётся наверху подвала: это последний шанс, и он не должен оказаться под списком ссылок.</p>
+    </div>
+  </article>
+
+  <article class="screen" id="m-sticky">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner" style="min-height:250px">
+        <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w100"></i><i class="w60"></i></div>
+        <div class="ph r43"><span>ЛЮБОЙ БЛОК СТРАНИЦЫ</span></div>
+        <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+        <div class="fixed-cta"><div class="ctl wa wide">НАПИСАТЬ В WHATSAPP</div></div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">★</span> Закреплённая кнопка</h3>
+      <p>Появляется после первого экрана и дальше висит внизу всегда. Только на телефоне. Самая дешёвая правка с самым заметным влиянием на число заявок: написать можно из любой точки страницы, не доскроллив до конца.</p>
+    </div>
+  </article>
+
+  <div class="section-head">
+    <h2>Отдельные страницы</h2>
+    <span>галерея, заметки, справочник, правила</span>
+  </div>
+
+  <article class="screen" id="m-gallery">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h big">Фотографии</div>
+        <div class="lbl">снято в месяце</div>
+        <div class="scroller"><span class="pill on">все</span><span class="pill">июль 2026</span><span class="pill">август 2026</span><span class="pill">ноябрь</span></div>
+        <div class="lbl">темы</div>
+        <div class="scroller"><span class="pill on">все</span><span class="pill">озёра</span><span class="pill">горы</span><span class="pill">дом</span><span class="pill">типи</span></div>
+        <div class="lbl">локации не подписаны намеренно</div>
+        <div class="g2">
+          <div class="stack" style="gap:6px"><div class="ph" style="height:60px"><span>ФОТО</span></div><div class="ph" style="height:78px"><span>ФОТО</span></div></div>
+          <div class="stack" style="gap:6px"><div class="ph" style="height:80px"><span>ФОТО</span></div><div class="ph" style="height:58px"><span>ФОТО</span></div></div>
+        </div>
+        <div class="lbl">догружается по мере прокрутки</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">Г</span> Галерея</h3>
+      <p>Фильтры прокручиваются вбок пальцем — двенадцать тем в столбик заняли бы пол-экрана. Месяцы стоят выше тем: в горах месяц меняет картинку сильнее, чем сюжет.</p>
+      <ul><li><span class="mark q">ПРОВЕРИТЬ</span> Горизонтальная прокрутка фильтров не должна мешать вертикальной прокрутке страницы — частая ошибка на телефонах.</li></ul>
+    </div>
+  </article>
+
+  <article class="screen" id="m-lightbox">
+    <div class="phone dark">
+      <div class="notch"></div>
+      <div class="phone-inner" style="min-height:290px;justify-content:center;position:relative">
+        <div class="row" style="justify-content:flex-end"><span class="lbl">✕</span></div>
+        <div class="ph" style="height:180px"><span>ФОТО ЦЕЛИКОМ</span></div>
+        <div class="row" style="justify-content:center"><span class="lbl">7 / 107</span></div>
+        <div class="lbl center">свайп влево-вправо</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">Г+</span> Просмотр фотографии</h3>
+      <p>Открывается на весь экран, листается свайпом. Стрелки на телефоне не нужны, но остаются — на случай, если человек держит телефон одной рукой.</p>
+    </div>
+  </article>
+
+  <article class="screen is-new" id="m-notes">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h big">Полевые заметки</div>
+        <div class="bars"><i class="w80"></i></div>
+        <div class="scroller"><span class="pill on">все</span><span class="pill">сухой сезон</span><span class="pill">дожди</span><span class="pill">цветение</span></div>
+        <div class="rule"></div>
+        <div class="lbl">август 2026</div>
+        <div class="stack" style="gap:5px">
+          <div class="lbl">12 авг</div>
+          <div class="ph r219"><span>ОБЛОЖКА</span></div>
+          <div class="t-h sm">Туман лёг в долину и не ушёл до полудня</div>
+          <div class="bars"><i class="w100"></i><i class="w60"></i></div>
+          <div class="row"><span class="pill">яна вико</span><span class="pill">ичу</span></div>
+        </div>
+        <div class="lbl">↓ 4 августа · 28 июля</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">Д1</span> Лента заметок <span class="lbl acc">/dnevnik</span></h3>
+      <p>Дата стоит над обложкой: на телефоне колонка с датой слева не помещается. Месяц работает разделителем — лента читается как дневник, а не как список статей.</p>
+      <ul><li><span class="mark q">ПОТОМ</span> Фильтр по регионам появится сам, когда регионов станет два. С одним он читается как пустой магазин.</li></ul>
+    </div>
+  </article>
+
+  <article class="screen is-new" id="m-note">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="lbl">← все заметки</div>
+        <div class="lbl">12 августа 2026</div>
+        <div class="t-h big">Туман лёг в долину и не ушёл до полудня</div>
+        <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+        <div class="ph r43"><span>ФОТО ВО ВСЮ ШИРИНУ</span></div>
+        <div class="lbl">подпись под кадром</div>
+        <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w45"></i></div>
+
+        <div class="cell" style="border-color:var(--accent)">
+          <div class="lbl acc">звук этого дня</div>
+          <div class="row" style="gap:9px;align-items:center">
+            <span class="ctl" style="width:28px;height:28px;justify-content:center;padding:0">▶</span>
+            <span style="flex:1;height:2px;background:var(--bar);position:relative"><span style="position:absolute;left:0;height:2px;width:34%;background:var(--accent)"></span></span>
+            <span class="lbl">2:14</span>
+          </div>
+        </div>
+
+        <div class="ph r169" style="border-color:var(--accent)"><span>ВИДЕО-ПЕТЛЯ · 6 СЕК</span></div>
+        <div class="lbl acc">«живая фотография»: без звука и кнопок, грузится только когда доскроллили</div>
+
+        <div class="cell" style="border-left:2px solid var(--accent)">
+          <div class="row" style="gap:9px">
+            <div class="ph r11" style="width:52px;flex:none"><span>ФОТО</span></div>
+            <div class="stack" style="gap:3px"><div class="lbl">из атласа</div><div class="t-h sm">Яна вико</div><div class="lbl acc">открыть →</div></div>
+          </div>
+        </div>
+        <div class="bars"><i class="w100"></i><i class="w70"></i></div>
+        <div class="rule"></div>
+        <div class="row" style="justify-content:space-between"><span class="lbl">← 4 авг</span><span class="lbl">18 авг →</span></div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">Д2</span> Одна заметка <span class="lbl acc">/dnevnik/…</span></h3>
+      <p>Текст, фотографии, звук и видео-петли чередуются. Плеер свой: кнопка и линия, никаких браузерных панелей и чужих логотипов. Врезка из Атласа компактная — фото 52 пикселя и ссылка, чтобы не разрывать чтение.</p>
+      <ul>
+        <li><span class="mark q">ПРАВИЛО</span> В заметке нет маршрута: что видели — да, куда шли — нет.</li>
+        <li><span class="mark q">ВЕС</span> Видео тяжелее всей остальной страницы. На слабой связи не запускается само — иначе оно съест трафик гостя.</li>
+        <li><span class="mark q">ВОПРОС</span> Есть ли записи звука и на что сделаны? Для стерео нужен отдельный микрофон.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="screen is-new" id="m-species">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="lbl">← справочник</div>
+        <div class="t-h big">Вискача</div>
+        <div class="lbl">Lagidium viscacia · wisk'acha</div>
+        <div class="ph r43"><span>ГЛАВНЫЙ КАДР</span></div>
+        <div class="g2">
+          <div class="ph r11"><span>ФОТО</span></div>
+          <div class="ph r11"><span>ФОТО</span></div>
+        </div>
+        <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w60"></i></div>
+        <div class="cell">
+          <div class="row" style="justify-content:space-between"><span class="lbl">кто это</span><span class="lbl">родня шиншилле</span></div>
+          <div class="row" style="justify-content:space-between"><span class="lbl">как часто</span><span class="lbl">каждый день</span></div>
+          <div class="row" style="justify-content:space-between"><span class="lbl">статус</span><span class="lbl">благополучный</span></div>
+          <div class="row" style="justify-content:space-between"><span class="lbl acc">откуда знаем</span><span class="pill">✔ по фото</span></div>
+        </div>
+        <div class="lbl">когда её здесь видели</div>
+        <div class="stack" style="gap:6px">
+          <div class="row"><span class="pill">4 авг</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
+          <div class="row"><span class="pill">19 июл</span><span class="bars" style="flex:1"><i class="w60"></i></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">А2</span> Карточка Атласа <span class="lbl acc">/atlas/…</span></h3>
+      <p>Главная страница раздела для поиска: её найдут люди, которые про дом не знали. Список «когда его здесь видели» собирается сам из заметок — этого нет ни у одной энциклопедии.</p>
+      <ul><li><span class="mark q">НОВОЕ</span> Строка «откуда знаем»: подтверждено фотографией, со слов местных или не подтверждено. Справочник, который вслух признаёт незнание, встречается редко — и это прямое продолжение правила «ни одной выдуманной строки».</li></ul>
+    </div>
+  </article>
+
+  <article class="screen is-new" id="m-rules">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h big">Как здесь принято</div>
+        <div class="bars"><i class="w80"></i></div>
+        <div class="lbl">в доме</div>
+        <div class="stack" style="gap:6px">
+          <div class="row"><span class="pill">газ</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
+          <div class="row"><span class="pill">вода</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
+          <div class="row"><span class="pill">печь</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
+          <div class="row"><span class="pill">мусор</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
+        </div>
+        <div class="rule"></div>
+        <div class="lbl">на прогулке</div>
+        <div class="cell" style="border-left:2px solid var(--accent)">
+          <div class="t-h sm">Всё, что вы принесли с собой, — только с проводником и только вниз от дома.</div>
+          <div class="lbl">причина: на 4200 сердце работает иначе</div>
+        </div>
+        <div class="rule"></div>
+        <div class="lbl">если что-то пошло не так</div>
+        <div class="g2">
+          <div class="cell"><div class="t-h sm">Свет</div><div class="bars"><i class="w90"></i></div></div>
+          <div class="cell"><div class="t-h sm">Вода</div><div class="bars"><i class="w80"></i></div></div>
+        </div>
+        <div class="rule"></div>
+        <div class="lbl">аптечка</div>
+        <div class="ph r43"><span>ФОТО АПТЕЧКИ</span></div>
+        <div class="scroller"><span class="pill">от головы</span><span class="pill">от живота</span><span class="pill">перевязка</span><span class="pill">от высоты</span></div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">П</span> Правила дома <span class="lbl acc">новая</span></h3>
+      <p>Не список запретов, а «как здесь принято»: каждое правило с причиной, почему оно есть. Ссылка уходит в сообщении WhatsApp при договорённости — человек читает её до приезда, а не находит на стене в доме.</p>
+      <ul>
+        <li><span class="mark q">РЕШИТЬ</span> Формулировка про вещества: я предложил рамку безопасности без перечисления и без одобрения. Точный текст за вами.</li>
+        <li><span class="mark q">ЯЗЫКИ</span> В EN и ES этот абзац особенно осторожно — иностранец может прочитать его как предложение услуги.</li>
+      </ul>
+    </div>
+  </article>
+
+  <div class="section-head">
+    <h2>Заложено на будущее</h2>
+    <span>строим не сейчас, но место оставляем</span>
+  </div>
+
+  <article class="screen is-future" id="m-place">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="lbl">← все локации</div>
+        <div class="lbl">Андское высокогорье · 4200 м</div>
+        <div class="t-h big">Kinsacocha</div>
+        <div class="ph r43"><span>КАДР ДОМА</span></div>
+        <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+        <div class="lbl">дальше — сокращённый лендинг: форматы, сутки, еда, дом, где спать, практика</div>
+        <div class="rule"></div>
+        <div class="lbl">что рядом</div>
+        <div class="g2">
+          <div class="stack" style="gap:4px"><div class="ph r43"><span>ЗАМЕТКА</span></div><div class="lbl">12 авг</div></div>
+          <div class="stack" style="gap:4px"><div class="ph r43"><span>АТЛАС</span></div><div class="lbl">вискача</div></div>
+        </div>
+        <div class="ctl wa wide">НАПИСАТЬ В WHATSAPP</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">Л2</span> Страница локации <span class="lbl">/mesta/kinsacocha</span></h3>
+      <p>Сюда однажды переедет сегодняшняя главная — но не целиком. Дом описывается тем, что в нём есть: форматы, сутки, еда, где спать, практика. А маршруты, фауна, флора и ткачество уезжают на бренд-уровень: они про регион, а не про конкретный дом, и у второго объекта будут те же самые.</p>
+      <ul><li><span class="mark q">РЕШИТЬ</span> Это моё предложение, не ваше решение. Иначе шаблон локации выйдет на 23 блока, и второй объект вы физически не наполните.</li></ul>
+    </div>
+  </article>
+
+  <article class="screen is-future" id="m-shop">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="t-h big">Коллекция</div>
+        <div class="bars"><i class="w80"></i></div>
+        <div class="lbl">не вещи, а задокументированные моменты времени</div>
+        <div class="stack" style="gap:5px">
+          <div class="ph r45"><span>ЗВУКОВАЯ ВОЛНА</span></div>
+          <div class="t-h sm">Гроза над лагуной</div>
+          <div class="lbl">12 августа 2026 · 03:40</div>
+          <div class="row" style="justify-content:space-between"><span class="pill">доступен</span><span class="lbl">1 / 1</span></div>
+        </div>
+        <div class="stack" style="gap:5px;opacity:.55">
+          <div class="ph r45"><span>ЗВУКОВАЯ ВОЛНА</span></div>
+          <div class="t-h sm">Ветер на гребне</div>
+          <div class="row" style="justify-content:space-between"><span class="pill">в частной коллекции</span><span class="lbl">продан</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">К1</span> Коллекция <span class="lbl">/kollekciya</span></h3>
+      <p>Витрина галереи, а не магазина: ни корзин, ни ценников-бейджей. Проданные лоты остаются на витрине с пометкой «в частной коллекции» — она не пустеет по мере продаж, а копит историю.</p>
+      <ul><li><span class="mark q">СИЛЬНОЕ</span> Лучшая идея всего задания — запись той самой ночи, когда гость был здесь. Тираж равен единице по природе вещей, подделать невозможно, и купить нельзя, не приехав.</li></ul>
+    </div>
+  </article>
+
+  <article class="screen is-future" id="m-lot">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="phone-inner">
+        <div class="lbl">← коллекция</div>
+        <div class="t-h big">Гроза над лагуной</div>
+        <div class="ph r11"><span>ЗВУКОВАЯ ВОЛНА</span></div>
+        <div class="row" style="gap:9px;align-items:center">
+          <span class="ctl" style="width:28px;height:28px;justify-content:center;padding:0">▶</span>
+          <span style="flex:1;height:2px;background:var(--bar)"></span>
+          <span class="lbl">0:15</span>
+        </div>
+        <div class="lbl">паспорт момента</div>
+        <div class="cell">
+          <div class="row" style="justify-content:space-between"><span class="lbl">дата</span><span class="lbl">12 авг 2026</span></div>
+          <div class="row" style="justify-content:space-between"><span class="lbl">время</span><span class="lbl">03:40</span></div>
+          <div class="row" style="justify-content:space-between"><span class="lbl">высота</span><span class="lbl">4200 м</span></div>
+          <div class="row" style="justify-content:space-between"><span class="lbl">луна</span><span class="lbl">убыв., 62%</span></div>
+          <div class="row" style="justify-content:space-between"><span class="lbl">температура</span><span class="lbl">−4 °C</span></div>
+          <div class="row" style="justify-content:space-between"><span class="lbl">тираж</span><span class="lbl">1 / 1</span></div>
+          <div class="row" style="justify-content:space-between"><span class="lbl">координаты</span><span class="lbl">не указываются</span></div>
+        </div>
+        <div class="ctl wa wide">СПРОСИТЬ ПРО ЭТОТ ЛОТ</div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">К2</span> Лот и паспорт момента</h3>
+      <p>Паспорт собирается из всего, кроме места: дата, время, высота, луна, температура, ветер. Момент задокументирован, тайна места сохранена. Строка про координаты стоит в том же ряду, что и остальные, — как характеристика, а не как оправдание.</p>
+      <ul><li><span class="mark q">РЕШИТЬ</span> Откуда берётся погода. Метеостанция в долине на полтора километра ниже — её показания за погоду на 4200 выдавать нельзя, это будет выдуманная строка.</li></ul>
+    </div>
+  </article>
+
+  <article class="screen is-future" id="m-room">
+    <div class="phone dark">
+      <div class="notch"></div>
+      <div class="phone-inner center" style="min-height:270px;justify-content:center">
+        <div class="lbl">приватная страница</div>
+        <div class="t-h big">Гроза над лагуной</div>
+        <div class="lbl">12 августа 2026 · 03:40 · 4200 м</div>
+        <div class="ph r169" style="width:100%"><span>ЗВУКОВАЯ ВОЛНА</span></div>
+        <div class="row" style="gap:9px;align-items:center;width:100%">
+          <span class="ctl" style="width:30px;height:30px;justify-content:center;padding:0">▶</span>
+          <span style="flex:1;height:2px;background:var(--bar);position:relative"><span style="position:absolute;left:0;height:2px;width:20%;background:var(--accent)"></span></span>
+          <span class="lbl">32:14</span>
+        </div>
+        <div class="rule"></div>
+        <div class="row" style="justify-content:space-between;width:100%">
+          <span class="lbl">сертификат № 001</span><span class="lbl">скачать без потерь</span>
+        </div>
+      </div>
+    </div>
+    <div class="note-col">
+      <h3><span class="num">К3</span> Private Room</h3>
+      <p>Куда попадает покупатель: не архив на скачивание, а тихая комната. Плеер, сертификат, файл без потерь. Открывается по личной ссылке и нигде не находится.</p>
+      <ul>
+        <li><span class="mark q">ЧЕСТНО</span> Файл копируется в один клик, и это не лечится. Ценность держат сертификат, номер и то, что запись сделана в ночь, когда покупатель был здесь.</li>
+        <li><span class="mark q">РЕШИТЬ</span> Обещать «навсегда» можно только про скачанный файл: страница живёт ровно столько, сколько живёт сайт. Это надо сказать прямо на ней самой.</li>
+      </ul>
+    </div>
+  </article>
+
+  <section class="tail">
+    <h2>Что проверять на живом телефоне</h2>
+    <p>
+      Схема показывает раскладку, но три вещи проверяются только на реальном устройстве
+      со слабой связью — и это стоит сделать до того, как мы начнём собирать код:
+    </p>
+    <ul>
+      <li><b>Длина главной.</b> Двадцать три блока — это долгая прокрутка. Если человек не доходит до контактов, закреплённая кнопка внизу становится единственным способом связаться. Она есть, но проверить надо.</li>
+      <li><b>Вес первого экрана.</b> Фотография на весь экран при плохой связи грузится ощутимо. Первый кадр отдаётся в приоритете, остальные одиннадцать — лениво.</li>
+      <li><b>Блоки 05 и 08.</b> Три вертикальных кадра озёр и четыре карточки форматов с фотографиями — самые длинные места на телефоне. Возможно, там нужна отдельная мобильная раскладка.</li>
+    </ul>
+  </section>
+
+</div>
