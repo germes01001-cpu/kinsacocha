@@ -1,0 +1,1322 @@
+<title>Kinsacocha — блог: тексты и кадры</title>
+<style>
+  :root {
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --serif: Georgia, "Times New Roman", Times, serif;
+
+    --bg: #e6eae9;
+    --ink: #1a1f1e;
+    --ink-2: #3d4645;
+    --muted: #6b7472;
+    --edge: #c7cfcc;
+    --edge-soft: #d5dbd9;
+    --accent: #2e6a6b;
+    --warn: #9a6318;
+    --card: #eef1f0;
+    --slot: #f5f6f6;
+    --slot-bar: #cdd3d2;
+    --slot-edge: #dfe4e3;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14181a;
+      --ink: #e6ebe9;
+      --ink-2: #c2cac8;
+      --muted: #8d9a97;
+      --edge: #2d3538;
+      --edge-soft: #262d30;
+      --accent: #6fb3ae;
+      --warn: #cf9a55;
+      --card: #191e20;
+      --slot: #1d2124;
+      --slot-bar: #444b4e;
+      --slot-edge: #313739;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #14181a;
+    --ink: #e6ebe9;
+    --ink-2: #c2cac8;
+    --muted: #8d9a97;
+    --edge: #2d3538;
+    --edge-soft: #262d30;
+    --accent: #6fb3ae;
+    --warn: #cf9a55;
+    --card: #191e20;
+    --slot: #1d2124;
+    --slot-bar: #444b4e;
+    --slot-edge: #313739;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 { text-wrap: balance; margin: 0; }
+  a { color: inherit; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--card);
+    border: 1px solid var(--edge-soft);
+    padding: 1px 5px;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 110px; }
+
+  /* ── Шапка ─────────────────────────────────────────── */
+
+  .top { padding: 56px 0 30px; border-bottom: 1px solid var(--edge); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .top h1 {
+    font-family: var(--mono);
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-top: 12px;
+  }
+
+  .top p { max-width: 66ch; color: var(--ink-2); margin: 14px 0 0; }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    margin-top: 22px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+
+  /* ── Как пользоваться ──────────────────────────────── */
+
+  .howto { padding: 26px 0 30px; border-bottom: 1px solid var(--edge); }
+
+  .howto h2, .summary h2, .tail h2 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .howto p { margin: 12px 0 0; max-width: 66ch; color: var(--ink-2); }
+
+  .keys { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 18px; }
+  .key { display: flex; gap: 9px; align-items: center; font-size: 12.5px; color: var(--ink-2); }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border: 1px solid var(--edge);
+    color: var(--muted);
+    flex: none;
+    white-space: nowrap;
+  }
+  .tag.arch { border-color: var(--accent); color: var(--accent); }
+  .tag.shoot { border-color: var(--warn); color: var(--warn); }
+  .tag.window { border-color: var(--warn); color: var(--warn); border-style: dashed; }
+  .tag.opt { border-style: dashed; }
+  .tag.ready { border-color: var(--accent); color: var(--accent); }
+  .tag.draft { border-color: var(--warn); color: var(--warn); border-style: dashed; }
+
+  /* ── Управление ────────────────────────────────────── */
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 22px 0; }
+
+  .toggle {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--ink-2);
+    border: 1px solid var(--edge);
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .toggle[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .controls .hint { font-size: 12.5px; color: var(--muted); }
+
+  /* ── Сводка ────────────────────────────────────────── */
+
+  .summary { padding: 8px 0 34px; border-bottom: 1px solid var(--edge); }
+
+  .tbl { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+  .tbl th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 0 10px 8px 0;
+    border-bottom: 1px solid var(--edge);
+  }
+  .tbl td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--edge-soft); vertical-align: top; color: var(--ink-2); }
+  .tbl td:first-child { font-family: var(--mono); font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+  .tbl a { text-decoration: none; color: var(--ink); }
+  .tbl a:hover { color: var(--accent); }
+  .tbl .n { font-family: var(--mono); font-size: 12px; text-align: right; white-space: nowrap; }
+
+  .totals { margin-top: 18px; font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 20px; }
+  .totals b { font-family: var(--mono); font-size: 13px; color: var(--ink); font-weight: 600; }
+
+  /* ── Статья ────────────────────────────────────────── */
+
+  .art { border-bottom: 1px solid var(--edge); padding: 40px 0 34px; scroll-margin-top: 18px; }
+
+  .art-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; }
+
+  .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 2px 7px;
+    flex: none;
+  }
+
+  .art-head h3 { font-size: 21px; font-weight: 600; letter-spacing: -0.01em; max-width: 40ch; }
+  .art-head .file { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+  .art-head .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+
+  .lede { margin: 12px 0 0; max-width: 74ch; color: var(--ink-2); font-size: 14px; }
+
+  .why {
+    margin: 14px 0 0;
+    max-width: 74ch;
+    font-size: 13px;
+    color: var(--muted);
+    border-left: 2px solid var(--edge);
+    padding-left: 14px;
+  }
+
+  /* Тело статьи — как читается на сайте */
+
+  .body { margin-top: 24px; max-width: 68ch; }
+  .body p { margin: 0 0 16px; color: var(--ink); }
+  .body h4 {
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.25;
+    margin: 26px 0 12px;
+  }
+  .body ul { margin: 0 0 16px; padding-left: 20px; }
+  .body li { margin-bottom: 6px; }
+  .body blockquote {
+    margin: 22px 0;
+    padding: 2px 0 2px 18px;
+    border-left: 2px solid var(--accent);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.35;
+  }
+  .body .xlink {
+    display: block;
+    margin: 0 0 18px;
+    padding: 10px 12px;
+    border: 1px solid var(--edge);
+    font-size: 13px;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  .plan { margin-top: 22px; max-width: 68ch; }
+  .plan .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .plan ol { margin: 10px 0 0; padding-left: 22px; }
+  .plan li { margin-bottom: 7px; color: var(--ink-2); }
+
+  /* ── Фотослот ──────────────────────────────────────── */
+
+  .slot {
+    background: var(--slot);
+    border: 1px solid var(--slot-edge);
+    border-left: 2px solid var(--accent);
+    padding: 14px 16px;
+    margin: 22px 0;
+    max-width: 68ch;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .slot .frame {
+    flex: none;
+    width: 108px;
+    position: relative;
+    background: color-mix(in srgb, var(--slot-bar) 18%, transparent);
+    border: 1px solid var(--slot-bar);
+    display: grid;
+    place-items: center;
+  }
+  .slot .frame::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top right, transparent calc(50% - 0.5px), var(--slot-bar) 50%, transparent calc(50% + 0.5px)),
+      linear-gradient(to top left, transparent calc(50% - 0.5px), var(--slot-bar) 50%, transparent calc(50% + 0.5px));
+    opacity: 0.7;
+  }
+  .slot .frame span {
+    position: relative;
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--slot);
+    padding: 3px 6px;
+    color: var(--ink-2);
+  }
+  .r169 { aspect-ratio: 16 / 9; }
+  .r43 { aspect-ratio: 4 / 3; }
+  .r34 { aspect-ratio: 3 / 4; }
+  .r11 { aspect-ratio: 1 / 1; }
+
+  .slot .txt { min-width: 0; }
+  .slot .txt b { display: block; font-size: 14.5px; font-weight: 600; margin-bottom: 5px; }
+  .slot .txt p { margin: 0 0 8px; font-size: 13px; color: var(--ink-2); }
+  .slot .txt .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .slot .where { font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 8px; }
+
+  /* Режим «только кадры» */
+  body.slots-only .body p,
+  body.slots-only .body h4,
+  body.slots-only .body ul,
+  body.slots-only .body blockquote,
+  body.slots-only .body .xlink,
+  body.slots-only .plan,
+  body.slots-only .lede,
+  body.slots-only .why { display: none; }
+  body.slots-only .art { padding: 24px 0 18px; }
+  body.slots-only .slot { margin: 14px 0; }
+
+  /* ── Хвост ─────────────────────────────────────────── */
+
+  .tail { padding-top: 40px; }
+  .tail p { max-width: 70ch; color: var(--ink-2); margin: 12px 0 0; }
+  .tail ul { max-width: 70ch; color: var(--ink-2); padding-left: 20px; }
+  .tail li { margin-bottom: 8px; }
+
+  @media (max-width: 620px) {
+    .slot { flex-direction: column; }
+    .slot .frame { width: 100%; max-width: 220px; }
+    .art-head .tags { margin-left: 0; width: 100%; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">Kinsacocha · прототип · часть 4</div>
+    <h1>Блог: тексты и места под фотографии</h1>
+    <p>
+      Двенадцать статей, как они будут стоять на сайте. Три написаны целиком — текст здесь
+      настоящий, слово в слово. Девять — планы: заголовок, описание и порядок мыслей.
+    </p>
+    <p>
+      Главное в этом документе не текст, а <b>рамки с номерами</b>. Это места, куда встанут
+      фотографии. У каждой свой номер, формат и описание того, что должно быть в кадре.
+      Назовите номер — и я поставлю туда ваш снимок.
+    </p>
+    <div class="meta">
+      <span>14 августа 2026</span>
+      <span>12 статей · 50 кадров</span>
+      <span>адрес раздела: /blog</span>
+    </div>
+  </header>
+
+  <section class="howto">
+    <h2>Как этим пользоваться</h2>
+    <p>
+      Идите сверху вниз и напротив каждого номера скажите одно из трёх: «есть, вот эта»,
+      «сниму» или «этот кадр не нужен». Ничего искать в папках не надо — достаточно понимать,
+      есть у вас такой снимок или нет.
+    </p>
+    <p>
+      Кнопка «Только кадры» убирает тексты и оставляет один список рамок — так удобнее идти
+      по списку с телефона.
+    </p>
+    <div class="keys">
+      <span class="key"><span class="tag arch">архив</span> скорее всего есть среди ваших 107 снимков</span>
+      <span class="key"><span class="tag shoot">снять</span> такого кадра пока нет</span>
+      <span class="key"><span class="tag window">окно</span> снимается только в определённый месяц</span>
+      <span class="key"><span class="tag opt">не обязателен</span> статья работает и без него</span>
+    </div>
+  </section>
+
+  <div class="controls">
+    <button class="toggle" id="slotsBtn" aria-pressed="false">Только кадры</button>
+    <span class="hint">тексты скрываются, остаются рамки с номерами</span>
+  </div>
+
+  <section class="summary">
+    <h2>Двенадцать статей</h2>
+    <table class="tbl">
+      <thead>
+        <tr><th>№</th><th>Статья</th><th>Состояние</th><th>Языки</th><th class="n">Кадров</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01</td><td><a href="#a01">Три озера над облаками</a></td><td>написана</td><td>RU · EN · ES</td><td class="n">7</td></tr>
+        <tr><td>02</td><td><a href="#a02">Горная болезнь на 4200</a></td><td>написана</td><td>RU · EN</td><td class="n">4</td></tr>
+        <tr><td>03</td><td><a href="#a03">Что такое чуньо</a></td><td>написана</td><td>RU · EN</td><td class="n">5</td></tr>
+        <tr><td>04</td><td><a href="#a04">Ткачество Пару-Пару</a></td><td>план</td><td>RU · EN · ES</td><td class="n">5</td></tr>
+        <tr><td>05</td><td><a href="#a05">Почему кактусы носят шерсть</a></td><td>план</td><td>RU · EN · ES</td><td class="n">5</td></tr>
+        <tr><td>06</td><td><a href="#a06">Как добраться из Куско или Писака</a></td><td>план</td><td>EN</td><td class="n">3</td></tr>
+        <tr><td>07</td><td><a href="#a07">Что на самом деле наверху над Писаком</a></td><td>план</td><td>EN</td><td class="n">3</td></tr>
+        <tr><td>08</td><td><a href="#a08">Прогулка в полнолуние</a></td><td>план</td><td>EN</td><td class="n">3</td></tr>
+        <tr><td>09</td><td><a href="#a09">Община Пару-Пару</a></td><td>план</td><td>RU</td><td class="n">4</td></tr>
+        <tr><td>10</td><td><a href="#a10">Цифровой детокс</a></td><td>план</td><td>RU</td><td class="n">4</td></tr>
+        <tr><td>11</td><td><a href="#a11">Почему альпаки не боятся людей</a></td><td>план</td><td>RU</td><td class="n">4</td></tr>
+        <tr><td>12</td><td><a href="#a12">Retiro digital: это не резорт</a></td><td>план</td><td>ES</td><td class="n">3</td></tr>
+      </tbody>
+    </table>
+    <div class="totals">
+      <span><b>50</b> кадров всего</span>
+      <span><b>12</b> из них обложки</span>
+      <span><b>16</b> вероятно есть в архиве</span>
+      <span><b>34</b> нужно снять</span>
+      <span><b>5</b> привязаны к сезону</span>
+    </div>
+  </section>
+
+  <!-- ═══════════ 01 ═══════════ -->
+  <article class="art" id="a01">
+    <div class="art-head">
+      <span class="num">01</span>
+      <h3>Кинсакоча, Пумакоча, Асулкоча: три озера над облаками</h3>
+      <span class="file">/blog/tri-ozera</span>
+      <div class="tags"><span class="tag ready">написана</span><span class="tag">RU · EN · ES</span></div>
+    </div>
+    <p class="lede">Что это за озёра, чем они отличаются друг от друга и почему сюда стоит ехать не только ради них. Без маршрута и без координат.</p>
+    <p class="why">Опорная статья всего блога. Люди не ищут «частный дом в Андах» — ищут лагуны. Спрос уже есть, в него надо войти. Здесь нужны самые сильные кадры, какие у вас вообще есть.</p>
+
+    <div class="body">
+      <p>Kinsa qucha на кечуа — «три озера». Kinsa значит три, qucha значит озеро. Место названо счётом: здесь ровно столько озёр, сколько сказано в имени. Ни метафоры, ни легенды — просто арифметика, которой несколько сотен лет.</p>
+
+      <div class="slot">
+        <div class="frame r169"><span>1.1</span></div>
+        <div class="txt">
+          <b>Обложка — вода крупно</b>
+          <p>Тот самый плотный бирюзовый цвет во весь кадр, край берега снизу или сбоку. Без людей, без построек. Кадр должен продать цвет — за ним и едут.</p>
+          <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 16:9</span></div>
+          <div class="where">стоит вверху статьи, на всю ширину</div>
+        </div>
+      </div>
+
+      <p>Здесь не будет маршрута. Будет описание того, что вы увидите.</p>
+
+      <h4>Почему едут именно за лагунами</h4>
+      <p>Из всего, что есть вокруг Писака, в поиске живут именно эти три озера. Их фотографируют, их ищут, про них спрашивают в чатах Куско. И это честная слава: озёра на высоте за четыре тысячи метров действительно выглядят так, как не выглядит вода нигде внизу — плотный бирюзовый цвет, который не получается ни на одном фильтре.</p>
+      <p>Но местные, если спросить их прямо, назовут другие места. Не потому что озёра плохи, а потому что вокруг есть вещи, которые никто не раскручивал. Мы их не публикуем — об этом ниже.</p>
+
+      <h4>Пума Коча — 4325 метров</h4>
+      <p>Самое высокое из трёх. Название переводится с кечуа как «озеро пумы». Пума для инков была не просто зверем: она означала силу и связь с землёй, один из трёх уровней мира. Назвать её именем воду на такой высоте — это не то же самое, что назвать озеро в честь красивой птицы.</p>
+
+      <div class="slot">
+        <div class="frame r43"><span>1.2</span></div>
+        <div class="txt">
+          <b>Пума Коча</b>
+          <p>Самое высокое и самое суровое из трёх. Тёмная вода, голый склон, ощущение, что здесь холоднее. Не открыточный кадр — тяжёлый.</p>
+          <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 4:3</span></div>
+          <div class="where">после абзаца про имя озера</div>
+        </div>
+      </div>
+
+      <p>Пуму здесь не видели. В регионе она есть, но следов не находят, и никто из местных не может сказать, что встречал её. Озеро носит её имя, а самой пумы в кадре не будет — и это, пожалуй, самое точное описание этого места.</p>
+
+      <h4>Асуль Коча — 4247 метров</h4>
+      <p>Ниже Пума Кочи почти на восемьдесят метров. Асуль — «синее» по-испански, и название не преувеличивает: вода здесь уходит в насыщенную бирюзу, а в ясный день, когда небо стоит без единого облака, граница между водой и небом почти исчезает.</p>
+
+      <div class="slot">
+        <div class="frame r43"><span>1.3</span></div>
+        <div class="txt">
+          <b>Асуль Коча в ясный день</b>
+          <p>Ровно то, о чём говорит текст: граница воды и неба почти пропала. Нужен безоблачный день и высокая точка съёмки. Самый «синий» кадр из всех.</p>
+          <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 4:3</span></div>
+          <div class="where">после абзаца про цвет</div>
+        </div>
+      </div>
+
+      <p>Цвет — не краска и не минерал в привычном смысле. Так работает высота: чистая холодная вода, мало органики, много света. Внизу такой воды не бывает просто потому, что внизу теплее.</p>
+
+      <h4>Кинса Коча — то, у которого стоит дом</h4>
+      <p>Самое большое из трёх и самое близкое. Именно у него стоит дом, и именно оно дало имя всему месту. В нём же община разводит форель — тручу. Ловить её нельзя, а заказать к ужину можно: это единственная еда, которую здесь не нужно везти с собой снизу.</p>
+
+      <div class="slot">
+        <div class="frame r169"><span>1.4</span></div>
+        <div class="txt">
+          <b>Озеро и дом на берегу</b>
+          <p>Общий план: вода, склон и дом маленькой точкой. Единственный кадр во всей статье, где видно, что здесь кто-то живёт. Он же связывает статью с сайтом.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 16:9</span></div>
+          <div class="where">после абзаца про Кинса Кочу</div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="frame r43"><span>1.5</span></div>
+        <div class="txt">
+          <b>Садки с форелью или лодка на воде</b>
+          <p>Деревянная лодка либо садки общины. Показывает, что озеро — рабочее, а не декорация. Мостик к теме общины.</p>
+          <div class="tags"><span class="tag arch">архив</span><span class="tag opt">не обязателен</span><span class="tag">горизонт 4:3</span></div>
+          <div class="where">там же, рядом с абзацем про форель</div>
+        </div>
+      </div>
+
+      <p>Порядок обхода не задан. Есть длинные варианты и короткие, и в каком порядке вы увидите озёра, зависит от того, сколько у вас времени, какая погода и кто с вами идёт. Проводник решает это утром, а не за неделю до вашего приезда.</p>
+
+      <h4>Купаться — можно. Но подумайте дважды</h4>
+      <p>Да, здесь купаются. Вода холодная — не «бодрящая», а именно холодная, и это не преувеличение для красного словца.</p>
+      <p>Честная часть: вы находитесь выше четырёх тысяч двухсот метров. Кислорода примерно на сорок процентов меньше, чем на уровне моря. Резкий холод — это дополнительная нагрузка на сердце, а на такой высоте организм и без того работает в непривычном режиме. Поэтому: не в первый день после подъёма, не в одиночку, не после алкоголя и не «на слабо».</p>
+
+      <div class="slot">
+        <div class="frame r34"><span>1.6</span></div>
+        <div class="txt">
+          <b>Человек у воды</b>
+          <p>Кто-то заходит в воду или стоит на берегу. Масштаб: человек маленький, вода большая. Это единственное место в статье, где нужен человек.</p>
+          <div class="tags"><span class="tag arch">архив</span><span class="tag opt">не обязателен</span><span class="tag">вертикаль 3:4</span></div>
+          <div class="where">рядом с абзацем про купание</div>
+        </div>
+      </div>
+
+      <a class="xlink" href="#a02">→ Что нужно знать про высоту 4200 до того, как подниматься</a>
+
+      <h4>Что здесь есть кроме озёр</h4>
+      <p>Пики. Малые лагуны, у которых нет ни имени в интернете, ни фотографий. Тропы, о которых знает довольно мало людей.</p>
+      <p>Мы не будем про них писать. Не из вредности и не ради интриги: эти места существуют в нынешнем виде ровно потому, что о них не пишут. Как только появляется координата, появляется поток, а за потоком — мусор, вытоптанная трава и очередь на фотографию.</p>
+
+      <blockquote>Озёра — это то, за чем едут. Не то, ради чего остаются.</blockquote>
+
+      <h4>Когда ехать</h4>
+      <p>Сухой сезон — с апреля по октябрь-ноябрь. Ясно, солнечно, ночи морозные. Сезон дождей — с ноября по март: дожди меняют маршруты и форматы, но не отменяют поездку. Зелени больше, людей меньше.</p>
+      <p>Отдельно стоит октябрь-ноябрь. Это стык сезонов: сухой заканчивается, первые дожди уже близко, и в этот момент всё зацветает разом. Крошечные жёлтые цветы, каких не бывает внизу, и кактусы, которые здесь растут подушками и обрастают белым пухом от холода.</p>
+
+      <div class="slot">
+        <div class="frame r11"><span>1.7</span></div>
+        <div class="txt">
+          <b>Цветение — крошечные жёлтые цветы</b>
+          <p>Макро, у самой земли. Этот же кадр потом работает в статье про кактусы и в блоке «Флора» на сайте. Снимается один раз, используется трижды.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag window">окно: октябрь–ноябрь</span><span class="tag">квадрат</span></div>
+          <div class="where">рядом с абзацем про стык сезонов</div>
+        </div>
+      </div>
+
+      <h4>Сколько добираться</h4>
+      <p>Если вы уже в Куско или Писаке — это вопрос нескольких часов, а не дней. Ради одних этих озёр вряд ли стоит лететь через полмира, но если вы уже в Перу и у вас есть два свободных дня, вопрос «стоит ли» решается просто: стоит.</p>
+      <p>Трансфер из Писака до двери заказывается отдельно, через WhatsApp. Дорога — часть впечатления, и её лучше не проезжать в спешке.</p>
+    </div>
+  </article>
+
+  <!-- ═══════════ 02 ═══════════ -->
+  <article class="art" id="a02">
+    <div class="art-head">
+      <span class="num">02</span>
+      <h3>Горная болезнь на высоте 4200: как подготовиться</h3>
+      <span class="file">/blog/gornaya-bolezn</span>
+      <div class="tags"><span class="tag ready">написана</span><span class="tag">RU · EN</span></div>
+    </div>
+    <p class="lede">Что происходит с телом на четырёх тысячах метров, как выглядят первые симптомы, сколько нужно на акклиматизацию и когда нужно спускаться.</p>
+    <p class="why">Вторая по важности статья: её ищут те, кто уже решил ехать, и она снимает главный страх родителей. Фактуру перед публикацией вычитываете вы — отвечать за советы на 4200 должен человек, который там живёт.</p>
+
+    <div class="body">
+      <div class="slot">
+        <div class="frame r169"><span>2.1</span></div>
+        <div class="txt">
+          <b>Обложка — тропа вверх</b>
+          <p>Подъём, человек мелкой фигурой, много неба и пространства. Ощущение высоты, а не медицины: статья про горы, а не про больницу.</p>
+          <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 16:9</span></div>
+          <div class="where">вверху статьи</div>
+        </div>
+      </div>
+
+      <p>На 4200 метрах кислорода в воздухе примерно на сорок процентов меньше, чем на уровне моря. Воздух тот же самый по составу — его просто меньше в каждом вдохе. Тело замечает это в первые часы и начинает перестраиваться: дышать чаще, гнать кровь быстрее, менять её состав. Эта перестройка и есть акклиматизация, и она занимает не минуты, а дни.</p>
+
+      <h4>Как это ощущается</h4>
+      <p>Чаще всего — головная боль, которая появляется через несколько часов после подъёма. Плюс что-нибудь из этого списка:</p>
+      <ul>
+        <li>Одышка при обычной ходьбе</li>
+        <li>Тяжёлый или прерывистый сон в первую ночь</li>
+        <li>Пропавший аппетит</li>
+        <li>Тошнота</li>
+        <li>Странная усталость, несоразмерная нагрузке</li>
+        <li>Ощущение, что вы простыли, хотя не простыли</li>
+      </ul>
+      <p>Это неприятно, но само по себе не опасно и обычно проходит за сутки-двое. Опасно другое — когда состояние не улучшается, а ухудшается.</p>
+
+      <h4>Когда нужно вниз, и вниз немедленно</h4>
+      <p>Есть симптомы, при которых не ждут утра и не пьют таблетку «на всякий случай». Спускаются.</p>
+      <ul>
+        <li>Спутанность сознания, странное поведение, речь невпопад</li>
+        <li>Потеря равновесия, шаткая походка</li>
+        <li>Одышка в состоянии полного покоя</li>
+        <li>Кашель с пеной или розовой мокротой</li>
+        <li>Сильная головная боль, которую не снимает обезболивающее</li>
+        <li>Рвота, которая не прекращается</li>
+      </ul>
+      <p>Высота — единственное лекарство, которое работает наверняка: сброс высоты снимает симптомы. Всё остальное — вспомогательное.</p>
+
+      <h4>Акклиматизация: сколько времени нужно</h4>
+      <p>Куско стоит примерно на 3400 метрах — уже достаточно высоко, чтобы тело начало приспосабливаться. Два-три дня в Куско или Священной долине перед подъёмом на 4200 меняют опыт полностью: разница между «мне тяжело и я ничего не почувствовал» и «я запомнил этот день».</p>
+      <p>Если вы только что прилетели из города на уровне моря и в тот же день поехали наверх — вероятность провести первую ночь с головной болью очень высокая.</p>
+
+      <h4>Что помогает</h4>
+      <ul>
+        <li>Вода. Пить больше обычного — на высоте организм теряет жидкость быстрее, а обезвоживание похоже на горную болезнь и усиливает её</li>
+        <li>Медленный темп. Наверху спешка не даёт выигрыша, она даёт головную боль</li>
+        <li>Лёгкая еда. Тяжёлый ужин в первую ночь — плохая идея</li>
+        <li>Никакого алкоголя в первые сутки. Он бьёт по тому же механизму, что и высота</li>
+        <li>Лист коки. В Перу легален, традиционен и продаётся на любом рынке. Местные жуют его или заваривают как чай — это часть повседневной жизни, а не экзотика для туристов</li>
+        <li>Тепло. Замёрзший человек переносит высоту хуже</li>
+      </ul>
+
+      <div class="slot">
+        <div class="frame r11"><span>2.2</span></div>
+        <div class="txt">
+          <b>Лист коки</b>
+          <p>Горсть листьев в руке, на ткани или чашка мате-де-кока. Крупно. Для англичанина и испанца это спорное слово — кадр обычной домашней вещи снимает вопрос быстрее абзаца текста.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag">квадрат</span></div>
+          <div class="where">рядом со списком «что помогает»</div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="frame r43"><span>2.3</span></div>
+        <div class="txt">
+          <b>Ребёнок на тропе</b>
+          <p>Ребёнок сидит на камне, отдыхает, взрослый рядом. Не постановочная радость — обычная сцена. Ровно то, о чём абзац: смотреть на поведение, а не на слова.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+          <div class="where">в разделе «Дети»</div>
+        </div>
+      </div>
+
+      <h4>Дети</h4>
+      <p>Дети переносят высоту не хуже взрослых, но хуже её описывают: ребёнок редко скажет «у меня одышка», он скажет, что не хочет идти, или просто начнёт капризничать. Поэтому смотреть надо не на слова, а на поведение — и не уговаривать пройти ещё немного, если ребёнок сел.</p>
+      <p>Маршрут с детьми подбирается под ребёнка, а не наоборот. Три часа до ближнего озера и возвращение к обеду — нормальный полноценный день, а не урезанная версия чего-то большего.</p>
+
+      <div class="slot">
+        <div class="frame r43"><span>2.4</span></div>
+        <div class="txt">
+          <b>Печь и тепло в доме</b>
+          <p>Огонь в печи, тёплый свет, вечер. Иллюстрирует последний пункт списка — «замёрзший человек переносит высоту хуже» — и заодно продаёт дом.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+          <div class="where">внизу, перед ссылкой на статью про озёра</div>
+        </div>
+      </div>
+
+      <h4>Про купание в озёрах</h4>
+      <p>Купаться на такой высоте можно, и люди купаются. Но резкий холод — это нагрузка на сердце поверх той, которую уже даёт высота. Не в первый день после подъёма, не в одиночку и не после алкоголя.</p>
+
+      <a class="xlink" href="#a01">→ Про сами озёра — что это за вода и чем они отличаются</a>
+    </div>
+  </article>
+
+  <!-- ═══════════ 03 ═══════════ -->
+  <article class="art" id="a03">
+    <div class="art-head">
+      <span class="num">03</span>
+      <h3>Что такое чуньо и почему инки сушили картошку на морозе</h3>
+      <span class="file">/blog/chuno</span>
+      <div class="tags"><span class="tag ready">написана</span><span class="tag">RU · EN</span></div>
+    </div>
+    <p class="lede">Технология, которой пять тысяч лет: как ночной мороз и дневное солнце превращают картошку в продукт, который хранится годами.</p>
+    <p class="why">Статья, которую читают до конца и пересказывают другим. Она же объясняет, что стоит на столе в доме. Кадры здесь нужны бытовые — и почти всех у вас пока нет.</p>
+
+    <div class="body">
+      <div class="slot">
+        <div class="frame r169"><span>3.1</span></div>
+        <div class="txt">
+          <b>Обложка — картошка на земле в изморози</b>
+          <p>Клубни, разложенные прямо на земле, утренний иней. Главный кадр статьи: он объясняет технологию до единого слова текста.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag window">окно: июнь–июль, самые морозные ночи</span><span class="tag">горизонт 16:9</span></div>
+          <div class="where">вверху статьи</div>
+        </div>
+      </div>
+
+      <p>На четырёх тысячах метров нельзя вырастить пшеницу и нельзя держать погреб. Зато можно вырастить картошку — и здесь её вырастили столько сортов, сколько нет больше нигде на планете. Проблема была не в том, чтобы её получить, а в том, чтобы дожить с ней до следующего урожая.</p>
+      <p>Решение нашли простое до неприличия: использовать погоду как оборудование.</p>
+
+      <h4>Как это работает</h4>
+      <p>В сухой сезон на такой высоте ночью крепкий мороз, а днём — жёсткое солнце и очень сухой воздух. Картошку раскладывают прямо на земле и оставляют на несколько ночей.</p>
+      <p>Ночью вода внутри клубня замерзает и рвёт клеточные стенки. Днём солнце вытапливает лёд, а сухой воздух уносит влагу. Люди топчут клубни ногами, выдавливая остатки воды. Цикл повторяется несколько раз подряд.</p>
+      <p>На выходе — лёгкий, твёрдый, почти невесомый продукт, который хранится годами и не портится. По сути это лиофилизация: тот же принцип, по которому делают еду для космонавтов, только оборудование здесь — ночное небо.</p>
+
+      <div class="slot">
+        <div class="frame r43"><span>3.2</span></div>
+        <div class="txt">
+          <b>Чуньо чёрный и морайя белая рядом</b>
+          <p>Две горсти в одном кадре — разница видна мгновенно, и абзац про белое и чёрное можно не перечитывать. Лучше на тёмной ткани или прямо в ладонях.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+          <div class="where">в разделе «Чёрный и белый»</div>
+        </div>
+      </div>
+
+      <h4>Чёрный и белый</h4>
+      <p>Чуньо — чёрный. Его делают без промывки, и он темнеет от процесса. Вкус плотный, землистый, ни на что не похожий.</p>
+      <p>Морайя — белый. Разница в одном шаге: клубни держат в проточной воде — в ручье, под камнями, несколько недель — и только потом выкладывают на мороз. Вода вымывает то, что даёт горечь и цвет. Морайя мягче, светлее и ценится выше.</p>
+
+      <div class="slot">
+        <div class="frame r34"><span>3.3</span></div>
+        <div class="txt">
+          <b>Клубни в ручье под камнями</b>
+          <p>Тот самый шаг, который отличает морайю от чуньо: вода, камни, картошка под ними. Редкий кадр — такого нет ни в одном путеводителе.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag opt">не обязателен</span><span class="tag">вертикаль 3:4</span></div>
+          <div class="where">рядом с абзацем про морайю</div>
+        </div>
+      </div>
+
+      <h4>Зачем это было нужно</h4>
+      <p>Империя инков держалась на логистике не меньше, чем на армии. По дорогам стояли склады — колька, — и в них хранили именно чуньо: он не тяжёлый, не гниёт и переживает годы. Это была страховка от неурожая для целых провинций и паёк для армии на марше.</p>
+      <p>Технологии, по разным оценкам, около пяти тысяч лет. Она старше письменности в большинстве регионов мира и до сих пор работает без единого изменения.</p>
+
+      <div class="slot">
+        <div class="frame r11"><span>3.4</span></div>
+        <div class="txt">
+          <b>Сорта картошки</b>
+          <p>Разноцветные клубни горкой — красные, фиолетовые, пятнистые. Один кадр вместо фразы «столько сортов, сколько нет больше нигде». Можно снять на рынке в Писаке.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag">квадрат</span></div>
+          <div class="where">рядом с первым абзацем</div>
+        </div>
+      </div>
+
+      <h4>Что с этим делают сегодня</h4>
+      <p>То же самое. Чуньо размачивают и кладут в суп, где он набухает и становится похож на плотную клёцку. Морайю чаще подают отдельно, к мясу или к сыру.</p>
+      <p>Здесь это не блюдо для гостей и не гастрономический опыт. Это то, что стоит в доме круглый год, потому что так удобнее. Гостю его дают ровно потому же, почему дали бы соседу.</p>
+
+      <div class="slot">
+        <div class="frame r43"><span>3.5</span></div>
+        <div class="txt">
+          <b>Тарелка супа на столе в доме</b>
+          <p>Готовая еда, обычная посуда, дневной свет из окна. Не ресторанная подача — домашняя. Этот кадр пойдёт ещё и в блок «Еда» на главной.</p>
+          <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+          <div class="where">в разделе «Что с этим делают сегодня»</div>
+        </div>
+      </div>
+
+      <blockquote>Пять тысяч лет назад кто-то заметил, что мороз работает бесплатно. С тех пор ничего лучше не придумали.</blockquote>
+    </div>
+  </article>
+
+  <!-- ═══════════ 04 ═══════════ -->
+  <article class="art" id="a04">
+    <div class="art-head">
+      <span class="num">04</span>
+      <h3>Ткачество Пару-Пару: почему здесь ткут на ходу</h3>
+      <span class="file">/blog/tkachestvo</span>
+      <div class="tags"><span class="tag draft">план</span><span class="tag">RU · EN · ES</span></div>
+    </div>
+    <p class="lede">Пояса, накидки и пончо, которые делают, пока идут за стадом. И почему это не сувенир, а заработок.</p>
+    <p class="why">Пишется сразу на трёх языках: запросы <code>artesanía Pisac</code>, <code>Andean textiles Peru</code>, <code>tejido a mano Cusco</code> живут в основном на испанском и английском. Статья целиком стоит на фотографиях, которых пока нет ни одной.</p>
+
+    <div class="plan">
+      <div class="lbl">Порядок мыслей</div>
+      <ol>
+        <li>Ткачество, а не вышивка: станок и руки, не игла</li>
+        <li>Шерсть и нитки всегда с собой — как телефон в кармане у городского</li>
+        <li>Что делают: пояса, накидки, шапки, сумки, перчатки, пончо</li>
+        <li>Музей при общине: вывеска, выставка, вход 5–10 солей</li>
+        <li>Деньги идут в общину. Продажа на рынках — практически единственный заработок</li>
+        <li>Почему «сувенир» — неверное слово</li>
+        <li>Как себя вести: фотографировать можно, но спрашивают разрешение</li>
+      </ol>
+    </div>
+
+    <div class="slot">
+      <div class="frame r169"><span>4.1</span></div>
+      <div class="txt">
+        <b>Обложка — ткут на ходу</b>
+        <p>Главный кадр всего блока: человек идёт за стадом, в руках работа. Если получится снять только один кадр из пяти — снимайте этот. Он объясняет место лучше страницы текста.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 16:9</span></div>
+        <div class="where">вверху статьи, он же в блоке «Ткачество» на главной</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r11"><span>4.2</span></div>
+      <div class="txt">
+        <b>Руки и нить крупно</b>
+        <p>Только руки, шерсть, натяжение нити. Без лица — тогда не нужно ничьё разрешение, а деталь работает сильнее.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">квадрат</span></div>
+        <div class="where">к пункту про станок и руки</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>4.3</span></div>
+      <div class="txt">
+        <b>Готовые вещи</b>
+        <p>Пояса, шапки, пончо — разложены или висят. Цвет и узор крупно. Кадр для того, кто думает, что увезти с собой.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту «что делают»</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>4.4</span></div>
+      <div class="txt">
+        <b>Музей: вывеска и вход</b>
+        <p>Здание с вывеской снаружи. Доказательство, что музей существует — гость должен узнать его, когда подойдёт.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту про музей</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r34"><span>4.5</span></div>
+      <div class="txt">
+        <b>Выставка внутри музея</b>
+        <p>Как устроено внутри: ткани на стенах или на столах. Показывает, что вход в 5–10 солей — не пустая формальность.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag opt">не обязателен</span><span class="tag">вертикаль 3:4</span></div>
+        <div class="where">там же</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════ 05 ═══════════ -->
+  <article class="art" id="a05">
+    <div class="art-head">
+      <span class="num">05</span>
+      <h3>Почему кактусы на 4200 носят шерсть</h3>
+      <span class="file">/blog/kaktusy</span>
+      <div class="tags"><span class="tag draft">план</span><span class="tag">RU · EN · ES</span></div>
+    </div>
+    <p class="lede">Растения высокогорья решают те же задачи, что и внизу, только иначе: ветер, ультрафиолет и мороз каждую ночь в году.</p>
+    <p class="why">Единственная статья, которая просит смотреть под ноги. Все её кадры — макро, и почти все привязаны к цветению: пропустите октябрь–ноябрь — ждать год.</p>
+
+    <div class="plan">
+      <div class="lbl">Порядок мыслей</div>
+      <ol>
+        <li>Кактус, которому холодно: сбой ожидания</li>
+        <li>Четыре стратегии высоты: прижаться, обрасти, собраться в подушку, цвести коротко</li>
+        <li>Кактусы-подушки: лепёшки у земли, крупные колючки, белый пух</li>
+        <li>Жёлтые цветы в несколько миллиметров — и почему они ярче равнинных</li>
+        <li>Октябрь–ноябрь: всё зацветает разом на стыке сезонов</li>
+        <li>Кеуния: дерево, которое растёт выше всех деревьев планеты</li>
+        <li>Ичу: крыши, верёвки, подстилка</li>
+        <li>⏳ Латинские названия видов — уточняются по вашим снимкам</li>
+      </ol>
+    </div>
+
+    <div class="slot">
+      <div class="frame r169"><span>5.1</span></div>
+      <div class="txt">
+        <b>Обложка — кактус-подушка с белым пухом</b>
+        <p>Крупно, у самой земли, чтобы было видно пух и колючки. Заголовок обещает кактус в шерсти — кадр обязан это показать сразу.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 16:9</span></div>
+        <div class="where">вверху статьи, он же в блоке «Флора» на главной</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r11"><span>5.2</span></div>
+      <div class="txt">
+        <b>Жёлтый цветок, макро</b>
+        <p>Один цветок в несколько миллиметров, во весь кадр. Рядом для масштаба — палец, спичка или монета, иначе размер не читается.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag window">окно: октябрь–ноябрь</span><span class="tag">квадрат</span></div>
+        <div class="where">к пункту про цветы</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>5.3</span></div>
+      <div class="txt">
+        <b>Склон в цвету, общий план</b>
+        <p>«Зацветает разом» — это видно только с расстояния. Общий план склона в момент цветения, чтобы было понятно, что речь не про один цветочек.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag window">окно: октябрь–ноябрь</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту про стык сезонов</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r34"><span>5.4</span></div>
+      <div class="txt">
+        <b>Кеуния — кора и ствол</b>
+        <p>Дерево по дороге наверх. Ценна именно кора — рыжая, слоями, как бумага. Вертикальный кадр, ствол снизу вверх.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">вертикаль 3:4</span></div>
+        <div class="where">к пункту про кеунию</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>5.5</span></div>
+      <div class="txt">
+        <b>Ичу — трава пуны</b>
+        <p>Пучки травы против света, ветер. Либо готовая крыша или верёвка из неё — тогда кадр объясняет сразу и растение, и быт.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к последнему пункту</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════ 06 ═══════════ -->
+  <article class="art" id="a06">
+    <div class="art-head">
+      <span class="num">06</span>
+      <h3>How to get to the Paru-Paru community from Cusco or Pisac</h3>
+      <span class="file">/blog/kak-dobratsya</span>
+      <div class="tags"><span class="tag draft">план</span><span class="tag">EN</span></div>
+    </div>
+    <p class="lede">Для тех, кто уже в Перу и у кого есть два свободных дня: далеко ли на самом деле, сколько это по времени и какая там дорога.</p>
+    <p class="why">Пишется по-английски первой: это запрос человека, который уже в Куско и выбирает, чем занять завтрашний день. Готовность действовать здесь выше, чем у любого другого запроса в блоге.</p>
+
+    <div class="plan">
+      <div class="lbl">Порядок мыслей</div>
+      <ol>
+        <li>Для кого это: вы уже в Куско, а не выбираете страну</li>
+        <li>Куско → Писак: участок по Священной долине</li>
+        <li>Писак → наверх: подъём, и почему он часть впечатления</li>
+        <li>Трансфер до двери — через WhatsApp, оплачивается отдельно</li>
+        <li>Высота по дороге наверх — почему два дня в Куско меняют всё</li>
+        <li>Что купить в Писаке перед подъёмом: фрукты, хлеб, листья коки</li>
+        <li>⏳ Точное время в пути — подтверждаете вы</li>
+      </ol>
+    </div>
+
+    <div class="slot">
+      <div class="frame r169"><span>6.1</span></div>
+      <div class="txt">
+        <b>Обложка — дорога наверх</b>
+        <p>Серпантин или грунтовка с высоты, долина внизу. Кадр отвечает на вопрос «далеко ли» раньше, чем текст.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 16:9</span></div>
+        <div class="where">вверху статьи, он же в блоке «Дорога» на главной</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>6.2</span></div>
+      <div class="txt">
+        <b>Рынок в Писаке</b>
+        <p>Прилавок с фруктами и хлебом. Иллюстрирует пункт «что купить перед подъёмом» и заодно правило «не с пустыми руками».</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к предпоследнему пункту</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>6.3</span></div>
+      <div class="txt">
+        <b>Машина у дома</b>
+        <p>Транспорт, на котором реально доезжают до двери. Снимает немой вопрос «а туда вообще можно доехать или идти пешком».</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту про трансфер</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════ 07 ═══════════ -->
+  <article class="art" id="a07">
+    <div class="art-head">
+      <span class="num">07</span>
+      <h3>Off the beaten path near Pisac: what is actually up there</h3>
+      <span class="file">/blog/pisac-off-the-beaten-path</span>
+      <div class="tags"><span class="tag draft">план</span><span class="tag">EN</span></div>
+    </div>
+    <p class="lede">Все едут на руины Писака и на воскресный рынок. Над ними, на 4200, начинается совсем другая долина.</p>
+    <p class="why">Ловит запрос «что посмотреть рядом с Писаком» — самый массовый из всех, что нам подходят. Статья ведёт в опорную про озёра, а не наоборот.</p>
+
+    <div class="plan">
+      <div class="lbl">Порядок мыслей</div>
+      <ol>
+        <li>Куда отправляют путеводители и где они останавливаются</li>
+        <li>Три озера как вход, а не как цель</li>
+        <li>Община: альпаки, форель, чуньо, ткачество</li>
+        <li>Почему мы не публикуем координат и что это даёт гостю</li>
+        <li>Как приехать так, чтобы это не превратилось в тур</li>
+      </ol>
+    </div>
+
+    <div class="slot">
+      <div class="frame r169"><span>7.1</span></div>
+      <div class="txt">
+        <b>Обложка — долина сверху</b>
+        <p>Вид с высоты вниз, на долину и дальние хребты. Кадр про то, что здесь начинается другой мир — именно это обещает заголовок.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 16:9</span></div>
+        <div class="where">вверху статьи</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>7.2</span></div>
+      <div class="txt">
+        <b>Стадо альпак на склоне</b>
+        <p>Обычная сцена: животные и пастух вдалеке. Не «фото с альпакой», а жизнь, которая идёт своим чередом.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту про общину</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r34"><span>7.3</span></div>
+      <div class="txt">
+        <b>Пустая тропа</b>
+        <p>Тропа уходит за перегиб, вокруг никого. Иллюстрация к абзацу про то, почему мы не публикуем координат: сейчас здесь пусто — и мы хотим, чтобы так и осталось.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag">вертикаль 3:4</span></div>
+        <div class="where">к пункту про приватность</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════ 08 ═══════════ -->
+  <article class="art" id="a08">
+    <div class="art-head">
+      <span class="num">08</span>
+      <h3>Walking under a full moon in the Andes</h3>
+      <span class="file">/blog/moon-trekking</span>
+      <div class="tags"><span class="tag draft">план</span><span class="tag">EN</span></div>
+    </div>
+    <p class="lede">Три ночи в месяц, без фонарей, и пейзаж, который днём выглядит совсем иначе.</p>
+    <p class="why">Редкий формат, который больше никто не предлагает. Статья работает в паре с лунным виджетом на главной: человек видит дату ближайшего окна и пишет сразу.</p>
+
+    <div class="plan">
+      <div class="lbl">Порядок мыслей</div>
+      <ol>
+        <li>Почему без фонарей: глазам нужно около двадцати минут</li>
+        <li>Три ночи в месяц — окно и как в него попасть</li>
+        <li>Ночной холод на 4200: что это значит на практике</li>
+        <li>Почему это не делают с детьми и что делают вместо</li>
+        <li>Никогда в одиночку. Это не обсуждается</li>
+        <li>Как договориться: лунный виджет и сообщение в WhatsApp</li>
+      </ol>
+    </div>
+
+    <div class="slot">
+      <div class="frame r169"><span>8.1</span></div>
+      <div class="txt">
+        <b>Обложка — ночь при луне</b>
+        <p>Пейзаж, снятый в полнолуние без фонарей: видно склоны, воду и тени. Длинная выдержка со штатива. Самый сложный кадр во всём списке — и самый ценный.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag window">окно: три ночи в месяц</span><span class="tag">горизонт 16:9</span></div>
+        <div class="where">вверху статьи, он же в полосе «Полная луна» на главной</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>8.2</span></div>
+      <div class="txt">
+        <b>Звёздное небо</b>
+        <p>Небо без луны, с Млечным Путём. Второй по силе аргумент всего сайта после воды — и то, ради чего сюда везут детей.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту про глаза и темноту</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r34"><span>8.3</span></div>
+      <div class="txt">
+        <b>Дом ночью, свет в окне</b>
+        <p>Возвращение: тёплый свет изнутри, холодная синева снаружи. Весь сайт в одном кадре — суровость снаружи, тепло внутри.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">вертикаль 3:4</span></div>
+        <div class="where">в конце статьи, перед кнопкой</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════ 09 ═══════════ -->
+  <article class="art" id="a09">
+    <div class="art-head">
+      <span class="num">09</span>
+      <h3>Община Пару-Пару: жизнь на высоте, о которой не пишут</h3>
+      <span class="file">/blog/obshina-paru-paru</span>
+      <div class="tags"><span class="tag draft">план</span><span class="tag">RU</span></div>
+    </div>
+    <p class="lede">Кто здесь живёт, чем зарабатывает и почему дом частный, а всё вокруг — общее.</p>
+    <p class="why">Сильная статья, которую пока никто не ищет. Поэтому она стоит в очереди после тех, что приводят людей: пишем её, когда заработает трафик с озёр.</p>
+
+    <div class="plan">
+      <div class="lbl">Порядок мыслей</div>
+      <ol>
+        <li>Дом частный, вода и рыба общинные — что это значит на практике</li>
+        <li>Форель в лагуне: разводит община, ловить нельзя</li>
+        <li>Картошка, чуньо и морайя</li>
+        <li>Ткачество как основной заработок</li>
+        <li>Parque de la Papa — рядом ⏳ уточнить статус</li>
+        <li>Почему сюда нельзя приехать «как в отель»</li>
+        <li>Как себя вести: айни и обмен вместо подарков сверху вниз</li>
+      </ol>
+    </div>
+
+    <div class="slot">
+      <div class="frame r169"><span>9.1</span></div>
+      <div class="txt">
+        <b>Обложка — люди за работой</b>
+        <p>Не портрет и не постановка: кто-то пасёт, копает, несёт. Общий план, лица не крупно. Статья про жизнь, а не про персонажей.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 16:9</span></div>
+        <div class="where">вверху статьи</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>9.2</span></div>
+      <div class="txt">
+        <b>Садки с форелью</b>
+        <p>Хозяйство общины на воде, с лодки или с берега. Тот самый кадр, который объясняет строку «дом частный, а вода общая».</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту про форель</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>9.3</span></div>
+      <div class="txt">
+        <b>Картофельное поле на склоне</b>
+        <p>Поля на высоте, вспаханные вручную. Показывает масштаб труда без единого слова жалости.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту про картошку</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r11"><span>9.4</span></div>
+      <div class="txt">
+        <b>Встреча на тропе</b>
+        <p>Двое разговаривают по дороге — гость и местный, или двое местных. Иллюстрация к айни: здесь не проходят мимо друг друга.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag opt">не обязателен</span><span class="tag">квадрат</span></div>
+        <div class="where">к последнему пункту</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════ 10 ═══════════ -->
+  <article class="art" id="a10">
+    <div class="art-head">
+      <span class="num">10</span>
+      <h3>Цифровой детокс: что происходит с головой без интернета три дня</h3>
+      <span class="file">/blog/cifrovoy-detoks</span>
+      <div class="tags"><span class="tag draft">план</span><span class="tag">RU</span></div>
+    </div>
+    <p class="lede">Здесь нет WiFi, и это не недоработка. Что успевает поменяться за три дня и почему первая ночь самая тяжёлая.</p>
+    <p class="why">Русская тема: медитативная, про побег от суеты. Раскрывает главный парадокс проекта — здесь холодно и нет интернета, и именно поэтому сюда везут детей.</p>
+
+    <div class="plan">
+      <div class="lbl">Порядок мыслей</div>
+      <ol>
+        <li>Первый вечер: рука сама тянется к карману</li>
+        <li>Вторая ночь: тишина, от которой не сразу засыпаешь</li>
+        <li>Третий день: возвращается длинное внимание</li>
+        <li>Дети без экрана: что происходит на самом деле</li>
+        <li>Звёздное небо на 4200 — почему оно выглядит иначе</li>
+        <li>Что забрать вниз, кроме фотографий</li>
+      </ol>
+    </div>
+
+    <div class="slot">
+      <div class="frame r169"><span>10.1</span></div>
+      <div class="txt">
+        <b>Обложка — вечер в доме</b>
+        <p>Комната, свет от печи или лампы, кто-то сидит и ничего не делает. Кадр про то, что времени вдруг стало много.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 16:9</span></div>
+        <div class="where">вверху статьи</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>10.2</span></div>
+      <div class="txt">
+        <b>Дети на улице</b>
+        <p>Дети заняты чем-то своим — камни, вода, животные. Без экрана и без взрослых в кадре. Отвечает родителю на его настоящий вопрос.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту про детей</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r34"><span>10.3</span></div>
+      <div class="txt">
+        <b>Звёзды над домом</b>
+        <p>Небо и крыша в одном кадре. Тот же материал, что и 8.2, но с домом — здесь это про «вышел на улицу перед сном», а не про ночной маршрут.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">вертикаль 3:4</span></div>
+        <div class="where">к пункту про небо</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>10.4</span></div>
+      <div class="txt">
+        <b>Утро, туман в долине</b>
+        <p>Первое, что видишь, выйдя из дома. Кадр-выдох в конце статьи.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">в конце, перед кнопкой</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════ 11 ═══════════ -->
+  <article class="art" id="a11">
+    <div class="art-head">
+      <span class="num">11</span>
+      <h3>Почему альпаки не боятся людей — и что это говорит об Андах</h3>
+      <span class="file">/blog/alpaki</span>
+      <div class="tags"><span class="tag draft">план</span><span class="tag">RU</span></div>
+    </div>
+    <p class="lede">Шесть тысяч лет рядом с человеком. Что из этого следует и почему к ним можно подойти близко.</p>
+    <p class="why">Самая «лёгкая» статья блога и лучший вход для тех, кто едет с детьми. Единственная тема, где кадры у вас почти наверняка уже есть.</p>
+
+    <div class="plan">
+      <div class="lbl">Порядок мыслей</div>
+      <ol>
+        <li>Одомашнены около шести тысяч лет назад</li>
+        <li>Не боятся маленьких гостей — почему это правда, а не рекламная строчка</li>
+        <li>Альпака и лама: чем отличаются</li>
+        <li>Шерсть: почему она тёплая при таком малом весе</li>
+        <li>Та же задача, что у растений — и то же решение</li>
+        <li>Как вести себя рядом со стадом</li>
+      </ol>
+    </div>
+
+    <div class="slot">
+      <div class="frame r169"><span>11.1</span></div>
+      <div class="txt">
+        <b>Обложка — альпака в упор</b>
+        <p>Морда крупно, животное смотрит в камеру и не отходит. Ровно то, о чём заголовок: подойти близко действительно можно.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag">горизонт 16:9</span></div>
+        <div class="where">вверху статьи</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>11.2</span></div>
+      <div class="txt">
+        <b>Ребёнок и альпака</b>
+        <p>Оба в кадре, оба спокойны. Самый конверсионный кадр во всём блоге для родителей — его же стоит поставить в блок «Кого вы увидите».</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">ко второму пункту</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r11"><span>11.3</span></div>
+      <div class="txt">
+        <b>Шерсть крупно</b>
+        <p>Макро шерсти на животном: видно структуру. Связывает статью с блоком про растения — «здесь всё носит шерсть, даже кактусы».</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">квадрат</span></div>
+        <div class="where">к пункту про шерсть</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>11.4</span></div>
+      <div class="txt">
+        <b>Альпака и лама рядом</b>
+        <p>Оба животных в одном кадре — иначе разницу словами не объяснить. Если такого кадра нет, пункт из статьи убираем.</p>
+        <div class="tags"><span class="tag arch">архив</span><span class="tag opt">не обязателен</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">к пункту про отличия</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════ 12 ═══════════ -->
+  <article class="art" id="a12">
+    <div class="art-head">
+      <span class="num">12</span>
+      <h3>Retiro digital en los Andes: por qué Paru-Paru no es un resort</h3>
+      <span class="file">/blog/retiro-digital</span>
+      <div class="tags"><span class="tag draft">план</span><span class="tag">ES</span></div>
+    </div>
+    <p class="lede">Нет WiFi, нет программы и нет ресепшена. Есть дом, печь и община рядом.</p>
+    <p class="why">Испанская версия темы детокса, написанная не переводом. Для латиноамериканского читателя это ближняя поездка, а не путешествие мечты, — и тон здесь другой: свойский, а не медитативный.</p>
+
+    <div class="plan">
+      <div class="lbl">Порядок мыслей</div>
+      <ol>
+        <li>Чем это не является: ни отель, ни ретрит-центр, ни глэмпинг</li>
+        <li>Дом: печь, горячая вода, кухня — на 4200 это уже роскошь</li>
+        <li>Община рядом: альпаки, форель, чуньо, ткачество</li>
+        <li>Без WiFi: почему это причина, а не недостаток</li>
+        <li>С детьми: почему работает лучше, чем кажется</li>
+        <li>Как добраться и как всё решается через WhatsApp</li>
+      </ol>
+    </div>
+
+    <div class="slot">
+      <div class="frame r169"><span>12.1</span></div>
+      <div class="txt">
+        <b>Обложка — дом снаружи</b>
+        <p>Дом целиком, вокруг ничего. Заголовок обещает «это не резорт» — кадр должен подтвердить это раньше первой строки.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 16:9</span></div>
+        <div class="where">вверху статьи, он же в блоке «Просто дом» на главной</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r43"><span>12.2</span></div>
+      <div class="txt">
+        <b>Печь с живым огнём</b>
+        <p>Огонь крупно. Главный аргумент дома: на 4200 тепло — это не уют, это условие.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">горизонт 4:3</span></div>
+        <div class="where">ко второму пункту</div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="frame r34"><span>12.3</span></div>
+      <div class="txt">
+        <b>Где спят</b>
+        <p>Кровати, одеяла, окно. Гость должен увидеть, где он ляжет, — этого кадра нет ни на сайте, ни в статье, а спрашивают о нём первым.</p>
+        <div class="tags"><span class="tag shoot">снять</span><span class="tag">вертикаль 3:4</span></div>
+        <div class="where">ко второму пункту</div>
+      </div>
+    </div>
+  </article>
+
+  <section class="tail">
+    <h2>Что из этого следует</h2>
+    <p>
+      Тридцать четыре кадра из пятидесяти — это дом, еда, руки, музей и макро. Ни одного из них
+      нельзя снять с вершины: всё снимается в доме и рядом с ним, за один-два дня и обычным телефоном.
+      Пейзажи у вас уже есть, и они хорошие — не хватает ровно того, что превращает пейзаж в место,
+      где живут люди.
+    </p>
+    <p>Пять кадров привязаны к календарю, и это единственное, что нельзя отложить решением:</p>
+    <ul>
+      <li><b>Октябрь–ноябрь</b> — цветение: 1.7, 5.2, 5.3. Пропустили окно — ждать год</li>
+      <li><b>Июнь–июль</b> — чуньо на морозе: 3.1. Только в самые холодные ночи</li>
+      <li><b>Три ночи в месяц</b> — полнолуние: 8.1</li>
+      <li><b>Любая ясная ночь</b> — звёзды: 8.2, 10.3</li>
+    </ul>
+    <p>
+      Остальное ждёт вас в любой день. Когда снимете — присылайте как есть, разбирать и обрезать буду я.
+    </p>
+  </section>
+
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById("slotsBtn");
+    btn.addEventListener("click", function () {
+      var on = document.body.classList.toggle("slots-only");
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      btn.textContent = on ? "Показать тексты" : "Только кадры";
+    });
+  })();
+</script>

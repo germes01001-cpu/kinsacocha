@@ -311,6 +311,12 @@
   .chip.new { background: var(--accent); border-color: var(--accent); color: var(--bg); }
   .chip.future { border-style: dashed; color: var(--muted); }
 
+  /* Принадлежность блока: что останется на странице дома, а что уедет
+     на бренд-уровень, когда появится второй объект. */
+  .chip.sc-home { border-color: var(--accent); color: var(--accent); }
+  .chip.sc-region { border-color: var(--warn); color: var(--warn); }
+  .chip.sc-split { border-color: var(--warn); color: var(--warn); border-style: dashed; }
+
   /* Блоки, которых на сайте ещё нет — проектируем сейчас. */
   .block.is-new { border-left: 2px solid var(--accent); padding-left: 18px; }
   .block.is-new .num { background: var(--accent); color: var(--bg); }
@@ -338,6 +344,7 @@
   .notes li { font-size: 12.5px; color: var(--muted); display: flex; gap: 8px; padding-left: 1px; }
   .notes .mark { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--warn); border: 1px solid var(--warn); padding: 1px 5px; flex: none; height: fit-content; margin-top: 1px; }
   .notes .mark.q { color: var(--accent); border-color: var(--accent); }
+  .notes .mark.ok { color: var(--bg); border-color: var(--accent); background: var(--accent); }
 
   /* ── Макет блока (wireframe) ───────────────────────── */
 
@@ -506,19 +513,23 @@
     </div>
     <div class="horizon" style="margin-top:0;border-top:0">
       <b style="color:var(--muted)">Пунктирная серая полоса</b>
-      <span>заложено на будущее: локации, Коллекция, бренд-главная. Место под них оставляем сегодня, чтобы завтра не переделывать</span>
+      <span>заложено на будущее: локации, Артефакты, бренд-главная. Место под них оставляем сегодня, чтобы завтра не переделывать</span>
     </div>
 
     <p style="margin-top:18px;max-width:64ch;color:var(--ink-2)">
-      <b>Обновлено 14 августа</b> по техническому заданию на архитектуру бренда.
-      Разделы получили окончательные адреса: <code>/dnevnik</code>, <code>/atlas</code>,
-      <code>/mesta</code>, <code>/kollekciya</code> — это единственное решение, которое потом
-      не переделать без потери позиций в поиске. Добавлены страницы локации, витрины Коллекции,
-      лота с паспортом момента и Private Room. В заметку добавлены звук и видео-петля,
-      в Атлас — честный статус источника, в блок 21 — гостевая книга от руки.
+      <b>Обновлено 14 августа, вечер.</b> Закрыты вопросы 01–06. Раздел «Коллекция»
+      переименован в <b>Артефакты</b> и получил адрес <code>/artefakty</code>; он стоит
+      в главном меню, но это не магазин — ни корзины, ни цен сеткой. Разделы получили адреса
+      на трёх языках (внизу, перед сквозными элементами). Каждому из 23 блоков проставлена
+      метка принадлежности: что останется на странице дома, а что уедет на бренд-уровень.
     </p>
     <p style="margin-top:12px;max-width:64ch;color:var(--ink-2)">
-      Мобильная схема и список открытых вопросов — <b>отдельные страницы</b>,
+      Блог остаётся и продолжает жить — с одним условием: статья пишется под конкретный
+      поисковый запрос, а не по вдохновению. Все двенадцать статей с настоящими текстами
+      и местами под фотографии вынесены на <b>отдельную страницу</b> — ссылка в Notion.
+    </p>
+    <p style="margin-top:12px;max-width:64ch;color:var(--ink-2)">
+      Мобильная схема и список открытых вопросов — тоже отдельные страницы,
       ссылки на них лежат в Notion рядом с этой.
     </p>
   </header>
@@ -551,6 +562,16 @@
         <div class="legend-item"><span class="mark" style="font-family:var(--mono);font-size:10px;color:var(--warn);border:1px solid var(--warn);padding:1px 5px">ФОТО</span> Стоит заглушка</div>
         <div class="legend-item"><span class="mark q" style="font-family:var(--mono);font-size:10px;color:var(--accent);border:1px solid var(--accent);padding:1px 5px">ВОПРОС</span> Ждём ответа</div>
       </div>
+      <div class="legend-grid" style="margin-top:18px">
+        <div class="legend-item"><span class="chip sc-home">дом</span> Остаётся на странице дома</div>
+        <div class="legend-item"><span class="chip sc-region">регион</span> Уедет на бренд-уровень</div>
+        <div class="legend-item"><span class="chip sc-split">пополам</span> Полная версия наверх, врезка тут</div>
+      </div>
+      <p style="margin-top:14px;max-width:56ch;font-size:12.5px;color:var(--muted)">
+        Метка принадлежности — решение по вопросу 02. Сегодня она ничего не меняет:
+        все 23 блока стоят на своих местах. Она понадобится в день, когда появится второй
+        объект и этот лендинг переедет в <code>/mesta/kinsacocha</code>.
+      </p>
     </div>
   </section>
 
@@ -641,6 +662,7 @@
         <li><a href="#p-blog"><span class="n">Б</span> Блог</a></li>
         <li><a href="#p-post"><span class="n">С</span> Статья</a></li>
         <li><a href="#p-rules"><span class="n">П</span> Правила дома ★</a></li>
+        <li><a href="#p-urls"><span class="n">А</span> Адреса разделов ★</a></li>
         <li><a href="#p-common"><span class="n">·</span> Сквозные</a></li>
       </ol>
       <p class="chapter-label" style="color:var(--muted)">Заложено на будущее</p>
@@ -648,7 +670,7 @@
         <li><a href="#p-places"><span class="n">Л1</span> Локации /mesta</a></li>
         <li><a href="#p-place"><span class="n">Л2</span> Одна локация</a></li>
         <li><a href="#p-brand"><span class="n">Б0</span> Бренд-главная</a></li>
-        <li><a href="#p-shop"><span class="n">К1</span> Коллекция</a></li>
+        <li><a href="#p-shop"><span class="n">К1</span> Артефакты</a></li>
         <li><a href="#p-lot"><span class="n">К2</span> Лот и паспорт</a></li>
         <li><a href="#p-room"><span class="n">К3</span> Private Room</a></li>
       </ol>
@@ -668,7 +690,7 @@
             <span class="num">01</span>
             <h3>Первый экран</h3>
             <span class="file">Hero.tsx</span>
-            <div class="chips"><span class="chip ground-d">камень</span><span class="chip">высота экрана</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-d">камень</span><span class="chip">высота экрана</span></div>
           </div>
           <p class="purpose">Одно обещание и одно действие. Слайдер из 12 кадров, кадры меняются сами каждые 4 секунды и от колеса мыши.</p>
           <div class="spec dark">
@@ -696,7 +718,7 @@
             <span class="num">02</span>
             <h3>Просто дом</h3>
             <span class="file">Story.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">две колонки</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">две колонки</span></div>
           </div>
           <p class="purpose">Объясняет, что это не отель. Текст слева прилипает и стоит на месте, пока справа проезжают фотографии.</p>
           <div class="spec">
@@ -729,7 +751,7 @@
             <span class="num">03</span>
             <h3>Кому вы пишете</h3>
             <span class="file">About.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага тёмная</span><span class="chip">рамки сверху и снизу</span></div>
+            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip ground-l">бумага тёмная</span><span class="chip">рамки сверху и снизу</span></div>
           </div>
           <p class="purpose">Лицо и имя перед тем, как человек нажмёт «написать». Стоит выше блока про приватность намеренно: тогда правило звучит от человека, а не от бренда.</p>
           <div class="spec">
@@ -753,7 +775,7 @@
             <span class="num">04</span>
             <h3>Чего вы здесь не найдёте</h3>
             <span class="file">NotPublished.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага тёмная</span><span class="chip">по центру</span></div>
+            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip ground-l">бумага тёмная</span><span class="chip">по центру</span></div>
           </div>
           <p class="purpose">Позиция про приватность: к трём озёрам ходят все, и мы это признаём. Не публикуем то, что за ними.</p>
           <div class="spec">
@@ -775,7 +797,7 @@
             <span class="num">05</span>
             <h3>Три озера</h3>
             <span class="file">Lakes.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">три карточки</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">три карточки</span></div>
           </div>
           <p class="purpose">Ответ на вопрос «ради чего ехать». Высота написана прямо на фотографии. Внизу — ссылка на главную статью блога.</p>
           <div class="spec">
@@ -825,7 +847,7 @@
             <span class="num">06</span>
             <h3>Дорога</h3>
             <span class="file">Road.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага тёмная</span><span class="chip">две колонки</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага тёмная</span><span class="chip">две колонки</span></div>
           </div>
           <p class="purpose">Первый вопрос человека, который уже в Куско, — «далеко ли». Только время, без карты и описания пути.</p>
           <div class="spec">
@@ -863,7 +885,7 @@
             <span class="num">07</span>
             <h3>Высота</h3>
             <span class="file">Altitude.tsx</span>
-            <div class="chips"><span class="chip ground-d">камень</span><span class="chip">одна колонка</span></div>
+            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip ground-d">камень</span><span class="chip">одна колонка</span></div>
           </div>
           <p class="purpose">Спать на 4200 и подняться на 4200 днём — разные вещи. Четыре просьбы и обещание отговорить от неудачной даты.</p>
           <div class="spec dark">
@@ -896,7 +918,7 @@
             <span class="num">08</span>
             <h3>Как сюда приезжают</h3>
             <span class="file">Formats.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">2 × 2 карточки</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">2 × 2 карточки</span></div>
           </div>
           <p class="purpose">Главный конверсионный блок: четыре формата, у каждого своя цена за сутки и своя кнопка с готовым текстом сообщения.</p>
           <div class="spec">
@@ -950,7 +972,7 @@
             <span class="num">09</span>
             <h3>Сутки здесь</h3>
             <span class="file">OneDay.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">таймлайн</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">таймлайн</span></div>
           </div>
           <p class="purpose">Единица продажи — сутки, и вот эти сутки целиком: от приезда до отъезда. Последняя строка тихо предлагает остаться ещё на день.</p>
           <div class="spec">
@@ -978,7 +1000,7 @@
             <span class="num">10</span>
             <h3>Еда и напитки</h3>
             <span class="file">Food.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага тёмная</span><span class="chip">шесть карточек</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага тёмная</span><span class="chip">шесть карточек</span></div>
           </div>
           <p class="purpose">Снимает главное возражение: «Ресторана нет — есть соседи, которые готовят». Заказ через WhatsApp за день.</p>
           <div class="spec">
@@ -1007,7 +1029,7 @@
             <span class="num">11</span>
             <h3>Что есть в доме</h3>
             <span class="file">Amenities.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">неровная сетка</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">неровная сетка</span></div>
           </div>
           <p class="purpose">Шесть карточек разного размера, первая — крупная. Горячий душ стоит первым: гости говорят о нём чаще, чем о звёздах.</p>
           <div class="spec">
@@ -1034,7 +1056,7 @@
             <span class="num">12</span>
             <h3>Где вы будете спать</h3>
             <span class="file">Sleep.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">прилипает к блоку 11</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">прилипает к блоку 11</span></div>
           </div>
           <p class="purpose">Продолжение «Удобств», не отдельная витрина. Внизу — число спальных мест: группы спрашивают это первым сообщением.</p>
           <div class="spec">
@@ -1068,7 +1090,7 @@
             <span class="num">13</span>
             <h3>Маршруты</h3>
             <span class="file">RoutesSection.tsx</span>
-            <div class="chips"><span class="chip ground-d">камень</span><span class="chip">самый длинный блок</span></div>
+            <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-d">камень</span><span class="chip">самый длинный блок</span></div>
           </div>
           <p class="purpose">Вместо карты — четыре времени суток широкими полосами и живой ответ проводника. Гость описывает себя, а не выбирает маршрут.</p>
           <div class="spec dark">
@@ -1125,7 +1147,7 @@
             <span class="num">14</span>
             <h3>Кого вы увидите</h3>
             <span class="file">Fauna.tsx</span>
-            <div class="chips"><span class="chip ground-d">камень</span><span class="chip">три ступени + пума</span></div>
+            <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-d">камень</span><span class="chip">три ступени + пума</span></div>
           </div>
           <p class="purpose">Не список видов, а шкала по убыванию шансов. Чем ниже — тем темнее кадры и короче текст. Заканчивается пустым кадром.</p>
           <div class="spec dark">
@@ -1194,7 +1216,7 @@
             <span class="num">15</span>
             <h3>То, что под ногами</h3>
             <span class="file">Flora.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">полевой дневник</span></div>
+            <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-l">бумага</span><span class="chip">полевой дневник</span></div>
           </div>
           <p class="purpose">Единственный блок, который просит смотреть вниз. Снимки будто приколоты к листу, подписи мелкие — другая текстура работает паузой.</p>
           <div class="spec">
@@ -1247,7 +1269,7 @@
             <span class="num">16</span>
             <h3>Ткачество</h3>
             <span class="file">Weaving.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага тёмная</span><span class="chip">фото + текст</span></div>
+            <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-l">бумага тёмная</span><span class="chip">фото + текст</span></div>
           </div>
           <p class="purpose">Смысловой центр — «ткут на ходу, пока идут за стадом». Про деньги говорим как о факте и достоинстве, а не как о поводе пожалеть.</p>
           <div class="spec">
@@ -1289,7 +1311,7 @@
             <span class="num">17</span>
             <h3>Как это выглядит</h3>
             <span class="file">PhotoMosaic.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">мозаика</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">мозаика</span></div>
           </div>
           <p class="purpose">Визуальная пауза после четырёх содержательных блоков подряд. Двенадцать кадров разной высоты и ссылка в галерею.</p>
           <div class="spec">
@@ -1319,7 +1341,7 @@
             <span class="num">18</span>
             <h3>Полевые заметки</h3>
             <span class="file">новый · NotesTeaser.tsx</span>
-            <div class="chips"><span class="chip new">новый блок</span><span class="chip ground-l">бумага</span><span class="chip">три последние</span></div>
+            <div class="chips"><span class="chip sc-region">регион</span><span class="chip new">новый блок</span><span class="chip ground-l">бумага</span><span class="chip">три последние</span></div>
           </div>
           <p class="purpose">Три последние заметки лентой — доказательство, что дом живой и что здесь кто-то ходит прямо сейчас. Обновляется само, когда вы публикуете новую заметку.</p>
           <div class="spec">
@@ -1361,7 +1383,7 @@
             <span class="num">19</span>
             <h3>Подготовка</h3>
             <span class="file">Preparation.tsx</span>
-            <div class="chips"><span class="chip ground-d">камень</span><span class="chip">фон с параллаксом</span></div>
+            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip ground-d">камень</span><span class="chip">фон с параллаксом</span></div>
           </div>
           <p class="purpose">Не один список вещей, а два: ночью холод, днём солнце. Плюс вода, айни и отдельные строки про питомцев и детей.</p>
           <div class="spec dark">
@@ -1403,7 +1425,7 @@
             <span class="num">20</span>
             <h3>Практика</h3>
             <span class="file">Faq.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">раскрывающиеся строки</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">раскрывающиеся строки</span></div>
           </div>
           <p class="purpose">Вопросы, которые люди пишут в WhatsApp вместо «беру». Поисковик читает их отдельно и может показать прямо в выдаче.</p>
           <div class="spec">
@@ -1431,7 +1453,7 @@
             <span class="num">21</span>
             <h3>По рекомендации</h3>
             <span class="file">переделывается · Reviews.tsx</span>
-            <div class="chips"><span class="chip new">переписан</span><span class="chip ground-l">бумага тёмная</span><span class="chip">по центру</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip new">переписан</span><span class="chip ground-l">бумага тёмная</span><span class="chip">по центру</span></div>
           </div>
           <p class="purpose">Вместо трёх выдуманных цитат — объяснение, почему отзывов нет и не будет. Мы не публикуем гостей: это то же правило приватности, только повёрнутое к людям, а не к тропам.</p>
           <div class="spec">
@@ -1469,7 +1491,7 @@
             <span class="num">22</span>
             <h3>Приезжайте</h3>
             <span class="file">Contact.tsx</span>
-            <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">по центру</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">по центру</span></div>
           </div>
           <p class="purpose">Форм нет — есть человек, которому можно написать. Одна кнопка, честная строка про связь и языки.</p>
           <div class="spec">
@@ -1493,7 +1515,7 @@
             <span class="num">23</span>
             <h3>Подвал</h3>
             <span class="file">Footer.tsx</span>
-            <div class="chips"><span class="chip ground-d">камень</span><span class="chip">четыре колонки</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-d">камень</span><span class="chip">четыре колонки</span></div>
           </div>
           <p class="purpose">Последний аргумент, а не служебная строка: ещё одна кнопка, три озера с высотами, навигация, языки.</p>
           <div class="spec dark">
@@ -1828,7 +1850,7 @@
             <span class="file">/blog</span>
             <div class="chips"><span class="chip ground-l">бумага</span><span class="chip">12 статей</span></div>
           </div>
-          <p class="purpose">Точка входа из поиска. Три статьи написаны целиком, девять — черновики со структурой и пометкой.</p>
+          <p class="purpose">Точка входа из поиска. Три статьи написаны целиком, девять — планы со структурой. Тексты всех двенадцати и места под фотографии — на отдельной странице, ссылка в Notion.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h big">Блог</div>
@@ -1843,6 +1865,10 @@
               </div>
             </div>
           </div>
+          <ul class="notes">
+            <li><span class="mark ok">РЕШЕНО</span> Блог остаётся живым и называется «Блог». Правило разделения: <b>статья</b> ловит незнакомого человека из поиска, <b>карточка Атласа</b> объясняет, что это такое, <b>заметка</b> удерживает того, кто уже ваш. Один и тот же материал даёт все три — это не дублирование, а связка.</li>
+            <li><span class="mark q">УСЛОВИЕ</span> Одна статья — один поисковый запрос, 3–4 статьи в год. Три ленты, которые ведёт один человек с телефона, иначе не выдержат.</li>
+          </ul>
         </article>
 
         <article class="block" id="p-post">
@@ -1942,6 +1968,34 @@
           </ul>
         </article>
 
+        <article class="block is-new" id="p-urls">
+          <div class="block-head">
+            <span class="num">А</span>
+            <h3>Адреса разделов на трёх языках</h3>
+            <span class="file">решение по вопросу 03</span>
+            <div class="chips"><span class="chip new">решено</span><span class="chip">не видно гостю, но переделать потом нельзя</span></div>
+          </div>
+          <p class="purpose">Правило: адрес пишется на языке читателя — кроме слов, которые во всех трёх языках выглядят одинаково. Таких два, <code>atlas</code> и <code>blog</code>, и переводить их значило бы плодить путаницу. Слаги внутри Атласа везде латиницей и одинаково: это имя объекта, а не текст.</p>
+          <div class="spec">
+            <div class="stack">
+              <div class="row" style="gap:14px"><span class="lbl" style="width:150px">раздел</span><span class="lbl" style="width:150px">RU</span><span class="lbl" style="width:150px">EN</span><span class="lbl">ES</span></div>
+              <div class="rule"></div>
+              <div class="row" style="gap:14px"><span class="t-h sm" style="width:150px">Полевые заметки</span><span class="lbl" style="width:150px">/ru/dnevnik</span><span class="lbl" style="width:150px">/en/journal</span><span class="lbl">/es/diario</span></div>
+              <div class="row" style="gap:14px"><span class="t-h sm" style="width:150px">Атлас</span><span class="lbl" style="width:150px">/ru/atlas</span><span class="lbl" style="width:150px">/en/atlas</span><span class="lbl">/es/atlas</span></div>
+              <div class="row" style="gap:14px"><span class="t-h sm" style="width:150px">Места</span><span class="lbl" style="width:150px">/ru/mesta</span><span class="lbl" style="width:150px">/en/places</span><span class="lbl">/es/lugares</span></div>
+              <div class="row" style="gap:14px"><span class="t-h sm" style="width:150px">Артефакты</span><span class="lbl" style="width:150px">/ru/artefakty</span><span class="lbl" style="width:150px">/en/artifacts</span><span class="lbl">/es/artefactos</span></div>
+              <div class="row" style="gap:14px"><span class="t-h sm" style="width:150px">Блог</span><span class="lbl" style="width:150px">/ru/blog</span><span class="lbl" style="width:150px">/en/blog</span><span class="lbl">/es/blog</span></div>
+              <div class="row" style="gap:14px"><span class="t-h sm" style="width:150px">Галерея</span><span class="lbl" style="width:150px">/ru/galereya</span><span class="lbl" style="width:150px">/en/gallery</span><span class="lbl">/es/galeria</span></div>
+              <div class="row" style="gap:14px"><span class="t-h sm" style="width:150px">Правила дома</span><span class="lbl" style="width:150px">/ru/pravila</span><span class="lbl" style="width:150px">/en/house-rules</span><span class="lbl">/es/normas</span></div>
+              <div class="rule"></div>
+              <div class="lbl">карточки Атласа — одинаково во всех языках: /atlas/vizcacha · /atlas/polylepis · /atlas/huallata</div>
+            </div>
+          </div>
+          <ul class="notes">
+            <li><span class="mark ok">РЕШЕНО</span> Прежний адрес <code>/kollekciya</code> отменён вместе со словом «Коллекция». Ничего ещё не опубликовано, поэтому смена бесплатна — но это последний момент, когда она бесплатна.</li>
+          </ul>
+        </article>
+
         <article class="block" id="p-common">
           <div class="block-head">
             <span class="num">·</span>
@@ -1956,10 +2010,11 @@
               <div class="cell tight">
                 <div class="row" style="justify-content:space-between">
                   <span class="t-h sm">Kinsacocha</span>
-                  <span class="row" style="gap:10px"><span class="lbl">дом</span><span class="lbl">озёра</span><span class="lbl">форматы</span><span class="lbl">маршруты</span><span class="lbl">кого увидите</span><span class="lbl">контакты</span><span class="lbl">фото</span><span class="lbl">блог</span></span>
+                  <span class="row" style="gap:10px"><span class="lbl">дом</span><span class="lbl">озёра</span><span class="lbl">форматы</span><span class="lbl">маршруты</span><span class="lbl">·</span><span class="lbl">заметки</span><span class="lbl">атлас</span><span class="lbl">фото</span><span class="lbl">блог</span><span class="pill" style="border-style:dashed">артефакты</span></span>
                   <span class="row" style="gap:5px"><span class="pill">RU</span><span class="pill">EN</span><span class="pill">ES</span></span>
                 </div>
               </div>
+              <div class="lbl">до точки — якоря главной, после — разделы сайта. «Артефакты» пунктиром: в прототипе есть, на боевом сайте включается вместе с первыми предметами</div>
               <div class="lbl">Шапка · телефон — гамбургер, меню открывается на весь экран</div>
               <div class="cell tight" style="max-width:260px">
                 <div class="row" style="justify-content:space-between"><span class="t-h sm">Kinsacocha</span><span class="lbl">☰</span></div>
@@ -1978,7 +2033,7 @@
       <section class="chapter">
         <div class="chapter-head">
           <h2>Заложено на будущее</h2>
-          <span>локации, бренд-главная и Коллекция · строим не сейчас</span>
+          <span>локации, бренд-главная и Артефакты · строим не сейчас</span>
         </div>
 
         <p class="purpose" style="margin:20px 0 0;max-width:78ch">
@@ -2022,7 +2077,9 @@
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark q">ВОПРОС</span> Второй объект — это ваш дом или партнёрский? От этого зависит, что обещает раздел: «наши места» или «места, которые мы проверили».</li>
+            <li><span class="mark ok">РЕШЕНО</span> Все прочие места — <b>партнёрские</b>. Значит раздел обещает не «наши места», а «места, которые мы проверили», и на каждой карточке видно, кто хозяин. Ваш дом при этом стоит особняком: он ваш, и это его преимущество, а не мелкая деталь.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Переход на бренд-главную запускает <b>второй объект</b> — не число заметок и не дата. Пока объекта нет, работаем как есть.</li>
+            <li><span class="mark q">ОТЛОЖЕНО</span> Как устроена бронь партнёрского места — через вас или напрямую к хозяину — решаем, когда такое место появится. Пока архитектура заложена, а раздел не строится.</li>
           </ul>
         </article>
 
@@ -2041,19 +2098,26 @@
               <div class="t-h big">Kinsacocha</div>
               <div class="ph r219"><span>КАДР ДОМА</span></div>
 
-              <div class="lbl" style="color:var(--accent)">что переезжает целиком</div>
+              <div class="lbl" style="color:var(--accent)">остаётся здесь · 14 блоков — всё, что правда про этот дом</div>
               <div class="row" style="gap:6px">
-                <span class="pill">кому вы пишете</span><span class="pill">три озера</span><span class="pill">дорога</span><span class="pill">высота</span>
-                <span class="pill">форматы и цены</span><span class="pill">сутки здесь</span><span class="pill">еда</span><span class="pill">дом внутри</span>
-                <span class="pill">где спать</span><span class="pill">подготовка</span><span class="pill">практика</span><span class="pill">правила</span>
+                <span class="pill">01 первый экран</span><span class="pill">02 просто дом</span><span class="pill">05 три озера</span><span class="pill">06 дорога</span>
+                <span class="pill">08 как приезжают</span><span class="pill">09 сутки здесь</span><span class="pill">10 еда</span><span class="pill">11 что есть в доме</span>
+                <span class="pill">12 где спать</span><span class="pill">17 как выглядит</span><span class="pill">20 практика</span><span class="pill">21 по рекомендации</span>
+                <span class="pill">22 приезжайте</span><span class="pill">23 подвал</span>
               </div>
 
-              <div class="lbl">что уезжает наверх, на бренд-уровень</div>
+              <div class="lbl">уезжает на бренд-уровень · 5 блоков — всё, что правда про регион</div>
               <div class="row" style="gap:6px">
-                <span class="pill">маршруты</span><span class="pill">фауна</span><span class="pill">флора</span><span class="pill">ткачество</span><span class="pill">чего не найдёте</span>
+                <span class="pill">13 маршруты</span><span class="pill">14 кого увидите</span><span class="pill">15 под ногами</span><span class="pill">16 ткачество</span><span class="pill">18 заметки</span>
+              </div>
+              <div class="lbl">у второго объекта фауна, флора и община будут те же самые — держать их в шаблоне локации значит переписывать одно и то же дважды</div>
+
+              <div class="lbl">делится надвое · 4 блока — полная версия наверху, врезка со ссылкой здесь</div>
+              <div class="row" style="gap:6px">
+                <span class="pill">03 кому вы пишете</span><span class="pill">04 чего не найдёте</span><span class="pill">07 высота</span><span class="pill">19 подготовка</span>
               </div>
               <div class="bars"><i class="w90"></i></div>
-              <div class="lbl">потому что фауна и флора — это про регион, а не про конкретный дом: у второго объекта они будут те же самые</div>
+              <div class="lbl">акклиматизация одинакова для всего региона, но человек, читающий про дом, должен увидеть предупреждение здесь, а не искать его</div>
 
               <div class="rule"></div>
               <div class="lbl">внизу локации — что рядом: заметки из Дневника с этой привязкой и карточки Атласа этого региона</div>
@@ -2066,7 +2130,8 @@
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark q">РЕШИТЬ</span> Разделение выше — моё предложение, не ваше решение. Смысл: дом описывается тем, что в нём есть, а природа принадлежит региону. Иначе шаблон локации получится на 23 блока, и второй объект вы физически не наполните.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Делить надо — вопрос 02 закрыт. Принцип: дом описывается тем, что в нём есть, а природа принадлежит региону. Без этого шаблон локации вышел бы на 23 блока, и второй объект вы физически не наполнили бы.</li>
+            <li><span class="mark q">СЕЙЧАС</span> Ничего не двигаем: все 23 блока стоят на главной как стояли. Метка у каждого блока — это разметка на будущее, чтобы в день переезда не пересобирать заново.</li>
           </ul>
         </article>
 
@@ -2105,7 +2170,7 @@
 
               <div class="rule"></div>
               <div class="row" style="justify-content:space-between;align-items:center">
-                <div class="stack" style="gap:3px"><div class="t-h sm">Коллекция</div><div class="lbl">задокументированные моменты</div></div>
+                <div class="stack" style="gap:3px"><div class="t-h sm">Артефакты</div><div class="lbl">задокументированные моменты</div></div>
                 <div class="ctl ghost">СМОТРЕТЬ →</div>
               </div>
             </div>
@@ -2119,14 +2184,14 @@
         <article class="block is-future" id="p-shop">
           <div class="block-head">
             <span class="num">К1</span>
-            <h3>Коллекция</h3>
-            <span class="file">/kollekciya</span>
+            <h3>Артефакты</h3>
+            <span class="file">/artefakty</span>
             <div class="chips"><span class="chip future">будущее</span><span class="chip ground-l">бумага</span><span class="chip">витрина галереи</span></div>
           </div>
           <p class="purpose">Не магазин, а галерея: много воздуха, строгая типографика, ни одной иконки корзины. Проданные лоты остаются на витрине с пометкой «в частной коллекции» — витрина не пустеет по мере продаж, а копит историю.</p>
           <div class="spec">
             <div class="stack">
-              <div class="t-h big">Коллекция</div>
+              <div class="t-h big">Артефакты</div>
               <div class="bars"><i class="w80"></i></div>
               <div class="lbl">строка: мы продаём не вещи, а задокументированные моменты времени</div>
 
@@ -2163,7 +2228,8 @@
           <ul class="notes">
             <li><span class="mark q">СИЛЬНОЕ</span> Самая сильная идея всего задания — «запись вашей ночи»: гость покупает запись той ночи, когда он сам был здесь. Тираж физически равен единице, подделать невозможно, и купить нельзя, не приехав. Артефакты производятся сами, пока вы спите, — ездить по стране за ними не нужно.</li>
             <li><span class="mark q">РЕШИТЬ</span> Цены: фиксированные, аукцион или «по запросу». Последнее оставляет WhatsApp единственным каналом и откладывает эквайринг и налоги — а раздел уже работает.</li>
-            <li><span class="mark q">РЕШИТЬ</span> Где Коллекция в меню и не разрушает ли магазин доверие к некоммерческой части сайта.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Раздел называется <b>«Артефакты»</b> и стоит в главном меню. Слово «Коллекция» из проекта убрано. Пункт меню включаем в тот день, когда наберётся три-пять предметов: ссылка в пустой раздел работает против нас. В прототипе он показан так, будто предметы уже есть, — на боевом сайте до этого дня просто скрыт.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Это не магазин, и держится это на трёх запретах: нет корзины, нет цен сеткой, нет кнопки «купить». Есть предмет, паспорт момента и «по запросу» → WhatsApp. Как только появится ценник в сетке, раздел прочитается как сувенирная лавка, и интонация всего сайта рухнет.</li>
           </ul>
         </article>
 
@@ -2171,7 +2237,7 @@
           <div class="block-head">
             <span class="num">К2</span>
             <h3>Лот и паспорт момента</h3>
-            <span class="file">/kollekciya/[адрес]</span>
+            <span class="file">/artefakty/[адрес]</span>
             <div class="chips"><span class="chip future">будущее</span><span class="chip ground-l">бумага</span><span class="chip">без координат</span></div>
           </div>
           <p class="purpose">Паспорт собирается из всего, кроме места: дата, время, высота, фаза луны, температура, погода, направление ветра. Момент задокументирован, тайна места сохранена.</p>
@@ -2222,7 +2288,7 @@
           <div class="block-head">
             <span class="num">К3</span>
             <h3>Private Room</h3>
-            <span class="file">/kollekciya/room/[ключ]</span>
+            <span class="file">/artefakty/room/[ключ]</span>
             <div class="chips"><span class="chip future">будущее</span><span class="chip ground-d">камень</span><span class="chip">только по ссылке</span></div>
           </div>
           <p class="purpose">Куда попадает покупатель. Не архив на скачивание, а тихая комната: плеер, сертификат, файл без потерь. Открывается по личной ссылке и больше нигде не находится.</p>
@@ -2263,9 +2329,20 @@
           и пометкой, что блокирует работу, а что может подождать.
         </p>
         <p>
-          Коротко о главном, что не решено: судьба блога, шаблон страницы локации,
-          адреса разделов в английской и испанской версиях, что запускает переход
-          на бренд-главную, и цены в Коллекции.
+          <b>14 августа закрыты шесть:</b> блог остаётся и называется «Блог» · страница локации
+          делится на «дом» и «регион» · адреса разделов на трёх языках приняты · переход
+          на бренд-главную запускает второй объект · прочие места партнёрские · «Коллекция»
+          стала «Артефактами» и встала в главное меню.
+        </p>
+        <p>
+          Коротко о главном, что осталось: реальные цены, частота выхода заметок, формулировка
+          правила про вещества, языки Дневника и Атласа, кто получает деньги за ткани.
+        </p>
+        <p>
+          <b>Фотографии больше не вопрос, а очередь.</b> Вы берётесь за них, когда прототип
+          готов целиком и видно, сколько и каких кадров нужно. Первый такой список уже собран:
+          пятьдесят кадров по двенадцати статьям блога, каждый с номером — отдельная страница,
+          ссылка в Notion.
         </p>
 
         <h2 style="margin-top:34px">Что уже стоит в очереди</h2>
@@ -2281,8 +2358,8 @@
         </ul>
         <p>
           И отдельно, вне сайта: половина блоков стоит на пейзажных заглушках вместо дома, еды,
-          печи, типи и ткачества. Это самое дорогое, что сейчас можно сделать для сайта — и снимается
-          телефоном за один день.
+          печи, типи и ткачества. Снимаем это после того, как прототип закрыт целиком, — по списку,
+          а не наугад. Так вы за один-два дня закроете и сайт, и блог одними и теми же кадрами.
         </p>
       </section>
 
