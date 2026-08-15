@@ -1508,50 +1508,63 @@
             <span class="num">14</span>
             <h3>Кого вы увидите</h3>
             <span class="file">Fauna.tsx</span>
-            <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-d">камень</span><span class="chip">три ступени + пума</span></div>
+            <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-d">камень</span><span class="chip">четыре ступени</span></div>
           </div>
-          <p class="purpose">Не список видов, а шкала по убыванию шансов. Чем ниже — тем темнее кадры и короче текст. Заканчивается пустым кадром.</p>
+          <p class="purpose">Не список видов, а шкала по одному признаку: <b>насколько близко вы к этому подойдёте</b>. Первые сами идут вам навстречу, последнюю не видел никто. Чем ниже — тем темнее кадры, короче текст и больше воздуха. Блок физически выцветает к концу.</p>
           <div class="spec dark">
             <div class="stack">
               <div class="t-h">Кого вы увидите</div>
-              <div class="bars"><i class="w80"></i></div>
+              <div class="t-accent">Четыре ступени. Сверху вниз шансы падают.</div>
 
-              <div class="lbl" style="margin-top:8px">Ступень 1 · увидите точно — шесть карточек, кадры светлые</div>
-              <div class="g3">
-                <div class="stack"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Андский гусь <span style="opacity:.6;font-size:12px">huallata</span></div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
-                <div class="stack"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Вискача <span style="opacity:.6;font-size:12px">wisk'acha</span></div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
-                <div class="stack"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Яна вико <span style="opacity:.6;font-size:12px">yanavico</span></div><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
-                <div class="stack"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Утки</div><div class="bars"><i class="w90"></i></div></div>
-                <div class="stack"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Альпаки</div><div class="bars"><i class="w80"></i></div></div>
-                <div class="stack"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Труча</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
-                <div class="stack" style="outline:2px solid var(--accent);outline-offset:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Чайки ★</div><div class="bars"><i class="w100"></i><i class="w60"></i></div><div class="lbl" style="color:var(--accent)">новое · чайки на 4200 — сбой ожидания</div></div>
-                <div class="stack" style="outline:2px solid var(--accent);outline-offset:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Кролики ★</div><div class="bars"><i class="w100"></i><i class="w70"></i></div><div class="lbl" style="color:var(--accent)">новое · уточнить вид</div></div>
-              </div>
-
-              <div class="lbl" style="margin-top:10px">Ступень 2 · если повезёт — четыре карточки, кадры темнее</div>
+              <div class="rule" style="margin-top:6px"></div>
+              <div class="lbl" style="color:var(--accent)">новое · ступень 1 — подойдут сами. Те, кого пасут</div>
+              <div class="ph r219"><span>★ ГЛАВНЫЙ КАДР · СТАДО НА ТРОПЕ, ПАСТУХ В КАДРЕ</span></div>
+              <div class="lbl">этот кадр — мостик к общине и к «не с пустыми руками»: навстречу вам по тропе идёт не дикая природа, а чей-то заработок. Сказать это прямо честнее, чем выдать альпаку за дикое животное</div>
               <div class="g4">
-                <div class="stack"><div class="ph r43" style="opacity:.65"><span>ФОТО</span></div><div class="t-h sm">Кондор</div><div class="bars"><i class="w90"></i></div></div>
-                <div class="stack"><div class="ph r43" style="opacity:.65"><span>ФОТО</span></div><div class="t-h sm">Тарука</div><div class="bars"><i class="w100"></i></div></div>
-                <div class="stack"><div class="ph r43" style="opacity:.65"><span>ФОТО</span></div><div class="t-h sm">Лиса</div><div class="bars"><i class="w70"></i></div></div>
-                <div class="stack"><div class="ph r43" style="opacity:.65"><span>ФОТО</span></div><div class="t-h sm">Скунс</div><div class="bars"><i class="w60"></i></div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Альпаки</div><div class="lbl">переехали из «увидите точно»: альпака домашняя</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Овцы</div><div class="lbl">стадом, не по одной</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Ослы</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Коровы</div></div>
               </div>
 
               <div class="rule" style="margin-top:8px"></div>
-              <div class="lbl">И те, кого пасут · без фотографий, только текст</div>
-              <div class="g3">
-                <div class="stack"><div class="t-h sm">Овцы</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
-                <div class="stack"><div class="t-h sm">Коровы</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
-                <div class="stack"><div class="t-h sm">Ослы</div><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
+              <div class="lbl">ступень 2 · увидите точно — кадры светлые</div>
+              <div class="g4">
+                <div class="stack" style="gap:5px;outline:2px solid var(--accent);outline-offset:5px"><div class="ph r43"><span>★ ФОТО · ОБЯЗАТЕЛЬНО ПАРА</span></div><div class="t-h sm">Андский гусь <span style="opacity:.6;font-size:12px">huallata</span></div><div class="lbl" style="color:var(--accent)">смысловой центр блока: летают парами всю жизнь. Одна птица в кадре убивает всю строку</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Яна вико <span style="opacity:.6;font-size:12px">yanavico</span></div><div class="lbl">стоит в воде неподвижно, отражение</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Вискача <span style="opacity:.6;font-size:12px">wisk'acha</span></div><div class="lbl">в камнях — камни должны быть видны</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Утки</div><div class="lbl">на воде</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Чайки</div><div class="lbl">чайки на 4200 — сбой ожидания</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Кролики</div><div class="lbl">вид уточняется</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Труча</div><div class="lbl">садки видно не всегда — не обещаем</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Форель у стола</div><div class="lbl">мостик в блок 10</div></div>
               </div>
 
-              <div class="lbl" style="margin-top:10px">Почти никогда · пума</div>
-              <div class="split">
-                <div class="ph r169" style="opacity:.4"><span>ПУСТОЙ СКЛОН · ФОТОГРАФИИ ПУМЫ НЕТ</span></div>
-                <div class="stack">
-                  <div class="t-h sm">Пума здесь есть. Её здесь не видели.</div>
-                  <div class="t-h sm" style="opacity:.75">Она видит вас первой. Всегда.</div>
-                  <div class="t-h sm" style="opacity:.75">У нас нет её фотографии. Поэтому её здесь не будет.</div>
-                  <div class="quote"><div class="bars"><i class="w100"></i><i class="w70"></i></div><div class="lbl" style="margin-top:5px">строка про безопасность — для родителей</div></div>
+              <div class="rule" style="margin-top:8px"></div>
+              <div class="lbl">ступень 3 · если повезёт — кадры темнее, текста меньше</div>
+              <div class="g4">
+                <div class="stack" style="gap:5px"><div class="ph r43" style="opacity:.65"><span>ФОТО</span></div><div class="t-h sm">Кондор</div><div class="lbl">небо, широкий кадр</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43" style="opacity:.65"><span>ФОТО</span></div><div class="t-h sm">Тарука</div><div class="lbl">Hippocamelus antisensis · уязвимый вид</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43" style="opacity:.65"><span>ФОТО</span></div><div class="t-h sm">Андская лиса</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r43" style="opacity:.4;border-style:dashed"><span>СВОЕЙ ФОТОГРАФИИ НЕТ</span></div><div class="t-h sm">Скунс</div><div class="lbl" style="color:var(--accent)">так выглядит карточка без кадра</div></div>
+              </div>
+              <div class="cell" style="border-color:var(--accent)">
+                <div class="lbl" style="color:var(--accent)">новое · главное правило блока</div>
+                <div class="t-h sm">Если своего кадра нет — карточка остаётся пустой и говорит об этом вслух.</div>
+                <div class="lbl">чужую фотографию не ставим никогда, даже бесплатную и даже похожую. Справочник, который признаёт, чего у него нет, встречается один на тысячу — и верят только ему. Плюс пустая карточка честно показывает то, что мы и продаём: кондора здесь правда видят не каждый день</div>
+              </div>
+
+              <div class="rule" style="margin-top:8px"></div>
+              <div class="lbl">ступень 4 · почти никогда — одна на весь экран</div>
+              <div class="ph r219" style="opacity:.35"><span>ПУСТОЙ СКЛОН · КАМНИ, ВОДА · ЖИВОТНОГО В КАДРЕ НЕТ</span></div>
+              <div class="stack" style="gap:6px">
+                <div class="t-h sm">Пума здесь есть. Её здесь не видели.</div>
+                <div class="t-h sm" style="opacity:.75">Местные говорят: она видит вас первой. Всегда. И уходит раньше, чем вы успеете о ней подумать.</div>
+                <div class="t-h sm" style="opacity:.75">У нас нет её фотографии. Поэтому её здесь не будет.</div>
+                <div class="lbl">единственное животное на сайте без кадра — и единственное, которое запомнят. Приём работает ровно до тех пор, пока мы не пытаемся его подпереть чужим снимком или следами у воды</div>
+                <div class="quote">
+                  <div class="t-h sm">Опасности нет. Пума уходит от человека, а не к нему.</div>
+                  <div class="lbl" style="margin-top:5px">обязательная строка и стоит сразу под пумой. Родитель, который читает «регион пум» и везёт сюда ребёнка, должен получить ответ здесь, а не в поиске</div>
                 </div>
               </div>
             </div>
@@ -1559,16 +1572,17 @@
           <div class="spec" style="margin-top:10px;border-color:var(--accent)">
             <div class="row" style="justify-content:space-between;align-items:center">
               <div class="stack" style="gap:4px">
-                <div class="lbl" style="color:var(--accent)">новое · выход в справочник</div>
-                <div class="t-h sm">Про каждого — отдельная страница с фотографиями и повадками</div>
+                <div class="lbl" style="color:var(--accent)">выход в справочник</div>
+                <div class="t-h sm">Про каждого — отдельная страница: кадры, повадки, имя на кечуа, когда его видят</div>
               </div>
               <div class="ctl ghost">ВСЕ ЖИВОТНЫЕ →</div>
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark q">В ОЧЕРЕДИ</span> Добавить на карточки словесную частоту («видят каждый день», «несколько раз в год») и строку про уязвимые виды.</li>
-            <li><span class="mark q">УТОЧНИТЬ</span> Чайки — андская чайка (<i>Chroicocephalus serranus</i>)? Кролики — дикие или домашние, и как их называют местные?</li>
-            <li><span class="mark q">УЖЕ ЕСТЬ</span> Лиса на сайте уже стоит — в ступени «Если повезёт», вместе с кондором, тарукой и скунсом.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Домашние вынесены в первую ступень, а не в текстовый хвост. Причина: их вы встретите в первые двадцать минут, а диких — может быть, никогда. Ставить редкое первым — обещать то, чего мы не контролируем.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Альпаки переехали из «увидите точно» к домашним. Альпака — скот, и делать вид, что это дикая фауна, ровно та же ошибка, что была с кеунией у дома.</li>
+            <li><span class="mark">ФОТО</span> На блок нужно <b>17 кадров</b>: 1 широкий со стадом и пастухом, 4 домашних, 8 в «увидите точно», 3 в «если повезёт», 1 пустой склон под пуму. Пума — единственное место, где кадр обязан быть без животного.</li>
+            <li><span class="mark q">УТОЧНИТЬ</span> Чайки — андская чайка (<i>Chroicocephalus serranus</i>)? Кролики — дикие или домашние и как их зовут местные?</li>
           </ul>
         </article>
 
@@ -1579,7 +1593,7 @@
             <span class="file">Flora.tsx</span>
             <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-l">бумага</span><span class="chip">полевой дневник</span></div>
           </div>
-          <p class="purpose">Единственный блок, который просит смотреть вниз. Снимки будто приколоты к листу, подписи мелкие — другая текстура работает паузой. Три ступени: что растёт здесь · что растёт по дороге снизу · <b>на чём всё это держится — камни</b>.</p>
+          <p class="purpose">Единственный блок, который просит смотреть <b>вниз</b>. В 14 вы смотрели вдаль и вверх — здесь макро, земля, крупный план. Другая текстура работает паузой: бумага, снимки будто приколоты к листу, подписи мелкие.<br>Три ступени: что растёт здесь · что растёт по дороге снизу · <b>на чём всё это держится — камни</b>.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h">То, что под ногами</div>
@@ -1588,43 +1602,65 @@
               <div class="cell" style="text-align:center;border-left:0;border-right:0">
                 <div class="t-h">Здесь всё носит шерсть. Даже кактусы.</div>
               </div>
+
+              <div class="lbl" style="color:var(--accent)">новое · на главной шесть образов, не двадцать восемь. Остальное живёт в Атласе</div>
               <div class="g3">
-                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кактусы-подушки</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Жёлтые цветы</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Октябрь и ноябрь</div><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кеуния</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Ичу</div><div class="bars"><i class="w90"></i></div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Ярета</div><div class="lbl">подушка, которую принимают за камень. Растёт миллиметр в год ★</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кальцеолярия</div><div class="lbl">тот самый жёлтый цветок, несколько миллиметров</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кактус-подушка</div><div class="lbl">вид не определён — и мы так и пишем</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Ичу</div><div class="lbl">трава пуны: крыши, верёвки, подстилка</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кеуния</div><div class="lbl">Polylepis · растёт выше всех деревьев планеты</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Лишайник на камне</div><div class="lbl">переход к третьей ступени ★</div></div>
               </div>
-              <div class="lbl">подпись мелким шрифтом: названия уточняем по фотографиям</div>
+              <div class="ph r219"><span>ШИРОКИЙ КАДР · ОКТЯБРЬ–НОЯБРЬ, ВСЁ ЗАЦВЕТАЕТ РАЗОМ</span></div>
+              <div class="lbl">цветение — не карточка, а полоса: это про время, а не про растение. Конец сухого сезона и первые дожди приходят вместе</div>
+
+              <div class="cell" style="border-color:var(--accent)">
+                <div class="lbl" style="color:var(--accent)">новое · как мы называем растения</div>
+                <div class="t-h sm">Определитель угадывает род. Вид он выдумывает.</div>
+                <div class="row" style="gap:8px">
+                  <span class="pill">✔ вид определён</span>
+                  <span class="pill">~ только род</span>
+                  <span class="pill">○ не определено</span>
+                </div>
+                <div class="lbl">в присланном списке есть <i>Salix herbacea</i> — арктическая ива, <i>Jatropha dioica</i> и <i>Mammillaria prolifera</i> — Мексика, <i>Helichrysum arenarium</i> — Европа. В Перу этих видов нет. Кадры настоящие, имена подставлены сервисом по внешнему сходству</div>
+                <div class="lbl">правило: латынь ставим только там, где уверены. Где не уверены — род без вида либо вообще без латыни, статусом «не определено». <b>Имя на кечуа неверным быть не может</b>: местные так называют, и проверять его не у кого — поэтому кечуа крупно, латынь мелко</div>
+                <div class="lbl">это то же правило, что и с пумой: сайт, который вслух говорит «не знаю», сильнее сайта, который знает всё</div>
+              </div>
+
+              <div class="cell">
+                <div class="t-h sm">Осторожно с сервисами определения</div>
+                <div class="lbl">iNaturalist, Pl@ntNet и Google Фото читают GPS из файла и ставят точку на карту. Для сайта, у которого нет ни одной координаты, это ровно та утечка, от которой мы закрываемся: по десятку растений место вычисляется за минуту</div>
+                <div class="lbl">порядок: снять EXIF → отдать на определение → в iNaturalist выбрать «место скрыто» или указывать «регион Куско» без точки</div>
+              </div>
 
               <div class="rule" style="margin-top:6px"></div>
-              <div class="lbl" style="color:var(--accent)">новое · вторая ступень: что растёт по дороге снизу</div>
-              <div class="bars"><i class="w80"></i></div>
+              <div class="lbl">вторая ступень · что растёт по дороге снизу</div>
               <div class="lbl">на 4200 этого нет — но вы проедете мимо, поднимаясь</div>
               <div class="g3">
-                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Эвкалипт</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Муня</div><div class="lbl">андская мята</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кока</div><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Эвкалипт</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Муня</div><div class="lbl">андская мята</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Кока</div><div class="lbl">для EN и ES — поясняющая строка</div></div>
               </div>
 
               <div class="rule" style="margin-top:6px"></div>
-              <div class="lbl" style="color:var(--accent)">новое · третья ступень: то, на чём всё это держится</div>
+              <div class="lbl">третья ступень · то, на чём всё это держится</div>
               <div class="t-h sm">Камни</div>
-              <div class="bars"><i class="w100"></i><i class="w70"></i></div>
-              <div class="lbl">переход одной строкой: растения здесь живут не в почве, а между камнями — сначала порода, потом всё остальное</div>
+              <div class="lbl">переход одной строкой: растения здесь живут не в почве, а между камнями — сначала порода, потом всё остальное. Лишайник из первой ступени и есть шов между ними</div>
               <div class="g4">
-                <div class="stack"><div class="ph r11"><span>ФОТО КАМНЯ</span></div><div class="t-h sm">Порода 1</div><div class="lbl">название уточняется</div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО КАМНЯ</span></div><div class="t-h sm">Порода 2</div><div class="lbl">название уточняется</div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО КАМНЯ</span></div><div class="t-h sm">Порода 3</div><div class="lbl">название уточняется</div></div>
-                <div class="stack"><div class="ph r11"><span>ФОТО КАМНЯ</span></div><div class="t-h sm">Порода 4</div><div class="lbl">название уточняется</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>КАМЕНЬ</span></div><div class="t-h sm">Слоистость</div><div class="lbl">срез, слои</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>КАМЕНЬ</span></div><div class="t-h sm">Цвет</div><div class="lbl">самый неожиданный по цвету</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>КАМЕНЬ</span></div><div class="t-h sm">Камень в воде</div><div class="lbl">мокрый цвет всегда другой</div></div>
+                <div class="stack" style="gap:5px"><div class="ph r11"><span>КАМЕНЬ</span></div><div class="t-h sm">Камень в руке</div><div class="lbl">★ ладонь для масштаба — и видно, что мы кладём его обратно</div></div>
               </div>
-              <div class="lbl">снимать в руке или рядом с монетой: без масштаба камень на фотографии не читается</div>
+              <div class="lbl">без масштаба камень на фотографии не читается вообще: рядом ладонь, монета или лист</div>
 
               <div class="cell" style="border-color:var(--accent)">
                 <div class="row" style="justify-content:space-between;align-items:center">
                   <div class="stack" style="gap:4px">
-                    <div class="lbl" style="color:var(--accent)">новое · выход в справочник</div>
-                    <div class="t-h sm">Каждое растение и каждая порода — своя страница: как выглядит, когда цветёт или откуда взялось, зачем оно здесь</div>
+                    <div class="lbl" style="color:var(--accent)">выход в справочник · ветвь флоры уже собрана</div>
+                    <div class="t-h sm">Двадцать восемь растений отсняты и разобраны по папкам. На главной шесть — остальные двадцать два открываются здесь</div>
+                    <div class="lbl">это и есть смысл разделения: блок — дверь, Атлас — глубина. Двадцать восемь карточек на лендинге читаются как гербарий и их пролистывают; в Атласе те же двадцать восемь — редкий полевой определитель одной точки на 4200</div>
                   </div>
                   <div class="ctl ghost">В АТЛАС →</div>
                 </div>
@@ -1632,10 +1668,14 @@
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark">ФОТО</span> Макро-съёмки растений нет — стоят пейзажные заглушки. Блок держится на крупном плане и без него самый слабый.</li>
-            <li><span class="mark q">ВАЖНО</span> Эвкалипт, муня и кока на 4200 не растут — они ниже, по дороге. Ставим их отдельной ступенью, иначе получится ложное обещание, как было с кеунией.</li>
-            <li><span class="mark q">ЯЗЫКИ</span> Для английской и испанской версий про коку нужна поясняющая строка: в Перу лист коки легален, традиционен и продаётся на любом рынке. Без неё иностранец пугается.</li>
-            <li><span class="mark ok">РЕШЕНО</span> Камни входят сюда третьей ступенью, а не отдельным блоком главной. Причина: отдельный блок про геологию посреди лендинга читается как школьный учебник и его пролистывают. Внутри «того, что под ногами» камень — это ответ на вопрос, который уже возник: почему здесь всё такое мелкое и жёсткое. Полноценный раздел камни получают в Атласе — там их можно набирать хоть сорок штук, не утяжеляя главную.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Ярета (<i>Azorella compacta</i>) становится первой карточкой вместо кактуса. Она и есть буквальная иллюстрация строки «прижаться к земле»: подушка, которую принимают за камень, растёт миллиметр в год и живёт тысячи лет. Строку «кактус, которому холодно» оставляем — она про сбой ожидания, а не про конкретный вид.</li>
+            <li><span class="mark q">ВАЖНО</span> Примерно треть присланных латинских имён — виды с других континентов. Это не ошибка съёмки, а как работает автоопределение: оно уверенно называет ближайшее похожее из своей базы. Перед публикацией имена проходят через три статуса, иначе это будет та же выдумка, что «следы у воды» в первой версии.</li>
+            <li><span class="mark q">УТОЧНИТЬ</span> <i>Copaxa medea</i> в папке с растениями — это бабочка, павлиноглазка. Кадр не выбрасываем: он переезжает в фауну. Заодно вопрос — насекомых заводим отдельной ветвью Атласа или нет?</li>
+            <li><span class="mark q">ПРОВЕРИТЬ</span> <i>Puya raimondii</i> — если она там правда есть, это отдельная статья блога и одна из сильнейших вещей на сайте: цветёт один раз за восемьдесят лет и после этого умирает. Такое надо подтвердить прежде, чем писать.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Тотора (озёрный камыш) уходит в Атлас и в страницу озера, а не сюда: она растёт в воде, а блок — про то, что под ногами.</li>
+            <li><span class="mark">ФОТО</span> На блок нужно <b>14 кадров</b>: 6 макро растений, 1 широкий с цветением, 3 «по дороге снизу», 4 камня. Остальные двадцать два растения кадров на главной не занимают.</li>
+            <li><span class="mark q">ЯЗЫКИ</span> Для EN и ES про коку нужна поясняющая строка: в Перу лист коки легален, традиционен и продаётся на любом рынке. Без неё иностранец пугается.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Камни входят сюда третьей ступенью, а не отдельным блоком главной: геология посреди лендинга читается как учебник. Полноценный раздел камни получают в Атласе — там их можно набирать хоть сорок, не утяжеляя главную.</li>
           </ul>
         </article>
 
@@ -2163,6 +2203,24 @@
                 <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Ичу</div><div class="lbl">трава пуны</div></div>
                 <div class="stack"><div class="ph r11"><span>ФОТО</span></div><div class="t-h sm">Порода 1</div><div class="lbl">камень · название уточняется</div></div>
               </div>
+              <div class="cell" style="border-color:var(--accent)">
+                <div class="lbl" style="color:var(--accent)">новое · ветвь флоры уже наполнена</div>
+                <div class="t-h sm">Двадцать восемь растений отсняты на месте и разложены по папкам</div>
+                <div class="lbl">это перестало быть планом: снимки свои, сделаны на 4200, а не взяты из энциклопедии. Полевой определитель одной точки, которого нет больше нигде — именно за такими страницами приходят из поиска люди, которые про дом не знали</div>
+                <div class="lbl">на главную выходят шесть. Остальные двадцать два живут здесь и не утяжеляют лендинг</div>
+              </div>
+
+              <div class="cell" style="border-color:var(--accent)">
+                <div class="lbl" style="color:var(--accent)">новое · второй статус: насколько мы уверены в имени</div>
+                <div class="row" style="gap:8px">
+                  <span class="pill">✔ вид определён</span>
+                  <span class="pill">~ только род</span>
+                  <span class="pill">○ не определено</span>
+                </div>
+                <div class="lbl">статусов у карточки два, и они про разное. Первый — откуда мы это знаем (кадр, слова местных, ничего). Второй — насколько уверены в названии. Автоопределение уверенно подставляет ближайший похожий вид из своей базы, и треть присланных имён оказалась видами с других континентов: арктическая ива, мексиканские кактусы, европейский цмин</div>
+                <div class="lbl">правило: латынь только там, где уверены. Иначе род без вида или вообще без латыни. <b>Имя на кечуа неверным быть не может</b> — местные так называют, проверять не у кого. Поэтому кечуа крупно, латынь мелко</div>
+              </div>
+
               <div class="cell" style="border-color:var(--accent)">
                 <div class="lbl" style="color:var(--accent)">новое · камни получают полноценную ветвь</div>
                 <div class="bars"><i class="w100"></i><i class="w80"></i></div>
