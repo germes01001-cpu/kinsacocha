@@ -1006,7 +1006,8 @@
                   <div class="prow"><b>трое</b><span class="dots"></span><b>S/. 180</b></div>
                   <div class="prow"><b>каждый следующий</b><span class="dots"></span><b>+ S/. 50</b></div>
                   <div class="lbl">дети до семи лет в этот счёт не входят</div>
-                  <div class="lbl" style="border-bottom:1px dashed var(--bar)">потолок — ⟨N⟩ спальных мест: одна цифра, заметка ③</div>
+                  <div class="rule"></div>
+                  <div class="lbl">до трёх — кровати в комнате. С четвёртого — типи: пять мест, и там холоднее. Всего восемь человек</div>
                 </div>
                 <div class="cell">
                   <div class="t-h sm">Дом на день</div>
@@ -1211,22 +1212,31 @@
             <span class="file">Sleep.tsx</span>
             <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">прилипает к блоку 11</span></div>
           </div>
-          <p class="purpose">Продолжение «Удобств», не отдельная витрина. Внизу — число спальных мест: группы спрашивают это первым сообщением.</p>
+          <p class="purpose">Продолжение «Удобств», не отдельная витрина. Цифра стоит первой строкой: группы спрашивают про число мест первым сообщением, и незачем заставлять их спрашивать.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h">Где вы будете спать</div>
-              <div class="g3" style="margin-top:6px">
-                <div class="stack"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Комната</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
-                <div class="stack"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Гостиная</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
-                <div class="stack"><div class="ph r43"><span>ФОТО</span></div><div class="t-h sm">Типи</div><div class="bars"><i class="w100"></i><i class="w80"></i></div></div>
+              <div class="t-accent">Восемь мест. Три в доме, пять в типи.</div>
+              <div class="g2" style="margin-top:6px">
+                <div class="cell">
+                  <div class="ph r43"><span>ФОТО · комната с кроватями</span></div>
+                  <div class="t-h sm">Комната · три кровати</div>
+                  <div class="lbl">тёплые одеяла, печь за стеной. Со своим спальником всё равно теплее — но без него не замёрзнете</div>
+                </div>
+                <div class="cell">
+                  <div class="ph r43"><span>ФОТО · типи изнутри</span></div>
+                  <div class="t-h sm">Типи · пять мест</div>
+                  <div class="lbl">здесь холоднее, и это первое, что мы о нём говорим. Спальник обязателен</div>
+                </div>
               </div>
-              <div class="rule"></div>
-              <div class="bars"><i class="w90"></i></div>
-              <div class="lbl">итог: сколько всего мест</div>
+              <div class="quote"><div class="t-h sm">Мы не делаем вид, что типи — это та же комната. Это другое место, и кому-то оно нравится больше.</div></div>
+              <div class="lbl">и практическая строка для групп: вчетвером и больше кто-то ночует в типи. Решайте заранее, кто, — на месте в темноте это решается хуже</div>
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark">ФОТО</span> Интерьера нет ни одного кадра.</li>
+            <li><span class="mark ok">ЦИФРА ЕСТЬ</span> Восемь мест: три кровати в комнате плюс пять в типи. Совпало с потолком тропы — восемь человек на проводника, — и это удобно: одна цифра на весь сайт вместо двух.</li>
+            <li><span class="mark ok">ЧЕСТНО ПРО ТИПИ</span> Про холод в типи говорим первой строкой, а не последней. Человек, заплативший за четвёртое место и обнаруживший вечером, что кровати ему не досталось, — это разбор в переписке и минус отзыв. Сказанное заранее то же самое читается как выбор.</li>
+            <li><span class="mark">ФОТО</span> Ни комнаты, ни типи изнутри в исходниках нет — оба кадра в списке съёмки.</li>
           </ul>
         </article>
       </section>
