@@ -640,7 +640,7 @@
       </ol>
       <p class="chapter-label">Снаружи</p>
       <ol>
-        <li><a href="#b13"><span class="n">13</span> Маршруты</a></li>
+        <li><a href="#b13"><span class="n">13</span> Тропы</a></li>
         <li><a href="#b14"><span class="n">14</span> Кого вы увидите</a></li>
         <li><a href="#b15"><span class="n">15</span> То, что под ногами</a></li>
         <li><a href="#b16"><span class="n">16</span> Ткачество</a></li>
@@ -1402,61 +1402,105 @@
           <span>Что вокруг дома · блоки 13–16</span>
         </div>
 
-        <article class="block" id="b13">
+        <article class="block is-new" id="b13">
           <div class="block-head">
             <span class="num">13</span>
-            <h3>Маршруты</h3>
+            <h3>Тропы</h3>
             <span class="file">RoutesSection.tsx</span>
-            <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-d">камень</span><span class="chip">самый длинный блок</span></div>
+            <div class="chips"><span class="chip sc-region">регион</span><span class="chip new">переделан</span><span class="chip ground-d">камень</span><span class="chip">три полосы + окна</span></div>
           </div>
-          <p class="purpose">Вместо карты — четыре времени суток широкими полосами и живой ответ проводника. Гость описывает себя, а не выбирает маршрут.</p>
+          <p class="purpose">Блок привязан к ценам намертво: три полосы — это ровно те три тропы, что стоят в прайсе, теми же словами и с теми же цифрами. Виджет «расскажите о себе» убран. Всё, что сверх трёх, живёт в заметках и растёт само.</p>
           <div class="spec dark">
             <div class="stack">
-              <div class="t-h">Маршруты</div>
+              <div class="t-h">Тропы</div>
               <div class="t-accent">Здесь нет карты. И не будет.</div>
+              <div class="lbl">три постоянные тропы. Что вы увидите — написано. Как дойти — нет</div>
 
-              <div class="lbl" style="margin-top:8px">Слой 1 · четыре полосы во всю ширину, текст попеременно слева и справа</div>
-              <div class="stack" style="gap:8px">
-                <div class="band"><div class="band-inner"><span class="lbl">01</span><div class="t-h sm">Рассвет</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div></div>
-                <div class="band right"><div class="band-inner"><span class="lbl">02</span><div class="t-h sm">Утро с детьми</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div></div>
-                <div class="band"><div class="band-inner"><span class="lbl">03</span><div class="t-h sm">День</div><div class="bars"><i class="w100"></i><i class="w80"></i></div></div></div>
-                <div class="band right" style="min-height:150px">
+              <div class="stack" style="gap:10px;margin-top:8px">
+                <div class="band" style="min-height:120px">
                   <div class="band-inner">
-                    <span class="lbl">04</span>
-                    <div class="t-h sm">Полная луна</div>
-                    <div class="bars"><i class="w100"></i><i class="w60"></i></div>
-                    <div class="cell tight" style="margin-top:6px;align-items:flex-end">
-                      <div class="lbl">☾ лунное окно · считается в браузере</div>
-                      <div class="t-h sm">23 августа · через 11 дней</div>
-                      <div class="ctl ghost">СПРОСИТЬ ПРО ЭТУ ДАТУ</div>
-                    </div>
+                    <span class="lbl">ФОТО НА ФОНЕ · вода и склон</span>
+                    <div class="t-h sm">Короткая · около двух часов</div>
+                    <div class="t-h sm" style="opacity:.85">Ближняя вода и обратно.</div>
+                    <div class="row" style="gap:6px"><span class="pill">одна лагуна</span><span class="pill">горы над ней</span></div>
+                    <div class="lbl">с детьми: успеете вернуться к обеду, и они устанут ровно настолько, чтобы уснуть до заката</div>
+                    <div class="row" style="gap:10px"><span class="pill">S/. 80 за группу</span><span class="ctl ghost">СПРОСИТЬ ПРО ЭТУ ТРОПУ</span></div>
+                  </div>
+                </div>
+
+                <div class="band right" style="min-height:120px">
+                  <div class="band-inner">
+                    <span class="lbl">ФОТО НА ФОНЕ · подъём</span>
+                    <div class="t-h sm">Полдня</div>
+                    <div class="t-h sm" style="opacity:.85">Дальше и выше.</div>
+                    <div class="row" style="gap:6px"><span class="pill">две лагуны</span><span class="pill">горы с высоты</span></div>
+                    <div class="lbl">для тех, кто хочет идти, а не гулять</div>
+                    <div class="row" style="gap:10px"><span class="pill">S/. 150 за группу</span><span class="ctl ghost">СПРОСИТЬ ПРО ЭТУ ТРОПУ</span></div>
+                  </div>
+                </div>
+
+                <div class="band" style="min-height:140px">
+                  <div class="band-inner">
+                    <span class="lbl">ФОТО НА ФОНЕ · привал у воды</span>
+                    <div class="t-h sm">Целый день</div>
+                    <div class="t-h sm" style="opacity:.85">Все три лагуны за один день.</div>
+                    <div class="row" style="gap:6px"><span class="pill">три лагуны</span><span class="pill">привал с едой у воды</span><span class="pill">горы весь день</span></div>
+                    <div class="lbl">не в первый день наверху: целый день на 4200 стоит проходить уже привыкшим. Об этом же — блок «Высота»</div>
+                    <div class="row" style="gap:10px"><span class="pill">S/. 220 за группу</span><span class="ctl ghost">СПРОСИТЬ ПРО ЭТУ ТРОПУ</span></div>
                   </div>
                 </div>
               </div>
 
-              <div class="lbl" style="margin-top:10px">Слой 2 · проводник отвечает</div>
-              <div class="cell">
-                <div class="t-h sm" style="text-align:center">Расскажите о себе — проводник ответит</div>
-                <div class="split">
-                  <div class="stack">
-                    <div class="lbl">сколько у вас времени</div>
-                    <div class="row" style="gap:6px">
-                      <span class="pill">пара часов</span><span class="pill" style="background:var(--sink);color:var(--g)">полдня</span><span class="pill">день</span><span class="pill">ночь</span>
-                    </div>
-                  </div>
-                  <div class="stack">
-                    <div class="lbl">кто идёт</div>
-                    <div class="row" style="gap:6px">
-                      <span class="pill">с детьми</span><span class="pill" style="background:var(--sink);color:var(--g)">вдвоём</span><span class="pill">компания</span><span class="pill">один</span>
-                    </div>
+              <div class="cell" style="border-color:var(--sink);border-width:2px;margin-top:6px">
+                <div class="lbl">и четвёртая — не такая, как три предыдущие</div>
+                <div class="t-h">Тропа хозяина</div>
+                <div class="t-h sm" style="opacity:.85">Здесь ничего не описано. И это не оплошность.</div>
+                <div class="lbl">она собирается утром — под вас, под погоду, под то, сколько вы готовы идти. Есть места, которых нет в этих трёх строках, и мы не будем рассказывать о них ни здесь, ни в заметках</div>
+                <div class="row" style="gap:10px"><span class="pill">S/. 350 за группу · целый день</span><span class="ctl wa">НАПИСАТЬ</span></div>
+              </div>
+
+              <div class="rule"></div>
+              <div class="lbl">три окна — это не другие тропы, а другой свет на тех же</div>
+              <div class="g3">
+                <div class="cell">
+                  <div class="t-h sm">Рассвет</div>
+                  <div class="lbl">выход в 5:30. Туман лежит в долинах, вершины загораются первыми. Любая из трёх троп, но выглядит она иначе</div>
+                </div>
+                <div class="cell">
+                  <div class="t-h sm">Закат</div>
+                  <div class="lbl">последний свет ложится на воду. Возвращаемся в темноте и потому только с проводником — налобник берите свой</div>
+                </div>
+                <div class="cell" style="border-color:var(--sink)">
+                  <div class="t-h sm">Полнолуние</div>
+                  <div class="lbl">три ночи в месяц. Без фонарей — их просто не нужно</div>
+                  <div class="cell tight" style="margin-top:4px">
+                    <div class="lbl">☾ лунное окно · считается прямо в браузере, без внешних сервисов</div>
+                    <div class="t-h sm">23 августа · через 11 дней</div>
+                    <div class="ctl ghost">СПРОСИТЬ ПРО ЭТУ ДАТУ</div>
                   </div>
                 </div>
-                <div class="quote"><div class="bars"><i class="w100"></i><i class="w90"></i><i class="w45"></i></div><div class="lbl" style="margin-top:6px">одна из 16 реплик, меняется без перезагрузки</div></div>
               </div>
-              <div class="bars"><i class="w80"></i></div>
-              <div class="lbl">тихая строка: «проводник выберет тропу утром — по погоде и по тому, кто с вами идёт»</div>
+
+              <div class="rule"></div>
+              <div class="quote"><div class="t-h sm">Напишите, сколько у вас времени и кто идёт. Тропу выберу утром — по погоде и по тому, как вы дышите.</div></div>
+              <div class="lbl">это и есть бывший виджет «расскажите о себе», только вместо шестнадцати заготовленных реплик — приглашение к настоящему разговору</div>
+
+              <div class="rule"></div>
+              <div class="t-h sm">Троп больше, чем три.</div>
+              <div class="lbl">остальные — в заметках: куда ходил, что видел, в какой день. Главная не растёт, дневник растёт сам</div>
+              <div class="ctl ghost">ПОЛЕВЫЕ ЗАМЕТКИ →</div>
             </div>
           </div>
+          <ul class="notes">
+            <li><span class="mark ok">ПРИВЯЗАНО К ЦЕНАМ</span> Три полосы — те же три тропы, что в блоке 08, теми же словами и с теми же цифрами. Прайс перестал быть отдельной таблицей: человек видит тропу, понимает, что это, и цена уже рядом. Поменяется цифра в одном месте — поменяется в обоих.</li>
+            <li><span class="mark ok">ВИДЖЕТ УБРАН</span> «Расскажите о себе» удалён целиком. Причина стала весомее, чем была: на странице уже есть сборка в блоке 08 и выбор суток в блоке 09. Третья интерактивная штука превращает лендинг в анкету — человек начинает чувствовать, что его тестируют.</li>
+            <li><span class="mark ok">★ ЧЕТВЁРТАЯ ТРОПА</span> Ваш отказ описывать её — лучшее, что могло случиться с этим блоком. Три тропы отвечают на «что я получу», четвёртая отвечает на «а можно как-то иначе», и стоит она 350 именно потому, что о ней ничего не сказано. Пустое место в описании здесь работает сильнее любого текста, и подделать его нельзя.</li>
+            <li><span class="mark ok">РАССВЕТ, ЗАКАТ, ЛУНА</span> Раньше они стояли полосами наравне с дневными маршрутами — та же ошибка, что была в еде: рассвет это не куда идти, а когда. Теперь это отдельный ряд: другой свет на тех же тропах. Лунный виджет остался внутри полнолуния.</li>
+            <li><span class="mark ok">ЗАКАТ И ТЕМНОТА</span> В правилах дома записано «в темноте — только с проводником». Раз мы предлагаем закатный выход, оговорка стоит здесь же, а не всплывает потом.</li>
+            <li><span class="mark q">ОДНО СЛОВО</span> «Две лагуны» на полудневной тропе — моё предположение: вы назвали одну для короткой и три для дневной, лестница напрашивается. Скажете другое число — поправлю.</li>
+            <li><span class="mark q">УСЛОВИЕ ДЛЯ ЗАМЕТОК</span> Раз остальные тропы уезжают в дневник, там действует то же правило: заметка отвечает на «что я видел», а не «как туда дойти». Иначе то, что мы бережём на главной, утечёт через ленту.</li>
+            <li><span class="mark">ФОТО</span> Три фоновых кадра под полосы — по одному на тропу. Их лучше снять в один день и в одну погоду: полосы идут подряд, и разный свет прочитается как разные места.</li>
+          </ul>
         </article>
 
         <article class="block" id="b14">
