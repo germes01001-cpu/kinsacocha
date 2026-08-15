@@ -475,6 +475,39 @@
   .masonry { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; align-items: start; }
   .masonry .ph { min-height: 0; }
 
+  /* ── Живая стена · табло ─────────────────────────── */
+  .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(24px, 1fr)); gap: 3px; perspective: 900px; }
+  .wall .tile { aspect-ratio: 1 / 1; }
+  .wall .tile-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .65s cubic-bezier(.4,.05,.2,1); }
+  .wall .tile.flip .tile-inner { transform: rotateY(180deg); }
+  .wall .face {
+    position: absolute; inset: 0; backface-visibility: hidden;
+    background: color-mix(in srgb, var(--tint, var(--bar)) var(--tintp, 16%), var(--g));
+    border: 1px solid var(--bar);
+  }
+  .wall .face::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(to top right, transparent calc(50% - .5px), var(--bar) 50%, transparent calc(50% + .5px)),
+      linear-gradient(to top left, transparent calc(50% - .5px), var(--bar) 50%, transparent calc(50% + .5px));
+    opacity: .45;
+  }
+  .wall .face.b { transform: rotateY(180deg); }
+  .wall .face.video { --tint: #9C5A32; --tintp: 34%; border-color: #9C5A32; }
+  .wall .face.video::after { display: none; }
+  .wall .face.video .dot {
+    position: absolute; top: 50%; left: 50%; width: 4px; height: 4px; margin: -2px 0 0 -2px;
+    border-radius: 50%; background: #EDE6DA;
+    animation: wall-pulse 1.7s ease-in-out infinite;
+  }
+  @keyframes wall-pulse { 0%, 100% { opacity: .35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.7); } }
+  .wall-legend { display: flex; gap: 16px; margin-top: 4px; }
+  .wall-legend span { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--bar); filter: brightness(.85); }
+  .spec.dark .wall-legend span { filter: brightness(1.4); }
+  .wall-legend i { width: 9px; height: 9px; border: 1px solid var(--bar); display: inline-block; }
+  .wall-legend i.v { background: #9C5A32; border-color: #9C5A32; }
+  @media (prefers-reduced-motion: reduce) { .wall .tile-inner { transition: none !important; } }
+
   @media (max-width: 620px) {
     .split, .split.narrow-l, .split.narrow-r { grid-template-columns: 1fr; }
     .g4, .g6 { grid-template-columns: repeat(2, 1fr); }
@@ -1779,31 +1812,29 @@
         <article class="block" id="b17">
           <div class="block-head">
             <span class="num">17</span>
-            <h3>Как это выглядит</h3>
-            <span class="file">PhotoMosaic.tsx</span>
-            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">мозаика</span></div>
+            <h3>Живая стена</h3>
+            <span class="file">LivingWall.tsx</span>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip new">табло аэропорта</span></div>
           </div>
-          <p class="purpose">Визуальная пауза после четырёх содержательных блоков подряд. Двенадцать кадров разной высоты и ссылка в галерею.</p>
+          <p class="purpose">Не мозаика — <b>живое табло.</b> Сотни маленьких квадратов, и одна плитка сама по себе, без вашего участия, время от времени переворачивается на новый кадр — как панель на вокзальном табло. Несколько плиток в любой момент — беззвучные видео-петли, и какие именно плитки видео, тоже гуляет по сетке. Ниже — рабочая демка на заглушках: наведите на блок и подождите пару секунд, оно уже само переворачивается.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h">Как это выглядит</div>
-              <div class="masonry">
-                <div class="ph" style="height:70px"><span>ФОТО</span></div>
-                <div class="ph" style="height:100px"><span>ФОТО</span></div>
-                <div class="ph" style="height:60px"><span>ФОТО</span></div>
-                <div class="ph" style="height:90px"><span>ФОТО</span></div>
-                <div class="ph" style="height:95px"><span>ФОТО</span></div>
-                <div class="ph" style="height:62px"><span>ФОТО</span></div>
-                <div class="ph" style="height:88px"><span>ФОТО</span></div>
-                <div class="ph" style="height:66px"><span>ФОТО</span></div>
-                <div class="ph" style="height:64px"><span>ФОТО</span></div>
-                <div class="ph" style="height:92px"><span>ФОТО</span></div>
-                <div class="ph" style="height:72px"><span>ФОТО</span></div>
-                <div class="ph" style="height:84px"><span>ФОТО</span></div>
-              </div>
+              <div class="t-accent">Вы не успеете рассмотреть плитку — а она уже другая.</div>
+              <div class="wall" id="wall-17"></div>
+              <div class="wall-legend"><span><i></i> фото</span><span><i class="v"></i> видео-петля</span></div>
               <div class="ctl ghost">СМОТРЕТЬ ВСЕ ФОТО →</div>
             </div>
           </div>
+          <ul class="notes">
+            <li><span class="mark ok">РЕШЕНО</span> Плотность — гуще, как вы просили: на десктопе решётка сама подстраивается под ширину блока, тайлы получаются ~24–30px — на глаз это те самые «20×20», просто без жёсткого числа, чтобы не разъезжалось на разных экранах.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Переворот — вразнобой: у каждой плитки свои внутренние часы (3–9 секунд), а не общий таймер на весь экран. Раз в 20–35 секунд — редкая «волна»: 6–10 плиток переворачиваются подряд по диагонали, как будто ветром прошло по стене.</li>
+            <li><span class="mark ok">ПРАВИЛО</span> Видео одновременно — не больше 8–10% плиток на экране, и это не фиксированные окна: при каждом перевороте есть небольшой шанс, что новая грань окажется видео, и такой же шанс, что видео-плитка станет снова фото. Так видео «гуляет» по стене, а декодируется в моменте всегда немного — на телефоне это не просядет.</li>
+            <li><span class="mark ok">ПАУЗА</span> Анимация идёт только пока блок в поле зрения (<code>IntersectionObserver</code>), и полностью останавливается при системной настройке «уменьшить движение» — тайлы остаются, просто не крутятся.</li>
+            <li><span class="mark">ВИДЕО-ПЕТЛИ</span> Заказчик подтвердил — снимет и найдёт в архиве: <b>трава и цветы на ветру, полёт птиц, вода, огонь</b>. Плюс то, что уже в плане: печь, туман, рябь на озере. Требования прежние — 4–8 секунд, без звука, до 1,5 МБ.</li>
+            <li><span class="mark">ЦВЕТ ЗАГЛУШЕК</span> В демо ниже плитки подкрашены реальной палитрой сайта (глина, озеро, приглушённый) вместо чистого серого — это не финальное решение, а способ показать тепло стены до того, как встанут настоящие фото. С кадрами эта подкраска уйдёт сама.</li>
+            <li><span class="mark q">ПОЗЖЕ</span> Клик по плитке — открывает лайтбокс на этом кадре, как в галерее. В демо не собрано: нужны настоящие фото, чтобы было на что кликать.</li>
+          </ul>
         </article>
 
         <article class="block is-new" id="b18">
@@ -3257,5 +3288,104 @@
       btn.setAttribute("aria-pressed", String(compact));
       btn.textContent = compact ? "Показать схемы" : "Свернуть до списка";
     });
+  })();
+</script>
+
+<script>
+  // ── Живая стена · демо на заглушках (блок 17) ──────────────
+  (function () {
+    var TINTS = ["#9C5A32", "#33555C", "#6B645A", "#CFC7B8", "#1F1D1A"];
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function rand(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+    function pickTint() { return TINTS[rand(0, TINTS.length - 1)]; }
+
+    function makeFace(isVideo, isBack) {
+      var f = document.createElement("div");
+      f.className = "face" + (isVideo ? " video" : "") + (isBack ? " b" : "");
+      if (isVideo) {
+        var dot = document.createElement("span");
+        dot.className = "dot";
+        f.appendChild(dot);
+      } else {
+        f.style.setProperty("--tint", pickTint());
+      }
+      return f;
+    }
+
+    function buildWall(id, count, videoCount) {
+      var root = document.getElementById(id);
+      if (!root) return;
+      root.innerHTML = "";
+      var tiles = [];
+
+      for (var i = 0; i < count; i++) {
+        var tile = document.createElement("div"); tile.className = "tile";
+        var inner = document.createElement("div"); inner.className = "tile-inner";
+        var a = makeFace(false, false);
+        var b = makeFace(false, true);
+        inner.appendChild(a); inner.appendChild(b);
+        tile.appendChild(inner);
+        root.appendChild(tile);
+        tiles.push({ el: tile, front: a, back: b, shown: 0 });
+      }
+
+      // раздать первые видео-плитки случайно
+      var order = tiles.map(function (_, idx) { return idx; });
+      order.sort(function () { return Math.random() - 0.5; });
+      for (var v = 0; v < videoCount; v++) {
+        var t = tiles[order[v]];
+        var nv = makeFace(true, false);
+        t.front.replaceWith(nv);
+        t.front = nv;
+      }
+
+      if (reduced) return; // системная настройка «меньше движения» — стена остаётся статичной
+
+      var paused = false;
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { paused = !e.isIntersecting; });
+        }, { threshold: 0.05 });
+        io.observe(root);
+      }
+
+      function flipOne(t) {
+        var hidden = t.shown === 0 ? t.back : t.front;
+        var makeVideo = Math.random() < 0.06; // ~6% шанс, что новая грань — видео
+        var next = makeFace(makeVideo, t.shown === 0);
+        hidden.replaceWith(next);
+        if (t.shown === 0) t.back = next; else t.front = next;
+        t.shown = t.shown === 0 ? 1 : 0;
+        t.el.classList.toggle("flip");
+      }
+
+      function schedule(t) {
+        setTimeout(function () {
+          if (!paused) flipOne(t);
+          schedule(t);
+        }, rand(3200, 9000));
+      }
+      tiles.forEach(function (t) { setTimeout(function () { schedule(t); }, rand(0, 4000)); });
+
+      function wave() {
+        if (!paused) {
+          var start = rand(0, tiles.length - 1);
+          var n = rand(6, 10);
+          for (var k = 0; k < n; k++) {
+            (function (offset, delayStep) {
+              setTimeout(function () {
+                var t = tiles[(start + offset * 7) % tiles.length];
+                if (t) flipOne(t);
+              }, delayStep * 160);
+            })(k, k);
+          }
+        }
+        setTimeout(wave, rand(22000, 38000));
+      }
+      setTimeout(wave, rand(15000, 25000));
+    }
+
+    buildWall("wall-17", 200, 10);
   })();
 </script>
