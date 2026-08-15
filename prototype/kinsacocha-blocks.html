@@ -508,6 +508,10 @@
   .wall-legend i.v { background: #9C5A32; border-color: #9C5A32; }
   @media (prefers-reduced-motion: reduce) { .wall .tile-inner { transition: none !important; } }
 
+  /* мини-стена · обложка заметки, 2×2, свой небольшой набор кадров */
+  .wall.mini { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 3px; aspect-ratio: 4 / 3; }
+  .wall.mini .tile { aspect-ratio: auto; }
+
   @media (max-width: 620px) {
     .split, .split.narrow-l, .split.narrow-r { grid-template-columns: 1fr; }
     .g4, .g6 { grid-template-columns: repeat(2, 1fr); }
@@ -647,8 +651,8 @@
         <a href="#b11"><i></i>11</a>
         <a href="#b12"><i></i>12</a>
         <a href="#b13"><i class="d tall"></i>13</a>
-        <a href="#b14"><i class="d tall"></i>14</a>
-        <a href="#b15"><i></i>15</a>
+        <a href="#b14"><i></i>14</a>
+        <a href="#b15"><i class="d tall"></i>15</a>
         <a href="#b16"><i></i>16</a>
         <a href="#b17"><i></i>17</a>
         <a href="#b18"><i></i>18</a>
@@ -681,14 +685,14 @@
       <p class="chapter-label">Снаружи</p>
       <ol>
         <li><a href="#b13"><span class="n">13</span> Тропы</a></li>
-        <li><a href="#b14"><span class="n">14</span> Кого вы увидите</a></li>
-        <li><a href="#b15"><span class="n">15</span> То, что под ногами</a></li>
-        <li><a href="#b16"><span class="n">16</span> Ткачество</a></li>
+        <li><a href="#b14"><span class="n">14</span> Полевые заметки ★</a></li>
+        <li><a href="#b15"><span class="n">15</span> Кого вы увидите</a></li>
+        <li><a href="#b16"><span class="n">16</span> То, что под ногами</a></li>
+        <li><a href="#b17"><span class="n">17</span> Ткачество</a></li>
       </ol>
       <p class="chapter-label">Финал</p>
       <ol>
-        <li><a href="#b17"><span class="n">17</span> Как это выглядит</a></li>
-        <li><a href="#b18"><span class="n">18</span> Полевые заметки ★</a></li>
+        <li><a href="#b18"><span class="n">18</span> Живая стена</a></li>
         <li><a href="#b19"><span class="n">19</span> Что взять с собой</a></li>
         <li><a href="#b20"><span class="n">20</span> Практика</a></li>
         <li><a href="#b21"><span class="n">21</span> Кто здесь был</a></li>
@@ -1432,7 +1436,7 @@
       <section class="chapter">
         <div class="chapter-head">
           <h2>Снаружи</h2>
-          <span>Что вокруг дома · блоки 13–16</span>
+          <span>Что вокруг дома · блоки 13–17</span>
         </div>
 
         <article class="block is-new" id="b13">
@@ -1536,9 +1540,52 @@
           </ul>
         </article>
 
-        <article class="block" id="b14">
+        <article class="block is-new" id="b14">
           <div class="block-head">
             <span class="num">14</span>
+            <h3>Полевые заметки</h3>
+            <span class="file">новый · NotesTeaser.tsx</span>
+            <div class="chips"><span class="chip sc-region">регион</span><span class="chip new">мини-табло</span><span class="chip ground-l">бумага</span></div>
+          </div>
+          <p class="purpose">Три последние заметки лентой — доказательство, что дом живой и что здесь кто-то ходит прямо сейчас. <b>Обложка была одной фотографией — стала мини-стеной:</b> четыре кадра с этой самой прогулки сами переключаются между собой, тем же приёмом, что и большая живая стена в блоке 18, только меньше и это фотографии одного дня, а не всего архива.</p>
+          <div class="spec">
+            <div class="stack">
+              <div class="row" style="justify-content:space-between;align-items:baseline">
+                <div class="t-h">Полевые заметки</div>
+                <div class="lbl">все заметки →</div>
+              </div>
+              <div class="g3" style="margin-top:6px">
+                <div class="stack">
+                  <div class="wall mini" id="wall-note-1"></div>
+                  <div class="lbl">12 августа</div>
+                  <div class="t-h sm">Туман лёг в долину и не ушёл до полудня</div>
+                  <div class="bars"><i class="w100"></i><i class="w70"></i></div>
+                </div>
+                <div class="stack">
+                  <div class="wall mini" id="wall-note-2"></div>
+                  <div class="lbl">4 августа</div>
+                  <div class="t-h sm">Вискачи вышли на камни в пятом часу</div>
+                  <div class="bars"><i class="w100"></i><i class="w60"></i></div>
+                </div>
+                <div class="stack">
+                  <div class="wall mini" id="wall-note-3"></div>
+                  <div class="lbl">28 июля</div>
+                  <div class="t-h sm">Первый лёд у берега</div>
+                  <div class="bars"><i class="w100"></i><i class="w80"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="notes">
+            <li><span class="mark ok">РЕШЕНО</span> Блок поднят из самого низа страницы и встал сразу после «Троп». Мостик простой: тропы вы не увидите на карте, а заметки — живое доказательство, что кто-то по ним правда ходит и возвращается с озера с настоящей датой на записи.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Обложка — четыре тайла вместо одного. Технически это тот же 3D-флип, что в живой стене (блок 18), только пул кадров у каждой заметки свой и маленький — четыре-шесть снимков именно с этой прогулки, а не случайные кадры со всего сайта. Так обложка живая, но не врёт: то, что вы видите, — правда с этого дня.</li>
+            <li><span class="mark">ФОТО</span> На заметку нужно 4–6 кадров одной прогулки вместо одного «правильного» кадра — расширяет то, что уже снимается для заметок, лишней съёмки не требует.</li>
+          </ul>
+        </article>
+
+        <article class="block" id="b15">
+          <div class="block-head">
+            <span class="num">15</span>
             <h3>Кого вы увидите</h3>
             <span class="file">Fauna.tsx</span>
             <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-d">камень</span><span class="chip">четыре ступени</span></div>
@@ -1619,9 +1666,9 @@
           </ul>
         </article>
 
-        <article class="block" id="b15">
+        <article class="block" id="b16">
           <div class="block-head">
-            <span class="num">15</span>
+            <span class="num">16</span>
             <h3>То, что под ногами</h3>
             <span class="file">Flora.tsx</span>
             <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-l">бумага</span><span class="chip">полевой дневник</span></div>
@@ -1712,9 +1759,9 @@
           </ul>
         </article>
 
-        <article class="block" id="b16">
+        <article class="block" id="b17">
           <div class="block-head">
-            <span class="num">16</span>
+            <span class="num">17</span>
             <h3>Ткачество</h3>
             <span class="file">Weaving.tsx</span>
             <div class="chips"><span class="chip sc-region">регион</span><span class="chip ground-l">бумага тёмная</span><span class="chip">текст готов</span></div>
@@ -1806,12 +1853,12 @@
       <section class="chapter">
         <div class="chapter-head">
           <h2>Финал</h2>
-          <span>Выдох и разговор · блоки 17–22</span>
+          <span>Выдох и разговор · блоки 18–23</span>
         </div>
 
-        <article class="block" id="b17">
+        <article class="block" id="b18">
           <div class="block-head">
-            <span class="num">17</span>
+            <span class="num">18</span>
             <h3>Живая стена</h3>
             <span class="file">LivingWall.tsx</span>
             <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip new">табло аэропорта</span></div>
@@ -1821,7 +1868,7 @@
             <div class="stack">
               <div class="t-h">Как это выглядит</div>
               <div class="t-accent">Вы не успеете рассмотреть плитку — а она уже другая.</div>
-              <div class="wall" id="wall-17"></div>
+              <div class="wall" id="wall-18"></div>
               <div class="wall-legend"><span><i></i> фото</span><span><i class="v"></i> видео-петля</span></div>
               <div class="ctl ghost">СМОТРЕТЬ ВСЕ ФОТО →</div>
             </div>
@@ -1834,48 +1881,6 @@
             <li><span class="mark">ВИДЕО-ПЕТЛИ</span> Заказчик подтвердил — снимет и найдёт в архиве: <b>трава и цветы на ветру, полёт птиц, вода, огонь</b>. Плюс то, что уже в плане: печь, туман, рябь на озере. Требования прежние — 4–8 секунд, без звука, до 1,5 МБ.</li>
             <li><span class="mark">ЦВЕТ ЗАГЛУШЕК</span> В демо ниже плитки подкрашены реальной палитрой сайта (глина, озеро, приглушённый) вместо чистого серого — это не финальное решение, а способ показать тепло стены до того, как встанут настоящие фото. С кадрами эта подкраска уйдёт сама.</li>
             <li><span class="mark q">ПОЗЖЕ</span> Клик по плитке — открывает лайтбокс на этом кадре, как в галерее. В демо не собрано: нужны настоящие фото, чтобы было на что кликать.</li>
-          </ul>
-        </article>
-
-        <article class="block is-new" id="b18">
-          <div class="block-head">
-            <span class="num">18</span>
-            <h3>Полевые заметки</h3>
-            <span class="file">новый · NotesTeaser.tsx</span>
-            <div class="chips"><span class="chip sc-region">регион</span><span class="chip new">новый блок</span><span class="chip ground-l">бумага</span><span class="chip">три последние</span></div>
-          </div>
-          <p class="purpose">Три последние заметки лентой — доказательство, что дом живой и что здесь кто-то ходит прямо сейчас. Обновляется само, когда вы публикуете новую заметку.</p>
-          <div class="spec">
-            <div class="stack">
-              <div class="row" style="justify-content:space-between;align-items:baseline">
-                <div class="t-h">Полевые заметки</div>
-                <div class="lbl">все заметки →</div>
-              </div>
-              <div class="bars"><i class="w60"></i></div>
-              <div class="g3" style="margin-top:6px">
-                <div class="stack">
-                  <div class="ph r43"><span>ОБЛОЖКА</span></div>
-                  <div class="lbl">12 августа</div>
-                  <div class="t-h sm">Туман лёг в долину и не ушёл до полудня</div>
-                  <div class="bars"><i class="w100"></i><i class="w70"></i></div>
-                </div>
-                <div class="stack">
-                  <div class="ph r43"><span>ОБЛОЖКА</span></div>
-                  <div class="lbl">4 августа</div>
-                  <div class="t-h sm">Вискачи вышли на камни в пятом часу</div>
-                  <div class="bars"><i class="w100"></i><i class="w60"></i></div>
-                </div>
-                <div class="stack">
-                  <div class="ph r43"><span>ОБЛОЖКА</span></div>
-                  <div class="lbl">28 июля</div>
-                  <div class="t-h sm">Первый лёд у берега</div>
-                  <div class="bars"><i class="w100"></i><i class="w80"></i></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><span class="mark q">РЕШИТЬ</span> Место блока: сейчас после мозаики, перед «Подготовкой». Можно поднять выше — например, после «Маршрутов».</li>
           </ul>
         </article>
 
@@ -3386,6 +3391,9 @@
       setTimeout(wave, rand(15000, 25000));
     }
 
-    buildWall("wall-17", 200, 10);
+    buildWall("wall-18", 200, 10);
+    buildWall("wall-note-1", 4, 0);
+    buildWall("wall-note-2", 4, 0);
+    buildWall("wall-note-3", 4, 0);
   })();
 </script>
