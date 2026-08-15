@@ -523,11 +523,13 @@
     </div>
 
     <p style="margin-top:18px;max-width:64ch;color:var(--ink-2);border-left:2px solid var(--accent);padding-left:14px">
-      <b>Обновлено 15 августа. Сделаны блоки 01–15, осталось 16–23.</b><br>
-      Последними переписаны <b>14 «Кого вы увидите»</b> — четыре ступени по тому, насколько
-      близко вы подойдёте: домашние первыми, пума последней и без фотографии — и
-      <b>15 «То, что под ногами»</b>: двадцать восемь отснятых растений стали ветвью Атласа,
-      на главную выходят шесть.<br>
+      <b>Обновлено 15 августа. Сделаны блоки 01–15 и 19, осталось 16–18 и 20–23.</b><br>
+      Последним переписан <b>08 «Как сюда приезжают»</b>: конструктор убран совсем, «дом на день
+      за 30» поднят в первую часть третьей карточкой, и <b>весь прайс целиком встал на телефон</b> —
+      раньше там были два пакета и строка «дальше тропы и дополнения». Плюс новый
+      <b>19 «Что взять с собой»</b>: два списка, еда в горы и кадр разложенных вещей сверху.<br>
+      До этого — <b>14 «Кого вы увидите»</b> и <b>15 «То, что под ногами»</b>: шкала близости
+      и двадцать восемь отснятых растений как ветвь Атласа.<br>
       Раньше в этом проходе: блок 08 с тарифами и сборкой вместо калькулятора · 09 «Сутки
       здесь» стали меню, а не расписанием · 10 с глиняной печью и правилом про мясо ·
       12 с восемью спальными местами · 13 «Маршруты» переименованы в «Тропы» и привязаны
@@ -652,7 +654,7 @@
       <ol>
         <li><a href="#b17"><span class="n">17</span> Как это выглядит</a></li>
         <li><a href="#b18"><span class="n">18</span> Полевые заметки ★</a></li>
-        <li><a href="#b19"><span class="n">19</span> Подготовка</a></li>
+        <li><a href="#b19"><span class="n">19</span> Что взять с собой</a></li>
         <li><a href="#b20"><span class="n">20</span> Практика</a></li>
         <li><a href="#b21"><span class="n">21</span> Кто здесь был</a></li>
         <li><a href="#b22"><span class="n">22</span> Приезжайте</a></li>
@@ -960,16 +962,16 @@
             <span class="file">Pricing.tsx · PriceBuilder.tsx</span>
             <div class="chips"><span class="chip sc-home">дом</span><span class="chip new">тарифы утверждены</span><span class="chip ground-l">бумага</span></div>
           </div>
-          <p class="purpose">Блок переписан целиком под утверждённые тарифы. Порядок сверху вниз ваш: сначала два готовых решения — чтобы можно было ничего не выбирать; потом конструктор — для тех, кто хочет по-своему; и только в конце условия. Ни корзины, ни оплаты на сайте: любая ветка заканчивается сообщением в WhatsApp.</p>
+          <p class="purpose">Блок переписан целиком под утверждённые тарифы. Порядок сверху вниз ваш: сначала готовые решения — чтобы можно было ничего не выбирать; потом те же цены по отдельности; и только в конце условия. <b>Конструктор убран по решению заказчика</b> — считать всё равно в переписке. Ни корзины, ни оплаты, ни калькулятора: каждая ветка заканчивается сообщением в WhatsApp.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h">Как сюда приезжают</div>
-              <div class="t-accent">Два готовых решения — или соберите своё.</div>
+              <div class="t-accent">Три готовых решения — или те же цены по отдельности.</div>
               <div class="lbl">цена за дом, а не с человека, если не написано иначе · сутки от утра до утра · оплата на месте или переводом</div>
 
               <div class="rule"></div>
-              <div class="row" style="gap:9px"><span class="pill on">1</span><span class="t-h sm">Готовые решения</span><span class="lbl">две карточки в ряд, на телефоне — друг под другом</span></div>
-              <div class="g2">
+              <div class="row" style="gap:9px"><span class="pill on">1</span><span class="t-h sm">Готовые решения</span><span class="lbl">три карточки в ряд, на телефоне — друг под другом</span></div>
+              <div class="g3">
                 <div class="cell">
                   <div class="ph r219"><span>ФОТО · дом на рассвете</span></div>
                   <div class="t-h sm">Кинсакоча целиком</div>
@@ -994,12 +996,24 @@
                   <div class="lbl">по частям это стоило бы 230 — пакет дешевле на 40</div>
                   <div class="ctl wa" style="width:100%;justify-content:center">ВЫБРАТЬ ЭТО</div>
                 </div>
+                <div class="cell" style="border-color:var(--accent)">
+                  <div class="ph r219"><span>ФОТО · типи днём</span></div>
+                  <div class="t-h sm">Дом на день <span class="lbl" style="color:var(--accent)">поднято сюда</span></div>
+                  <div class="lbl">без ночёвки · приехали утром, уехали к вечеру</div>
+                  <div class="row" style="gap:6px"><span class="pill">дом</span><span class="pill">душ</span><span class="pill">кухня</span><span class="pill">типи</span></div>
+                  <div class="price">S/. 30 <span>С ЧЕЛОВЕКА</span></div>
+                  <div class="lbl">кинуть вещи, погулять, вернуться в тепло и уехать вниз</div>
+                  <div class="ctl wa">ВЫБРАТЬ ЭТО</div>
+                </div>
               </div>
 
-              <div class="lbl">оба пакета — на одного или на двоих. Втроём и больше собираем в конструкторе: так честнее считается и дом, и тропа</div>
+              <div class="lbl">самая дешёвая дверь стоит первой намеренно: половина гостей уже в Куско и едет на день, а заголовок сайта обещает им именно это. Раньше эта строка лежала в середине прайса, и её не находили с первого раза</div>
+              <div class="lbl">до восьми человек — дальше кухня и душ перестают справляться</div>
+
+              <div class="lbl">оба пакета — на одного или на двоих. Втроём и больше считаем по строкам ниже: так честнее выходит и дом, и тропа</div>
 
               <div class="rule"></div>
-              <div class="row" style="gap:9px"><span class="pill on">2</span><span class="t-h sm">Или соберите свой формат</span></div>
+              <div class="row" style="gap:9px"><span class="pill on">2</span><span class="t-h sm">Или по отдельности</span></div>
               <div class="g2">
                 <div class="cell">
                   <div class="t-h sm">Дом — только ваш</div>
@@ -1012,32 +1026,13 @@
                   <div class="rule"></div>
                   <div class="lbl">до трёх — кровати в комнате. С четвёртого — типи: пять мест, и там холоднее. Всего восемь человек</div>
                 </div>
-                <div class="cell">
-                  <div class="t-h sm">Дом на день</div>
-                  <div class="lbl">без ночёвки</div>
-                  <div class="price">S/. 30 <span>С ЧЕЛОВЕКА</span></div>
-                  <div class="row" style="gap:6px"><span class="pill">дом</span><span class="pill">душ</span><span class="pill">кухня</span><span class="pill">типи</span></div>
-                  <div class="lbl">кинуть вещи, погулять, вернуться в тепло и уехать вниз к вечеру</div>
-                  <div class="lbl">до восьми человек — дальше кухня и душ перестают справляться</div>
-                  <div class="lbl">это и есть та половина гостей, что приезжает утром: заголовок сайта обещает им место — здесь оно названо ценой</div>
-                </div>
               </div>
 
-              <div class="cell" style="border-style:dashed">
-                <div class="lbl">СБОРКА · не корзина: считает вслух и заканчивается сообщением</div>
-                <div class="row" style="gap:6px"><span class="lbl" style="width:78px">сколько дней</span><span class="pill">день без ночи</span><span class="pill on">1 ночь</span><span class="pill">2 ночи</span><span class="pill">3 ночи</span></div>
-                <div class="row" style="gap:6px"><span class="lbl" style="width:78px">сколько вас</span><span class="pill">один</span><span class="pill on">двое</span><span class="pill">трое</span><span class="pill">четверо +</span></div>
-                <div class="row" style="gap:6px"><span class="lbl" style="width:78px">тропа</span><span class="pill">без тропы</span><span class="pill on">короткая</span><span class="pill">полдня</span><span class="pill">целый день</span><span class="pill">под вас</span></div>
-                <div class="row" style="gap:6px"><span class="lbl" style="width:78px">добавить</span><span class="pill on">дрова · связка</span><span class="pill">ужин у соседей</span><span class="pill">завтрак</span><span class="pill">трансфер</span><span class="pill">одни на горе</span></div>
-                <div class="rule"></div>
-                <div class="row" style="justify-content:space-between">
-                  <div class="stack" style="gap:3px">
-                    <div class="price">S/. 230</div>
-                    <div class="lbl">1 ночь · двое · короткая тропа · связка дров</div>
-                  </div>
-                  <div class="ctl wa">ОТПРАВИТЬ ЭТОТ РАСЧЁТ →</div>
-                </div>
-                <div class="lbl">кнопка открывает WhatsApp с уже написанным сообщением: набранный состав, число и вопрос про даты. Гостю остаётся нажать «отправить»</div>
+              <div class="cell" style="border-color:var(--accent)">
+                <div class="lbl" style="color:var(--accent)">решение заказчика · конструктор убран</div>
+                <div class="t-h sm">Напишите, сколько вас и на сколько дней. Посчитаю и отвечу числом.</div>
+                <div class="lbl">калькулятор обещал точность, которой у него не было: он не знает ни дат, ни того, наверху ли хозяин в эти сутки. Считать всё равно в переписке — значит и считает человек. Заодно это единственный кусок блока, который пришлось бы программировать и потом чинить</div>
+                <div class="ctl wa">НАПИСАТЬ И СПРОСИТЬ ЦЕНУ →</div>
               </div>
 
               <div class="rule"></div>
@@ -1799,43 +1794,91 @@
         <article class="block" id="b19">
           <div class="block-head">
             <span class="num">19</span>
-            <h3>Подготовка</h3>
+            <h3>Что взять с собой</h3>
             <span class="file">Preparation.tsx</span>
-            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip ground-d">камень</span><span class="chip">фон с параллаксом</span></div>
+            <div class="chips"><span class="chip sc-split">пополам</span><span class="chip ground-d">камень</span><span class="chip">списки + один кадр</span></div>
           </div>
-          <p class="purpose">Не один список вещей, а два: ночью холод, днём солнце. Плюс вода, айни и отдельные строки про питомцев и детей.</p>
+          <p class="purpose">Не один список вещей, а два — потому что это две разные проблемы: <b>ночью холод, днём солнце.</b> Свалить их в кучу значит не объяснить главного: люди едут «в горы, там холодно» и сгорают в первый же день.<br>Блок держится на одной фотографии сверху: разложенные вещи читаются быстрее любого списка.</p>
           <div class="spec dark">
             <div class="stack">
-              <div class="t-h">Подготовка</div>
+              <div class="t-h">Что взять с собой</div>
               <div class="t-accent">Днём вы обгорите. Ночью замёрзнете. Обе проблемы решаются заранее.</div>
+
+              <div class="ph r219" style="margin-top:4px"><span>★ ГЛАВНЫЙ КАДР · СЪЁМКА СВЕРХУ: РЮКЗАК И ВЕЩИ, РАЗЛОЖЕННЫЕ НА СТОЛЕ</span></div>
+              <div class="lbl">один кадр вместо чтения: человек видит всё сразу и сверяется с ним глазами, а не по пунктам. Снимать строго сверху, на однотонном столе или на одеяле, вещи не впритык — между ними воздух. Свет из окна, без вспышки. В кадр обязательно попадают <b>рюкзак, пуховик, шапка, перчатки, носки, термос, бутылка, дождевик, шляпа, крем</b> — иначе список и фотография разойдутся, и поверят фотографии</div>
+
               <div class="g2" style="margin-top:6px">
                 <div class="cell">
-                  <div class="lbl">☾</div>
+                  <div class="lbl">☾ проблема — холод</div>
                   <div class="t-h sm">Ночь в доме</div>
-                  <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w100"></i><i class="w70"></i></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Спальник</div><div class="lbl">постель есть и одеяла тёплые, но со своим спальником теплее. На 4200 лишним не бывает</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Пуховик</div><div class="lbl">он нужен не на улице, а в доме вечером, пока печь не разошлась</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Шерстяные носки</div><div class="lbl">холод приходит снизу, через пол</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Шапка</div><div class="lbl">спать в шапке здесь нормально, а не смешно</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Перчатки</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Термос</div><div class="lbl">кипяток есть всегда. Термос делает его вашим на всю ночь и на всю тропу</div></div>
                 </div>
                 <div class="cell">
-                  <div class="lbl">☀</div>
+                  <div class="lbl">☀ проблема — солнце и дождь</div>
                   <div class="t-h sm">День на маршруте</div>
-                  <div class="bars"><i class="w100"></i><i class="w90"></i><i class="w100"></i><i class="w80"></i><i class="w60"></i></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Шляпа</div><div class="lbl">с полями, а не кепка: обгорают уши и шея</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Крем от солнца</div><div class="lbl">на 4200 сгорают за час, и в облачный день тоже — ультрафиолет облака не задерживают</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Рюкзак</div><div class="lbl">маленький, на день: вода, термос, немного еды, дождевик</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Бутылка воды</div><div class="lbl">литра хватит — воду можно набрать по дороге, см. ниже</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Дождевик</div><div class="lbl">обязателен в сезон дождей, с ноября по март. Погода наверху меняется за полчаса</div></div>
+                  <div class="stack" style="gap:1px"><div class="t-h sm">Треккинговые палки</div><div class="lbl">есть на месте, но свои удобнее</div></div>
                 </div>
               </div>
-              <div class="g3">
-                <div class="cell"><div class="t-h sm">Это уже есть — везти не надо</div><div class="bars"><i class="w100"></i><i class="w60"></i></div></div>
-                <div class="cell"><div class="t-h sm">Вода</div><div class="bars"><i class="w100"></i><i class="w90"></i><i class="w45"></i></div></div>
-                <div class="cell" style="border-color:var(--accent)"><div class="t-h sm">Аптечка ★</div><div class="bars"><i class="w100"></i><i class="w70"></i></div><div class="lbl" style="color:var(--accent)">новое · что внутри →</div></div>
+
+              <div class="cell">
+                <div class="t-h sm">Еда с собой ★</div>
+                <div class="lbl">новое · покупается внизу, в Писаке или Куско: наверху магазинов нет</div>
+                <div class="row" style="gap:6px">
+                  <span class="pill">орехи</span><span class="pill">сухофрукты</span><span class="pill">шоколад</span>
+                  <span class="pill">хлеб</span><span class="pill">сыр</span><span class="pill">варёные яйца</span>
+                  <span class="pill">мандарины</span><span class="pill">лист коки</span>
+                </div>
+                <div class="lbl">правило простое: то, что не мнётся, не течёт и не портится без холодильника. Всё это ещё и не замерзает</div>
+                <div class="lbl">и честное предупреждение: <b>на высоте есть не хочется</b> — это нормально и проходит. Но выходить на тропу без еды нельзя: голод на 4200 бьёт по голове раньше, чем по желудку</div>
               </div>
+
+              <div class="g3">
+                <div class="cell">
+                  <div class="t-h sm">Это уже есть — везти не надо</div>
+                  <div class="row" style="gap:6px"><span class="pill">одеяла</span><span class="pill">посуда</span><span class="pill">вода</span><span class="pill">дрова</span><span class="pill">свет</span><span class="pill">палки</span></div>
+                  <div class="lbl">короткий список, который снимает главный невысказанный страх — «а там вообще есть что-нибудь?»</div>
+                </div>
+                <div class="cell">
+                  <div class="t-h sm">Воду на весь день брать не нужно</div>
+                  <div class="t-h sm" style="opacity:.8">Она течёт из скалы.</div>
+                  <div class="lbl">в горах есть источники, где вода выходит прямо из породы, — там набирают и пьют. Городской человек последний раз пил воду не из бутылки очень давно или никогда</div>
+                </div>
+                <div class="cell" style="border-color:var(--accent)">
+                  <div class="t-h sm">Аптечка ★</div>
+                  <div class="lbl">что внутри и, что важнее, чего в ней нет</div>
+                  <div class="ctl ghost">СОСТАВ АПТЕЧКИ →</div>
+                </div>
+              </div>
+
               <div class="cell quote" style="border-left-width:2px">
                 <div class="t-h sm">Не с пустыми руками</div>
-                <div class="bars"><i class="w100"></i><i class="w90"></i></div>
+                <div class="lbl">купите что-нибудь внизу: фрукты, хлеб, лист коки. На тропе вы встретите пастухов, стариков, детей — здесь не проходят мимо друг друга</div>
                 <div class="t-h sm" style="opacity:.8">Это не подарок. Это то, как здесь здороваются.</div>
+                <div class="lbl">в Андах это называется <i>айни</i> — взаимный обмен, на котором держится вся общинная жизнь. Не жест сверху вниз, а горизонталь: вы не дарите, вы участвуете</div>
               </div>
+
               <div class="g2">
-                <div class="stack"><div class="t-h sm">Питомцы</div><div class="bars"><i class="w60"></i></div></div>
-                <div class="stack"><div class="t-h sm">Дети</div><div class="bars"><i class="w100"></i><i class="w70"></i></div></div>
+                <div class="stack"><div class="t-h sm">Питомцы</div><div class="lbl">можно, но в доме живут собака и кот</div></div>
+                <div class="stack"><div class="t-h sm">Дети</div><div class="lbl">до семи лет бесплатно. Им здесь хорошо — и это главное, что стоит сказать родителю, который читал про высоту и пум</div></div>
               </div>
             </div>
           </div>
+          <ul class="notes">
+            <li><span class="mark">ФОТО</span> Нужен <b>один кадр</b> — вещи сверху на столе. Он важнее всех остальных фотографий блока: список читают через силу, разложенные вещи узнают сразу. Второй кадр по желанию — тот же рюкзак собранным, у двери.</li>
+            <li><span class="mark ok">РЕШЕНО</span> Два списка, а не один. Ночь и день — разные проблемы, и разделив их, мы не перечисляем вещи, а объясняем место.</li>
+            <li><span class="mark q">ЯЗЫКИ</span> Для EN и ES про лист коки нужна поясняющая строка: в Перу он легален, традиционен и продаётся на любом рынке. Без неё иностранец пугается слова coca.</li>
+            <li><span class="mark q">КОНФЕТЫ</span> В «не с пустыми руками» намеренно нет конфет: наверху нет стоматолога, а раздача сладкого проезжающими превращает встречу в ожидание. Детям — фрукты и хлеб, взрослым — кока. Скажете писать про конфеты — напишу.</li>
+          </ul>
         </article>
 
         <article class="block" id="b20">
