@@ -1112,31 +1112,108 @@
           </ul>
         </article>
 
-        <article class="block" id="b09">
+        <article class="block is-new" id="b09">
           <div class="block-head">
             <span class="num">09</span>
             <h3>Сутки здесь</h3>
             <span class="file">OneDay.tsx</span>
-            <div class="chips"><span class="chip sc-home">дом</span><span class="chip ground-l">бумага</span><span class="chip">таймлайн</span></div>
+            <div class="chips"><span class="chip sc-home">дом</span><span class="chip new">переделан</span><span class="chip ground-l">бумага</span><span class="chip">выбор, не расписание</span></div>
           </div>
-          <p class="purpose">Единица продажи — сутки, и вот эти сутки целиком: от приезда до отъезда. Последняя строка тихо предлагает остаться ещё на день.</p>
+          <p class="purpose">Был таймлайн — стал набор возможностей. Причина простая: весь сайт говорит «программы нет, проводник выберет утром», а расписание по часам говорит обратное. Время осталось — оно отвечает на «во сколько вставать», — но в каждом окне не одно событие, а несколько, и сбудется столько, сколько человек захочет.</p>
           <div class="spec">
             <div class="stack">
               <div class="t-h">Сутки здесь</div>
-              <div class="bars"><i class="w60"></i></div>
-              <div class="stack" style="gap:10px;border-left:1px solid var(--bar);padding-left:16px;margin-top:8px">
-                <div class="row" style="gap:16px"><span class="pill">15:00</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
-                <div class="row" style="gap:16px"><span class="pill">17:30</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
-                <div class="row" style="gap:16px"><span class="pill">18:00</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
-                <div class="row" style="gap:16px"><span class="pill">19:30</span><span class="bars" style="flex:1"><i class="w60"></i></span></div>
-                <div class="row" style="gap:16px"><span class="pill">21:00</span><span class="bars" style="flex:1"><i class="w80"></i></span></div>
-                <div class="row" style="gap:16px"><span class="pill">06:00</span><span class="bars" style="flex:1"><i class="w90"></i></span></div>
-                <div class="row" style="gap:16px"><span class="pill">10:00</span><span class="bars" style="flex:1"><i class="w70"></i></span></div>
+              <div class="t-accent">Программы нет. Есть выбор.</div>
+              <div class="lbl">подсвеченное — просто пример одних суток. Нажмите на любое другое, и сутки соберутся иначе</div>
+
+              <div class="rule"></div>
+              <div class="stack" style="gap:14px;border-left:1px solid var(--bar);padding-left:16px;margin-top:4px">
+          <div class="row" style="gap:14px;align-items:flex-start">
+            <span class="pill" style="min-width:54px;text-align:center">05:30</span>
+            <div class="stack" style="flex:1;gap:6px">
+              <div class="t-h sm">Рассвет</div>
+              <div class="row" style="gap:7px"><span class="pill on">выйти встречать</span><span class="lbl">или</span><span class="pill">спать дальше</span></div>
+            <div class="lbl">туман лежит в долинах, вершины загораются первыми. Единственное, ради чего здесь стоит вставать в темноте</div>
+            </div>
+          </div>
+          <div class="row" style="gap:14px;align-items:flex-start">
+            <span class="pill" style="min-width:54px;text-align:center">08:00</span>
+            <div class="stack" style="flex:1;gap:6px">
+              <div class="t-h sm">Завтрак</div>
+              <div class="row" style="gap:7px"><span class="pill on">свой, на кухне</span><span class="lbl">или</span><span class="pill">у соседей · 20</span></div>
+            </div>
+          </div>
+          <div class="row" style="gap:14px;align-items:flex-start">
+            <span class="pill" style="min-width:54px;text-align:center">09:00</span>
+            <div class="stack" style="flex:1;gap:6px">
+              <div class="t-h sm">Тропа</div>
+              <div class="row" style="gap:7px"><span class="pill">короткая · 2 часа</span><span class="lbl">или</span><span class="pill on">полдня</span><span class="lbl">или</span><span class="pill">целый день</span><span class="lbl">или</span><span class="pill">никуда не идти</span></div>
+            <div class="lbl">какая именно — решает проводник утром: по погоде, по тому, кто идёт. Заранее её не выбирают, и это не уклончивость, а то, как здесь ходят</div>
+            </div>
+          </div>
+          <div class="row" style="gap:14px;align-items:flex-start">
+            <span class="pill" style="min-width:54px;text-align:center">13:00</span>
+            <div class="stack" style="flex:1;gap:6px">
+              <div class="t-h sm">Привал</div>
+              <div class="row" style="gap:7px"><span class="pill on">еда у воды</span><span class="lbl">или</span><span class="pill">фотографии</span><span class="lbl">или</span><span class="pill">просто сидеть</span></div>
+            <div class="lbl">если ушли на полдня или на целый день</div>
+            </div>
+          </div>
+          <div class="row" style="gap:14px;align-items:flex-start">
+            <span class="pill" style="min-width:54px;text-align:center">18:00</span>
+            <div class="stack" style="flex:1;gap:6px">
+              <div class="t-h sm">Возвращение</div>
+              <div class="row" style="gap:7px"><span class="pill on">печь</span><span class="lbl">или</span><span class="pill on">горячая вода</span><span class="lbl">или</span><span class="pill">сухие носки</span></div>
+            <div class="lbl">печь растапливается сразу — к ужину в доме уже тепло</div>
+            </div>
+          </div>
+          <div class="row" style="gap:14px;align-items:flex-start">
+            <span class="pill" style="min-width:54px;text-align:center">19:00</span>
+            <div class="stack" style="flex:1;gap:6px">
+              <div class="t-h sm">Ужин</div>
+              <div class="row" style="gap:7px"><span class="pill">свой</span><span class="lbl">или</span><span class="pill on">у соседей · 30</span><span class="lbl">или</span><span class="pill">труча из лагуны</span></div>
+            <div class="lbl">тручу заказывают заранее: её достают из садков, а не размораживают</div>
+            </div>
+          </div>
+          <div class="row" style="gap:14px;align-items:flex-start">
+            <span class="pill" style="min-width:54px;text-align:center">20:30</span>
+            <div class="stack" style="flex:1;gap:6px">
+              <div class="t-h sm">Огонь</div>
+              <div class="row" style="gap:7px"><span class="pill on">чай</span><span class="lbl">или</span><span class="pill">чича горячей</span><span class="lbl">или</span><span class="pill">тишина</span></div>
+            </div>
+          </div>
+          <div class="row" style="gap:14px;align-items:flex-start">
+            <span class="pill" style="min-width:54px;text-align:center">21:30</span>
+            <div class="stack" style="flex:1;gap:6px">
+              <div class="t-h sm">Ночь</div>
+              <div class="row" style="gap:7px"><span class="pill on">к лагуне в темноте</span><span class="lbl">или</span><span class="pill">небо от двери</span><span class="lbl">или</span><span class="pill">спать</span></div>
+            <div class="lbl">к воде ночью — только с проводником, это правило дома. Сколько будет видно звёзд, решает не погода, а луна</div>
+            </div>
+          </div>
+          <div class="row" style="gap:14px;align-items:flex-start">
+            <span class="pill" style="min-width:54px;text-align:center">10:00</span>
+            <div class="stack" style="flex:1;gap:6px">
+              <div class="t-h sm">Следующее утро</div>
+              <div class="row" style="gap:7px"><span class="pill">уехать</span><span class="lbl">или</span><span class="pill on">остаться ещё на сутки</span></div>
+            </div>
+          </div>
+              </div>
+
+              <div class="rule"></div>
+              <div class="quote"><div class="t-h sm">Ни один пункт здесь не обязателен. Можно всё. Можно ничего.</div></div>
+              <div class="t-h sm">Завтра будет то же самое — и совсем другое: другой свет, другая погода, другая вода.</div>
+              <div class="lbl">последняя строка работает тише всех остальных: она не уговаривает остаться, а объясняет, почему остаются</div>
+              <div class="cell tight" style="border-style:dashed">
+                <div class="lbl">строка про луну ведёт в блок 17 — лунное окно. Тот, кто прочитал «сколько видно звёзд, решает луна», сам захочет узнать, какая она в его даты</div>
               </div>
             </div>
           </div>
           <ul class="notes">
-            <li><span class="mark q">ВОПРОС</span> Время в строках проставлено на глаз — нужно ваше подтверждение.</li>
+            <li><span class="mark ok">ПЕРЕДЕЛАНО</span> Не план, а меню — как вы и просили. Расписание обещает, что так и будет, и любое отклонение читается как сбой. Набор возможностей ничего не обещает и при этом показывает больше: человек видит девять окон и понимает, что здесь есть чем заняться и есть чем не заниматься.</li>
+            <li><span class="mark ok">ВРЕМЯ ВАШЕ</span> Часы взяты из ваших слов: 5:30 рассвет, возвращение к шести, ужин, огонь, ночной выход к воде. Прежний таймлайн, проставленный на глаз, убран целиком — вопроса по нему больше нет.</li>
+            <li><span class="mark ok">ПОЧЕМУ БЕЗ КНОПКИ</span> Здесь нет ни цены, ни «отправить». В блоке 08 сборка заканчивается сообщением, потому что там человек считает деньги. Здесь он мечтает, а мечту не сдают в обработку — вторая кнопка на той же странице превратила бы блок в анкету и убила бы весь эффект.</li>
+            <li><span class="mark q">ЕСЛИ ЗАХОТИТЕ</span> Можно сделать так, чтобы собранные сутки уезжали в WhatsApp одной строкой — «хочу примерно такой день». Я бы не делал: см. выше. Но это ваш выбор, и он стоит десяти минут.</li>
+            <li><span class="mark">ФОТО</span> Блок обходится без фотографий — и, возможно, зря. Один узкий кадр на всю ширину между «Огонь» и «Ночь» дал бы паузу. Решим, когда будут снимки.</li>
           </ul>
         </article>
 
