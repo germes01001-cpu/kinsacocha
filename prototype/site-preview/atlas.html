@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kinsacocha — Атлас</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #171717; background: #fff; line-height: 1.6; font-size: 16px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+  a { color: #17414a; }
+  h1, h2, h3 { font-weight: 700; line-height: 1.2; margin: 0 0 12px; }
+  h2 { font-size: 26px; }
+  p { margin: 0 0 14px; }
+  .lead { font-size: 18px; color: #444; }
+  header.site { border-bottom: 1px solid #ddd; position: sticky; top: 0; background: #fff; z-index: 10; }
+  header.site .row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; flex-wrap: wrap; }
+  header.site .logo { font-weight: 700; font-size: 18px; text-decoration: none; color: #171717; }
+  nav.main { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+  nav.main a { text-decoration: none; color: #333; font-size: 14.5px; padding: 4px 0; }
+  nav.main a:hover { text-decoration: underline; }
+  section { padding: 44px 0; }
+  .btn { display: inline-block; border: 1px solid #171717; padding: 10px 18px; text-decoration: none; color: #171717; font-size: 14.5px; margin: 4px 6px 4px 0; }
+  .btn:hover { background: #171717; color: #fff; }
+  .tag { display: inline-block; font-size: 12.5px; border: 1px solid #ccc; padding: 4px 10px; margin: 0 6px 6px 0; color: #333; text-decoration: none; }
+  .tag.on { background: #171717; color: #fff; border-color: #171717; }
+  .box { background: #f0f0ee; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; text-align: center; color: #888; font-size: 13px; aspect-ratio: 1/1; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+  @media (max-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  .grid a { text-decoration: none; color: inherit; }
+  .grid .name { font-weight: 600; font-size: 14.5px; margin-top: 8px; }
+  .grid .lat { font-size: 12.5px; color: #777; font-style: italic; }
+  .status { font-size: 11px; padding: 1px 6px; border: 1px solid #ccc; margin-right: 4px; }
+  footer.site { background: #171717; color: #ccc; padding: 40px 0 24px; font-size: 14px; margin-top: 20px; }
+  footer.site a { color: #ccc; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap row">
+    <a class="logo" href="https://claude.ai/code/artifact/fcb5ca78-3ced-47cf-b671-d6b2ba53ba5c" target="_blank" rel="noopener">Kinsacocha</a>
+    <nav class="main">
+      <a href="https://claude.ai/code/artifact/fcb5ca78-3ced-47cf-b671-d6b2ba53ba5c#dom" target="_blank" rel="noopener">Дом</a>
+      <a href="https://claude.ai/code/artifact/fcb5ca78-3ced-47cf-b671-d6b2ba53ba5c#ozera" target="_blank" rel="noopener">Озёра</a>
+      <a href="https://claude.ai/code/artifact/96fcfa9b-49f3-4251-82b6-68471b8370bb" target="_blank" rel="noopener">Заметки</a>
+      <a href="https://claude.ai/code/artifact/6d933dec-173a-4bc0-9bd5-3cb5eba9e102" target="_blank" rel="noopener"><b>Атлас</b></a>
+      <a href="https://claude.ai/code/artifact/df433ea0-d1f8-4fd1-8e50-7b581f8a7bd7" target="_blank" rel="noopener">Фотографии</a>
+      <a href="https://claude.ai/code/artifact/ed1497f6-2a24-4cc4-a275-547545c4a2b1" target="_blank" rel="noopener">Блог</a>
+      <a href="https://claude.ai/code/artifact/3524ace3-59eb-4b5d-9c81-19ad00f9f72f" target="_blank" rel="noopener">Правила дома</a>
+      <a href="https://claude.ai/code/artifact/fcb5ca78-3ced-47cf-b671-d6b2ba53ba5c#kontakty" target="_blank" rel="noopener">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Атлас</h2>
+    <p class="lead">Кто здесь живёт, что здесь растёт, из чего это сделано. Геология, флора, фауна — всё, что здесь есть и что мы про это знаем.</p>
+    <p>У каждой карточки честный статус источника: ✔ подтверждено фотографией, ◐ со слов местных, ○ не подтверждено. Латынь ставим только там, где уверены — иначе род без вида либо вообще без латыни. Имя на кечуа неверным быть не может: местные так называют, проверять не у кого.</p>
+
+    <div>
+      <a class="tag on" href="#">все</a>
+      <a class="tag" href="#">птицы</a>
+      <a class="tag" href="#">звери</a>
+      <a class="tag" href="#">растения</a>
+      <a class="tag" href="#">камни</a>
+    </div>
+
+    <div class="grid">
+      <a href="https://claude.ai/code/artifact/8ac4cf16-d5c5-4844-a17b-f06772f5452b" target="_blank" rel="noopener">
+        <div class="box">Фото</div>
+        <div class="name">Вискача <span class="status">✔</span></div>
+        <div class="lat">Lagidium viscacia</div>
+      </a>
+      <a href="https://claude.ai/code/artifact/8ac4cf16-d5c5-4844-a17b-f06772f5452b" target="_blank" rel="noopener">
+        <div class="box">Фото</div>
+        <div class="name">Яна вико <span class="status">✔</span></div>
+        <div class="lat">Plegadis ridgwayi</div>
+      </a>
+      <a href="https://claude.ai/code/artifact/8ac4cf16-d5c5-4844-a17b-f06772f5452b" target="_blank" rel="noopener">
+        <div class="box">Фото</div>
+        <div class="name">Андский гусь <span class="status">✔</span></div>
+        <div class="lat">Chloephaga melanoptera</div>
+      </a>
+      <a href="https://claude.ai/code/artifact/8ac4cf16-d5c5-4844-a17b-f06772f5452b" target="_blank" rel="noopener">
+        <div class="box">Фото</div>
+        <div class="name">Тарука <span class="status">✔</span></div>
+        <div class="lat">Hippocamelus antisensis · уязвимый вид</div>
+      </a>
+      <a href="https://claude.ai/code/artifact/8ac4cf16-d5c5-4844-a17b-f06772f5452b" target="_blank" rel="noopener">
+        <div class="box">Фото</div>
+        <div class="name">Кеуния</div>
+        <div class="lat">Polylepis · выше всех деревьев планеты</div>
+      </a>
+      <a href="https://claude.ai/code/artifact/8ac4cf16-d5c5-4844-a17b-f06772f5452b" target="_blank" rel="noopener">
+        <div class="box">Фото</div>
+        <div class="name">Ярета</div>
+        <div class="lat">Azorella compacta</div>
+      </a>
+      <a href="https://claude.ai/code/artifact/8ac4cf16-d5c5-4844-a17b-f06772f5452b" target="_blank" rel="noopener">
+        <div class="box">Фото</div>
+        <div class="name">Кактус-подушка <span class="status">○</span></div>
+        <div class="lat">название уточняется</div>
+      </a>
+      <a href="https://claude.ai/code/artifact/8ac4cf16-d5c5-4844-a17b-f06772f5452b" target="_blank" rel="noopener">
+        <div class="box">Фото</div>
+        <div class="name">Ичу</div>
+        <div class="lat">трава пуны</div>
+      </a>
+    </div>
+    <p class="muted" style="margin-top:20px;color:#777">Двадцать восемь растений уже отсняты и разложены по папкам — карточки открываются по мере проверки имён. Ещё восемь животных и первая порода камня — в этом же списке.</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap"><a href="https://claude.ai/code/artifact/fcb5ca78-3ced-47cf-b671-d6b2ba53ba5c" target="_blank" rel="noopener">← на главную</a> · Дом — частный. Всё вокруг — общее.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,2191 @@
+<title>Kinsacocha</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --ink: #1a1a1a;
+    --ink-2: #444;
+    --muted: #767676;
+    --line: #ddd;
+    --line-soft: #ececec;
+    --bg: #fff;
+    --surface: #f4f3f1;
+    --dark: #1c1c1c;
+    --dark-ink: #e9e9e9;
+    --dark-muted: #9a9a9a;
+    --dark-line: #3a3a3a;
+    --dark-surface: #2a2a2a;
+    --accent: #17414a;
+    --accent-soft: #3f8f86;
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 { margin: 0 0 14px; line-height: 1.15; text-wrap: balance; font-weight: 700; }
+  h1 { font-size: clamp(30px, 6vw, 46px); }
+  h2 { font-size: clamp(23px, 4vw, 31px); }
+  h3 { font-size: clamp(17px, 2.4vw, 20px); }
+  h4 { font-size: 16px; }
+  p { margin: 0 0 16px; }
+  a { color: var(--accent); }
+  ul { margin: 0 0 16px; padding-left: 22px; }
+  li { margin-bottom: 7px; }
+
+  .wrap { width: 100%; max-width: 900px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 24px); }
+  .wrap.narrow { max-width: 700px; }
+  .wrap.wide { max-width: 1120px; }
+
+  .lead { font-size: clamp(17px, 2.5vw, 20px); color: var(--ink-2); }
+  .kick { font-size: clamp(18px, 2.6vw, 21px); font-weight: 600; margin: 22px 0; }
+  .muted { color: var(--muted); font-size: 15px; }
+  .center { text-align: center; }
+
+  /* ─── Шапка ─────────────────────────────────────────── */
+  header.site {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  header.site .bar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 13px 0;
+  }
+  .logo { font-weight: 700; font-size: 19px; text-decoration: none; color: var(--ink); letter-spacing: -.01em; flex: none; }
+  nav.main { display: flex; flex-wrap: wrap; gap: 2px 18px; }
+  nav.main a { text-decoration: none; color: var(--ink-2); font-size: 15px; padding: 3px 0; border-bottom: 1px solid transparent; }
+  nav.main a:hover { color: var(--accent); }
+  nav.main a.on { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+
+  .burger {
+    display: none; background: none; border: 1px solid var(--line);
+    padding: 8px 12px; font: inherit; font-size: 14px; cursor: pointer; color: var(--ink);
+  }
+  @media (max-width: 900px) {
+    .burger { display: block; }
+    nav.main {
+      display: none; position: fixed; inset: 57px 0 0 0;
+      background: var(--bg); flex-direction: column; gap: 0;
+      padding: 12px clamp(16px, 4vw, 24px) 40px; overflow-y: auto; z-index: 39;
+    }
+    nav.main.open { display: flex; }
+    nav.main a { font-size: 19px; padding: 13px 0; border-bottom: 1px solid var(--line-soft); }
+  }
+
+  /* ─── Страницы ──────────────────────────────────────── */
+  .page { display: none; }
+  .page.on { display: block; }
+
+  section { padding: clamp(38px, 7vw, 64px) 0; border-bottom: 1px solid var(--line-soft); }
+  section.dark { background: var(--dark); color: var(--dark-ink); border-bottom-color: var(--dark-line); }
+  section.dark .lead { color: #c4c4c4; }
+  section.dark .muted { color: var(--dark-muted); }
+  section.dark a { color: #8fcfc6; }
+
+  /* ─── Кнопки ────────────────────────────────────────── */
+  .btn {
+    display: inline-block; border: 1px solid var(--ink); color: var(--ink);
+    padding: 11px 20px; text-decoration: none; font-size: 15px;
+    margin: 4px 8px 4px 0; cursor: pointer; background: none; font-family: inherit;
+    transition: background .15s, color .15s;
+  }
+  .btn:hover { background: var(--ink); color: #fff; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #0e2f36; }
+  section.dark .btn { border-color: #999; color: var(--dark-ink); }
+  section.dark .btn:hover { background: var(--dark-ink); color: var(--dark); }
+  section.dark .btn.primary { background: var(--accent-soft); border-color: var(--accent-soft); color: #08211f; }
+
+  /* ─── Заглушки под медиа ────────────────────────────── */
+  .ph {
+    position: relative; background: var(--surface); border: 1px solid var(--line);
+    display: grid; place-items: center; text-align: center;
+    color: var(--muted); font-size: 12.5px; padding: 12px; min-height: 90px; overflow: hidden;
+  }
+  .ph::before {
+    content: ""; position: absolute; inset: 0; opacity: .5;
+    background:
+      linear-gradient(to top right, transparent calc(50% - .5px), var(--line) 50%, transparent calc(50% + .5px)),
+      linear-gradient(to top left, transparent calc(50% - .5px), var(--line) 50%, transparent calc(50% + .5px));
+  }
+  .ph span { position: relative; background: var(--surface); padding: 3px 8px; }
+  section.dark .ph { background: var(--dark-surface); border-color: var(--dark-line); color: var(--dark-muted); }
+  section.dark .ph::before { background:
+      linear-gradient(to top right, transparent calc(50% - .5px), var(--dark-line) 50%, transparent calc(50% + .5px)),
+      linear-gradient(to top left, transparent calc(50% - .5px), var(--dark-line) 50%, transparent calc(50% + .5px)); }
+  section.dark .ph span { background: var(--dark-surface); }
+  .ph.video { border-color: var(--accent); }
+  section.dark .ph.video { border-color: var(--accent-soft); }
+  .ph.video::after {
+    content: "видео-петля"; position: absolute; left: 8px; top: 8px;
+    font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase;
+    background: var(--accent); color: #fff; padding: 2px 7px;
+  }
+  section.dark .ph.video::after { background: var(--accent-soft); color: #08211f; }
+  .r219 { aspect-ratio: 21/9; } .r169 { aspect-ratio: 16/9; }
+  .r43 { aspect-ratio: 4/3; } .r11 { aspect-ratio: 1/1; } .r34 { aspect-ratio: 3/4; } .r45 { aspect-ratio: 4/5; }
+
+  /* ─── Сетки ─────────────────────────────────────────── */
+  .g2, .g3, .g4 { display: grid; gap: clamp(12px, 2vw, 18px); }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); }
+  .split { display: grid; gap: clamp(18px, 3vw, 30px); grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .split { grid-template-columns: 1fr 1fr; align-items: start; } }
+  /* текст прилипает, пока справа проезжают фотографии */
+  @media (min-width: 760px) { .sticky-col { position: sticky; top: 80px; } }
+  @media (min-width: 760px) { .split.dom-split { grid-template-columns: 1fr 1.25fr; gap: clamp(24px,4vw,48px); } }
+  .polaroids { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(12px, 2vw, 18px); }
+  .polaroids > .ph:nth-child(even) { margin-top: clamp(14px, 3vw, 30px); }
+  /* портрет в узкой колонке слева */
+  .split.narrow-l { grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .split.narrow-l { grid-template-columns: 200px 1fr; gap: clamp(20px, 3.5vw, 38px); } }
+
+  /* ─── Неровная сетка: подписи поверх фотографий ─────── */
+  .bento { display: grid; gap: clamp(10px, 1.6vw, 14px); grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(160px, auto); }
+  .amen { position: relative; overflow: hidden; display: flex; align-items: flex-end; min-height: 160px; border: 1px solid var(--line); }
+  .amen > .ph { position: absolute; inset: 0; border: none; place-items: start center; padding-top: 10px; }
+  .amen::before {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.3) 55%, rgba(0,0,0,.06) 100%);
+  }
+  .amen > .ph.video::after { z-index: 3; }
+  .amen-t { position: relative; z-index: 2; padding: clamp(12px, 1.8vw, 17px); }
+  .amen-t h3 { color: #fff; margin-bottom: 3px; font-size: clamp(16px, 2vw, 18px); }
+  .amen-t p { color: #d8d8d8; font-size: 13.5px; line-height: 1.45; margin: 0; }
+  .amen.big { grid-column: span 2; grid-row: span 2; }
+  .amen.w2 { grid-column: span 2; }
+  @media (max-width: 760px) { .bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(140px, auto); } }
+  @media (max-width: 460px) {
+    .bento { grid-template-columns: 1fr; }
+    .amen.big, .amen.w2 { grid-column: span 1; grid-row: span 1; }
+  }
+
+  /* ─── Ступени фауны: блок выцветает к концу ─────────── */
+  .step { margin-top: clamp(30px, 5vw, 46px); }
+  .step.s2 { margin-top: clamp(40px, 6.5vw, 66px); }
+  .step.s3 { margin-top: clamp(52px, 8vw, 84px); }
+  .step.s3 .ph { opacity: .58; }
+  .step.s3 p .muted { opacity: .8; }
+  .step.s4 { margin-top: clamp(70px, 12vw, 130px); }
+  .step .cap { font-size: 15px; margin-top: 8px; }
+  .fullbleed { width: 100vw; margin-left: calc(50% - 50vw); }
+  section:has(> .wrap .fullbleed) { overflow-x: clip; }
+  .puma-frame { min-height: min(60vh, 500px); opacity: .3; border-left: none; border-right: none; }
+
+  /* ─── Полевой дневник: бумага, снимки приколоты ─────── */
+  .field {
+    background: #efeadf;
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,.028) 0 1px, transparent 1px 30px);
+    border: 1px solid #ddd6c6; padding: clamp(18px, 3.6vw, 40px);
+  }
+  .field h3 { margin-bottom: 4px; }
+  .pinned { position: relative; padding-top: 10px; }
+  .pinned .ph {
+    background: #fdfcfa; border: 1px solid #ddd6c6; padding: 7px 7px 22px;
+    box-shadow: 0 2px 5px rgba(60,50,30,.12); transform: rotate(-.7deg);
+  }
+  .pinned:nth-child(even) .ph { transform: rotate(.8deg); }
+  .pinned:nth-child(3n) .ph { transform: rotate(-1.3deg); }
+  .pinned .ph span { background: #fdfcfa; }
+  .pinned::before {
+    content: ""; position: absolute; top: 2px; left: 50%; z-index: 3;
+    width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 1px 2px rgba(0,0,0,.4); transform: translateX(-50%);
+  }
+  .pinned .cap { font-size: 13.5px; line-height: 1.5; margin: 9px 0 0; }
+  .pinned .cap b { font-weight: 700; }
+  .pinned .cap i { font-style: italic; color: var(--muted); }
+
+  .lvl { display: flex; align-items: center; gap: 11px; margin: clamp(28px,4.5vw,42px) 0 14px; }
+  .lvl .n { flex: none; width: 26px; height: 26px; display: grid; place-items: center; background: var(--accent); color: #fff; font-size: 14px; font-weight: 700; }
+  .lvl h3 { margin: 0; }
+  section.dark .lvl .n { background: var(--accent-soft); color: #08211f; }
+  .ftop { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding-bottom: clamp(24px,4vw,36px); margin-bottom: clamp(24px,4vw,36px); border-bottom: 1px solid var(--dark-line); }
+  .fclaim { font-size: clamp(19px, 3vw, 26px); font-weight: 700; color: #fff; margin: 0; max-width: 24ch; }
+  .langs b { font-weight: 400; font-size: 13px; letter-spacing: .06em; margin-right: 12px; color: var(--dark-muted); }
+  .langs b.on { color: #fff; font-weight: 700; }
+  .card { border: 1px solid var(--line); padding: clamp(14px, 2vw, 18px); }
+  section.dark .card { border-color: var(--dark-line); background: #232323; }
+  .card.accent { border-color: var(--accent); }
+  section.dark .card.accent { border-color: var(--accent-soft); }
+
+  .quote { border-left: 3px solid var(--accent); padding-left: 16px; margin: 22px 0; font-size: 18px; }
+  section.dark .quote { border-left-color: var(--accent-soft); }
+
+  .tag {
+    display: inline-block; font-size: 13px; border: 1px solid var(--line);
+    padding: 4px 11px; margin: 0 6px 7px 0; color: var(--ink-2);
+    background: none; font-family: inherit; cursor: default;
+  }
+  section.dark .tag { border-color: var(--dark-line); color: #bcbcbc; }
+  button.tag { cursor: pointer; }
+  button.tag.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  /* ─── Пары «нет / есть» ─────────────────────────────── */
+  .pairs { border-top: 1px solid var(--dark-line); margin-top: 18px; }
+  .pair { display: grid; grid-template-columns: 1fr; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--dark-line); }
+  @media (min-width: 640px) { .pair { grid-template-columns: 1fr 1fr; gap: 20px; align-items: baseline; } }
+  .pair .no { color: var(--dark-muted); }
+  .pair .yes { font-weight: 600; }
+  /* правая половина проявляется чуть позже левой */
+  .pair .no, .pair .yes { opacity: 0; transform: translateY(8px); transition: opacity .7s ease, transform .7s ease; }
+  .pair.in .no { opacity: 1; transform: none; }
+  .pair.in .yes { opacity: 1; transform: none; transition-delay: .4s; }
+  @media (prefers-reduced-motion: reduce) {
+    .pair .no, .pair .yes { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ─── Цены ──────────────────────────────────────────── */
+  table.prices { width: 100%; border-collapse: collapse; margin: 12px 0 18px; }
+  table.prices td { padding: 11px 4px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  table.prices td:last-child { text-align: right; font-weight: 600; white-space: nowrap; padding-left: 14px; }
+  section.dark table.prices td { border-bottom-color: var(--dark-line); }
+  .price { font-size: 25px; font-weight: 700; margin: 8px 0 2px; }
+  .price small { font-size: 12.5px; font-weight: 400; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+
+  /* ─── Полосы с фотографией на фоне (Тропы) ──────────── */
+  .band {
+    position: relative; overflow: hidden; margin-bottom: 12px;
+    min-height: clamp(230px, 32vw, 320px);
+    display: flex; align-items: center;
+    border: 1px solid var(--dark-line);
+  }
+  .band .band-bg { position: absolute; inset: 0; border: none; }
+  .band .band-bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.2) 100%);
+  }
+  .band.right { justify-content: flex-end; }
+  .band.right .band-bg::after { background: linear-gradient(270deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.2) 100%); }
+  .band .band-inner {
+    position: relative; z-index: 2; padding: clamp(18px, 3vw, 30px);
+    max-width: 620px; color: #f2f2f2;
+  }
+  .band .band-inner h3 { color: #fff; margin-bottom: 4px; }
+  .band .band-inner p { color: #dcdcdc; }
+  .band .band-inner .muted { color: #b3b3b3; }
+  .band .band-inner .tag { border-color: rgba(255,255,255,.45); color: #ededed; }
+  .band .band-inner a { color: #9fd8cf; }
+
+  /* ─── Озеро: фото и видео парой, подпись снизу ──────── */
+  .lake { margin-bottom: 22px; }
+  .lake-media { display: grid; gap: 10px; grid-template-columns: 1fr; }
+  @media (min-width: 720px) {
+    .lake-media { grid-template-columns: 1.55fr 1fr; align-items: stretch; }
+    .lake-media > .ph { height: 100%; aspect-ratio: auto; }
+    .lake-media > .ph:first-child { aspect-ratio: 21/9; height: auto; }
+    .lake.flip .lake-media { grid-template-columns: 1fr 1.55fr; }
+    .lake.flip .lake-media > .ph:first-child { order: 2; }
+  }
+  .lake-cap {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 10px 18px; flex-wrap: wrap; padding-top: 11px;
+  }
+  .lake-cap .name { font-size: clamp(17px, 2.4vw, 20px); font-weight: 700; }
+  .lake-cap .name em { font-style: normal; font-weight: 400; color: var(--muted); }
+
+  /* ─── Живое табло ───────────────────────────────────── */
+  .wall {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(26px, 1fr));
+    gap: 3px; perspective: 900px; margin: 18px 0 10px;
+  }
+  .wall .tile { aspect-ratio: 1/1; }
+  .wall .tile-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d; transition: transform .65s cubic-bezier(.4,.05,.2,1);
+  }
+  .wall .tile.flip .tile-inner { transform: rotateY(180deg); }
+  .wall .face {
+    position: absolute; inset: 0; backface-visibility: hidden;
+    background: color-mix(in srgb, var(--tint, #bbb) 22%, var(--surface));
+    border: 1px solid var(--line);
+  }
+  section.dark .wall .face { background: color-mix(in srgb, var(--tint, #888) 30%, var(--dark-surface)); border-color: var(--dark-line); }
+  .wall .face.b { transform: rotateY(180deg); }
+  .wall .face.video { background: var(--accent); border-color: var(--accent); }
+  .wall .face.video .dot {
+    position: absolute; top: 50%; left: 50%; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px;
+    border-radius: 50%; background: #fff; animation: pulse 1.7s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: .35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.7); } }
+  .wall-legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; color: var(--muted); }
+  .wall-legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .wall-legend i { width: 11px; height: 11px; border: 1px solid var(--line); display: inline-block; background: var(--surface); }
+  .wall-legend i.v { background: var(--accent); border-color: var(--accent); }
+  section.dark .wall-legend { color: var(--dark-muted); }
+  section.dark .wall-legend i { border-color: var(--dark-line); background: var(--dark-surface); }
+
+  .wall.mini { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 3px; aspect-ratio: 4/3; margin: 0 0 10px; }
+  .wall.mini .tile { aspect-ratio: auto; }
+  @media (prefers-reduced-motion: reduce) { .wall .tile-inner { transition: none !important; } .wall .face.video .dot { animation: none; } }
+
+  /* ─── Первый экран ──────────────────────────────────── */
+  /* Первый экран: фото во весь экран, текст поверх */
+  .hero {
+    position: relative; height: 100svh; min-height: 540px;
+    padding: 0; border-bottom: none; overflow: hidden;
+    display: flex; align-items: flex-end; justify-content: center;
+    background: var(--dark); color: #fff;
+  }
+  .slider { position: absolute; inset: 0; }
+  .slider .ph {
+    position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease;
+    background: #262626; border: none; color: #6d6d6d; font-size: 12px;
+  }
+  .slider .ph.on { opacity: 1; }
+  .slider .ph::before { opacity: .55; background:
+      linear-gradient(to top right, transparent calc(50% - .5px), #3a3a3a 50%, transparent calc(50% + .5px)),
+      linear-gradient(to top left, transparent calc(50% - .5px), #3a3a3a 50%, transparent calc(50% + .5px)); }
+  .slider .ph span { background: none; }
+  .hero .scrim {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(0,0,0,.42) 0%, rgba(0,0,0,.08) 32%, rgba(0,0,0,.30) 62%, rgba(0,0,0,.78) 100%);
+  }
+  .hero-body {
+    position: relative; z-index: 2; text-align: center; width: 100%;
+    max-width: 900px; margin: 0 auto;
+    padding: 0 clamp(16px, 4vw, 24px) clamp(40px, 8vh, 82px);
+  }
+  .hero-body h1 { color: #fff; text-shadow: 0 2px 30px rgba(0,0,0,.45); }
+  .hero-body .lead { color: #e8e8e8; text-shadow: 0 1px 18px rgba(0,0,0,.5); }
+  .hero .btn { border-color: rgba(255,255,255,.7); color: #fff; }
+  .hero .btn:hover { background: #fff; color: var(--ink); }
+  .hero .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .hero .btn.primary:hover { background: #0e2f36; color: #fff; }
+  .dots { display: flex; gap: 5px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+  .dots i { width: 8px; height: 3px; background: rgba(255,255,255,.38); display: block; cursor: pointer; transition: background .3s, width .3s; }
+  .dots i.on { background: #fff; width: 22px; }
+  @media (max-height: 620px) { .hero { height: auto; min-height: 0; padding: 90px 0 40px; } }
+
+  /* ─── Лунное окно ───────────────────────────────────── */
+  .moon { border: 1px solid var(--accent-soft); padding: 14px; margin-top: 12px; }
+  .moon .date { font-size: 19px; font-weight: 700; margin: 4px 0; }
+
+  /* ─── Сутки ─────────────────────────────────────────── */
+  .day { border-left: 1px solid var(--line); padding-left: clamp(14px, 2.2vw, 22px); }
+  .day-row { display: grid; grid-template-columns: 62px 1fr; gap: 14px; padding: 15px 0; border-bottom: 1px solid var(--line-soft); align-items: start; }
+  .day-row:last-child { border-bottom: none; }
+  .day-row .t { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 15px; padding-top: 3px; }
+  .day-row h4 { margin-bottom: 6px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; margin-bottom: 6px; }
+  .opts .pill { font-size: 13px; border: 1px solid var(--line); padding: 3px 11px; color: var(--ink-2); }
+  .opts .pill.on { border-color: var(--accent); color: var(--accent); }
+  .opts .or { font-size: 12.5px; color: var(--muted); }
+  .day-row .note { font-size: 14px; color: var(--muted); margin: 0; }
+
+  /* ─── Заметки ───────────────────────────────────────── */
+  .note-link { display: block; text-decoration: none; color: inherit; }
+  .note-link:hover h3 { color: var(--accent); }
+  .entry { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 20px 0; border-bottom: 1px solid var(--line-soft); text-decoration: none; color: inherit; }
+  @media (min-width: 640px) { .entry { grid-template-columns: 110px 1fr; gap: 20px; } }
+  .entry:hover h3 { color: var(--accent); }
+  .entry .date { color: var(--muted); font-size: 15px; }
+  .entry h3 { margin-bottom: 4px; }
+
+  /* ─── Галерея ───────────────────────────────────────── */
+  .masonry { columns: 4 190px; column-gap: 12px; margin-top: 18px; }
+  .masonry .shot { break-inside: avoid; margin-bottom: 12px; cursor: pointer; }
+  .masonry .shot .ph { min-height: 0; }
+
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 60;
+    background: rgba(0,0,0,.93); place-items: center; padding: 20px;
+  }
+  .lightbox.on { display: grid; }
+  .lightbox .frame { width: min(94vw, 1000px); aspect-ratio: 3/2; background: #262626; border: 1px solid #444; display: grid; place-items: center; color: #999; }
+  .lightbox .lb-close { position: absolute; top: 14px; right: 18px; font-size: 30px; color: #fff; background: none; border: 0; cursor: pointer; line-height: 1; }
+  .lightbox .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); font-size: 34px; color: #fff; background: none; border: 0; cursor: pointer; padding: 10px 16px; }
+  .lightbox .lb-prev { left: 4px; } .lightbox .lb-next { right: 4px; }
+  .lightbox .count { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; color: #aaa; font-size: 14px; }
+
+  /* ─── Вопросы ───────────────────────────────────────── */
+  details.faq { border-bottom: 1px solid var(--line-soft); padding: 15px 0; }
+  details.faq summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; gap: 10px; align-items: baseline; }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary::before { content: "+"; color: var(--accent); font-weight: 400; flex: none; width: 14px; }
+  details.faq[open] summary::before { content: "–"; }
+  details.faq .a { padding: 12px 0 0 24px; color: var(--ink-2); }
+  details.faq .a p:last-child { margin-bottom: 0; }
+
+  /* ─── Подвал ────────────────────────────────────────── */
+  footer.site { background: var(--dark); color: #b8b8b8; padding: clamp(36px, 6vw, 54px) 0 28px; }
+  footer.site a { color: #b8b8b8; text-decoration: none; }
+  footer.site a:hover { color: #fff; text-decoration: underline; }
+  footer.site h4 { color: #fff; font-size: 12.5px; text-transform: uppercase; letter-spacing: .09em; margin-bottom: 12px; }
+  .fgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 26px; margin-bottom: 32px; }
+  footer.site ul { list-style: none; margin: 0; padding: 0; }
+  footer.site li { margin-bottom: 7px; font-size: 15px; }
+  .fbottom { border-top: 1px solid #383838; padding-top: 20px; font-size: 14px; color: #888;
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; }
+
+  /* ─── Липкая кнопка ─────────────────────────────────── */
+  .sticky-wa { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 30; text-align: center; display: none; }
+  .sticky-wa .btn { width: 100%; margin: 0; box-shadow: 0 6px 22px rgba(0,0,0,.25); }
+  @media (max-width: 900px) { .sticky-wa.show { display: block; } }
+
+  .backlink { display: inline-block; margin-bottom: 20px; font-size: 15px; text-decoration: none; }
+  .article-body p { max-width: 68ch; }
+  .article-body h4 { font-size: 20px; margin: 34px 0 12px; }
+</style>
+
+<header class="site">
+  <div class="wrap wide bar">
+    <a class="logo" href="#/">Kinsacocha</a>
+    <button class="burger" id="burger" aria-label="Меню">Меню</button>
+    <nav class="main" id="nav">
+      <a href="#/">Дом</a>
+      <a href="#/ozera">Озёра</a>
+      <a href="#/tseny">Цены</a>
+      <a href="#/dnevnik">Заметки</a>
+      <a href="#/atlas">Атлас</a>
+      <a href="#/gallery">Фотографии</a>
+      <a href="#/blog">Блог</a>
+      <a href="#/pravila">Правила дома</a>
+      <a href="#/kontakty">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ══════════════════ ГЛАВНАЯ ══════════════════ -->
+<div class="page" id="p-home">
+
+  <section class="hero">
+    <div class="slider" id="slider">
+      <div class="ph on"><span>Фотография 1 из 12</span></div>
+      <div class="ph"><span>Фотография 2 из 12</span></div>
+      <div class="ph"><span>Фотография 3 из 12</span></div>
+      <div class="ph"><span>Фотография 4 из 12</span></div>
+      <div class="ph"><span>Фотография 5 из 12</span></div>
+      <div class="ph"><span>Фотография 6 из 12</span></div>
+      <div class="ph"><span>Фотография 7 из 12</span></div>
+      <div class="ph"><span>Фотография 8 из 12</span></div>
+      <div class="ph"><span>Фотография 9 из 12</span></div>
+      <div class="ph"><span>Фотография 10 из 12</span></div>
+      <div class="ph"><span>Фотография 11 из 12</span></div>
+      <div class="ph"><span>Фотография 12 из 12</span></div>
+    </div>
+    <div class="scrim"></div>
+    <div class="hero-body">
+      <h1>Дом у трёх озёр</h1>
+      <p class="lead" style="max-width:44ch;margin:0 auto 26px">4200 метров над Священной долиной. Приезжают на день — остаются на ночь.</p>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <a class="btn" href="#dom">Посмотреть дом ↓</a>
+      <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <section id="dom">
+    <div class="wrap wide">
+      <h2>Просто дом</h2>
+      <p class="lead">Не отель, не ретрит-центр, не глэмпинг. Дом, в котором живут.</p>
+      <div class="split sticky-l dom-split" style="margin-top:26px">
+        <div class="sticky-col">
+          <p>Он стоит на высоте 4200 метров, в андской общине над Священной долиной, рядом с тремя лагунами. Вокруг — пуна: открытое высокогорье без единого дерева, где видно на десятки километров и где по склонам ходят альпаки.</p>
+          <p>В доме есть печь. Она топится дровами и греет всерьёз, а не для вида — на 4200 это не уют, а условие. Есть кухня, где можно приготовить свою еду. Есть горячая вода и душ. Есть кровати с тёплыми одеялами. Есть даже машинка, чтобы постирать одежду, если вы в дороге давно, — на этой высоте это звучит почти нелепо, и в этом всё дело.</p>
+          <p>Ближайший магазин — сорок минут вниз. Дрова привозят снизу, они здесь не растут. Газ привозят снизу. Всё, что кажется обычным, сюда кто-то поднял.</p>
+          <p class="kick" style="margin-bottom:12px">Дом — частный. Всё вокруг — общее.</p>
+          <p style="margin-bottom:0">Земля, вода, форель в озере, тропы — общинные. Вы платите за дом, а попадаете в чужой мир, который живёт по своим правилам. Поэтому сюда нельзя приехать «как в отель» — и поэтому же сюда стоит приезжать.</p>
+        </div>
+        <div class="polaroids">
+          <div class="ph r34"><span>Дом снаружи</span></div>
+          <div class="ph video r34"><span>Печь</span></div>
+          <div class="ph r34"><span>Кухня</span></div>
+          <div class="ph r34"><span>Где спать</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+     <div class="split narrow-l">
+      <div class="sticky-col">
+        <div class="ph r11"><span>Портрет</span></div>
+        <p class="muted" style="margin-top:10px">Ян · хозяин дома</p>
+      </div>
+      <div>
+      <h2>Кому вы пишете</h2>
+      <p>Я из Москвы. Вся жизнь до Перу прошла там — включая ту её часть, где стоишь в пробке на Садовом кольце и считаешь это нормальным.</p>
+      <p>В Перу я приехал почти десять лет назад, чтобы путешествовать. Потом начался ковид, и я застрял в джунглях. Прожил там год. После Москвы это была не другая страна, а другая планета: я не понимал ни звуков, ни расстояний, ни того, как здесь всё устроено.</p>
+      <p>Потом ковид закончился, а я нет. Пожил здесь, наверху. Потом в моей стране началась война, и вопрос «когда обратно» отпал сам собой.</p>
+      <p>Прошло десять лет. Я обжился. Если вам не нравится жить в городах — здесь очень хорошо.</p>
+      <p>Из того, чему я научился за это время, главное звучит смешно: ходить по горам и смотреть на них. Это правда навык, и он приходит не сразу.</p>
+      <p class="kick">Одна и та же гора, одно и то же озеро в разное время суток и в разное время года — всегда разные. Каждый раз находишь что-то новое, хотя ходишь тем же местом десятый год.</p>
+      <p>Сейчас я занят своим проектом в Писаке и бываю здесь не так часто, как хотелось бы. А дом стоит. Мне не нравится, что он просто стоит, — поэтому он стал проектом: пусть сюда приезжают люди.</p>
+      <p>Никакого ресепшена и никакой команды здесь нет. Когда вы пишете — вы пишете мне.</p>
+      <p style="text-align:right;font-style:italic;color:var(--muted)">— Ян</p>
+      </div>
+     </div>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap">
+      <h2>Чего вы здесь не найдёте</h2>
+      <div class="pairs">
+        <div class="pair"><span class="no">Нет интернета, как в городе</span><span class="yes">Есть вечер, который некуда деть</span></div>
+        <div class="pair"><span class="no">Нет программы и расписания</span><span class="yes">Есть утро, в котором вы решаете сами</span></div>
+        <div class="pair"><span class="no">Нет ресепшена</span><span class="yes">Есть человек, которому вы пишете</span></div>
+        <div class="pair"><span class="no">Нет соседей за стеной</span><span class="yes">Есть тишина, от которой первую ночь не спится</span></div>
+        <div class="pair"><span class="no">Нет магазина за углом</span><span class="yes">Есть то, что вы привезли, и форель из озера</span></div>
+        <div class="pair"><span class="no">Нет городского шума</span><span class="yes">Есть ветер, вода и альпаки на склоне</span></div>
+        <div class="pair"><span class="no">Нет карт и координат</span><span class="yes">Есть проводник, который выберет тропу утром</span></div>
+      </div>
+      <p class="kick">Мы не публикуем маршруты, координаты и названия троп.</p>
+      <p style="max-width:64ch">Не из вредности. Эти тропы держатся ровно на том, что о них не пишут: как только появляется координата, появляется поток, а за потоком — мусор, вытоптанная трава и очередь на фотографию.</p>
+    </div>
+  </section>
+
+  <section id="ozera-block">
+    <div class="wrap wide">
+      <h2>Три озера</h2>
+      <p class="lead">Kinsa qucha на кечуа — «три озера». Место названо счётом.</p>
+      <p style="max-width:68ch">Их питают талая вода и дожди, а цвет им даёт высота: вода холодная, чистая, почти без органики, и света здесь больше, чем внизу. Отсюда та плотная бирюза, которую не получается повторить ни на одном фильтре — и в которую не верят по фотографиям.</p>
+
+      <div style="margin-top:26px">
+        <div class="lake">
+          <div class="lake-media">
+            <div class="ph r219"><span>Пума Коча · фото</span></div>
+            <div class="ph video r43"><span>Вода крупным планом</span></div>
+          </div>
+          <div class="lake-cap">
+            <span class="name">Puma qucha <em>· 4325 м, самое высокое</em></span>
+            <a href="#/ozera/pumakocha">Открыть →</a>
+          </div>
+        </div>
+        <div class="lake flip">
+          <div class="lake-media">
+            <div class="ph r219"><span>Асуль Коча · фото</span></div>
+            <div class="ph video r43"><span>Вода крупным планом</span></div>
+          </div>
+          <div class="lake-cap">
+            <span class="name">Asul qucha <em>· 4247 м, самое синее</em></span>
+            <a href="#/ozera/azulkocha">Открыть →</a>
+          </div>
+        </div>
+        <div class="lake">
+          <div class="lake-media">
+            <div class="ph r219"><span>Кинса Коча и дом на берегу · фото</span></div>
+            <div class="ph video r43"><span>Вода крупным планом</span></div>
+          </div>
+          <div class="lake-cap">
+            <span class="name">Kinsa qucha <em>· самое большое, у него стоит дом</em></span>
+            <a href="#/ozera/kinsakocha">Открыть →</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="kick">Но озёра — это то, за чем едут. Не то, ради чего остаются.</p>
+      <p style="max-width:68ch">Порядок обхода не задан. Есть длинные варианты и короткие, и какое озеро вы увидите первым, зависит от погоды, от времени и от того, кто с вами идёт. Проводник решит это утром, а не за неделю до вашего приезда.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Дорога</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:36px;margin:20px 0 24px">
+        <div><div style="font-size:44px;font-weight:700;line-height:1">40</div><div class="muted">минут от Писака</div></div>
+        <div><div style="font-size:44px;font-weight:700;line-height:1">1,5</div><div class="muted">часа от Куско</div></div>
+      </div>
+      <p style="max-width:68ch">Сначала Священная долина, потом дорога начинает подниматься, и через полчаса деревья заканчиваются. Дальше пуна: голое высокогорье, где видно далеко и где становится заметно холоднее прямо в машине. Последний участок — грунт.</p>
+      <p style="max-width:68ch">Доехать можно на такси. Из Писака — быстрее и дешевле, из Куско — без пересадок, если не хочется возиться. Машина доезжает до самой двери: идти пешком с вещами не придётся.</p>
+      <p style="max-width:68ch">Мы договоримся с водителем заранее — напишите, и мы всё устроим. Трансфер оплачивается отдельно от проживания.</p>
+      <div class="quote">Наверху вы окажетесь примерно на километр выше Куско. Это чувствуется в первый же час. Поэтому дорогу лучше не проезжать в спешке: подъём — это уже часть акклиматизации, а не потерянное время.</div>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Заказать трансфер</a>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap">
+      <h2>Высота</h2>
+      <p class="lead">4200 метров — это много. Кислорода в воздухе примерно на сорок процентов меньше, чем на уровне моря.</p>
+      <p style="max-width:68ch">Воздух тот же самый — его просто меньше в каждом вдохе. Тело замечает это в первые часы и начинает перестраиваться: дышать чаще, гнать кровь быстрее. Эта перестройка занимает не минуты, а дни.</p>
+      <div class="split" style="margin-top:24px">
+        <div class="card">
+          <h3>Если вы не привыкли к горам</h3>
+          <p>Проведите два-три дня в Куско или в Священной долине перед тем, как подниматься сюда. Куско стоит на 3400 — уже достаточно высоко, чтобы тело начало приспосабливаться.</p>
+          <p class="muted">Разница между «мне было тяжело и я ничего не запомнил» и «я запомнил этот день» — вот эти два дня.</p>
+        </div>
+        <div class="card">
+          <h3>Что помогает</h3>
+          <p><span class="tag">пить больше</span><span class="tag">идти медленно</span><span class="tag">лёгкий ужин</span><span class="tag">без алкоголя сутки</span><span class="tag">лист коки</span><span class="tag">тепло</span></p>
+        </div>
+      </div>
+      <h3 style="margin-top:26px">Если станет плохо</h3>
+      <p style="max-width:68ch">В доме есть аптечка: таблетки от высоты и кислород. Если нужно спускаться — мы звоним водителям, их номера у нас есть. Днём машина приходит скоро. Ночью её надо ждать: она идёт снизу.</p>
+      <p class="kick">Поэтому здесь работает не аптечка, а подготовка.</p>
+      <p>Мы предпочтём отговорить вас от неудачной даты, чем принять и смотреть, как вам плохо.</p>
+      <a class="btn" href="#/blog/gornaya-bolezn">Про горную болезнь →</a>
+    </div>
+  </section>
+
+  <section id="tseny-block">
+    <div class="wrap wide">
+      <h2>Как сюда приезжают</h2>
+      <p class="lead">Три готовых решения — или те же цены по отдельности.</p>
+      <p class="muted">Цена за дом, а не с человека, если не написано иначе. Сутки — от утра до утра. Оплата на месте или переводом.</p>
+
+      <div class="g3" style="margin-top:24px">
+        <div class="card">
+          <div class="ph r219" style="margin-bottom:12px"><span>Дом на рассвете</span></div>
+          <h3>Кинсакоча целиком</h3>
+          <p class="muted">3 дня · 2 ночи</p>
+          <p><span class="tag">дом</span><span class="tag">тропа на полдня</span><span class="tag">тропа на день</span><span class="tag">дрова</span><span class="tag">ужин</span></p>
+          <div class="price">S/. 590 <small>на двоих</small></div>
+          <p class="muted">одному — S/. 490 · по частям было бы 730</p>
+          <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
+        </div>
+        <div class="card">
+          <div class="ph r219" style="margin-bottom:12px"><span>Печь вечером</span></div>
+          <h3>Ночь у озера</h3>
+          <p class="muted">2 дня · 1 ночь</p>
+          <p><span class="tag">дом</span><span class="tag">короткая тропа</span><span class="tag">дрова</span></p>
+          <div class="price">S/. 190 <small>на двоих</small></div>
+          <p class="muted">одному — S/. 150 · по частям было бы 230</p>
+          <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
+        </div>
+        <div class="card accent">
+          <div class="ph r219" style="margin-bottom:12px"><span>Типи днём</span></div>
+          <h3>Дом на день</h3>
+          <p class="muted">без ночёвки · приехали утром, уехали к вечеру</p>
+          <p><span class="tag">дом</span><span class="tag">душ</span><span class="tag">кухня</span><span class="tag">типи</span></p>
+          <div class="price">S/. 30 <small>с человека</small></div>
+          <p class="muted">кинуть вещи, погулять, вернуться в тепло и уехать вниз</p>
+          <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:34px">
+        <div>
+          <h3>Дом — только ваш</h3>
+          <p class="muted">с ночёвкой · за сутки · весь дом, а не место в нём</p>
+          <table class="prices">
+            <tr><td>Один гость</td><td>S/. 70</td></tr>
+            <tr><td>Двое</td><td>S/. 120</td></tr>
+            <tr><td>Трое</td><td>S/. 180</td></tr>
+            <tr><td>Каждый следующий</td><td>+ S/. 50</td></tr>
+          </table>
+          <p class="muted">Дети до семи лет в этот счёт не входят. До трёх — кровати в комнате. С четвёртого — типи: пять мест, и там холоднее. Всего восемь человек.</p>
+        </div>
+        <div>
+          <h3>Тропы с хозяином</h3>
+          <p class="muted">цена за группу до трёх человек, дальше по одному</p>
+          <table class="prices">
+            <tr><td>Короткая <span class="muted">· около двух часов</span></td><td>S/. 80<br><span class="muted" style="font-weight:400">+20 / чел.</span></td></tr>
+            <tr><td>Полдня <span class="muted">· выход после завтрака</span></td><td>S/. 150<br><span class="muted" style="font-weight:400">+40 / чел.</span></td></tr>
+            <tr><td>Целый день <span class="muted">· с едой у воды</span></td><td>S/. 220<br><span class="muted" style="font-weight:400">+50 / чел.</span></td></tr>
+            <tr><td>Тропа хозяина <span class="muted">· день, собранный под вас</span></td><td>S/. 350<br><span class="muted" style="font-weight:400">+80 / чел.</span></td></tr>
+          </table>
+          <p class="muted">Тропы бывают только в те дни, когда хозяин наверху. Больше восьми человек на одного проводника мы не берём — на 4200 один человек не удержит глазами больше.</p>
+        </div>
+      </div>
+
+      <div class="card accent" style="margin-top:20px">
+        <h3>Напишите, сколько вас и на сколько дней</h3>
+        <p>Посчитаю и отвечу числом. Калькулятора здесь нет намеренно: он не знает ни дат, ни того, наверху ли хозяин в эти сутки.</p>
+        <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать и спросить цену →</a>
+      </div>
+
+      <h3 style="margin-top:32px">Дополнения</h3>
+      <p><span class="tag">одни на горе · +50% к проживанию</span><span class="tag">дрова · связка S/. 30</span><span class="tag">трансфер · от S/. 100 за машину</span><span class="tag">ужин у соседей · S/. 30</span><span class="tag">завтрак · S/. 20</span></p>
+      <p class="muted">На вечер обычно уходит связка дров, в мороз — две.</p>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap">
+      <h2>Честно о горе</h2>
+      <p class="lead">Никаких залогов. Но есть вещи, которые лучше знать до того, как вы напишете «да».</p>
+      <div class="g2" style="margin-top:22px">
+        <div class="card"><h3>Дети</h3><p>До семи лет — бесплатно и в счёт гостей не идут. С семи — как все.</p></div>
+        <div class="card"><h3>Еда</h3><p>Магазинов наверху нет. Продукты покупаются внизу, на рынке в Писаке, до подъёма. Ужин у соседей можно заказать заранее. И одно: мясо и рыбу на этой кухне не готовят.</p></div>
+        <div class="card"><h3>Бронь и отмена</h3><p>Половина вперёд. Отменили за три дня и раньше — возвращаем. Позже — нет: дом в эти сутки уже никому не сдан.</p></div>
+        <div class="card"><h3>Уборка и мусор</h3><p>Уборка входит в цену. Просим увезти вниз свой мусор — пластик, стекло, банки, батарейки. Мусоровоз сюда не поднимается.</p></div>
+      </div>
+      <div class="quote">Хозяин живёт рядом или находится на территории и не мешает — кроме тех дней, когда вы выбрали «одни на горе». Тогда наверху нет никого, кроме вас.</div>
+      <a class="btn" href="#/pravila">Правила дома →</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Сутки здесь</h2>
+      <p class="lead">Программы нет. Есть выбор.</p>
+      <div class="day" style="margin-top:22px">
+        <div class="day-row"><div class="t">05:30</div><div><h4>Рассвет</h4>
+          <div class="opts"><span class="pill on">выйти встречать</span><span class="or">или</span><span class="pill">спать дальше</span></div>
+          <p class="note">туман лежит в долинах, вершины загораются первыми</p></div></div>
+        <div class="day-row"><div class="t">08:00</div><div><h4>Завтрак</h4>
+          <div class="opts"><span class="pill on">свой, на кухне</span><span class="or">или</span><span class="pill">у соседей · 20</span></div></div></div>
+        <div class="day-row"><div class="t">09:00</div><div><h4>Тропа</h4>
+          <div class="opts"><span class="pill">короткая · 2 часа</span><span class="or">или</span><span class="pill on">полдня</span><span class="or">или</span><span class="pill">целый день</span><span class="or">или</span><span class="pill">никуда не идти</span></div>
+          <p class="note">какая именно — решает проводник утром: по погоде, по тому, кто идёт. Заранее её не выбирают, и это не уклончивость, а то, как здесь ходят</p></div></div>
+        <div class="day-row"><div class="t">13:00</div><div><h4>Привал</h4>
+          <div class="opts"><span class="pill on">еда у воды</span><span class="or">или</span><span class="pill">фотографии</span><span class="or">или</span><span class="pill">просто сидеть</span></div>
+          <p class="note">если ушли на полдня или на целый день</p></div></div>
+        <div class="day-row"><div class="t">18:00</div><div><h4>Возвращение</h4>
+          <div class="opts"><span class="pill on">печь</span><span class="or">или</span><span class="pill on">горячая вода</span><span class="or">или</span><span class="pill">сухие носки</span></div>
+          <p class="note">печь растапливается сразу — к ужину в доме уже тепло</p></div></div>
+        <div class="day-row"><div class="t">19:00</div><div><h4>Ужин</h4>
+          <div class="opts"><span class="pill">свой</span><span class="or">или</span><span class="pill on">у соседей · 30</span><span class="or">или</span><span class="pill">труча из лагуны</span></div>
+          <p class="note">тручу заказывают заранее: её достают из садков, а не размораживают</p></div></div>
+        <div class="day-row"><div class="t">20:30</div><div><h4>Огонь</h4>
+          <div class="opts"><span class="pill">чай</span><span class="or">или</span><span class="pill">чича горячей</span><span class="or">или</span><span class="pill">тишина</span></div></div></div>
+        <div class="day-row"><div class="t">21:30</div><div><h4>Ночь</h4>
+          <div class="opts"><span class="pill">к лагуне в темноте</span><span class="or">или</span><span class="pill">небо от двери</span><span class="or">или</span><span class="pill">спать</span></div>
+          <p class="note">к воде ночью — только с проводником, это правило дома. Сколько будет видно звёзд, решает не погода, а луна</p></div></div>
+        <div class="day-row"><div class="t">10:00</div><div><h4>Следующее утро</h4>
+          <div class="opts"><span class="pill">уехать</span><span class="or">или</span><span class="pill">остаться ещё на сутки</span></div></div></div>
+      </div>
+      <div class="quote">Ни один пункт здесь не обязателен. Можно всё. Можно ничего.</div>
+      <p>Завтра будет то же самое — и совсем другое: другой свет, другая погода, другая вода.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <h2>Еда и напитки</h2>
+      <p class="lead">Ресторана здесь нет. Есть три способа поесть.</p>
+      <div class="lvl"><span class="n">1</span><h3>Кто готовит</h3></div>
+      <div class="g3">
+        <div class="card">
+          <div class="ph r43" style="margin-bottom:12px"><span>Кухня соседей</span></div>
+          <h3>Готовят соседи</h3>
+          <p class="muted">обед или ужин под заказ, за день</p>
+          <p><span class="tag">суп из картошки</span><span class="tag">крем-суп из морайи</span><span class="tag">кукуруза</span><span class="tag">труча</span></p>
+          <p><b>Постоянного меню нет — и не будет.</b></p>
+          <p class="muted">Готовят из того, что есть в этот день. Ужин 30, завтрак 20.</p>
+        </div>
+        <div class="card">
+          <div class="ph r43" style="margin-bottom:12px"><span>Хозяин у плиты</span></div>
+          <h3>Готовит хозяин</h3>
+          <p class="muted">если он наверху — может сделать завтрак или прийти приготовить обед</p>
+          <p><b>Ничего сложного. Простая еда, приготовленная вовремя.</b></p>
+        </div>
+        <div class="card">
+          <div class="ph r43" style="margin-bottom:12px"><span>Кухня дома</span></div>
+          <h3>Готовите сами</h3>
+          <p class="muted">кухня, посуда, горячая вода. И две плиты</p>
+          <p><b>Готовьте что хотите. Кроме мяса и рыбы.</b></p>
+          <p class="muted">Так живёт хозяин: ему не хочется крови на своей кухне. Это про кухню, а не про то, что вы едите.</p>
+        </div>
+      </div>
+
+      <div class="lvl"><span class="n">2</span><h3>На чём готовят</h3></div>
+      <p class="muted" style="margin-top:-8px">две плиты в одной комнате, и между ними лет пятьсот</p>
+      <div class="split" style="margin-top:14px">
+        <div class="card">
+          <div class="ph r43" style="margin-bottom:12px"><span>Газовая плита</span></div>
+          <h3>Газ</h3>
+          <p class="muted">плита от баллона. Быстро, привычно, как дома. Ужин через двадцать минут</p>
+        </div>
+        <div class="card">
+          <div class="ph video r43" style="margin-bottom:12px"><span>Огонь под глиняным горшком</span></div>
+          <h3>Глиняная печь на дровах</h3>
+          <p class="muted">стоит прямо на кухне. Топится дровами, готовят в глиняных горшках</p>
+          <p><b>Долго. В этом и смысл.</b></p>
+        </div>
+      </div>
+      <div class="quote">Два способа приготовить один и тот же ужин. Разница только во времени — и во всём остальном.</div>
+
+      <div class="lvl"><span class="n">3</span><h3>Что здесь едят и пьют</h3></div>
+      <h3>Чайная церемония</h3>
+      <p style="max-width:68ch">Чай здесь пьют долго: китайский, индийский, перуанский, на молоке со специями и солью — тибетским способом. Когда хозяин наверху, чай просто есть: он угостит, денег за это не берут. А если хочется сесть на час и разобраться — это отдельная церемония, и о ней договариваются на месте.</p>
+
+      <h3 style="margin-top:26px">Что здесь едят вообще</h3>
+      <div class="g4">
+        <div><div class="ph r11"><span>Чуньо</span></div><p style="font-size:15px;margin-top:8px"><b>Чуньо и морайя</b><br><span class="muted">картошка, высушенная морозом и солнцем</span></p></div>
+        <div><div class="ph r11"><span>Труча</span></div><p style="font-size:15px;margin-top:8px"><b>Труча</b><br><span class="muted">форель из лагуны. Разводит община — ловить нельзя, заказать можно</span></p></div>
+        <div><div class="ph r11"><span>Яйца, молоко</span></div><p style="font-size:15px;margin-top:8px"><b>Яйца и молоко</b><br><span class="muted">из деревни, а не из магазина</span></p></div>
+        <div><div class="ph r11"><span>Чича</span></div><p style="font-size:15px;margin-top:8px"><b>Чича</b><br><span class="muted">здесь её пьют горячей</span></p></div>
+      </div>
+      <a class="btn" href="#/blog/chuno" style="margin-top:14px">Что такое чуньо →</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <h2>Что есть в доме</h2>
+      <div class="bento" style="margin-top:18px">
+        <div class="amen big">
+          <div class="ph"><span>Фото · горячий душ</span></div>
+          <div class="amen-t">
+            <h3>Горячий душ</h3>
+            <p>Вода греется всерьёз. На 4200 это первое, о чём вспоминают, вернувшись с тропы.</p>
+          </div>
+        </div>
+        <div class="amen w2">
+          <div class="ph video"><span>Фото · живой огонь</span></div>
+          <div class="amen-t">
+            <h3>Живой огонь</h3>
+            <p>Печь топится дровами. Дрова привозят снизу — здесь они не растут.</p>
+          </div>
+        </div>
+        <div class="amen">
+          <div class="ph"><span>Кухня</span></div>
+          <div class="amen-t">
+            <h3>Кухня</h3>
+            <p>Можно готовить своё. Газ тоже привозят снизу.</p>
+          </div>
+        </div>
+        <div class="amen">
+          <div class="ph"><span>Типи</span></div>
+          <div class="amen-t">
+            <h3>Типи</h3>
+            <p>Пять мест. Холоднее, чем в доме, и мы говорим это первым.</p>
+          </div>
+        </div>
+        <div class="amen w2">
+          <div class="ph"><span>Фото · трансфер</span></div>
+          <div class="amen-t">
+            <h3>Трансфер</h3>
+            <p>Машина доезжает до самой двери. Оплачивается отдельно, заказывается в переписке.</p>
+          </div>
+        </div>
+        <div class="amen w2">
+          <div class="ph"><span>Фото · стиральная машина</span></div>
+          <div class="amen-t">
+            <h3>Стиральная машина</h3>
+            <p>Если вы в дороге давно. На этой высоте звучит почти нелепо — и в этом всё дело.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card accent" style="margin-top:20px">
+        <h3>Связь</h3>
+        <p>WiFi здесь нет. Мобильный интернет иногда ловит — по-разному, в зависимости от места, погоды и оператора.</p>
+        <p class="muted">Мы не обещаем связь и не обещаем её отсутствие. Захотите — найдёте место, где ловит. Не захотите — телефон замолчит сам.</p>
+      </div>
+
+      <h3 style="margin-top:34px">Где вы будете спать</h3>
+      <p class="lead">Восемь мест. Три в доме, пять в типи.</p>
+      <div class="split" style="margin-top:16px">
+        <div class="card">
+          <div class="ph r43" style="margin-bottom:12px"><span>Комната с кроватями</span></div>
+          <h3>Комната · три кровати</h3>
+          <p class="muted">тёплые одеяла, печь за стеной. Со своим спальником всё равно теплее — но без него не замёрзнете</p>
+        </div>
+        <div class="card">
+          <div class="ph r43" style="margin-bottom:12px"><span>Типи изнутри</span></div>
+          <h3>Типи · пять мест</h3>
+          <p class="muted">здесь холоднее, и это первое, что мы о нём говорим. Спальник обязателен</p>
+        </div>
+      </div>
+      <div class="quote">Мы не делаем вид, что типи — это та же комната. Это другое место, и кому-то оно нравится больше.</div>
+    </div>
+  </section>
+
+  <section class="dark" id="tropy">
+    <div class="wrap wide">
+      <h2>Тропы</h2>
+      <p class="lead">Здесь нет карты. И не будет.</p>
+      <p class="muted">Три постоянные тропы. Что вы увидите — написано. Как дойти — нет.</p>
+
+      <div style="margin-top:24px">
+        <div class="band">
+          <div class="ph band-bg"><span>Фото на фоне · вода и склон</span></div>
+          <div class="band-inner">
+            <h3>Короткая · около двух часов</h3>
+            <p>Ближняя вода и обратно.</p>
+            <p><span class="tag">одна лагуна</span><span class="tag">горы над ней</span></p>
+            <p class="muted">С детьми: успеете вернуться к обеду, и они устанут ровно настолько, чтобы уснуть до заката.</p>
+            <p style="margin-bottom:0"><span class="tag">S/. 80 за группу</span> <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить про эту тропу →</a></p>
+          </div>
+        </div>
+        <div class="band right">
+          <div class="ph band-bg"><span>Фото на фоне · подъём</span></div>
+          <div class="band-inner">
+            <h3>Полдня</h3>
+            <p>Дальше и выше.</p>
+            <p><span class="tag">одна лагуна</span><span class="tag">горы с высоты</span></p>
+            <p class="muted">Для тех, кто хочет идти, а не гулять.</p>
+            <p style="margin-bottom:0"><span class="tag">S/. 150 за группу</span> <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить про эту тропу →</a></p>
+          </div>
+        </div>
+        <div class="band">
+          <div class="ph band-bg"><span>Фото на фоне · привал у воды</span></div>
+          <div class="band-inner">
+            <h3>Целый день</h3>
+            <p>Все три лагуны за один день.</p>
+            <p><span class="tag">три лагуны</span><span class="tag">привал с едой</span><span class="tag">горы весь день</span></p>
+            <p class="muted">Не в первый день наверху: целый день на 4200 стоит проходить уже привыкшим. Об этом же — блок «Высота».</p>
+            <p style="margin-bottom:0"><span class="tag">S/. 220 за группу</span> <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить про эту тропу →</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card accent" style="margin-top:6px">
+        <p class="muted">и четвёртая — не такая, как три предыдущие</p>
+        <h3>Тропа хозяина</h3>
+        <p><b>Здесь ничего не описано. И это не оплошность.</b></p>
+        <p class="muted">Она собирается утром — под вас, под погоду, под то, сколько вы готовы идти. Есть места, которых нет в этих трёх строках, и мы не будем рассказывать о них ни здесь, ни в заметках.</p>
+        <p><span class="tag">S/. 350 за группу · целый день</span></p>
+        <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать</a>
+      </div>
+
+      <h3 style="margin-top:34px">Другой свет на тех же тропах</h3>
+      <div class="g3" style="margin-top:14px">
+        <div class="card">
+          <h3>Рассвет</h3>
+          <p class="muted">выход в 5:30. Туман лежит в долинах, вершины загораются первыми. Любая из трёх троп, но выглядит она иначе</p>
+        </div>
+        <div class="card">
+          <h3>Закат</h3>
+          <p class="muted">последний свет ложится на воду. Возвращаемся в темноте и потому только с проводником — налобник берите свой</p>
+        </div>
+        <div class="card">
+          <h3>Полнолуние</h3>
+          <p class="muted">три ночи в месяц. Без фонарей — их просто не нужно</p>
+          <div class="moon">
+            <div class="muted" style="font-size:13px">Ближайшее полнолуние</div>
+            <div class="date" id="moon-date">—</div>
+            <div class="muted" id="moon-in">—</div>
+            <a class="btn" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:10px">Спросить про эту дату</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote">Напишите, сколько у вас времени и кто идёт. Тропу выберу утром — по погоде и по тому, как вы дышите.</div>
+      <p><b>Троп больше, чем три.</b> Остальные — в заметках: куда ходил, что видел, в какой день.</p>
+      <a class="btn" href="#/dnevnik">Полевые заметки →</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px">
+        <h2 style="margin:0">Полевые заметки</h2>
+        <a href="#/dnevnik">все заметки →</a>
+      </div>
+      <div class="g3" style="margin-top:20px">
+        <a class="note-link" href="#/dnevnik/tuman">
+          <div class="wall mini" id="wall-n1"></div>
+          <div class="muted">12 августа</div>
+          <h3>Туман лёг в долину и не ушёл до полудня</h3>
+        </a>
+        <a class="note-link" href="#/dnevnik/tuman">
+          <div class="wall mini" id="wall-n2"></div>
+          <div class="muted">4 августа</div>
+          <h3>Вискачи вышли на камни в пятом часу</h3>
+        </a>
+        <a class="note-link" href="#/dnevnik/tuman">
+          <div class="wall mini" id="wall-n3"></div>
+          <div class="muted">28 июля</div>
+          <h3>Первый лёд у берега</h3>
+        </a>
+      </div>
+      <p class="muted" style="margin-top:14px">Обложка каждой заметки — четыре кадра с этой самой прогулки. Они меняются сами.</p>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap wide">
+      <h2>Кого вы увидите</h2>
+      <p class="lead">Четыре ступени. Сверху вниз шансы падают.</p>
+
+      <div class="step s1">
+      <h3>Подойдут сами — те, кого пасут</h3>
+      <div class="ph r219" style="margin-bottom:14px"><span>Стадо на тропе, пастух в кадре</span></div>
+      <p class="muted" style="max-width:68ch">Навстречу вам по тропе идёт не дикая природа, а чей-то заработок. Сказать это прямо честнее, чем выдать альпаку за дикое животное.</p>
+      <div class="g4">
+        <div><div class="ph r43"><span>Альпаки</span></div><p style="font-size:15px;margin-top:8px"><b>Альпаки</b></p></div>
+        <div><div class="ph r43"><span>Овцы</span></div><p style="font-size:15px;margin-top:8px"><b>Овцы</b><br><span class="muted">стадом, не по одной</span></p></div>
+        <div><div class="ph r43"><span>Ослы</span></div><p style="font-size:15px;margin-top:8px"><b>Ослы</b></p></div>
+        <div><div class="ph r43"><span>Коровы</span></div><p style="font-size:15px;margin-top:8px"><b>Коровы</b></p></div>
+      </div>
+
+      </div>
+
+      <div class="step s2">
+      <h3>Увидите точно</h3>
+      <div class="g4">
+        <div><div class="ph r43"><span>Пара птиц</span></div><p style="font-size:15px;margin-top:8px"><b>Андский гусь</b> <span class="muted">huallata</span><br><span class="muted">летают парами. Одной и той же парой — всю жизнь</span></p></div>
+        <div><div class="ph r43"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Яна вико</b> <span class="muted">yanavico</span><br><span class="muted">стоят в воде неподвижно. Их проще принять за камень</span></p></div>
+        <div><div class="ph r43"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Вискача</b> <span class="muted">wisk'acha</span><br><span class="muted">живёт в камнях, видно прямо с тропы</span></p></div>
+        <div><div class="ph r43"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Утки</b><br><span class="muted">на воде круглый год</span></p></div>
+        <div><div class="ph r43"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Андская чайка</b><br><span class="muted">Chroicocephalus serranus · чайка на 4200</span></p></div>
+        <div><div class="ph r43"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Дикий кролик</b><br><span class="muted">Sylvilagus andinus</span></p></div>
+        <div><div class="ph r43"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Труча</b><br><span class="muted">садки видно не всегда — не обещаем</span></p></div>
+        <div><div class="ph r43"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Форель у стола</b></p></div>
+      </div>
+
+      </div>
+
+      <div class="step s3">
+      <h3>Если повезёт</h3>
+      <div class="g4">
+        <div><div class="ph r43" style="opacity:.65"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Кондор</b><br><span class="muted">над горами и над тропой</span></p></div>
+        <div><div class="ph r43" style="opacity:.65"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Тарука</b><br><span class="muted">Hippocamelus antisensis</span></p></div>
+        <div><div class="ph r43" style="opacity:.65"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Андская лиса</b></p></div>
+        <div><div class="ph r43" style="opacity:.4;border-style:dashed"><span>Своей фотографии нет</span></div><p style="font-size:15px;margin-top:8px"><b>Скунс</b></p></div>
+      </div>
+      <div class="card accent" style="margin-top:18px">
+        <p><b>Если своего кадра нет — карточка остаётся пустой и говорит об этом вслух.</b></p>
+        <p class="muted">Чужую фотографию не ставим никогда, даже бесплатную и даже похожую.</p>
+      </div>
+
+      </div>
+
+      <div class="step s4">
+      <h3>Почти никогда</h3>
+      </div>
+      <div class="ph fullbleed puma-frame"><span>Пустой склон · камни, вода · животного в кадре нет</span></div>
+      <div style="margin-top:clamp(26px,5vw,44px)">
+      <p style="font-size:clamp(19px,3vw,25px);font-weight:700;margin-bottom:18px">Пума здесь есть. Её здесь не видели.</p>
+      <p style="max-width:56ch">Местные говорят: она видит вас первой. Всегда. И уходит раньше, чем вы успеете о ней подумать.</p>
+      <p style="max-width:56ch">У нас нет её фотографии. Поэтому её здесь не будет.</p>
+      <div class="quote">Опасности нет. Пума уходит от человека, а не к нему — она замечает вас задолго до того, как вы могли бы заметить её.</div>
+      <a class="btn" href="#/atlas">Все животные →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <h2>То, что под ногами</h2>
+      <p class="lead">Кактус, которому холодно.</p>
+      <p class="kick" style="text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0">Здесь всё носит шерсть. Даже кактусы.</p>
+
+      <div class="field" style="margin-top:20px">
+        <div class="g3">
+          <div class="pinned"><div class="ph r11"><span>Ярета</span></div><p class="cap"><b>Ярета</b><br>подушка, которую принимают за камень. Растёт миллиметр в год</p></div>
+          <div class="pinned"><div class="ph r11"><span>Цветок</span></div><p class="cap"><b>Кальцеолярия</b> <i>Calceolaria</i><br>жёлтый цветок, несколько миллиметров</p></div>
+          <div class="pinned"><div class="ph r11"><span>Кактус</span></div><p class="cap"><b>Кактус-подушка</b><br>вид не определён — и мы так и пишем</p></div>
+          <div class="pinned"><div class="ph r11"><span>Ичу</span></div><p class="cap"><b>Ичу</b><br>трава пуны: крыши, верёвки, подстилка</p></div>
+          <div class="pinned"><div class="ph r11"><span>Кеуния</span></div><p class="cap"><b>Кеуния</b> <i>Polylepis</i><br>растёт выше всех деревьев планеты</p></div>
+          <div class="pinned"><div class="ph r11"><span>Лишайник</span></div><p class="cap"><b>Лишайник на камне</b><br>шов между растением и камнем</p></div>
+        </div>
+
+        <div class="pinned" style="margin-top:26px"><div class="ph r219"><span>Октябрь–ноябрь: всё зацветает разом</span></div><p class="cap" style="max-width:68ch">Цветение — не карточка, а полоса: это про время, а не про растение. Конец сухого сезона и первые дожди приходят вместе.</p></div>
+
+        <h3 style="margin-top:34px">Что растёт по дороге снизу</h3>
+        <p class="muted" style="font-size:13.5px">на 4200 этого нет — но вы проедете мимо, поднимаясь</p>
+        <div class="g3" style="margin-top:12px">
+          <div class="pinned"><div class="ph r11"><span>Эвкалипт</span></div><p class="cap"><b>Эвкалипт</b></p></div>
+          <div class="pinned"><div class="ph r11"><span>Муня</span></div><p class="cap"><b>Муня</b><br>андская мята</p></div>
+          <div class="pinned"><div class="ph r11"><span>Кока</span></div><p class="cap"><b>Кока</b><br>в Перу лист коки легален и продаётся на любом рынке</p></div>
+        </div>
+
+        <h3 style="margin-top:34px">Камни</h3>
+        <p class="muted" style="font-size:13.5px;max-width:68ch">растения здесь живут не в почве, а между камнями — сначала порода, потом всё остальное</p>
+        <div class="g4" style="margin-top:12px">
+          <div class="pinned"><div class="ph r11"><span>Срез, слои</span></div><p class="cap"><b>Слоистость</b></p></div>
+          <div class="pinned"><div class="ph r11"><span>Цвет</span></div><p class="cap"><b>Цвет</b></p></div>
+          <div class="pinned"><div class="ph r11"><span>Камень в воде</span></div><p class="cap"><b>Камень в воде</b><br>мокрый цвет всегда другой</p></div>
+          <div class="pinned"><div class="ph r11"><span>Камень в руке</span></div><p class="cap"><b>Камень в руке</b><br>ладонь для масштаба — и видно, что мы кладём его обратно</p></div>
+        </div>
+      </div>
+      <a class="btn" href="#/atlas" style="margin-top:18px">В Атлас →</a>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap wide">
+      <div class="split">
+        <div class="ph r45"><span>Ткут на ходу, за стадом</span></div>
+        <div>
+          <h2>Здесь ткут на ходу. Пока идут за стадом.</h2>
+          <p>Шерсть и нитки всегда при себе — как телефон в кармане у городского человека. Руки заняты работой, ноги идут за альпаками, и так проходит день.</p>
+          <p>Ткут на станке и вручную. Пояса, накидки, шапки, сумки, перчатки, пончо — то, что носят сами, и то, что продают.</p>
+          <div class="quote">Это не сувенир. Это заработок.</div>
+          <p class="muted">Продажа картошки, рыбы и тканого — почти единственный доход в этом месте. Мы говорим это как факт, а не как повод пожалеть: жалость продаёт один раз, уважение возвращает.</p>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:30px">
+        <div class="card">
+          <p class="muted">дверь первая</p>
+          <h3>Приезжайте и выберите сами</h3>
+          <div class="ph r169" style="margin:12px 0"><span>Музей у лагуны</span></div>
+          <p>У лагуны есть музей: выставка тканого и то, что можно унести с собой. Там много, выбор большой, и это не пункт программы — просто рядом.</p>
+          <p class="muted">Мы с этого не имеем ничего. И говорим об этом первыми, до того как предложим своё. Фотографировать можно — но мы спрашиваем разрешения.</p>
+        </div>
+        <div class="card accent">
+          <p class="muted">дверь вторая</p>
+          <h3>То, что до прилавка не доходит</h3>
+          <div class="ph r169" style="margin:12px 0"><span>Вещь крупно, фактура и цвет</span></div>
+          <p>Эти вещи мы находим сами, покупаем у мастериц и отправляем куда угодно в мире.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <h3>Почему хорошее не доходит до прилавка</h3>
+        <p>Хорошая накидка ткётся месяцами. Турист на рынке хочет недорогой сувенир и хочет его сегодня. Прилавок отбирает быстрое и дешёвое — не потому, что мастерицы не умеют иначе, а потому, что медленное на прилавке не окупается.</p>
+        <p class="muted">Поэтому лучшее остаётся дома: носят сами, отдают соседке, кладут в сундук. Чтобы это найти, надо здесь жить и знать людей.</p>
+      </div>
+
+      <div class="quote" style="margin-top:24px">
+        <p style="font-size:20px;font-weight:600;margin-bottom:10px">Мы покупаем у мастерицы по её цене и не торгуемся.</p>
+        <p>Дальше — наша наценка. Она платит за то, чтобы вещь доехала: за поиск, упаковку и конверт из Куско.</p>
+        <p style="margin-bottom:0"><b>На рынке в Писаке вы купите дешевле. Мы не делаем вид, что это не так.</b></p>
+      </div>
+
+      <div class="split" style="margin-top:22px">
+        <div class="card">
+          <h3>У каждой вещи — паспорт</h3>
+          <p><span class="tag">кто ткал</span><span class="tag">сколько заняло</span><span class="tag">когда куплено</span><span class="tag">из чьей шерсти</span></p>
+          <p class="muted">«Три недели работы, половина из них — на ходу, за стадом.»</p>
+        </div>
+        <div class="card">
+          <h3>Отправляем по миру</h3>
+          <p>Тем же конвертом из Куско, что и отпечатки: с перуанским штемпелем.</p>
+          <p class="muted">Сроки пишем честно, идёт долго. Потеряется — отправим заново один раз за свой счёт.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <h2>Как это выглядит</h2>
+      <p class="lead">Вы не успеете рассмотреть плитку — а она уже другая.</p>
+      <div class="wall" id="wall-big"></div>
+      <div class="wall-legend"><span><i></i> фотография</span><span><i class="v"></i> видео-петля</span></div>
+      <a class="btn" href="#/gallery" style="margin-top:16px">Смотреть все фотографии →</a>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap wide">
+      <h2>Что взять с собой</h2>
+      <p class="lead">Днём вы обгорите. Ночью замёрзнете. Обе проблемы решаются заранее.</p>
+      <div class="ph r219" style="margin:20px 0"><span>Рюкзак и вещи, разложенные на столе — вид сверху</span></div>
+
+      <div class="split">
+        <div class="card">
+          <p class="muted">проблема — холод</p>
+          <h3>Ночь в доме</h3>
+          <p><b>Спальник</b><br><span class="muted">постель есть и одеяла тёплые, но со своим спальником теплее</span></p>
+          <p><b>Пуховик</b><br><span class="muted">он нужен не на улице, а в доме вечером, пока печь не разошлась</span></p>
+          <p><b>Шерстяные носки</b><br><span class="muted">холод приходит снизу, через пол</span></p>
+          <p><b>Шапка</b><br><span class="muted">спать в шапке здесь нормально, а не смешно</span></p>
+          <p><b>Перчатки</b></p>
+          <p style="margin-bottom:0"><b>Термос</b><br><span class="muted">кипяток есть всегда. Термос делает его вашим на всю ночь и на всю тропу</span></p>
+        </div>
+        <div class="card">
+          <p class="muted">проблема — солнце и дождь</p>
+          <h3>День на маршруте</h3>
+          <p><b>Шляпа</b><br><span class="muted">с полями, а не кепка: обгорают уши и шея</span></p>
+          <p><b>Крем от солнца</b><br><span class="muted">на 4200 сгорают за час, и в облачный день тоже</span></p>
+          <p><b>Рюкзак</b><br><span class="muted">маленький, на день: вода, термос, немного еды, дождевик</span></p>
+          <p><b>Бутылка воды</b><br><span class="muted">литра хватит — воду можно набрать по дороге</span></p>
+          <p><b>Дождевик</b><br><span class="muted">обязателен в сезон дождей, с ноября по март</span></p>
+          <p style="margin-bottom:0"><b>Треккинговые палки</b><br><span class="muted">есть на месте, но свои удобнее</span></p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <h3>Еда с собой</h3>
+        <p class="muted">покупается внизу, в Писаке или Куско: наверху магазинов нет</p>
+        <p><span class="tag">орехи</span><span class="tag">сухофрукты</span><span class="tag">шоколад</span><span class="tag">хлеб</span><span class="tag">сыр</span><span class="tag">варёные яйца</span><span class="tag">мандарины</span><span class="tag">лист коки</span></p>
+        <p class="muted">Правило простое: то, что не мнётся, не течёт и не портится без холодильника.</p>
+        <p class="muted" style="margin-bottom:0">И честное предупреждение: <b>на высоте есть не хочется</b> — это нормально и проходит. Но выходить на тропу без еды нельзя: голод на 4200 бьёт по голове раньше, чем по желудку.</p>
+      </div>
+
+      <div class="g3" style="margin-top:18px">
+        <div class="card">
+          <h3>Это уже есть — везти не надо</h3>
+          <p><span class="tag">одеяла</span><span class="tag">посуда</span><span class="tag">вода</span><span class="tag">дрова</span><span class="tag">свет</span><span class="tag">палки</span></p>
+        </div>
+        <div class="card">
+          <h3>Воду на весь день брать не нужно</h3>
+          <p><b>Она течёт из скалы.</b></p>
+          <p class="muted">В горах есть источники, где вода выходит прямо из породы, — там набирают и пьют.</p>
+        </div>
+        <div class="card accent">
+          <h3>Аптечка</h3>
+          <p class="muted">что внутри и, что важнее, чего в ней нет</p>
+          <a class="btn" href="#/pravila">Состав аптечки →</a>
+        </div>
+      </div>
+
+      <div class="quote" style="margin-top:24px">
+        <p style="font-size:19px;font-weight:600;margin-bottom:8px">Не с пустыми руками</p>
+        <p class="muted">Купите что-нибудь внизу: фрукты, хлеб, лист коки. На тропе вы встретите пастухов, стариков, детей — здесь не проходят мимо друг друга.</p>
+        <p><b>Это не подарок. Это то, как здесь здороваются.</b></p>
+        <p class="muted" style="margin-bottom:0">В Андах это называется <i>айни</i> — взаимный обмен, на котором держится вся общинная жизнь. Не жест сверху вниз, а горизонталь: вы не дарите, вы участвуете.</p>
+      </div>
+
+      <div class="split" style="margin-top:18px">
+        <div><h3>Питомцы</h3><p class="muted">можно, но в доме живут собака Матвей и кот Сириус</p></div>
+        <div><h3>Дети</h3><p class="muted">до семи лет бесплатно. Им здесь хорошо — и это главное, что стоит сказать родителю, который читал про высоту и пум</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap narrow">
+      <h2>Практика</h2>
+      <details class="faq" open>
+        <summary>Как быть с горной болезнью на высоте 4200?</summary>
+        <div class="a"><p>Акклиматизация занимает не минуты, а дни. Проведите два-три дня в Куско или Священной долине перед подъёмом. В доме есть аптечка с таблетками от высоты и кислородом, но работает не аптечка, а подготовка.</p></div>
+      </details>
+      <details class="faq">
+        <summary>Есть ли WiFi?</summary>
+        <div class="a"><p>Нет. Мобильный интернет иногда ловит — по-разному, в зависимости от места, погоды и оператора. Это не недостаток, а половина смысла поездки: сюда везут детей именно за тем, чтобы один раз посмотреть в небо, а не в телефон.</p></div>
+      </details>
+      <details class="faq">
+        <summary>Можно с детьми?</summary>
+        <div class="a"><p>Да, и это удобно во всех форматах. До семи лет — бесплатно и в счёт гостей не идут. Маршрут с детьми подбирается под ребёнка, а не наоборот.</p></div>
+      </details>
+      <details class="faq">
+        <summary>Можно с собакой?</summary>
+        <div class="a"><p>Можно, но в доме уже живут собака Матвей и кот Сириус. Они здесь раньше вас и останутся после.</p></div>
+      </details>
+      <details class="faq">
+        <summary>Сколько добираться и входит ли трансфер в цену?</summary>
+        <div class="a"><p>От Писака — 40 минут, от Куско — около полутора часов. Трансфер оплачивается отдельно от проживания, от S/. 100 за машину. Заказывается через WhatsApp, машина доезжает до самой двери.</p></div>
+      </details>
+      <details class="faq">
+        <summary>Что делать, если ночью станет плохо?</summary>
+        <div class="a"><p>В доме аптечка и кислород. Дальше звоним водителям — их номера висят на стене. Днём машина приходит скоро, ночью её нужно ждать: она идёт снизу. Поэтому акклиматизация — не совет, а условие.</p></div>
+      </details>
+      <details class="faq">
+        <summary>Нужно ли говорить по-испански?</summary>
+        <div class="a"><p>Нет. По-русски и по-испански отвечу сразу, по-английски — тоже, иногда с помощью переводчика.</p></div>
+      </details>
+      <details class="faq">
+        <summary>Какой сезон лучше — сухой или дождливый?</summary>
+        <div class="a"><p>Оба хороши, просто по-разному. Сухой сезон — апрель–октябрь/ноябрь: ясно, солнечно, ночи морозные. Дожди — ноябрь–март: зелени больше, людей меньше, меняются маршруты и форматы. Отдельно стоит октябрь–ноябрь: на стыке сезонов всё зацветает разом.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="dark center">
+    <div class="wrap">
+      <h2>Мы работаем по рекомендации</h2>
+      <p class="lead" style="max-width:52ch;margin:0 auto 18px">Сюда приезжают те, кому рассказали. Отзывы гостей мы не публикуем — люди приезжают сюда, чтобы их не разглядывали.</p>
+      <div class="quote" style="text-align:left;max-width:56ch;margin:0 auto 26px">Мы не показываем лица тех, кто здесь был. Тропы и людей мы бережём одинаково.</div>
+      <p class="muted" style="max-width:56ch;margin:0 auto 18px">Интернета наверху нет — гости пишут на бумаге. Мы показываем развороты гостевой книги, а не имена: чужой почерк и чужой язык человека не выдают.</p>
+      <div class="g3" style="max-width:640px;margin:0 auto">
+        <div class="ph r43"><span>Разворот · почерк</span></div>
+        <div class="ph r43"><span>Разворот · другой язык</span></div>
+        <div class="ph r43"><span>Разворот · детский рисунок</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="center" id="kontakty-block">
+    <div class="wrap">
+      <h2>Приезжайте</h2>
+      <p class="lead" style="max-width:44ch;margin:0 auto 22px">Форм для брони нет. Есть человек, которому можно написать.</p>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <div style="margin-top:10px">
+        <a class="btn" href="#/kontakty">Telegram</a>
+        <a class="btn" href="#/kontakty">Instagram</a>
+        <a class="btn" href="mailto:hola@kinsacocha.com">Почта</a>
+      </div>
+      <p class="muted" style="max-width:48ch;margin:22px auto 0">Если я наверху, связь ловит не всегда.</p>
+      <p class="muted" style="max-width:48ch;margin:8px auto 0">По-русски и по-испански — отвечу сразу. По-английски тоже отвечу, иногда с помощью переводчика. Даже если напишете по-китайски — переводчик найдётся и на него.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ ЦЕНЫ ══════════════════ -->
+<div class="page" id="p-tseny">
+  <section>
+    <div class="wrap wide">
+      <a class="backlink" href="#/">← на главную</a>
+      <h2>Цены</h2>
+      <p class="lead">Три готовых решения — или те же цены по отдельности. Цена за дом, а не с человека, если не написано иначе. Сутки — от утра до утра.</p>
+
+      <div class="g3" style="margin-top:24px">
+        <div class="card">
+          <h3>Кинсакоча целиком</h3>
+          <p class="muted">3 дня · 2 ночи · дом, тропа на полдня, тропа на целый день, дрова, ужин</p>
+          <div class="price">S/. 590 <small>на двоих</small></div>
+          <p class="muted">одному — S/. 490</p>
+        </div>
+        <div class="card">
+          <h3>Ночь у озера</h3>
+          <p class="muted">2 дня · 1 ночь · дом, короткая тропа, дрова</p>
+          <div class="price">S/. 190 <small>на двоих</small></div>
+          <p class="muted">одному — S/. 150</p>
+        </div>
+        <div class="card accent">
+          <h3>Дом на день</h3>
+          <p class="muted">без ночёвки · дом, душ, кухня, типи</p>
+          <div class="price">S/. 30 <small>с человека</small></div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px">Дом с ночёвкой</h3>
+      <table class="prices">
+        <tr><td>Один гость</td><td>S/. 70</td></tr>
+        <tr><td>Двое</td><td>S/. 120</td></tr>
+        <tr><td>Трое</td><td>S/. 180</td></tr>
+        <tr><td>Каждый следующий</td><td>+ S/. 50</td></tr>
+      </table>
+      <p class="muted">Дети до семи лет в этот счёт не входят. Всего восемь мест: три кровати в комнате, пять в типи.</p>
+
+      <h3 style="margin-top:28px">Тропы с хозяином</h3>
+      <p class="muted">цена за группу до трёх человек, дальше по одному</p>
+      <table class="prices">
+        <tr><td>Короткая · около двух часов</td><td>S/. 80 <span class="muted" style="font-weight:400">(+20)</span></td></tr>
+        <tr><td>Полдня</td><td>S/. 150 <span class="muted" style="font-weight:400">(+40)</span></td></tr>
+        <tr><td>Целый день</td><td>S/. 220 <span class="muted" style="font-weight:400">(+50)</span></td></tr>
+        <tr><td>Тропа хозяина</td><td>S/. 350 <span class="muted" style="font-weight:400">(+80)</span></td></tr>
+      </table>
+      <p class="muted">Тропы бывают только в те дни, когда хозяин наверху.</p>
+
+      <h3 style="margin-top:28px">Дополнения</h3>
+      <p><span class="tag">одни на горе · +50%</span><span class="tag">дрова · связка S/. 30</span><span class="tag">трансфер · от S/. 100</span><span class="tag">ужин · S/. 30</span><span class="tag">завтрак · S/. 20</span></p>
+
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:20px">Написать и спросить цену</a>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ ОЗЁРА ══════════════════ -->
+<div class="page" id="p-ozera">
+  <section>
+    <div class="wrap wide">
+      <a class="backlink" href="#/">← на главную</a>
+      <h2>Три озера</h2>
+      <p class="lead">Kinsa qucha на кечуа — «три озера». Место названо счётом.</p>
+      <p style="max-width:68ch">Они лежат ступенями выше четырёх тысяч метров. Их питают талая вода и дожди, а цвет им даёт высота: вода холодная, чистая, почти без органики, и света здесь больше, чем внизу.</p>
+      <div class="g3" style="margin-top:24px">
+        <a class="note-link card" href="#/ozera/pumakocha"><div class="ph r169" style="margin-bottom:12px"><span>Фото</span></div><h3>Пума Коча</h3><p class="muted">4325 м · самое высокое</p></a>
+        <a class="note-link card" href="#/ozera/azulkocha"><div class="ph r169" style="margin-bottom:12px"><span>Фото</span></div><h3>Асуль Коча</h3><p class="muted">4247 м · самое синее</p></a>
+        <a class="note-link card" href="#/ozera/kinsakocha"><div class="ph r169" style="margin-bottom:12px"><span>Фото</span></div><h3>Кинса Коча</h3><p class="muted">самое большое · у него стоит дом</p></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-ozera-pumakocha">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/ozera">← три озера</a>
+      <h1>Puma qucha</h1>
+      <p class="muted">Pumacocha · «озеро пумы» · 4325 м · самое высокое из трёх</p>
+      <div class="ph r219" style="margin:20px 0"><span>Фото</span></div>
+      <div class="ph video r169" style="margin-bottom:20px"><span>Вода крупным планом</span></div>
+      <p>Самое высокое из трёх. Название переводится с кечуа как «озеро пумы». Пума для инков была не просто зверем: она означала силу и связь с землёй, один из трёх уровней мира. Назвать её именем воду на такой высоте — это не то же самое, что назвать озеро в честь красивой птицы.</p>
+      <p>Пуму здесь не видели. В регионе она есть, но следов не находят, и никто из местных не может сказать, что встречал её. Озеро носит её имя, а самой пумы в кадре не будет — и это, пожалуй, самое точное описание этого места.</p>
+      <p>Тёмная вода, голый склон, ощущение, что здесь холоднее. Не открыточный вид — тяжёлый.</p>
+      <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <p style="margin-top:22px"><a href="#/ozera/azulkocha">Асуль Коча →</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-ozera-azulkocha">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/ozera">← три озера</a>
+      <h1>Asul qucha</h1>
+      <p class="muted">Azulcocha · «синее озеро» · 4247 м · самое синее из трёх</p>
+      <div class="ph r219" style="margin:20px 0"><span>Фото</span></div>
+      <div class="ph video r169" style="margin-bottom:20px"><span>Вода крупным планом</span></div>
+      <p>Ниже Пума Кочи почти на восемьдесят метров. Асуль — «синее» по-испански, и название не преувеличивает: вода здесь уходит в насыщенную бирюзу, а в ясный день, когда небо стоит без единого облака, граница между водой и небом почти исчезает.</p>
+      <p>Цвет — не краска и не минерал в привычном смысле. Так работает высота: чистая холодная вода, мало органики, много света. Внизу такой воды не бывает просто потому, что внизу теплее.</p>
+      <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <p style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-ozera-kinsakocha">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/ozera">← три озера</a>
+      <h1>Kinsa qucha</h1>
+      <p class="muted">Kinsacocha · «три озера» · самое большое и самое близкое</p>
+      <div class="ph r219" style="margin:20px 0"><span>Озеро и дом на берегу</span></div>
+      <div class="ph video r169" style="margin-bottom:20px"><span>Вода крупным планом</span></div>
+      <p>Самое большое из трёх и самое близкое. Именно у него стоит дом, и именно оно дало имя всему месту. В нём же община разводит форель — тручу. Ловить её нельзя, а заказать к ужину можно: это единственная еда, которую здесь не нужно везти с собой снизу.</p>
+      <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <p style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/azulkocha">← Асуль Коча</a></p>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ ЗАМЕТКИ ══════════════════ -->
+<div class="page" id="p-dnevnik">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/">← на главную</a>
+      <h2>Полевые заметки</h2>
+      <p class="lead">Один день или одна прогулка — фотографии, короткая запись, иногда звук места. Что видели, а не куда шли: маршрут в заметках не пишем.</p>
+      <a class="entry" href="#/dnevnik/tuman">
+        <div class="date">12 авг 2026</div>
+        <div><h3>Туман лёг в долину и не ушёл до полудня</h3><p class="muted" style="margin:0">Сухой сезон. Утро началось молочно-белым, и озеро проступило только к обеду.</p></div>
+      </a>
+      <a class="entry" href="#/dnevnik/tuman">
+        <div class="date">4 авг 2026</div>
+        <div><h3>Вискачи вышли на камни в пятом часу</h3><p class="muted" style="margin:0">Целая семья грелась на солнце — обычно они прячутся раньше.</p></div>
+      </a>
+      <a class="entry" href="#/dnevnik/tuman">
+        <div class="date">28 июл 2026</div>
+        <div><h3>Первый лёд у берега</h3><p class="muted" style="margin:0">Ночь была особенно морозной — тонкая корка держалась до полудня.</p></div>
+      </a>
+      <a class="entry" href="#/dnevnik/tuman">
+        <div class="date">2 авг 2026</div>
+        <div><h3>Мешок № 34</h3><p class="muted" style="margin:0">Вдоль тропы к дальнему озеру. Бутылки, обёртки, один сапог.</p></div>
+      </a>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-dnevnik-tuman">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/dnevnik">← все заметки</a>
+      <p class="muted">12 августа 2026 · сухой сезон</p>
+      <h1>Туман лёг в долину и не ушёл до полудня</h1>
+      <div class="ph r219" style="margin:20px 0"><span>Фотография во всю ширину</span></div>
+      <p>Обычно к восьми утра туман уже поднимается и открывает воду. Сегодня он держался почти до полудня — плотный, молочный, и озеро проступало из него медленно, кусками.</p>
+      <div class="card accent" style="margin:22px 0">
+        <div class="muted" style="font-size:13px">звук этого утра</div>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:8px">
+          <span class="btn" style="margin:0;padding:8px 14px">▶</span>
+          <span style="flex:1;height:3px;background:var(--line);position:relative"><span style="position:absolute;left:0;top:0;height:3px;width:34%;background:var(--accent)"></span></span>
+          <span class="muted">02:14</span>
+        </div>
+      </div>
+      <div class="split">
+        <div class="ph r43"><span>Фото</span></div>
+        <div class="ph video r43"><span>Живая фотография · 6 сек</span></div>
+      </div>
+      <p style="margin-top:20px">К полудню туман начал рваться клочьями, и в один из разрывов на воду вышла пара яна вико — стояли неподвижно, будто ждали, пока их заметят.</p>
+      <div class="card" style="margin:20px 0">
+        <div class="muted" style="font-size:13px">справка</div>
+        <p style="margin:6px 0 0"><b>Яна вико</b> · <i>Plegadis ridgwayi</i> — <a href="#/atlas/vizcacha">открыть карточку →</a></p>
+      </div>
+      <p>К вечеру небо расчистило совсем, и стало заметно холоднее — первый признак того, что назавтра будет ясно.</p>
+      <p class="muted" style="margin-top:24px">Кто и что попалось в этот день</p>
+      <div class="g4">
+        <div class="ph r11"><span>яна вико</span></div>
+        <div class="ph r11"><span>ичу</span></div>
+        <div class="ph r11"><span>вискача</span></div>
+        <div class="ph r11"><span>кактус</span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:26px;font-size:15px">
+        <a href="#/dnevnik">← 4 августа</a>
+        <a href="#/dnevnik">18 августа →</a>
+      </div>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:20px">Написать в WhatsApp</a>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ АТЛАС ══════════════════ -->
+<div class="page" id="p-atlas">
+  <section>
+    <div class="wrap wide">
+      <a class="backlink" href="#/">← на главную</a>
+      <h2>Атлас</h2>
+      <p class="lead">Кто здесь живёт, что здесь растёт, из чего это сделано.</p>
+      <p style="max-width:68ch">У каждой карточки честный статус источника: подтверждено фотографией, со слов местных или не подтверждено. Латынь ставим только там, где уверены. Имя на кечуа неверным быть не может: местные так называют, проверять не у кого.</p>
+      <p style="margin-top:18px"><span class="tag" style="background:var(--ink);color:#fff;border-color:var(--ink)">все</span><span class="tag">птицы</span><span class="tag">звери</span><span class="tag">растения</span><span class="tag">камни</span></p>
+      <div class="g4" style="margin-top:16px">
+        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Вискача</b> ✔<br><span class="muted"><i>Lagidium viscacia</i></span></p></a>
+        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Яна вико</b> ✔<br><span class="muted"><i>Plegadis ridgwayi</i></span></p></a>
+        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Андский гусь</b> ✔<br><span class="muted"><i>Chloephaga melanoptera</i></span></p></a>
+        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Тарука</b> ✔<br><span class="muted"><i>Hippocamelus antisensis</i></span></p></a>
+        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Кеуния</b><br><span class="muted"><i>Polylepis</i></span></p></a>
+        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Ярета</b><br><span class="muted"><i>Azorella compacta</i></span></p></a>
+        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Кактус-подушка</b> ○<br><span class="muted">название уточняется</span></p></a>
+        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11"><span>Фото</span></div><p style="font-size:15px;margin-top:8px"><b>Ичу</b><br><span class="muted">трава пуны</span></p></a>
+      </div>
+      <p class="muted" style="margin-top:22px">Двадцать восемь растений уже отсняты и разложены по папкам — карточки открываются по мере проверки имён.</p>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-atlas-vizcacha">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/atlas">← Атлас</a>
+      <h1>Вискача</h1>
+      <p class="muted"><i>Lagidium viscacia</i> · кечуа: wisk'acha · EN: mountain viscacha</p>
+      <div class="ph r169" style="margin:20px 0"><span>Главный кадр</span></div>
+      <div class="g4">
+        <div class="ph r11"><span>Фото</span></div>
+        <div class="ph r11"><span>Фото</span></div>
+        <div class="ph r11"><span>Фото</span></div>
+        <div class="ph r11"><span>Фото</span></div>
+      </div>
+      <p style="margin-top:22px">Похожа на зайца, которому приделали беличий хвост. Живёт в камнях и держится группами — их много, видят часто, прямо с тропы. По классификации МСОП — вид «наименьшего беспокойства», хотя выглядит как редкая находка.</p>
+      <div class="card" style="margin:20px 0">
+        <p style="margin-bottom:6px"><span class="tag">✔ вид определён</span><span class="tag">✔ подтверждено фотографией</span></p>
+        <p class="muted" style="margin:0">Снята на месте, на 4200. Название на кечуа — со слов местных.</p>
+      </div>
+      <h3>Заметки, где встречалась</h3>
+      <p><a href="#/dnevnik/tuman">4 августа — «Вискачи вышли на камни в пятом часу»</a></p>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ ГАЛЕРЕЯ ══════════════════ -->
+<div class="page" id="p-gallery">
+  <section>
+    <div class="wrap wide">
+      <a class="backlink" href="#/">← на главную</a>
+      <h2>Фотографии</h2>
+      <p class="muted">Снято в месяце</p>
+      <div id="filter-month">
+        <button class="tag on" data-f="all">все</button>
+        <button class="tag" data-f="jul">июль 2026</button>
+        <button class="tag" data-f="aug">август 2026</button>
+        <button class="tag" data-f="nov">ноябрь 2025</button>
+      </div>
+      <p class="muted" style="margin-top:14px">Темы</p>
+      <div id="filter-tag">
+        <button class="tag on" data-f="all">все</button>
+        <button class="tag" data-f="lake">озёра</button>
+        <button class="tag" data-f="mtn">горы</button>
+        <button class="tag" data-f="house">дом</button>
+        <button class="tag" data-f="animal">альпаки</button>
+        <button class="tag" data-f="night">ночь и звёзды</button>
+        <button class="tag" data-f="plant">растения</button>
+        <button class="tag" data-f="craft">ремёсла</button>
+      </div>
+      <p class="muted" style="margin-top:12px">Локации не подписаны намеренно.</p>
+      <div class="masonry" id="masonry"></div>
+      <p class="muted" id="gal-count" style="margin-top:16px"></p>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ БЛОГ ══════════════════ -->
+<div class="page" id="p-blog">
+  <section>
+    <div class="wrap wide">
+      <a class="backlink" href="#/">← на главную</a>
+      <h2>Блог</h2>
+      <p class="lead">Три статьи написаны целиком, ещё девять — в работе.</p>
+      <div class="g3" style="margin-top:22px">
+        <a class="note-link" href="#/blog/tri-ozera"><div class="ph r43"><span>Обложка</span></div><h3 style="margin-top:10px">Кинсакоча, Пумакоча, Асулкоча: три озера над облаками</h3><p class="muted">Что это за озёра и почему сюда стоит ехать не только ради них</p></a>
+        <a class="note-link" href="#/blog/gornaya-bolezn"><div class="ph r43"><span>Обложка</span></div><h3 style="margin-top:10px">Горная болезнь на высоте 4200: как подготовиться</h3><p class="muted">Симптомы, акклиматизация и когда нужно спускаться</p></a>
+        <a class="note-link" href="#/blog/chuno"><div class="ph r43"><span>Обложка</span></div><h3 style="margin-top:10px">Что такое чуньо и почему инки сушили картошку на морозе</h3><p class="muted">Технология, которой пять тысяч лет</p></a>
+        <div><div class="ph r43"><span>Обложка</span></div><p class="muted" style="margin-top:10px;text-transform:uppercase;font-size:12px;letter-spacing:.06em">в работе</p><h3>Почему здесь ткут на ходу</h3></div>
+        <div><div class="ph r43"><span>Обложка</span></div><p class="muted" style="margin-top:10px;text-transform:uppercase;font-size:12px;letter-spacing:.06em">в работе</p><h3>Почему кактусы на 4200 носят шерсть</h3></div>
+        <div><div class="ph r43"><span>Обложка</span></div><p class="muted" style="margin-top:10px;text-transform:uppercase;font-size:12px;letter-spacing:.06em">в работе</p><h3>Ещё семь статей</h3></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-blog-tri-ozera">
+  <section>
+    <div class="wrap narrow article-body">
+      <a class="backlink" href="#/blog">← блог</a>
+      <h1>Кинсакоча, Пумакоча, Асулкоча: три озера над облаками</h1>
+      <p class="lead">Что это за озёра, чем они отличаются друг от друга и почему сюда стоит ехать не только ради них. Без маршрута и без координат.</p>
+      <div class="ph r169" style="margin:22px 0"><span>Обложка — вода крупным планом</span></div>
+      <p>Kinsa qucha на кечуа — «три озера». Kinsa значит три, qucha значит озеро. Место названо счётом: здесь ровно столько озёр, сколько сказано в имени. Ни метафоры, ни легенды — просто арифметика, которой несколько сотен лет.</p>
+      <p>Здесь не будет маршрута. Будет описание того, что вы увидите.</p>
+      <h4>Почему едут именно за лагунами</h4>
+      <p>Из всего, что есть вокруг Писака, в поиске живут именно эти три озера. Их фотографируют, их ищут, про них спрашивают в чатах Куско. И это честная слава: озёра на высоте за четыре тысячи метров действительно выглядят так, как не выглядит вода нигде внизу — плотный бирюзовый цвет, который не получается ни на одном фильтре.</p>
+      <p>Но местные, если спросить их прямо, назовут другие места. Не потому что озёра плохи, а потому что вокруг есть вещи, которые никто не раскручивал. Мы их не публикуем — об этом ниже.</p>
+      <h4>Пума Коча — 4325 метров</h4>
+      <div class="ph r43" style="margin:18px 0"><span>Пума Коча</span></div>
+      <p>Самое высокое из трёх. Название переводится с кечуа как «озеро пумы». Пума для инков была не просто зверем: она означала силу и связь с землёй, один из трёх уровней мира. Назвать её именем воду на такой высоте — это не то же самое, что назвать озеро в честь красивой птицы.</p>
+      <p>Пуму здесь не видели. В регионе она есть, но следов не находят, и никто из местных не может сказать, что встречал её. Озеро носит её имя, а самой пумы в кадре не будет — и это, пожалуй, самое точное описание этого места.</p>
+      <h4>Асуль Коча — 4247 метров</h4>
+      <div class="ph r43" style="margin:18px 0"><span>Асуль Коча в ясный день</span></div>
+      <p>Ниже Пума Кочи почти на восемьдесят метров. Асуль — «синее» по-испански, и название не преувеличивает: вода здесь уходит в насыщенную бирюзу, а в ясный день, когда небо стоит без единого облака, граница между водой и небом почти исчезает.</p>
+      <p>Цвет — не краска и не минерал в привычном смысле. Так работает высота: чистая холодная вода, мало органики, много света. Внизу такой воды не бывает просто потому, что внизу теплее.</p>
+      <h4>Кинса Коча — то, у которого стоит дом</h4>
+      <div class="ph r169" style="margin:18px 0"><span>Озеро и дом на берегу</span></div>
+      <p>Самое большое из трёх и самое близкое. Именно у него стоит дом, и именно оно дало имя всему месту. В нём же община разводит форель — тручу. Ловить её нельзя, а заказать к ужину можно: это единственная еда, которую здесь не нужно везти с собой снизу.</p>
+      <p>Порядок обхода не задан. Есть длинные варианты и короткие, и в каком порядке вы увидите озёра, зависит от того, сколько у вас времени, какая погода и кто с вами идёт. Проводник решает это утром, а не за неделю до вашего приезда.</p>
+      <h4>Купаться — можно. Но подумайте дважды</h4>
+      <p>Да, здесь купаются. Вода холодная — не «бодрящая», а именно холодная, и это не преувеличение для красного словца.</p>
+      <p>Честная часть: вы находитесь выше четырёх тысяч двухсот метров. Кислорода примерно на сорок процентов меньше, чем на уровне моря. Резкий холод — это дополнительная нагрузка на сердце, а на такой высоте организм и без того работает в непривычном режиме. Поэтому: не в первый день после подъёма, не в одиночку, не после алкоголя и не «на слабо».</p>
+      <p><a href="#/blog/gornaya-bolezn">→ Что нужно знать про высоту 4200 до того, как подниматься</a></p>
+      <h4>Что здесь есть кроме озёр</h4>
+      <p>Пики. Малые лагуны, у которых нет ни имени в интернете, ни фотографий. Тропы, о которых знает довольно мало людей.</p>
+      <p>Мы не будем про них писать. Не из вредности и не ради интриги: эти места существуют в нынешнем виде ровно потому, что о них не пишут. Как только появляется координата, появляется поток, а за потоком — мусор, вытоптанная трава и очередь на фотографию.</p>
+      <div class="quote">Озёра — это то, за чем едут. Не то, ради чего остаются.</div>
+      <h4>Когда ехать</h4>
+      <p>Сухой сезон — с апреля по октябрь-ноябрь. Ясно, солнечно, ночи морозные. Сезон дождей — с ноября по март: дожди меняют маршруты и форматы, но не отменяют поездку. Зелени больше, людей меньше.</p>
+      <p>Отдельно стоит октябрь-ноябрь. Это стык сезонов: сухой заканчивается, первые дожди уже близко, и в этот момент всё зацветает разом. Крошечные жёлтые цветы, каких не бывает внизу, и кактусы, которые здесь растут подушками и обрастают белым пухом от холода.</p>
+      <h4>Сколько добираться</h4>
+      <p>Если вы уже в Куско или Писаке — это вопрос нескольких часов, а не дней. Ради одних этих озёр вряд ли стоит лететь через полмира, но если вы уже в Перу и у вас есть два свободных дня, вопрос «стоит ли» решается просто: стоит.</p>
+      <p>Трансфер из Писака до двери заказывается отдельно, через WhatsApp. Дорога — часть впечатления, и её лучше не проезжать в спешке.</p>
+      <hr style="border:0;border-top:1px solid var(--line-soft);margin:32px 0">
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <p class="muted" style="margin-top:16px">Читайте также: <a href="#/blog/gornaya-bolezn">горная болезнь на 4200</a> · <a href="#/tseny">цены</a></p>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-blog-gornaya-bolezn">
+  <section>
+    <div class="wrap narrow article-body">
+      <a class="backlink" href="#/blog">← блог</a>
+      <h1>Горная болезнь на высоте 4200: как подготовиться</h1>
+      <p class="lead">Что происходит с телом на четырёх тысячах метров, как выглядят первые симптомы, сколько нужно на акклиматизацию и когда нужно спускаться.</p>
+      <div class="ph r169" style="margin:22px 0"><span>Тропа вверх</span></div>
+      <p>На 4200 метрах кислорода в воздухе примерно на сорок процентов меньше, чем на уровне моря. Воздух тот же самый по составу — его просто меньше в каждом вдохе. Тело замечает это в первые часы и начинает перестраиваться: дышать чаще, гнать кровь быстрее, менять её состав. Эта перестройка и есть акклиматизация, и она занимает не минуты, а дни.</p>
+      <h4>Как это ощущается</h4>
+      <p>Чаще всего — головная боль, которая появляется через несколько часов после подъёма. Плюс что-нибудь из этого списка:</p>
+      <ul>
+        <li>Одышка при обычной ходьбе</li>
+        <li>Тяжёлый или прерывистый сон в первую ночь</li>
+        <li>Пропавший аппетит</li>
+        <li>Тошнота</li>
+        <li>Странная усталость, несоразмерная нагрузке</li>
+        <li>Ощущение, что вы простыли, хотя не простыли</li>
+      </ul>
+      <p>Это неприятно, но само по себе не опасно и обычно проходит за сутки-двое. Опасно другое — когда состояние не улучшается, а ухудшается.</p>
+      <h4>Когда нужно вниз, и вниз немедленно</h4>
+      <p>Есть симптомы, при которых не ждут утра и не пьют таблетку «на всякий случай». Спускаются.</p>
+      <ul>
+        <li>Спутанность сознания, странное поведение, речь невпопад</li>
+        <li>Потеря равновесия, шаткая походка</li>
+        <li>Одышка в состоянии полного покоя</li>
+        <li>Кашель с пеной или розовой мокротой</li>
+        <li>Сильная головная боль, которую не снимает обезболивающее</li>
+        <li>Рвота, которая не прекращается</li>
+      </ul>
+      <p>Высота — единственное лекарство, которое работает наверняка: сброс высоты снимает симптомы. Всё остальное — вспомогательное.</p>
+      <h4>Акклиматизация: сколько времени нужно</h4>
+      <p>Куско стоит примерно на 3400 метрах — уже достаточно высоко, чтобы тело начало приспосабливаться. Два-три дня в Куско или Священной долине перед подъёмом на 4200 меняют опыт полностью: разница между «мне тяжело и я ничего не почувствовал» и «я запомнил этот день».</p>
+      <p>Если вы только что прилетели из города на уровне моря и в тот же день поехали наверх — вероятность провести первую ночь с головной болью очень высокая.</p>
+      <h4>Что помогает</h4>
+      <ul>
+        <li>Вода. Пить больше обычного — на высоте организм теряет жидкость быстрее, а обезвоживание похоже на горную болезнь и усиливает её</li>
+        <li>Медленный темп. Наверху спешка не даёт выигрыша, она даёт головную боль</li>
+        <li>Лёгкая еда. Тяжёлый ужин в первую ночь — плохая идея</li>
+        <li>Никакого алкоголя в первые сутки. Он бьёт по тому же механизму, что и высота</li>
+        <li>Лист коки. В Перу легален, традиционен и продаётся на любом рынке. Местные жуют его или заваривают как чай — это часть повседневной жизни, а не экзотика для туристов</li>
+        <li>Тепло. Замёрзший человек переносит высоту хуже</li>
+      </ul>
+      <div class="ph r11" style="max-width:300px;margin:20px 0"><span>Лист коки</span></div>
+      <h4>Дети</h4>
+      <p>Дети переносят высоту не хуже взрослых, но хуже её описывают: ребёнок редко скажет «у меня одышка», он скажет, что не хочет идти, или просто начнёт капризничать. Поэтому смотреть надо не на слова, а на поведение — и не уговаривать пройти ещё немного, если ребёнок сел.</p>
+      <p>Маршрут с детьми подбирается под ребёнка, а не наоборот. Три часа до ближнего озера и возвращение к обеду — нормальный полноценный день, а не урезанная версия чего-то большего.</p>
+      <div class="ph r43" style="margin:20px 0"><span>Ребёнок на тропе</span></div>
+      <h4>Про купание в озёрах</h4>
+      <p>Купаться на такой высоте можно, и люди купаются. Но резкий холод — это нагрузка на сердце поверх той, которую уже даёт высота. Не в первый день после подъёма, не в одиночку и не после алкоголя.</p>
+      <p><a href="#/blog/tri-ozera">→ Про сами озёра — что это за вода и чем они отличаются</a></p>
+      <hr style="border:0;border-top:1px solid var(--line-soft);margin:32px 0">
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-blog-chuno">
+  <section>
+    <div class="wrap narrow article-body">
+      <a class="backlink" href="#/blog">← блог</a>
+      <h1>Что такое чуньо и почему инки сушили картошку на морозе</h1>
+      <p class="lead">Технология, которой пять тысяч лет: как ночной мороз и дневное солнце превращают картошку в продукт, который хранится годами.</p>
+      <div class="ph r169" style="margin:22px 0"><span>Картошка на земле в изморози</span></div>
+      <p>На четырёх тысячах метров нельзя вырастить пшеницу и нельзя держать погреб. Зато можно вырастить картошку — и здесь её вырастили столько сортов, сколько нет больше нигде на планете. Проблема была не в том, чтобы её получить, а в том, чтобы дожить с ней до следующего урожая.</p>
+      <p>Решение нашли простое до неприличия: использовать погоду как оборудование.</p>
+      <h4>Как это работает</h4>
+      <p>В сухой сезон на такой высоте ночью крепкий мороз, а днём — жёсткое солнце и очень сухой воздух. Картошку раскладывают прямо на земле и оставляют на несколько ночей.</p>
+      <p>Ночью вода внутри клубня замерзает и рвёт клеточные стенки. Днём солнце вытапливает лёд, а сухой воздух уносит влагу. Люди топчут клубни ногами, выдавливая остатки воды. Цикл повторяется несколько раз подряд.</p>
+      <p>На выходе — лёгкий, твёрдый, почти невесомый продукт, который хранится годами и не портится. По сути это лиофилизация: тот же принцип, по которому делают еду для космонавтов, только оборудование здесь — ночное небо.</p>
+      <div class="ph r43" style="margin:20px 0"><span>Чуньо чёрный и морайя белая рядом</span></div>
+      <h4>Чёрный и белый</h4>
+      <p>Чуньо — чёрный. Его делают без промывки, и он темнеет от процесса. Вкус плотный, землистый, ни на что не похожий.</p>
+      <p>Морайя — белый. Разница в одном шаге: клубни держат в проточной воде — в ручье, под камнями, несколько недель — и только потом выкладывают на мороз. Вода вымывает то, что даёт горечь и цвет. Морайя мягче, светлее и ценится выше.</p>
+      <h4>Зачем это было нужно</h4>
+      <p>Империя инков держалась на логистике не меньше, чем на армии. По дорогам стояли склады — колька, — и в них хранили именно чуньо: он не тяжёлый, не гниёт и переживает годы. Это была страховка от неурожая для целых провинций и паёк для армии на марше.</p>
+      <p>Технологии, по разным оценкам, около пяти тысяч лет. Она старше письменности в большинстве регионов мира и до сих пор работает без единого изменения.</p>
+      <div class="ph r11" style="max-width:300px;margin:20px 0"><span>Сорта картошки</span></div>
+      <h4>Что с этим делают сегодня</h4>
+      <p>То же самое. Чуньо размачивают и кладут в суп, где он набухает и становится похож на плотную клёцку. Морайю чаще подают отдельно, к мясу или к сыру.</p>
+      <p>Здесь это не блюдо для гостей и не гастрономический опыт. Это то, что стоит в доме круглый год, потому что так удобнее. Гостю его дают ровно потому же, почему дали бы соседу.</p>
+      <div class="ph r43" style="margin:20px 0"><span>Тарелка супа на столе в доме</span></div>
+      <div class="quote">Пять тысяч лет назад кто-то заметил, что мороз работает бесплатно. С тех пор ничего лучше не придумали.</div>
+      <hr style="border:0;border-top:1px solid var(--line-soft);margin:32px 0">
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ ПРАВИЛА ══════════════════ -->
+<div class="page" id="p-pravila">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/">← на главную</a>
+      <h2>Как здесь принято</h2>
+      <p class="lead">Дом живёт на 4200 своими законами — не из строгости, а потому что здесь всё даётся дороже.</p>
+
+      <h3 style="margin-top:30px">В доме</h3>
+      <div class="card accent">
+        <p><b>Уборка входит в цену.</b> Доплачивать за неё не нужно. Просим об одном: оставьте дом таким, каким вам самим было бы приятно в него войти.</p>
+        <p><b>Мусор вы увозите с собой.</b> Всё, что не сгорит и не сгниёт — пластик, стекло, банки, батарейки. Мусоровоз сюда не поднимается: то, что осталось наверху, останется наверху навсегда, или кто-то потащит его вниз на своей спине.</p>
+        <p style="margin-bottom:0"><b>Дрова лежат под навесом связками.</b> Связка — 30 солей. Берите сколько нужно и посчитайтесь при отъезде. Дрова сюда привозят снизу, на 4200 они не растут.</p>
+      </div>
+      <div class="card accent" style="margin-top:14px">
+        <p style="margin:0"><b>В доме живут собака Матвей и кот Сириус.</b> Они здесь раньше вас и останутся после. Если снимаете дом без хозяина — либо вас попросят насыпать им еды, либо придут местные и покормят сами. Договариваемся заранее.</p>
+      </div>
+      <div class="card accent" style="margin-top:14px">
+        <p><b>На этой кухне не готовят мясо и рыбу.</b> Так живёт хозяин — ему не хочется крови на своей кухне. Правило про кухню, а не про то, что вы едите.</p>
+        <p class="muted" style="margin-bottom:0">Готовое можно заказать у соседей или привезти с собой. Яйца и молоко здесь свои.</p>
+      </div>
+
+      <h3 style="margin-top:30px">Алкоголь и всё остальное</h3>
+      <div class="card">
+        <p>На территории дома не пьют. За её пределами вы взрослые люди и решаете сами.</p>
+        <p>Если вы идёте с проводником и что-то принесли с собой — микродоза и не больше. Причина не в запрете, а в высоте: на 4200 сердце работает иначе, помощь идёт снизу сорок минут, а тропа не прощает потерянной координации. Человек в сильном эффекте на высоте — риск не только для себя.</p>
+        <p class="muted" style="margin-bottom:0"><i>Мы ничего не предоставляем и ничего не организуем. Это правило безопасности, а не услуга.</i></p>
+      </div>
+
+      <h3 style="margin-top:30px">На прогулке</h3>
+      <p><span class="tag">дети у воды — под присмотром</span><span class="tag">в темноте — только с проводником</span><span class="tag">ничего не уносим</span><span class="tag">людей на тропе — спросив</span></p>
+      <p>«Ничего не уносим» — про камни, растения и всё остальное. Тот же принцип, на котором стоит весь сайт: место остаётся таким, какое оно есть.</p>
+      <div class="card accent">
+        <p style="margin:0">У двери лежат пакеты. Возьмите один, если захотите: вниз всё равно идти, а пакет ничего не весит.</p>
+      </div>
+
+      <h3 style="margin-top:30px">Если что-то пошло не так</h3>
+      <div class="card accent">
+        <p><b>Если станет плохо</b> — аптечка и кислород в доме, а дальше звоним водителям: их номера висят на стене. Днём машина приходит скоро, ночью её надо ждать.</p>
+        <p class="muted" style="margin-bottom:0">Поэтому главное правило дома — не про дом: приезжайте акклиматизированными. Два-три дня в Куско или Долине перед подъёмом.</p>
+      </div>
+
+      <h3 style="margin-top:30px">Аптечка</h3>
+      <div class="ph r43" style="max-width:340px;margin-bottom:14px"><span>Фото аптечки</span></div>
+      <p><span class="tag">от головы</span><span class="tag">от живота</span><span class="tag">от аллергии</span><span class="tag">бинт и пластыри</span><span class="tag">антисептик</span><span class="tag">ножницы, пинцет</span><span class="tag">крем от солнца</span><span class="tag">бальзам для губ</span><span class="tag">таблетки от высоты</span><span class="tag">кислород</span><span class="tag">лист коки</span></p>
+      <p class="muted">Чего в ней нет: рецептурного, антибиотиков, вашего личного. Свои таблетки везите с собой — ближайшая аптека в сорока минутах вниз.</p>
+
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:20px">Спросить, если что-то не ясно</a>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ КОНТАКТЫ ══════════════════ -->
+<div class="page" id="p-kontakty">
+  <section class="center">
+    <div class="wrap narrow">
+      <a class="backlink" href="#/">← на главную</a>
+      <h2>Приезжайте</h2>
+      <p class="lead" style="max-width:44ch;margin:0 auto 24px">Форм для брони нет. Есть человек, которому можно написать.</p>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <div style="margin-top:10px">
+        <a class="btn" href="#/kontakty">Telegram</a>
+        <a class="btn" href="#/kontakty">Instagram</a>
+        <a class="btn" href="mailto:hola@kinsacocha.com">hola@kinsacocha.com</a>
+      </div>
+      <p class="muted" style="max-width:48ch;margin:26px auto 0">Если я наверху, связь ловит не всегда.</p>
+      <p class="muted" style="max-width:48ch;margin:10px auto 0">По-русски и по-испански — отвечу сразу. По-английски тоже отвечу, иногда с помощью переводчика. Даже если напишете по-китайски — переводчик найдётся и на него.</p>
+      <p class="muted" style="max-width:48ch;margin:26px auto 0;font-size:14px">Pisac, Cusco, Peru</p>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="site">
+  <div class="wrap wide">
+    <div class="ftop">
+      <p class="fclaim">Дом — частный. Всё вокруг — общее.</p>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    </div>
+    <div class="fgrid">
+      <div>
+        <h4>Kinsacocha</h4>
+        <p style="font-size:15px;margin:0">Дом у трёх озёр на 4200 метров над Священной долиной.</p>
+        <p style="font-size:15px;margin-top:10px">Pisac, Cusco, Peru</p>
+      </div>
+      <div>
+        <h4>Три озера</h4>
+        <ul>
+          <li><a href="#/ozera/pumakocha">Пума Коча · 4325 м</a></li>
+          <li><a href="#/ozera/azulkocha">Асуль Коча · 4247 м</a></li>
+          <li><a href="#/ozera/kinsakocha">Кинса Коча</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/tseny">Цены</a></li>
+          <li><a href="#/dnevnik">Полевые заметки</a></li>
+          <li><a href="#/atlas">Атлас</a></li>
+          <li><a href="#/gallery">Фотографии</a></li>
+          <li><a href="#/blog">Блог</a></li>
+          <li><a href="#/pravila">Правила дома</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Написать</h4>
+        <ul>
+          <li><a href="https://wa.me/447916693473" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="#/kontakty">Telegram</a></li>
+          <li><a href="#/kontakty">Instagram</a></li>
+          <li><a href="mailto:hola@kinsacocha.com">hola@kinsacocha.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span class="langs"><b class="on">RU</b><b>EN</b><b>ES</b></span>
+      <span>© 2026 Kinsacocha · Pisac, Cusco, Peru</span>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-wa" id="sticky">
+  <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lb-close" aria-label="Закрыть">×</button>
+  <button class="lb-nav lb-prev" id="lb-prev" aria-label="Предыдущая">‹</button>
+  <div class="frame" id="lb-frame">Фотография</div>
+  <button class="lb-nav lb-next" id="lb-next" aria-label="Следующая">›</button>
+  <div class="count" id="lb-count"></div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function rand(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+
+  /* ─── Маршрутизация ─────────────────────────────── */
+  var ROUTES = {
+    "": "p-home",
+    "tseny": "p-tseny",
+    "ozera": "p-ozera",
+    "ozera/pumakocha": "p-ozera-pumakocha",
+    "ozera/azulkocha": "p-ozera-azulkocha",
+    "ozera/kinsakocha": "p-ozera-kinsakocha",
+    "dnevnik": "p-dnevnik",
+    "dnevnik/tuman": "p-dnevnik-tuman",
+    "atlas": "p-atlas",
+    "atlas/vizcacha": "p-atlas-vizcacha",
+    "gallery": "p-gallery",
+    "blog": "p-blog",
+    "blog/tri-ozera": "p-blog-tri-ozera",
+    "blog/gornaya-bolezn": "p-blog-gornaya-bolezn",
+    "blog/chuno": "p-blog-chuno",
+    "pravila": "p-pravila",
+    "kontakty": "p-kontakty"
+  };
+
+  var navLinks = document.querySelectorAll("nav.main a");
+
+  function route() {
+    var raw = location.hash.replace(/^#\/?/, "");
+    // якорь внутри главной (#dom, #tropy) — не маршрут
+    if (raw && !ROUTES.hasOwnProperty(raw) && document.getElementById(raw)) {
+      show("p-home");
+      var target = document.getElementById(raw);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    var id = ROUTES.hasOwnProperty(raw) ? ROUTES[raw] : "p-home";
+    show(id);
+    window.scrollTo(0, 0);
+    for (var i = 0; i < navLinks.length; i++) {
+      var h = navLinks[i].getAttribute("href").replace(/^#\/?/, "");
+      // подсвечиваем раздел и на его внутренних страницах: blog → blog/tri-ozera
+      navLinks[i].classList.toggle("on", h === raw || (h !== "" && raw.indexOf(h + "/") === 0));
+    }
+    closeMenu();
+  }
+
+  function show(id) {
+    var pages = document.querySelectorAll(".page");
+    for (var i = 0; i < pages.length; i++) pages[i].classList.toggle("on", pages[i].id === id);
+  }
+
+  window.addEventListener("hashchange", route);
+
+  /* ─── Меню на телефоне ──────────────────────────── */
+  var nav = document.getElementById("nav");
+  var burger = document.getElementById("burger");
+  function closeMenu() { nav.classList.remove("open"); burger.textContent = "Меню"; }
+  burger.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    burger.textContent = open ? "Закрыть" : "Меню";
+  });
+
+  /* ─── Первый экран: слайдер ─────────────────────── */
+  var slides = document.querySelectorAll("#slider .ph");
+  var dots = document.querySelectorAll("#dots i");
+  var hero = document.querySelector(".hero");
+  var cur = 0, heroTimer = null, wheelLock = 0;
+
+  function goTo(i) {
+    if (!slides.length) return;
+    slides[cur].classList.remove("on");
+    if (dots[cur]) dots[cur].classList.remove("on");
+    cur = (i + slides.length) % slides.length;
+    slides[cur].classList.add("on");
+    if (dots[cur]) dots[cur].classList.add("on");
+  }
+  function startHero() {
+    if (reduced || !slides.length) return;
+    clearInterval(heroTimer);
+    heroTimer = setInterval(function () { goTo(cur + 1); }, 4000);
+  }
+  startHero();
+
+  /* смена от колеса мыши, пока первый экран на виду */
+  if (hero && slides.length) {
+    window.addEventListener("wheel", function (e) {
+      if (document.getElementById("p-home").className.indexOf("on") < 0) return;
+      var r = hero.getBoundingClientRect();
+      if (r.bottom < window.innerHeight * 0.6) return;
+      var now = Date.now();
+      if (now - wheelLock < 700) return;
+      wheelLock = now;
+      goTo(cur + (e.deltaY > 0 ? 1 : -1));
+      startHero();
+    }, { passive: true });
+  }
+  for (var di = 0; di < dots.length; di++) {
+    (function (idx) {
+      dots[idx].addEventListener("click", function () { goTo(idx); startHero(); });
+    })(di);
+  }
+
+  /* ─── Пары «нет / есть»: правая половина позже левой ── */
+  var pairs = document.querySelectorAll(".pair");
+  if (reduced || !("IntersectionObserver" in window)) {
+    for (var pi = 0; pi < pairs.length; pi++) pairs[pi].classList.add("in");
+  } else {
+    var pairObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); pairObs.unobserve(en.target); }
+      });
+    }, { threshold: 0.35 });
+    for (var pj = 0; pj < pairs.length; pj++) pairObs.observe(pairs[pj]);
+  }
+
+  /* ─── Живое табло ───────────────────────────────── */
+  var TINTS = ["#8a5a3c", "#3d5a60", "#6f6a62", "#b8b0a2", "#2e2c29"];
+
+  function makeFace(isVideo, isBack) {
+    var f = document.createElement("div");
+    f.className = "face" + (isVideo ? " video" : "") + (isBack ? " b" : "");
+    if (isVideo) {
+      var dot = document.createElement("span");
+      dot.className = "dot";
+      f.appendChild(dot);
+    } else {
+      f.style.setProperty("--tint", TINTS[rand(0, TINTS.length - 1)]);
+    }
+    return f;
+  }
+
+  function buildWall(id, count, videoCount) {
+    var root = document.getElementById(id);
+    if (!root) return;
+    root.innerHTML = "";
+    var tiles = [];
+
+    for (var i = 0; i < count; i++) {
+      var tile = document.createElement("div"); tile.className = "tile";
+      var inner = document.createElement("div"); inner.className = "tile-inner";
+      var a = makeFace(false, false);
+      var b = makeFace(false, true);
+      inner.appendChild(a); inner.appendChild(b);
+      tile.appendChild(inner);
+      root.appendChild(tile);
+      tiles.push({ el: tile, front: a, back: b, shown: 0 });
+    }
+
+    var order = tiles.map(function (_, idx) { return idx; });
+    order.sort(function () { return Math.random() - 0.5; });
+    for (var v = 0; v < videoCount; v++) {
+      var t = tiles[order[v]];
+      var nv = makeFace(true, false);
+      t.front.replaceWith(nv);
+      t.front = nv;
+    }
+
+    if (reduced) return;
+
+    var paused = false;
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { paused = !e.isIntersecting; });
+      }, { threshold: 0.05 });
+      io.observe(root);
+    }
+
+    function flipOne(t) {
+      var hidden = t.shown === 0 ? t.back : t.front;
+      var makeVideo = Math.random() < 0.06;
+      var next = makeFace(makeVideo, t.shown === 0);
+      hidden.replaceWith(next);
+      if (t.shown === 0) t.back = next; else t.front = next;
+      t.shown = t.shown === 0 ? 1 : 0;
+      t.el.classList.toggle("flip");
+    }
+
+    function schedule(t) {
+      setTimeout(function () {
+        if (!paused) flipOne(t);
+        schedule(t);
+      }, rand(3200, 9000));
+    }
+    tiles.forEach(function (t) { setTimeout(function () { schedule(t); }, rand(0, 4000)); });
+
+    function wave() {
+      if (!paused) {
+        var start = rand(0, tiles.length - 1);
+        var n = rand(6, 10);
+        for (var k = 0; k < n; k++) {
+          (function (offset) {
+            setTimeout(function () {
+              var t = tiles[(start + offset * 7) % tiles.length];
+              if (t) flipOne(t);
+            }, offset * 160);
+          })(k);
+        }
+      }
+      setTimeout(wave, rand(22000, 38000));
+    }
+    setTimeout(wave, rand(15000, 25000));
+  }
+
+  buildWall("wall-big", 240, 12);
+  buildWall("wall-n1", 4, 0);
+  buildWall("wall-n2", 4, 0);
+  buildWall("wall-n3", 4, 0);
+
+  /* ─── Лунное окно ───────────────────────────────── */
+  (function () {
+    var el = document.getElementById("moon-date");
+    var inEl = document.getElementById("moon-in");
+    if (!el) return;
+    var SYN = 29.530588853;
+    var refNew = Date.UTC(2000, 0, 6, 18, 14) / 86400000;
+    var now = Date.now() / 86400000;
+    var n = Math.floor((now - refNew) / SYN);
+    var full = refNew + (n + 0.5) * SYN;
+    if (full < now) full = refNew + (n + 1.5) * SYN;
+    var d = new Date(full * 86400000);
+    var months = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+    el.textContent = d.getUTCDate() + " " + months[d.getUTCMonth()];
+    var days = Math.round(full - now);
+    var word = "дней";
+    var m10 = days % 10, m100 = days % 100;
+    if (m10 === 1 && m100 !== 11) word = "день";
+    else if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) word = "дня";
+    inEl.textContent = days <= 0 ? "сегодня" : "через " + days + " " + word;
+  })();
+
+  /* ─── Галерея ───────────────────────────────────── */
+  var SHOTS = [];
+  (function () {
+    var months = ["jul", "aug", "nov"];
+    var tags = ["lake", "mtn", "house", "animal", "night", "plant", "craft"];
+    var names = ["Озеро", "Склон", "Дом", "Альпаки", "Ночное небо", "Растение", "Ткань", "Туман", "Вода", "Камни", "Печь", "Тропа"];
+    var heights = [150, 200, 175, 230, 160, 190, 210, 165];
+    for (var i = 0; i < 48; i++) {
+      SHOTS.push({
+        m: months[i % 3],
+        t: tags[i % tags.length],
+        label: names[i % names.length],
+        h: heights[i % heights.length]
+      });
+    }
+  })();
+
+  var masonry = document.getElementById("masonry");
+  var galCount = document.getElementById("gal-count");
+  var fMonth = "all", fTag = "all";
+  var visible = [];
+
+  function renderGallery() {
+    if (!masonry) return;
+    masonry.innerHTML = "";
+    visible = SHOTS.filter(function (s) {
+      return (fMonth === "all" || s.m === fMonth) && (fTag === "all" || s.t === fTag);
+    });
+    visible.forEach(function (s, idx) {
+      var d = document.createElement("div");
+      d.className = "shot";
+      d.dataset.i = idx;
+      var ph = document.createElement("div");
+      ph.className = "ph";
+      ph.style.height = s.h + "px";
+      var sp = document.createElement("span");
+      sp.textContent = s.label;
+      ph.appendChild(sp);
+      d.appendChild(ph);
+      masonry.appendChild(d);
+    });
+    galCount.textContent = visible.length + " из " + SHOTS.length + " фотографий. Дальше подгружается по мере прокрутки.";
+  }
+
+  function bindFilter(wrapId, setter) {
+    var w = document.getElementById(wrapId);
+    if (!w) return;
+    w.addEventListener("click", function (e) {
+      var b = e.target.closest("button.tag");
+      if (!b) return;
+      var btns = w.querySelectorAll("button.tag");
+      for (var i = 0; i < btns.length; i++) btns[i].classList.remove("on");
+      b.classList.add("on");
+      setter(b.dataset.f);
+      renderGallery();
+    });
+  }
+  bindFilter("filter-month", function (v) { fMonth = v; });
+  bindFilter("filter-tag", function (v) { fTag = v; });
+  renderGallery();
+
+  /* ─── Полноэкранный просмотр ────────────────────── */
+  var lb = document.getElementById("lightbox");
+  var lbFrame = document.getElementById("lb-frame");
+  var lbCount = document.getElementById("lb-count");
+  var lbIdx = 0;
+
+  function openLb(i) {
+    lbIdx = i;
+    paintLb();
+    lb.classList.add("on");
+  }
+  function paintLb() {
+    if (!visible.length) return;
+    lbFrame.textContent = visible[lbIdx].label;
+    lbCount.textContent = (lbIdx + 1) + " / " + visible.length;
+  }
+  function step(d) {
+    lbIdx = (lbIdx + d + visible.length) % visible.length;
+    paintLb();
+  }
+  if (masonry) {
+    masonry.addEventListener("click", function (e) {
+      var s = e.target.closest(".shot");
+      if (s) openLb(parseInt(s.dataset.i, 10));
+    });
+  }
+  document.getElementById("lb-close").addEventListener("click", function () { lb.classList.remove("on"); });
+  document.getElementById("lb-prev").addEventListener("click", function (e) { e.stopPropagation(); step(-1); });
+  document.getElementById("lb-next").addEventListener("click", function (e) { e.stopPropagation(); step(1); });
+  lb.addEventListener("click", function (e) { if (e.target === lb) lb.classList.remove("on"); });
+  document.addEventListener("keydown", function (e) {
+    if (!lb.classList.contains("on")) return;
+    if (e.key === "Escape") lb.classList.remove("on");
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+
+  /* ─── Липкая кнопка после первого экрана ────────── */
+  var sticky = document.getElementById("sticky");
+  window.addEventListener("scroll", function () {
+    sticky.classList.toggle("show", window.scrollY > 500);
+  }, { passive: true });
+
+  /* ─── Старт ─────────────────────────────────────── */
+  route();
+})();
+</script>
