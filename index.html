@@ -196,6 +196,9 @@
   .g2 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
   .g3 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
   .g4 { grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); }
+  .gph { display: grid; gap: clamp(14px, 2.2vw, 22px); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .gph.pair2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .gph .cap { font-size: 15px; margin-top: 9px; }
   .split { display: grid; gap: clamp(18px, 3vw, 30px); grid-template-columns: 1fr; }
   @media (min-width: 760px) { .split { grid-template-columns: 1fr 1fr; align-items: start; } }
   /* текст прилипает, пока справа проезжают фотографии */
@@ -495,6 +498,14 @@
   .opts .or { font-size: 12.5px; color: var(--muted); }
   .day-row .note { font-size: 14px; color: var(--muted); margin: 0; }
 
+  /* ─── Список «заголовок — текст» ────────────────────── */
+  .lines { border-top: 1px solid var(--line); }
+  .line { display: grid; grid-template-columns: clamp(110px, 16vw, 180px) 1fr; gap: clamp(12px, 2vw, 26px); padding: 15px 0; border-bottom: 1px solid var(--line-soft); align-items: start; }
+  .line h4 { margin: 0; padding-top: 1px; grid-column: 1; }
+  .line > *:not(h4) { grid-column: 2; }
+  .line p { margin: 0 0 6px; }
+  .line p:last-child { margin-bottom: 0; }
+
   /* ─── Заметки ───────────────────────────────────────── */
   .note-link { display: block; text-decoration: none; color: inherit; }
   .note-link:hover h3 { color: var(--accent); }
@@ -646,6 +657,8 @@
   /* сутки */
   .day { border-left-color: var(--k-border); }
   .day-row { border-bottom-color: var(--k-border); }
+  .lines { border-top-color: var(--k-border); }
+  .line { border-bottom-color: var(--k-border); }
   .opts .pill { border-color: var(--k-border); color: rgba(235,235,235,.7); }
   .opts .pill.on { border-color: var(--k-accent); color: var(--k-accent); }
   .opts .or { color: rgba(235,235,235,.35); }
@@ -837,6 +850,8 @@
     .g3 { grid-template-columns: 1fr; }
     .lake-media { gap: 8px; }
     .day-row { grid-template-columns: 52px 1fr; gap: 10px; }
+    .line { grid-template-columns: 1fr; gap: 5px; padding: 13px 0; }
+    .line > *:not(h4) { grid-column: 1; }
   }
 
 
@@ -1026,9 +1041,9 @@
         </div>
       </div>
 
-      <p class="kick">Три озера дали месту имя. Но озёр здесь пять.</p>
-      <p style="max-width:68ch">Два других лежат дальше. Настолько дальше, что за один день до них не дойти и вернуться обратно — день закончится раньше, чем начнётся дорога туда.</p>
-      <p style="max-width:68ch"><b>Их не прячут и не охраняют. До них просто не доходят.</b> Обычный маршрут из Куско рассчитан на светлое время: приехали, посмотрели три лагуны, уехали ночевать вниз. Четвёртое и пятое остаются за этой чертой — и потому их почти никто не видел.</p>
+      <p class="kick">Три озера дали месту имя. Но воды здесь больше трёх.</p>
+      <p style="max-width:68ch">Дальше лежат другие. Настолько дальше, что за один день до них не дойти и вернуться обратно — день закончится раньше, чем начнётся дорога туда. Мы называем их по счёту: четвёртое, пятое. Имён в этом тексте не будет.</p>
+      <p style="max-width:68ch"><b>Их не прячут и не охраняют. До них просто не доходят.</b> Обычный маршрут из Куско рассчитан на светлое время: приехали, посмотрели три лагуны, уехали ночевать вниз. Всё, что лежит за этой чертой, почти никто не видел.</p>
 
       <div class="g2" style="margin-top:22px">
         <div class="card">
@@ -1064,18 +1079,18 @@
             <div><div style="font-size:40px;font-weight:700;line-height:1">1,5</div><div class="muted">часа от Куско</div></div>
           </div>
           <p class="muted">Машина доезжает до самой двери: идти пешком с вещами не придётся. Из Писака быстрее и дешевле, из Куско — без пересадок.</p>
-          <p><span class="tag">от S/. 100 за машину</span></p>
+          <p><span class="tag">S/. 100 за машину в одну сторону</span></p>
           <p class="muted">Договоримся с водителем заранее — <a href="https://wa.me/447916693473" target="_blank" rel="noopener">напишите</a>, и всё устроим. Оплачивается отдельно от проживания.</p>
         </div>
         <div class="card">
           <h3>Пешком</h3>
           <div style="display:flex;flex-wrap:wrap;gap:28px;margin:14px 0">
-            <div><div style="font-size:40px;font-weight:700;line-height:1">2–2,5</div><div class="muted">часа вверх</div></div>
-            <div><div style="font-size:40px;font-weight:700;line-height:1">3</div><div class="muted">часа вниз</div></div>
+            <div><div style="font-size:40px;font-weight:700;line-height:1">2–3</div><div class="muted">часа вверх</div></div>
+            <div><div style="font-size:40px;font-weight:700;line-height:1">3–4</div><div class="muted">часа вниз</div></div>
           </div>
           <p class="muted">Снизу идёт коллективо — общая маршрутка. Она довозит до поворота, там кончается асфальт. Дальше только вверх и только пешком.</p>
           <p><span class="tag">коллективо · S/. 3–5</span></p>
-          <p class="muted">Вниз — по той же тропе, почти до самого Писака. Спуск легче, но дольше, чем кажется.</p>
+          <p class="muted">Вниз — по той же тропе, почти до самого Писака. Спуск легче, но дольше подъёма: ноги устают раньше, чем кончается тропа.</p>
         </div>
       </div>
 
@@ -1179,7 +1194,7 @@
       </div>
 
       <h3 style="margin-top:32px">Дополнения</h3>
-      <p><span class="tag">одни на горе · +50% к проживанию</span><span class="tag">дрова · связка S/. 30</span><span class="tag">трансфер · от S/. 100 за машину</span><span class="tag">ужин у соседей · S/. 30</span><span class="tag">завтрак · S/. 20</span></p>
+      <p><span class="tag">одни на горе · +50% к проживанию</span><span class="tag">дрова · связка S/. 30</span><span class="tag">трансфер · S/. 100 за машину в одну сторону</span><span class="tag">ужин у соседей · S/. 30</span><span class="tag">завтрак · S/. 20</span></p>
       <p class="muted">На вечер обычно уходит связка дров, в мороз — две.</p>
     </div>
   </section>
@@ -1189,11 +1204,11 @@
       <div class="eyebrow"><i></i><span>08</span><b>Честно</b></div>
       <h2>Честно о горе</h2>
       <p class="lead">Залога мы не берём. Но есть вещи, которые лучше знать до того, как вы напишете «да».</p>
-      <div class="g2" style="margin-top:22px">
-        <div class="card"><h3>Дети</h3><p>До семи лет — бесплатно и в счёт гостей не идут. С семи — как все.</p></div>
-        <div class="card"><h3>Еда</h3><p>Магазинов наверху нет. Продукты покупаются внизу, на рынке в Писаке, до подъёма. Ужин у соседей можно заказать заранее. И одно: мясо и рыбу на этой кухне не готовят.</p></div>
-        <div class="card"><h3>Предоплата</h3><p>Половина вперёд. Не из недоверия: получив вашу дату, мы отказываем на неё всем остальным. Если вы не приедете, дом простоит пустым, а те, кто хотел в эти сутки, уже ушли к другим. Надеемся на понимание.</p><p class="muted">Отменили за три дня и раньше — возвращаем. Позже — нет.</p></div>
-        <div class="card"><h3>Уборка и мусор</h3><p>Уборка входит в цену. Просим увезти вниз свой мусор — пластик, стекло, банки, батарейки. Мусоровоз сюда не поднимается.</p></div>
+      <div class="lines" style="margin-top:22px">
+        <div class="line"><h4>Дети</h4><p>До семи лет — бесплатно и в счёт гостей не идут. С семи — как все.</p></div>
+        <div class="line"><h4>Еда</h4><p>Магазинов наверху нет: продукты покупаются внизу, на рынке в Писаке. Ужин у соседей заказывают заранее. И одно — мясо и рыбу на этой кухне не готовят.</p></div>
+        <div class="line"><h4>Предоплата</h4><p>Половина вперёд. Не из недоверия: получив вашу дату, мы отказываем на неё всем остальным.</p><p class="muted">Отменили за три дня и раньше — возвращаем. Позже — нет.</p></div>
+        <div class="line"><h4>Уборка и мусор</h4><p>Уборка входит в цену. Свой мусор просим увезти вниз — мусоровоз сюда не поднимается.</p></div>
       </div>
       <div class="quote">Хозяин живёт рядом или находится на территории и не мешает — кроме тех дней, когда вы выбрали «одни на горе». Тогда наверху нет никого, кроме вас.</div>
       <a class="btn" href="#/pravila">Правила дома →</a>
@@ -1255,6 +1270,7 @@
           <div class="who">02</div>
           <h3>Готовит хозяин</h3>
           <p class="muted">если он наверху — может сделать завтрак или прийти приготовить обед</p>
+          <p><span class="tag">макароны с овощами</span><span class="tag">жареные яйца с хлебом</span><span class="tag">варёная морайя в чиче</span><span class="tag">овощной суп</span><span class="tag">чай</span><span class="tag">какао</span></p>
           <p><b>Ничего сложного. Простая еда, приготовленная вовремя.</b></p>
         </div>
         <div class="card">
@@ -1378,6 +1394,7 @@
       </div>
 
       <div class="card accent" style="margin-top:6px">
+        <div class="ph r219 sc-trail" data-shot style="margin-bottom:14px"><video data-src="vid/d3e7e5dec2a5.mp4" poster="img/d3e7e5dec2a5.webp" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
         <p class="muted">и четвёртая — не такая, как три предыдущие</p>
         <h3>Тропа хозяина</h3>
         <p><b>Здесь ничего не описано. И это не оплошность.</b></p>
@@ -1501,43 +1518,42 @@
       <p style="max-width:56ch">Местные говорят: она видит вас первой. Всегда. И уходит раньше, чем вы успеете о ней подумать.</p>
       <p style="max-width:56ch">У нас нет её фотографии. Поэтому её здесь не будет.</p>
       <div class="quote">Опасности нет. Пума уходит от человека, а не к нему — она замечает вас задолго до того, как вы могли бы заметить её.</div>
-      <a class="btn" href="#/atlas">Все животные →</a>
+      <a class="btn" href="#/atlas/zveri">Все животные →</a>
       </div>
     </div>
   </section>
 
   <section class="ground-moss">
     <div class="wrap wide">
-      <div class="eyebrow"><i></i><span>14</span><b>Живое</b></div>
-      <h2>Здесь всё носит шерсть. Даже кактусы.</h2>
-      <p class="lead">Единственный блок, который просит смотреть под ноги.</p>
+      <div class="eyebrow"><i></i><span>14</span><b>Растения</b></div>
+      <h2>Растения</h2>
+      <p class="lead">Здесь всё носит шерсть. Даже кактусы.</p>
       <p style="max-width:68ch">Растения на четырёх тысячах — не уменьшенные копии равнинных. Это те же задачи, решённые иначе: ветер, ультрафиолет и мороз каждую ночь, круглый год. Ответ у всех примерно один — прижаться к земле, обрасти пухом, собраться в подушку и цвести коротко. Люди здесь носят альпаку, кактусы — свой белый пух, и по одной и той же причине.</p>
       <div class="ph r219 sc-moss" data-shot style="margin:22px 0 20px"><video data-src="vid/c5f2a8b39d16.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
 
-      <div class="g4">
+      <div class="gph">
         <div><div class="ph r43 sc-moss" data-shot data-bg="img/0e8d559d084d.webp"></div><p style="font-size:15px;margin-top:8px"><b>Кактус в шерсти</b><br><span class="muted">кечуа waraqu · белый пух против холода и ультрафиолета</span></p></div>
         <div><div class="ph r43 sc-moss" data-shot><video data-src="vid/0391be7eaff8.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div><p style="font-size:15px;margin-top:8px"><b>Ичу</b><br><span class="muted">трава пуны: крыши, верёвки, подстилка</span></p></div>
         <div><div class="ph r43 sc-moss" data-shot data-bg="img/ca77673aba09.webp"></div><p style="font-size:15px;margin-top:8px"><b>Кеуния</b><br><span class="muted">Polylepis · растёт выше всех деревьев планеты</span></p></div>
         <div><div class="ph r43 sc-moss" data-shot data-bg="img/260087454854.webp"></div><p style="font-size:15px;margin-top:8px"><b>Кальцеолярия</b><br><span class="muted">Calceolaria sp. · жёлтый башмачок в несколько миллиметров</span></p></div>
         <div><div class="ph r43 sc-moss" data-shot data-bg="img/1512a7e233c6.webp"></div><p style="font-size:15px;margin-top:8px"><b>Жёлтый цветок пуны</b><br><span class="muted">Hypochaeris sp. · сидит прямо на земле</span></p></div>
         <div><div class="ph r43 sc-moss" data-shot data-bg="img/43d214c04f49.webp"></div><p style="font-size:15px;margin-top:8px"><b>Лишайник на камне</b><br><span class="muted">шов между растением и камнем</span></p></div>
-        <div><div class="ph r43 sc-moss noise"><span>Вира-вира — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Вира-вира</b><br><span class="muted">местное имя · ею лечат кашель</span></p></div>
+        <div><div class="ph r43 sc-moss noise"><span>Вира-вира — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Вира-вира</b><br><span class="muted">Achyrocline sp. · ею лечат кашель</span></p></div>
         <div><div class="ph r43 sc-moss noise"><span>Бомарея — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Бомарея</b><br><span class="muted">Bomarea sp. · розовые трубки, свисают гроздью</span></p></div>
       </div>
 
-      <div class="ph r219 sc-moss" data-shot data-bg="img/9ec78eec4b3d.webp" style="margin-top:22px"></div>
-      <p class="muted" style="max-width:68ch;margin-top:10px">Цветение — не карточка, а полоса: это про время, а не про растение. Октябрь и ноябрь: конец сухого сезона и первые дожди приходят вместе, и всё зацветает разом.</p>
+      <p class="muted" style="max-width:68ch;margin-top:22px">Цветут все разом, и это вопрос не растения, а времени: октябрь и ноябрь, когда конец сухого сезона и первые дожди приходят вместе.</p>
 
       <h3 style="margin-top:34px">Что растёт по дороге снизу</h3>
       <p class="muted" style="font-size:13.5px">на 4200 этого нет — но вы проедете мимо, поднимаясь</p>
-      <div class="g4" style="margin-top:12px">
+      <div class="gph" style="margin-top:12px">
         <div><div class="ph r43 sc-moss" data-shot data-bg="img/1d8c8d8ec152.webp"></div><p style="font-size:15px;margin-top:8px"><b>Муня</b><br><span class="muted">андская мята</span></p></div>
         <div><div class="ph r43 sc-moss noise"><span>Эвкалипт — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Эвкалипт</b><br><span class="muted">не местный, посажен людьми</span></p></div>
         <div><div class="ph r43 sc-moss noise"><span>Кока — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Кока</b><br><span class="muted">в Перу лист коки легален и продаётся на любом рынке</span></p></div>
       </div>
 
       <p class="muted" style="margin-top:20px;max-width:68ch">Двадцать семь видов отсняты. Пятнадцать мы уже готовы назвать, остальные проверяем — имя ставим только тогда, когда уверены.</p>
-      <a class="btn" href="#/atlas" style="margin-top:8px">Все растения →</a>
+      <a class="btn" href="#/atlas/rasteniya" style="margin-top:8px">Все растения →</a>
     </div>
   </section>
 
@@ -1548,19 +1564,22 @@
       <p class="lead">Земли здесь почти нет. Сначала камень, потом всё остальное.</p>
       <p style="max-width:68ch">Анды — молодые горы, они и сейчас растут. Породу здесь не прикрывает ни лес, ни толстая почва: она лежит открыто, разбитая морозом, вылизанная водой и раскрашенная лишайником. Растения селятся не в земле, а в трещинах между камнями — и то, что здесь вообще что-то живёт, начинается с породы.</p>
       <div class="ph r219 sc-stone" data-shot style="margin:22px 0 20px"><video data-src="vid/d7a4b16c8e35.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
-      <p style="max-width:68ch">Они очень разные: слоистые и гладкие, чёрные и рыжие, размером с кулак и размером с дом. Мы их не определяем — мы не геологи и не станем делать вид. Просто смотрим, иногда берём один в ладонь, чтобы разглядеть на свету, и кладём обратно туда же.</p>
+      <p style="max-width:68ch">Они очень разные: слоистые и гладкие, чёрные и рыжие, размером с кулак и размером с дом. Поимённо мы их не определяем — для этого нужен геолог с молотком. Но что лежит в этих горах, известно и без нас.</p>
+      <p style="max-width:68ch">Красный камень, из которого сложена половина здешних склонов, геологи описали по посёлку внизу и так и назвали — <b>свита Писак</b>. Это спрессованные галька и щебень древних выносов: конусы, сходившие тут в конце триаса, когда Анд ещё не было. Породе около двухсот миллионов лет. Светлые слоистые пласты моложе: известняки, глины и гипс мелового моря, стоявшего здесь сто миллионов лет назад.</p>
+      <p style="max-width:68ch">В красном конгломерате попадаются обломки древнее самой породы — куски известняка с раковинами пермского моря. Камень, который вы держите в ладони, старше двухсот миллионов лет, а внутри у него — кусок камня старше ещё на восемьдесят.</p>
+      <p style="max-width:68ch">Форму всему этому дал лёд: чаши, в которых лежат озёра, и гладкие бока долин — работа ледников, отступивших недавно по здешним меркам. Мы просто смотрим, иногда берём один камень на свет и кладём обратно туда же.</p>
       <p style="max-width:68ch">Мокрый камень всегда другого цвета, чем сухой. Это первое, что замечают у воды, и то, из-за чего половина снимков сделана на берегу.</p>
-      <div class="g4" style="margin-top:20px">
-        <div><div class="ph r43 sc-stone" data-shot data-bg="img/ef1a9c9264d7.webp"></div><p style="font-size:15px;margin-top:8px"><b>Камень в воде</b><br><span class="muted">мокрый цвет всегда другой</span></p></div>
-        <div><div class="ph r43 sc-stone" data-shot data-bg="img/ccb54ab955c7.webp"></div><p style="font-size:15px;margin-top:8px"><b>Камень в руке</b><br><span class="muted">ладонь для масштаба — и видно, что мы кладём его обратно</span></p></div>
-        <div><div class="ph r43 sc-stone noise"><span>Слоистость — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Слоистость</b><br><span class="muted">порода лежит пластами</span></p></div>
-        <div><div class="ph r43 sc-stone noise"><span>Лишайник на породе — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Лишайник на породе</b><br><span class="muted">камень, который начали заселять</span></p></div>
-        <div><div class="ph r43 sc-stone noise"><span>Морозная трещина — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Морозная трещина</b><br><span class="muted">вода замёрзла и разорвала</span></p></div>
-        <div><div class="ph r43 sc-stone noise"><span>Валун размером с дом — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Валун размером с дом</b><br><span class="muted">масштаб, который не читается на фотографии</span></p></div>
-        <div><div class="ph r43 sc-stone noise"><span>Осыпь — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Осыпь</b><br><span class="muted">склон, который ещё едет</span></p></div>
-        <div><div class="ph r43 sc-stone noise"><span>Галька у воды — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Галька у воды</b><br><span class="muted">обкатанная до гладкости</span></p></div>
+      <div class="gph" style="margin-top:20px">
+        <div class="ph r43 sc-stone" data-shot data-bg="img/ef1a9c9264d7.webp"></div>
+        <div class="ph r43 sc-stone" data-shot data-bg="img/ccb54ab955c7.webp"></div>
+        <div class="ph r43 sc-stone noise"><span>Слоистость</span></div>
+        <div class="ph r43 sc-stone noise"><span>Лишайник на породе</span></div>
+        <div class="ph r43 sc-stone noise"><span>Морозная трещина</span></div>
+        <div class="ph r43 sc-stone noise"><span>Валун размером с дом</span></div>
+        <div class="ph r43 sc-stone noise"><span>Осыпь</span></div>
+        <div class="ph r43 sc-stone noise"><span>Галька у воды</span></div>
       </div>
-      <a class="btn" href="#/atlas" style="margin-top:18px">Все камни →</a>
+      <a class="btn" href="#/atlas/kamni" style="margin-top:18px">Все камни →</a>
     </div>
   </section>
 
@@ -1572,13 +1591,15 @@
       <p style="max-width:68ch">На этих высотах люди живут не веками, а тысячелетиями — дольше, чем существует само слово «Перу». Здесь вывели картошку, научились сушить её морозом, приручили альпаку и построили жизнь там, где у приезжего в первый день болит голова. Общину Пару-Пару держат не туристы, а картошка, рыба и то, что соткано руками.</p>
       <div class="ph r219 sc-people" data-shot style="margin:22px 0 20px"><video data-src="vid/f0c93e7ab521.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
       <p style="max-width:68ch">Вы встретите их на тропе: пастухов со стадом, стариков, детей, идущих в школу быстрее вас. Здесь не проходят мимо друг друга молча — и это не гостеприимство для гостей, а то, как тут заведено между своими.</p>
-      <div class="g4" style="margin-top:20px">
-        <div><div class="ph r43 sc-people noise"><span>Портрет — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>В своей одежде</b><br><span class="muted">это не костюм для туристов, это то, в чём ходят</span></p></div>
-        <div><div class="ph r43 sc-people noise"><span>Пастух со стадом — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Со стадом</b><br><span class="muted">альпаки, овцы, иногда коровы</span></p></div>
-        <div><div class="ph r43 sc-people noise"><span>Руки за станком — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Ткут на ходу</b><br><span class="muted">шерсть и нитки всегда с собой</span></p></div>
-        <div><div class="ph r43 sc-people noise"><span>Дети на тропе — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Дети</b><br><span class="muted">им до школы столько же, и они идут быстрее вас</span></p></div>
+      <p style="max-width:68ch">Одежда на них — не костюм для туристов, а то, в чём ходят каждый день; шерсть и нитки всегда при себе, и ткут прямо на ходу, пока идут за стадом.</p>
+      <div class="gph pair2" style="margin-top:20px">
+        <div class="ph r43 sc-people noise"><span>Портрет</span></div>
+        <div class="ph r43 sc-people noise"><span>Пастух со стадом</span></div>
+        <div class="ph r43 sc-people noise"><span>Руки за станком</span></div>
+        <div class="ph r43 sc-people noise"><span>Дети на тропе</span></div>
       </div>
       <div class="quote">Фотографировать можно. Но мы сначала спрашиваем — не потому что закон, а потому что так себя ведут.</div>
+      <a class="btn" href="#/atlas/lyudi" style="margin-top:18px">Все кадры →</a>
     </div>
   </section>
 
@@ -1729,7 +1750,7 @@
       </details>
       <details class="faq">
         <summary>Сколько добираться и входит ли трансфер в цену?</summary>
-        <div class="a"><p>От Писака — 40 минут, от Куско — около полутора часов. Трансфер оплачивается отдельно от проживания, от S/. 100 за машину. Заказывается через WhatsApp, машина доезжает до самой двери.</p></div>
+        <div class="a"><p>От Писака — 40 минут, от Куско — около полутора часов. Трансфер оплачивается отдельно от проживания: S/. 100 за машину в одну сторону. Заказывается через WhatsApp, машина доезжает до самой двери.</p></div>
       </details>
       <details class="faq">
         <summary>Что делать, если ночью станет плохо?</summary>
@@ -1826,7 +1847,7 @@
       <p class="muted">Тропы бывают только в те дни, когда хозяин наверху.</p>
 
       <h3 style="margin-top:28px">Дополнения</h3>
-      <p><span class="tag">одни на горе · +50%</span><span class="tag">дрова · связка S/. 30</span><span class="tag">трансфер · от S/. 100</span><span class="tag">ужин · S/. 30</span><span class="tag">завтрак · S/. 20</span></p>
+      <p><span class="tag">одни на горе · +50%</span><span class="tag">дрова · связка S/. 30</span><span class="tag">трансфер · S/. 100 в одну сторону</span><span class="tag">ужин · S/. 30</span><span class="tag">завтрак · S/. 20</span></p>
 
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:20px">Написать и спросить цену</a>
     </div>
@@ -1846,9 +1867,9 @@
         <a class="note-link card" href="#/ozera/kinsakocha"><div class="ph r169 sc-water" data-shot data-bg="img/1e925ab6d242.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div><h3>Кинса Коча</h3><p class="muted">самое большое · у него стоит дом</p></a>
       </div><div class="mosaic"><div class="mos mA" style="background-image:url(img/e941f22c2650.webp)"><video src="vid/087dfd792ba7.mp4" poster="img/e941f22c2650.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mB" data-slot style="background-image:url(img/26d11e647b00.webp)"></div><div class="mos mC" data-slot style="background-image:url(img/a6f9d164548f.webp)"></div><div class="mos mD" style="background-image:url(img/91620ca035b8.webp)"><video src="vid/1a9126d64654.mp4" poster="img/91620ca035b8.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mE" data-slot style="background-image:url(img/098f64fe5d93.webp)"></div><div class="mos mF" data-slot style="background-image:url(img/6884c8a658df.webp)"></div><div class="mos mG" style="background-image:url(img/bb2e98f01acb.webp)"><video src="vid/fc51b4213f0f.mp4" poster="img/bb2e98f01acb.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mH" data-slot style="background-image:url(img/c24ea42547e6.webp)"></div><div class="mos mI" data-slot style="background-image:url(img/ca8c53eb3cf7.webp)"></div><div class="mos mJ" style="background-image:url(img/2ec428921b9a.webp)"><video src="vid/f4e4c1a24ec1.mp4" poster="img/2ec428921b9a.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mK" data-slot style="background-image:url(img/29c37fd1e269.webp)"></div><div class="mos mL" data-slot style="background-image:url(img/3caa68d3457e.webp)"></div><div class="mos mM" style="background-image:url(img/4caedca7943f.webp)"><video src="vid/7319f4f5f6c3.mp4" poster="img/4caedca7943f.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div></div><p class="mos-note">Вода трёх озёр. Снимки сменяются сами.</p>
 
-      <h3 style="margin-top:38px">И ещё два</h3>
-      <p class="lead">Три озера дали месту имя. Но озёр здесь пять.</p>
-      <p style="max-width:68ch">Два других лежат дальше — настолько, что за один день до них не дойти и вернуться. Их не прячут и не охраняют. До них просто не доходят: обычный маршрут из Куско рассчитан на светлое время, а дорога туда начинается позже, чем этот день заканчивается.</p>
+      <h3 style="margin-top:38px">Четвёртое и пятое</h3>
+      <p class="lead">Три озера дали месту имя. Но воды здесь больше трёх.</p>
+      <p style="max-width:68ch">Следующие два лежат дальше — настолько, что за один день до них не дойти и вернуться. Их не прячут и не охраняют. До них просто не доходят: обычный маршрут из Куско рассчитан на светлое время, а дорога туда начинается позже, чем этот день заканчивается.</p>
       <div class="g2" style="margin-top:18px">
         <div class="card">
           <div class="ph r43 sc-water noise" style="margin-bottom:12px"><span>Четвёртое озеро — фото нет</span></div>
@@ -1968,7 +1989,7 @@
       <p style="margin-top:20px">К полудню туман начал рваться клочьями, и в один из разрывов на воду вышла пара яна вико — стояли неподвижно, будто ждали, пока их заметят.</p>
       <div class="card" style="margin:20px 0">
         <div class="muted" style="font-size:13px">справка</div>
-        <p style="margin:6px 0 0"><b>Яна вико</b> · <i>Plegadis ridgwayi</i> — <a href="#/atlas/vizcacha">открыть карточку →</a></p>
+        <p style="margin:6px 0 0"><b>Яна вико</b> · <i>Plegadis ridgwayi</i> — <a href="#/atlas/zveri">все животные →</a></p>
       </div>
       <p>К вечеру небо расчистило совсем, и стало заметно холоднее — первый признак того, что назавтра будет ясно.</p>
       <p class="muted" style="margin-top:24px">Кто и что попалось в этот день</p>
@@ -1993,110 +2014,123 @@
       <a class="backlink" href="#/">← на главную</a>
       <h2>Атлас</h2>
       <p class="lead">Кто здесь живёт, что здесь растёт, из чего это сложено.</p>
-      <p style="max-width:68ch">Сначала фотографии, потом имена. Наведите на кадр — он подпишется; нажмите — откроется карточка. У каждой честный статус: ✔ подтверждено нашим снимком, ○ определён только род, без значка — имени пока нет. Латынь ставим там, где уверены.</p>
+      <p style="max-width:68ch">Четыре раздела. В каждом сначала кадры, потом имена — и честный статус у каждого имени: подтверждено нашим снимком, определён только род, или имени пока нет. Латынь ставим там, где уверены.</p>
       <p class="muted" style="max-width:68ch">Пустая плитка — это не недоделка. Своего кадра нет, и мы говорим об этом вслух, вместо того чтобы подставить чужой.</p>
+
+      <div class="g2" style="margin-top:26px">
+        <a class="note-link card" href="#/atlas/zveri"><div class="ph r169 sc-fauna" data-shot data-bg="img/d6ef38b0e923.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div><h3>Животные</h3><p class="muted">по убыванию вероятности встречи — от тех, кого пасут, до пумы, которой нет на снимке</p></a>
+        <a class="note-link card" href="#/atlas/rasteniya"><div class="ph r169 sc-moss" data-shot data-bg="img/0e8d559d084d.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div><h3>Растения</h3><p class="muted">двадцать семь видов отсняты, пятнадцать готовы назвать</p></a>
+        <a class="note-link card" href="#/atlas/kamni"><div class="ph r169 sc-stone" data-shot data-bg="img/ef1a9c9264d7.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div><h3>Камни</h3><p class="muted">без имён и без карточек: нужен свет и масштаб, а не определитель</p></a>
+        <a class="note-link card" href="#/atlas/lyudi"><div class="ph r169 sc-people" data-shot data-bg="img/ce8cb71d2747.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div><h3>Местные жители</h3><p class="muted">люди — не экспонат, поэтому здесь только кадры и ни одной подписи</p></a>
+      </div>
     </div>
   </section>
+</div>
 
+<div class="page" id="p-atlas-zveri">
   <section class="dark">
     <div class="wrap wide">
-      <div class="eyebrow"><i></i><span>01</span><b>Звери</b></div>
+      <a class="backlink" href="#/atlas">← Атлас</a>
       <h2>Животные</h2>
-      <p style="max-width:68ch">Крупных зверей на четырёх тысячах мало, и каждый на виду — прятаться на голой пуне негде. Порядок здесь по убыванию вероятности встречи, а заканчивается всё пумой, которой нет ни на одном нашем кадре.</p>
-      <div class="ph r219 sc-fauna" data-shot style="margin:20px 0 16px"><video data-src="vid/e390c6b1cc1d.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
-      <h3>Дикие</h3>
-    <div class="atlas-mos">
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/d6ef38b0e923.webp"></div><span class="lb"><b>Андский гусь</b> ✔<br><i>huallata · Chloephaga melanoptera</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/98ac1c59f9fd.webp"></div><span class="lb"><b>Кондор</b> ✔<br><i>над горами и над тропой</i></span></a>
-      <div class="m empty noise"><span>Вискача · Lagidium viscacia</span></div>
-      <div class="m empty noise"><span>Яна вико · Plegadis ridgwayi</span></div>
-      <div class="m empty noise"><span>Утки · на воде круглый год</span></div>
-      <div class="m empty noise"><span>Андская чайка · Chroicocephalus serranus</span></div>
-      <div class="m empty noise"><span>Дикий кролик · Sylvilagus andinus</span></div>
-      <div class="m empty noise"><span>Тарука · Hippocamelus antisensis</span></div>
-      <div class="m empty noise"><span>Андская лиса</span></div>
-      <div class="m empty noise"><span>Скунс</span></div>
-      <div class="m empty noise"><span>Бабочки · снят один вид, имя уточняется</span></div>
-      <div class="m empty noise"><span>Труча · садки общины</span></div>
-      <div class="m empty noise"><span>Пума · фотографии нет и не будет</span></div>
-    </div>
-      <h3 style="margin-top:26px">Те, кого пасут</h3>
-      <p class="muted" style="font-size:13.5px">не дикая природа: это чей-то заработок, который идёт вам навстречу по тропе</p>
-    <div class="atlas-mos">
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/f178a796d01d.webp"></div><span class="lb"><b>Альпаки</b> ✔</span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/ee92e41af845.webp"></div><span class="lb"><b>Ослы</b> ✔</span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/95c29e31676e.webp"></div><span class="lb"><b>Коровы</b> ✔</span></a>
-      <div class="m empty noise"><span>Овцы · кадр нужен</span></div>
-    </div>
+      <p class="lead">Кто здесь живёт — и в каком порядке вы их встретите.</p>
+      <p style="max-width:68ch">Крупных зверей на четырёх тысячах мало, и каждый на виду: прятаться на голой пуне негде. Сначала идут те, кого пасут — они подойдут сами. Потом птицы у воды, их видно всегда. Дальше те, кого надо застать. Заканчивается всё пумой, которой нет ни на одном нашем кадре.</p>
+      <div class="ph r219 sc-fauna" data-shot style="margin:22px 0 20px"><video data-src="vid/e390c6b1cc1d.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/b6480ce2cc30.webp"><video data-src="vid/e390c6b1cc1d.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/ca9e8b621b45.webp"></div><div class="mos mC" data-bg="img/a1f1c7b9b726.webp"></div><div class="mos mD" data-bg="img/9eb48bdfd7f2.webp"></div><div class="mos mE" data-bg="img/bbb43af9cb0e.webp"></div><div class="mos mF" data-bg="img/849c2c8693d0.webp"></div><div class="mos mG" data-bg="img/c45f0997e3ab.webp"></div><div class="mos mH" data-bg="img/40e32ae87900.webp"></div><div class="mos mI" data-bg="img/0f9290e4c528.webp"></div><div class="mos mJ" data-bg="img/26766b19ddfe.webp"></div><div class="mos mK" data-bg="img/98595e2071ae.webp"></div><div class="mos mL" data-bg="img/8878b50ae4aa.webp"></div><div class="mos mM" data-bg="img/fc029f59e26c.webp"></div></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/ba78d38262dc.webp"><video data-src="vid/80f58941bd07.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/c4ecbe3cac8b.webp"></div><div class="mos mC" data-bg="img/c5c3f13f7ab7.webp"></div><div class="mos mD" data-bg="img/8444c71a7d59.webp"></div><div class="mos mE" data-bg="img/d7a061e557c8.webp"></div><div class="mos mF" data-bg="img/3ac8b1775b93.webp"></div><div class="mos mG" data-bg="img/11d6362a4d49.webp"></div><div class="mos mH" data-bg="img/294fab7dc867.webp"></div><div class="mos mI" data-bg="img/7bd021f95839.webp"></div><div class="mos mJ" data-bg="img/9f9743a74458.webp"></div><div class="mos mK" data-bg="img/41f0a84c3752.webp"></div><div class="mos mL" data-bg="img/f05c809873ea.webp"></div><div class="mos mM" data-bg="img/4bdd05686544.webp"></div></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/6c23b1dbba2e.webp"><video data-src="vid/f0c93e7ab521.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/eef5463b5f5b.webp"></div><div class="mos mC" data-bg="img/d6ef38b0e923.webp"></div><div class="mos mD" data-bg="img/98ac1c59f9fd.webp"></div><div class="mos mE noise"><span>кадра нет</span></div><div class="mos mF noise"><span>кадра нет</span></div><div class="mos mG noise"><span>кадра нет</span></div><div class="mos mH noise"><span>кадра нет</span></div><div class="mos mI noise"><span>кадра нет</span></div><div class="mos mJ noise"><span>кадра нет</span></div><div class="mos mK noise"><span>кадра нет</span></div><div class="mos mL noise"><span>кадра нет</span></div><div class="mos mM noise"><span>кадра нет</span></div></div>
+      <p class="mos-note">Подписей под кадрами нет намеренно: сначала смотрите, имена — ниже.</p>
+
+      <h3 style="margin-top:34px">Имена</h3>
+      <div class="lines" style="margin-top:14px">
+        <div class="line"><h4>Альпака</h4><p><i>Vicugna pacos</i> · кечуа <i>allpaqa</i> · <a href="#/atlas/alpaka">карточка →</a></p><p class="muted">Одомашнена здесь пять тысяч лет назад ради шерсти, а не ради мяса. Стадо на тропе — не дикая природа, а чья-то работа.</p></div>
+        <div class="line"><h4>Андский гусь</h4><p><i>Chloephaga melanoptera</i> · кечуа <i>huallata</i> · <a href="#/atlas/huallata">карточка →</a></p><p class="muted">Летают парами — одной и той же парой всю жизнь. На 4200 это выглядит как заявление, а не как факт из справочника.</p></div>
+        <div class="line"><h4>Вискача</h4><p><i>Lagidium viscacia</i> · кечуа <i>wisk'acha</i></p><p class="muted">Похожа на зайца, которому приделали беличий хвост. Живёт в камнях, держится группами, видно прямо с тропы. <a href="#/atlas/vizcacha">Карточка →</a></p></div>
+        <div class="line"><h4>Яна вико</h4><p><i>Plegadis ridgwayi</i> · пуна-ибис</p><p class="muted">Стоят в воде неподвижно час и другой. Их проще принять за камень, чем за птицу.</p></div>
+        <div class="line"><h4>Андская чайка</h4><p><i>Chroicocephalus serranus</i></p><p class="muted">Чайка в четырёх тысячах метров над морем и в тысяче километров от него.</p></div>
+        <div class="line"><h4>Кондор</h4><p><i>Vultur gryphus</i> · кечуа <i>kuntur</i> · <a href="#/atlas/kondor">карточка →</a></p><p class="muted">Размах крыльев за три метра. Почти не машет ими: держится на восходящих потоках вдоль склона. Бывает над горами и над тропой, но не каждый день.</p></div>
+        <div class="line"><h4>Тарука</h4><p><i>Hippocamelus antisensis</i> · андский олень · <a href="#/atlas/taruka">карточка →</a></p><p class="muted">Держится небольшими группами по открытым склонам. Осторожен: чаще видишь, как он уходит.</p></div>
+        <div class="line"><h4>Андская лиса</h4><p><i>Lycalopex culpaeus</i> · кечуа <i>atuq</i></p><p class="muted">Крупнее, чем ждёшь, и рыжее. Ходит по тем же тропам, что и вы, но раньше и тише.</p></div>
+        <div class="line"><h4>Скунс</h4><p><i>Conepatus chinga</i> · андский свиноносый скунс</p><p class="muted">Роет землю в поисках личинок — по перевёрнутому дёрну понятно, что он тут был, даже если его не видели.</p></div>
+        <div class="line"><h4>Дикий кролик</h4><p><i>Sylvilagus andinus</i></p><p class="muted">Выделен в отдельный вид недавно: раньше считали, что это тот же кролик, что и по всей Америке.</p></div>
+        <div class="line"><h4>Труча</h4><p><i>Oncorhynchus mykiss</i> · радужная форель</p><p class="muted">Рыба не местная: её завезли и разводят в садках. Хозяин садков — община. Ловить нельзя, заказать к ужину можно.</p></div>
+        <div class="line"><h4>Пума</h4><p><i>Puma concolor</i> · кечуа <i>puma</i></p><p class="muted">В регионе есть, здесь её не видели и следов не находят. Уходит от человека, а не к нему. Фотографии у нас нет — поэтому и карточки нет.</p></div>
+      </div>
     </div>
   </section>
+</div>
 
+<div class="page" id="p-atlas-rasteniya">
   <section class="ground-moss">
     <div class="wrap wide">
-      <div class="eyebrow"><i></i><span>02</span><b>Живое</b></div>
+      <a class="backlink" href="#/atlas">← Атлас</a>
       <h2>Растения</h2>
-      <p style="max-width:68ch">Двадцать семь видов отсняты и разложены. Пятнадцать мы готовы назвать хотя бы до рода — они здесь. Остальные проверяем: определитель с телефона подставил мексиканские и европейские имена, потому что смотрит на картинку и не знает, где снято.</p>
-      <div class="ph r219 sc-moss" data-shot style="margin:20px 0 16px"><video data-src="vid/c5f2a8b39d16.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
-    <div class="atlas-mos">
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/b9d2fd0c2dd4.webp"></div><span class="lb"><b>Адесмия</b> ○<br><i><i>Adesmia</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/ffc8c47deebd.webp"></div><span class="lb"><b>Адесмия</b> ○<br><i><i>Adesmia</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/135410c9f628.webp"></div><span class="lb"><b>Кактус в шерсти</b> ○<br><i>кечуа waraqu</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/8aa29639c810.webp"></div><span class="lb"><b>Кактус в шерсти</b> ○<br><i>кечуа waraqu</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/8e4cc1d65c91.webp"></div><span class="lb"><b>Бомарея</b> ○<br><i><i>Bomarea</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/cbace488fe23.webp"></div><span class="lb"><b>Бомарея</b> ○<br><i><i>Bomarea</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/17dd72861245.webp"></div><span class="lb"><b>Бомарея</b> ○<br><i><i>Bomarea</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/168dd9d59e4f.webp"></div><span class="lb"><b>Бомарея</b> ○<br><i><i>Bomarea</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/227374608fdb.webp"></div><span class="lb"><b>Кальцеолярия</b> ○<br><i><i>Calceolaria</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/8c79bcabd714.webp"></div><span class="lb"><b>Кальцеолярия</b> ○<br><i><i>Calceolaria</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/171de4bd7246.webp"></div><span class="lb"><b>Лишайник накипной</b> ○</span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/2cca03f60555.webp"></div><span class="lb"><b>Лишайник накипной</b> ○</span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/7e444c19a07f.webp"></div><span class="lb"><b>Жёлтый цветок пуны</b> ○<br><i><i>Hypochaeris</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/3866dfd88f2e.webp"></div><span class="lb"><b>Жёлтый цветок пуны</b> ○<br><i><i>Hypochaeris</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/4b722ae5a6d6.webp"></div><span class="lb"><b>Ичу</b> ○<br><i>трава пуны</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/0b6e0a7ab409.webp"></div><span class="lb"><b>Ичу</b> ○<br><i>трава пуны</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/881b5518374b.webp"></div><span class="lb"><b>Майча</b> ○<br><i>местное имя</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/8d0c29e1989c.webp"></div><span class="lb"><b>Майча</b> ○<br><i>местное имя</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/68597c1e68b0.webp"></div><span class="lb"><b>Кеуния</b> ○<br><i><i>Polylepis</i> · q'euña</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/0bd6e88fadfd.webp"></div><span class="lb"><b>Кеуния</b> ○<br><i><i>Polylepis</i> · q'euña</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/30c67e838430.webp"></div><span class="lb"><b>Мох</b> ○</span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/6f4ac8eb3ac2.webp"></div><span class="lb"><b>Мох</b> ○</span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/7854c084507e.webp"></div><span class="lb"><b>Пуйя</b> ○<br><i><i>Puya</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/30d68f02c0ef.webp"></div><span class="lb"><b>Пуйя</b> ○<br><i><i>Puya</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/2d2d56a7b0de.webp"></div><span class="lb"><b>Лишайник кустистый</b> ○</span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/dfac2d453954.webp"></div><span class="lb"><b>Лишайник кустистый</b> ○</span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/6c0ace904a66.webp"></div><span class="lb"><b>Паслён</b> ○<br><i><i>Solanum</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/dd8f84bafa46.webp"></div><span class="lb"><b>Паслён</b> ○<br><i><i>Solanum</i> sp.</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/d49e06b6fd8c.webp"></div><span class="lb"><b>Вира-вира</b> ○<br><i>местное имя · ею лечат кашель</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/b48c1e1b27a1.webp"></div><span class="lb"><b>Вира-вира</b> ○<br><i>местное имя · ею лечат кашель</i></span></a>
-      <div class="m empty noise"><span>Определяется</span></div>
-      <div class="m empty noise"><span>Определяется</span></div>
-      <div class="m empty noise"><span>Определяется</span></div>
-      <div class="m empty noise"><span>Определяется</span></div>
-      <div class="m empty noise"><span>Определяется</span></div>
-    </div>
+      <p class="lead">Здесь всё носит шерсть. Даже кактусы.</p>
+      <p style="max-width:68ch">Двадцать семь видов отсняты и разложены. Пятнадцать мы готовы назвать хотя бы до рода — они здесь. Остальные проверяем: определитель с телефона подставил мексиканские, европейские и арктические имена, потому что смотрит на картинку и не знает, где снято. Первое, что отсекает такое имя, — вопрос, растёт ли оно в Перу выше 3800.</p>
+      <div class="ph r219 sc-moss" data-shot style="margin:22px 0 20px"><video data-src="vid/c5f2a8b39d16.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/a66e2d9b33ee.webp"><video data-src="vid/c5f2a8b39d16.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/b5be3ea1eed2.webp"></div><div class="mos mC" data-bg="img/070c06620736.webp"></div><div class="mos mD" data-bg="img/42fe963ddd67.webp"></div><div class="mos mE" data-bg="img/63a5c34c7a25.webp"></div><div class="mos mF" data-bg="img/a862aec1d438.webp"></div><div class="mos mG" data-bg="img/da578636b01d.webp"></div><div class="mos mH" data-bg="img/ff15727710bc.webp"></div><div class="mos mI" data-bg="img/e60f4f929e24.webp"></div><div class="mos mJ" data-bg="img/1c0c3c4a81f9.webp"></div><div class="mos mK" data-bg="img/4ce7bda60d60.webp"></div><div class="mos mL" data-bg="img/07393c4676ce.webp"></div><div class="mos mM" data-bg="img/68024552d2ab.webp"></div></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/fb506dc958ba.webp"><video data-src="vid/0391be7eaff8.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/8f9f3f5c18cb.webp"></div><div class="mos mC" data-bg="img/9cb4c55365c9.webp"></div><div class="mos mD" data-bg="img/b10bf5175742.webp"></div><div class="mos mE" data-bg="img/7777b13ea18f.webp"></div><div class="mos mF" data-bg="img/a7bfb22981d0.webp"></div><div class="mos mG" data-bg="img/5175599053b5.webp"></div><div class="mos mH" data-bg="img/78ea3a1c6938.webp"></div><div class="mos mI" data-bg="img/90d4c9aec743.webp"></div><div class="mos mJ" data-bg="img/4873c5102e5e.webp"></div><div class="mos mK" data-bg="img/7a676bcb483e.webp"></div><div class="mos mL" data-bg="img/a5fa3729e8d7.webp"></div><div class="mos mM" data-bg="img/2859f89a51fb.webp"></div></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/7c9de6c675d5.webp"><video data-src="vid/d7a4b16c8e35.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/79095e44c77a.webp"></div><div class="mos mC" data-bg="img/bfb0edb33b4c.webp"></div><div class="mos mD" data-bg="img/d9cb5690cb90.webp"></div><div class="mos mE" data-bg="img/073799515cff.webp"></div><div class="mos mF" data-bg="img/cf7db217d7e3.webp"></div><div class="mos mG" data-bg="img/d4f54970e2bd.webp"></div><div class="mos mH" data-bg="img/39d75e56ebd7.webp"></div><div class="mos mI" data-bg="img/c2abdadd2e4f.webp"></div><div class="mos mJ" data-bg="img/345f3d887a3c.webp"></div><div class="mos mK" data-bg="img/78f1c67c5098.webp"></div><div class="mos mL" data-bg="img/99ca960d84e8.webp"></div><div class="mos mM" data-bg="img/b84013641540.webp"></div></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/867f8b6c579d.webp"><video data-src="vid/80f58941bd07.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/222a98cfb1b5.webp"></div><div class="mos mC" data-bg="img/e2d146308652.webp"></div><div class="mos mD" data-bg="img/30790a583540.webp"></div><div class="mos mE" data-bg="img/00dc9c1001d4.webp"></div><div class="mos mF" data-bg="img/bb7d988f3407.webp"></div><div class="mos mG" data-bg="img/7f58936567ae.webp"></div><div class="mos mH" data-bg="img/79d5b93932f0.webp"></div><div class="mos mI" data-bg="img/11d8813fbe15.webp"></div><div class="mos mJ" data-bg="img/50162311de14.webp"></div><div class="mos mK" data-bg="img/34349cbae217.webp"></div><div class="mos mL" data-bg="img/a5e8087d5a70.webp"></div><div class="mos mM" data-bg="img/4d7f1f6133f6.webp"></div></div>
+      <p class="mos-note">Подписей под кадрами нет намеренно: сначала смотрите, имена — ниже.</p>
+
+      <h3 style="margin-top:34px">Имена</h3>
+      <p class="muted" style="font-size:13.5px;max-width:68ch">Род безопасен почти всегда, вид — там, где ловят на ошибке. Где рода нет, стоит только описание: латынь наугад не пишем.</p>
+      <div class="lines" style="margin-top:14px">
+        <div class="line"><h4>Кактус в шерсти</h4><p><i>Austrocylindropuntia</i> sp. · кечуа <i>waraqu</i></p><p class="muted">Главный герой раздела и половина всех кадров. Растёт не столбиком, а лепёшкой, прижатой к земле; поверх колючек — белый пух. Пух работает так же, как шерсть альпаки: держит тепло ночью и рассеивает ультрафиолет днём.</p></div>
+        <div class="line"><h4>Кеуния</h4><p><i>Polylepis</i> sp. · кечуа <i>q'euña</i></p><p class="muted">Дерево, растущее выше всех деревьев планеты. Кора отслаивается тонкими рыжими листами — они же и утепляют ствол. У дома не растёт: увидите по дороге.</p></div>
+        <div class="line"><h4>Ичу</h4><p>трава пуны · кечуа <i>ichhu</i></p><p class="muted">То, из чего здесь крыши, верёвки и подстилка. Жёсткая, режет руку, скот ест её только молодой.</p></div>
+        <div class="line"><h4>Адесмия</h4><p><i>Adesmia</i> sp.</p><p class="muted">Колючая рыжая подушка. Внутри подушки теплее и тише, чем снаружи, — это и есть весь её приём.</p></div>
+        <div class="line"><h4>Кальцеолярия</h4><p><i>Calceolaria</i> sp.</p><p class="muted">Жёлтый цветок-башмачок в несколько миллиметров. Форма не для красоты: насекомое обязано залезть внутрь и выйти с пыльцой.</p></div>
+        <div class="line"><h4>Жёлтый цветок пуны</h4><p><i>Hypochaeris</i> sp.</p><p class="muted">Сидит розеткой прямо на земле, без стебля. Ярче всего, что растёт внизу, и ниже всего, что там растёт.</p></div>
+        <div class="line"><h4>Бомарея</h4><p><i>Bomarea</i> sp.</p><p class="muted">Розовые и зеленовато-жёлтые трубки, висят гроздью. Единственное здесь, что тянется вверх по чужому стеблю, а не жмётся к земле.</p></div>
+        <div class="line"><h4>Пуйя</h4><p><i>Puya</i> sp.</p><p class="muted">Розетка жёстких листьев с зубцами по краю. Родня той самой десятиметровой пуйе Раймонди, но наша — размером с ладонь.</p></div>
+        <div class="line"><h4>Паслён</h4><p><i>Solanum</i> sp.</p><p class="muted">Сиреневая звезда с жёлтой серединой. Тот же род, что и картошка, которую здесь вывели.</p></div>
+        <div class="line"><h4>Вира-вира</h4><p>местное имя · <i>Achyrocline</i> sp.</p><p class="muted">Белая, будто из войлока. Здесь её заваривают от кашля. Имя <i>wira wira</i> в Андах носят несколько похожих шерстистых астровых, чаще других — <i>Achyrocline satureioides</i>; от простуды и кашля её пьют по всему нагорью, от Перу до Боливии. Мы передаём это как слова местных, а не как рецепт.</p></div>
+        <div class="line"><h4>Майча</h4><p>местное имя · вероятно <i>Senecio rudbeckiifolius</i></p><p class="muted">Смолистый кустик, пахнет, если растереть лист. В общинах Куско этим именем зовут <i>Senecio rudbeckiifolius</i>: его настаивают на спирту вместе с эвкалиптом и мольё и растирают ноги от судорог. Что с ним делают именно в Пару-Пару — спросим и допишем.</p></div>
+        <div class="line"><h4>Муня</h4><p>андская мята</p><p class="muted">Растёт по дороге снизу, не на 4200. Ею заваривают чай и кладут в еду.</p></div>
+        <div class="line"><h4>Лишайники</h4><p>накипной и кустистый</p><p class="muted">Шов между камнем и растением: не одно существо, а гриб с водорослью вместе. Первыми селятся на голой породе и растут миллиметры за годы.</p></div>
+        <div class="line"><h4>Мох</h4><p><i>Polytrichum</i> sp.</p><p class="muted">Ярко-зелёная подушка там, где держится вода. Пересыхает до бурого и оживает после первого дождя.</p></div>
+      </div>
+      <p class="muted" style="margin-top:22px;max-width:68ch">Ещё двенадцать папок ждут своего имени. Их проще всего решить не определителем, а вопросом к людям в Пару-Пару: они назовут за минуту то, на что у программы уходит неделя.</p>
     </div>
   </section>
+</div>
 
+<div class="page" id="p-atlas-kamni">
   <section>
     <div class="wrap wide">
-      <div class="eyebrow"><i></i><span>03</span><b>Порода</b></div>
+      <a class="backlink" href="#/atlas">← Атлас</a>
       <h2>Камни</h2>
-      <p style="max-width:68ch">Пород не называем: мы не геологи и не станем делать вид. Здесь просто то, что лежит под ногами и на что стоит посмотреть на свету.</p>
-      <div class="ph r219 sc-stone" data-shot style="margin:20px 0 16px"><video data-src="vid/d7a4b16c8e35.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
-    <div class="atlas-mos">
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/ef1a9c9264d7.webp"></div><span class="lb"><b>Камень в воде</b><br><i>мокрый цвет всегда другой</i></span></a>
-      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/ccb54ab955c7.webp"></div><span class="lb"><b>Камень в руке</b><br><i>ладонь для масштаба</i></span></a>
-      <div class="m empty noise"><span>Камень 3</span></div>
-      <div class="m empty noise"><span>Камень 4</span></div>
-      <div class="m empty noise"><span>Камень 5</span></div>
-      <div class="m empty noise"><span>Камень 6</span></div>
-      <div class="m empty noise"><span>Камень 7</span></div>
-      <div class="m empty noise"><span>Камень 8</span></div>
-      <div class="m empty noise"><span>Камень 9</span></div>
-      <div class="m empty noise"><span>Камень 10</span></div>
-      <div class="m empty noise"><span>Камень 11</span></div>
-      <div class="m empty noise"><span>Камень 12</span></div>
+      <p class="lead">Земли здесь почти нет. Сначала камень, потом всё остальное.</p>
+      <p style="max-width:68ch">Порода лежит открыто: её не прикрывает ни лес, ни толстая почва. Разбитая морозом, вылизанная водой, раскрашенная лишайником. Растения селятся не в земле, а в трещинах между камнями — и то, что здесь вообще что-то живёт, начинается с породы.</p>
+      <div class="ph r219 sc-stone" data-shot style="margin:22px 0 20px"><video data-src="vid/d7a4b16c8e35.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/ef1a9c9264d7.webp"><video data-src="vid/d7a4b16c8e35.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/ccb54ab955c7.webp"></div><div class="mos mC noise"><span>кадра нет</span></div><div class="mos mD noise"><span>кадра нет</span></div><div class="mos mE noise"><span>кадра нет</span></div><div class="mos mF noise"><span>кадра нет</span></div><div class="mos mG noise"><span>кадра нет</span></div><div class="mos mH noise"><span>кадра нет</span></div><div class="mos mI noise"><span>кадра нет</span></div><div class="mos mJ noise"><span>кадра нет</span></div><div class="mos mK noise"><span>кадра нет</span></div><div class="mos mL noise"><span>кадра нет</span></div><div class="mos mM noise"><span>кадра нет</span></div></div>
+      <p class="mos-note">Отдельных карточек у камней нет: имя каждому не нужно, нужен свет и масштаб.</p>
+
+      <h3 style="margin-top:34px">Сколько им лет</h3>
+      <p style="max-width:68ch">Красный камень, из которого сложена половина этих склонов, геологи описали по посёлку внизу и так и назвали — <b>свита Писак</b>, нижняя часть группы Миту. Это спрессованные галька и щебень древних выносов: конусы, сходившие здесь в конце триаса, когда Анд ещё не было. Породе около двухсот миллионов лет, и рыжий цвет у неё оттуда же — железо, окислившееся в сухом жарком климате той эпохи.</p>
+      <p style="max-width:68ch">Светлые слоистые пласты моложе почти вдвое: известняки, глины и гипс мелового моря, стоявшего тут около ста миллионов лет назад. Гипс — это высохшая вода, известняк — слежавшиеся раковины. И то, и другое сейчас лежит на четырёх тысячах метров: дно чужого моря, поднятое горами.</p>
+      <p style="max-width:68ch">В красном конгломерате попадаются обломки древнее самой породы — куски известняка с раковинами пермского моря, лежавшего здесь ещё на восемьдесят миллионов лет раньше. Камень внутри камня, и оба старше динозавров.</p>
+      <p style="max-width:68ch">Последнее слово сказал лёд. Чаши, в которых лежат озёра, гладкие бока долин, разбросанные валуны размером с дом — всё это работа ледников, отступивших недавно по здешним меркам. Мороз и сейчас продолжает то же дело: вода затекает в трещину, замерзает ночью и разрывает камень. Так эти горы и рассыпаются — по ночам, тихо, на глазах у всех.</p>
+      <p class="muted" style="margin-top:16px;max-width:68ch">Проверить это можно: район описан в геологических съёмках INGEMMET по листу Куско. Мы пересказываем их, а не выдумываем — и поэтому не подписываем ни один конкретный камень.</p>
+
+      <p class="muted" style="margin-top:18px;max-width:68ch">Своих кадров здесь пока два. Остальные ячейки — рябь: появится съёмка, шум исчезнет сам.</p>
     </div>
+  </section>
+</div>
+
+<div class="page" id="p-atlas-lyudi">
+  <section class="ground-ember">
+    <div class="wrap wide">
+      <a class="backlink" href="#/atlas">← Атлас</a>
+      <h2>Местные жители</h2>
+      <p class="lead">Пуна выглядит пустой. Она не пустая.</p>
+      <p style="max-width:68ch">На этих высотах люди живут не веками, а тысячелетиями. Здесь вывели картошку, научились сушить её морозом, приручили альпаку и построили жизнь там, где у приезжего в первый день болит голова. Общину Пару-Пару держат не туристы, а картошка, рыба и то, что соткано руками.</p>
+      <div class="ph r219 sc-people" data-shot style="margin:22px 0 20px"><video data-src="vid/f0c93e7ab521.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/f7219459af8c.webp"><video data-src="vid/f0c93e7ab521.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/a6ebd8d17e52.webp"></div><div class="mos mC" data-bg="img/57569e85d77f.webp"></div><div class="mos mD" data-bg="img/1e583b4e2ddb.webp"></div><div class="mos mE" data-bg="img/a383b8137401.webp"></div><div class="mos mF" data-bg="img/c889ef55bb1c.webp"></div><div class="mos mG" data-bg="img/441df4b190c6.webp"></div><div class="mos mH" data-bg="img/3813754dc57e.webp"></div><div class="mos mI" data-bg="img/53d8e65ca795.webp"></div><div class="mos mJ" data-bg="img/8b23cc71b7ae.webp"></div><div class="mos mK" data-bg="img/91160bffad58.webp"></div><div class="mos mL" data-bg="img/4fda28683d6b.webp"></div><div class="mos mM" data-bg="img/780ce0b4dc1f.webp"></div></div>
+      <div class="mosaic"><div class="mos mA" data-bg="img/160d24bebeab.webp"><video data-src="vid/e390c6b1cc1d.mp4" autoplay muted loop playsinline preload="none"></video></div><div class="mos mB" data-bg="img/ad03bc3e1712.webp"></div><div class="mos mC" data-bg="img/c48d272f8ab4.webp"></div><div class="mos mD" data-bg="img/969db2cfacfc.webp"></div><div class="mos mE" data-bg="img/9aef9f2141e1.webp"></div><div class="mos mF" data-bg="img/9a80b6e9fe6e.webp"></div><div class="mos mG" data-bg="img/3841595c9e3c.webp"></div><div class="mos mH" data-bg="img/d0229dfec594.webp"></div><div class="mos mI" data-bg="img/5f7677e0f818.webp"></div><div class="mos mJ" data-bg="img/2c894f57ed0c.webp"></div><div class="mos mK" data-bg="img/ce8cb71d2747.webp"></div><div class="mos mL" data-bg="img/c85ce69055d4.webp"></div><div class="mos mM" data-bg="img/8954aaa05726.webp"></div></div>
+      <p class="mos-note">Имён под кадрами нет. Здесь это не подпись к экспонату, а люди, которые живут рядом.</p>
+      <div class="quote" style="margin-top:20px">Фотографировать можно. Но мы сначала спрашиваем — не потому что закон, а потому что так себя ведут.</div>
     </div>
   </section>
 </div>
@@ -2104,23 +2138,94 @@
 <div class="page" id="p-atlas-vizcacha">
   <section>
     <div class="wrap narrow">
-      <a class="backlink" href="#/atlas">← Атлас</a>
+      <a class="backlink" href="#/atlas/zveri">← Животные</a>
       <h1>Вискача</h1>
       <p class="muted"><i>Lagidium viscacia</i> · кечуа: wisk'acha · EN: mountain viscacha</p>
-      <div class="ph r169 sc-fauna" data-shot data-bg="img/3fa149f3e661.webp" style="margin:20px 0;;background-size:cover;background-position:center"></div>
-      <div class="g4">
-        <div class="ph r11 sc-fauna" data-shot data-bg="img/8e9330c99fa9.webp" style="background-size:cover;background-position:center"></div>
-        <div class="ph r11 sc-fauna" data-shot data-bg="img/bcafc6a8f111.webp" style="background-size:cover;background-position:center"></div>
-        <div class="ph r11 sc-fauna" data-shot data-bg="img/d6ef38b0e923.webp" style="background-size:cover;background-position:center"></div>
-        <div class="ph r11 sc-fauna" data-shot data-bg="img/95c29e31676e.webp" style="background-size:cover;background-position:center"></div>
+      <div class="ph r169 sc-fauna noise" style="margin:20px 0"><span>своего кадра нет</span></div>
+      <div class="g4"><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div></div>
+      <p style="margin-top:22px">Похожа на зайца, которому приделали беличий хвост. Живёт в камнях, держится группами и греется на солнце в первые и последние часы дня — в остальное время сидит в щели между глыбами. По классификации МСОП — вид «наименьшего беспокойства»: их здесь много, и видят их часто, прямо с тропы.</p>
+      <p>Прыгает по отвесной осыпи так, будто она горизонтальная. Тот случай, когда животное выглядит редкой находкой, а на деле обычнее вороны.</p>
+      <p><b>Своей фотографии у нас нет.</b> Прежде в этой карточке стояли посторонние кадры — гусь и корова. Мы их убрали: подставлять чужое или случайное здесь нельзя, даже если кадр красивый.</p>
+      <div class="card" style="margin:20px 0">
+        <p style="margin-bottom:6px"><span class="tag">✔ вид определён</span><span class="tag">кадра нет</span></p>
+        <p class="muted" style="margin:0">Видят с тропы почти каждый выход. Снять пока не удалось — сидит далеко и уходит первой.</p>
       </div>
-      <p style="margin-top:22px">Похожа на зайца, которому приделали беличий хвост. Живёт в камнях и держится группами — их много, видят часто, прямо с тропы. По классификации МСОП — вид «наименьшего беспокойства», хотя выглядит как редкая находка.</p>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-atlas-huallata">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/atlas/zveri">← Животные</a>
+      <h1>Андский гусь</h1>
+      <p class="muted"><i>Chloephaga melanoptera</i> · кечуа: huallata · EN: Andean goose</p>
+      <div class="ph r169 sc-fauna" data-shot data-bg="img/d6ef38b0e923.webp" style="margin:20px 0;background-size:cover;background-position:center"></div>
+      <div class="g4"><div class="ph r11 sc-fauna" data-shot data-bg="img/3ac8b1775b93.webp" style="background-size:cover;background-position:center"></div><div class="ph r11 sc-fauna" data-shot data-bg="img/11d6362a4d49.webp" style="background-size:cover;background-position:center"></div><div class="ph r11 sc-fauna" data-shot data-bg="img/294fab7dc867.webp" style="background-size:cover;background-position:center"></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div></div>
+      <p style="margin-top:22px">Белый с чёрными крыльями, размером с домашнего гуся, но плотнее и тяжелее на вид. Держится у воды на всём протяжении года: на 4200 ему хватает травы по берегу и мелководья.</p>
+      <p>Летают парами. Одной и той же парой — всю жизнь. На четырёх тысячах, где всё живое занято тем, чтобы дожить до утра, это выглядит не как факт из справочника, а как заявление.</p>
+      <p>Гнездо ставят на земле у самой воды, и пара защищает его вдвоём: один шипит и идёт навстречу, второй уводит выводок. Если гусь пошёл на вас — вы близко к гнезду, отойдите.</p>
       <div class="card" style="margin:20px 0">
         <p style="margin-bottom:6px"><span class="tag">✔ вид определён</span><span class="tag">✔ подтверждено фотографией</span></p>
-        <p class="muted" style="margin:0">Снята на месте, на 4200. Название на кечуа — со слов местных.</p>
+        <p class="muted" style="margin:0">Снят на месте, у воды. Кечуанское имя — со слов местных.</p>
       </div>
-      <h3>Заметки, где встречалась</h3>
-      <p><a href="#/dnevnik/tuman">4 августа — «Вискачи вышли на камни в пятом часу»</a></p>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-atlas-kondor">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/atlas/zveri">← Животные</a>
+      <h1>Кондор</h1>
+      <p class="muted"><i>Vultur gryphus</i> · кечуа: kuntur · EN: Andean condor</p>
+      <div class="ph r169 sc-fauna" data-shot data-bg="img/98ac1c59f9fd.webp" style="margin:20px 0;background-size:cover;background-position:center"></div>
+      <div class="g4"><div class="ph r11 sc-fauna" data-shot data-bg="img/7bd021f95839.webp" style="background-size:cover;background-position:center"></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div></div>
+      <p style="margin-top:22px">Размах крыльев — больше трёх метров, вес до пятнадцати килограммов. Такая птица не может держаться на взмахах: она ждёт, когда склон нагреется, и уходит вверх на восходящем потоке, почти не шевеля крыльями. Поэтому кондора чаще видят в середине дня, а не на рассвете.</p>
+      <p>Падальщик, а не охотник: ищет мёртвое, а не живое. За скотом кондор не приходит — приходит после.</p>
+      <p>Бывает над горами и над тропой. Не каждый день и не по расписанию: увидеть его — вопрос того, во сколько вы вышли и куда смотрели.</p>
+      <div class="card" style="margin:20px 0">
+        <p style="margin-bottom:6px"><span class="tag">✔ вид определён</span><span class="tag">✔ подтверждено фотографией</span></p>
+        <p class="muted" style="margin:0">Снят здесь. Издалека — как и положено этой птице.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-atlas-taruka">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/atlas/zveri">← Животные</a>
+      <h1>Тарука</h1>
+      <p class="muted"><i>Hippocamelus antisensis</i> · андский олень · EN: north Andean deer</p>
+      <div class="ph r169 sc-fauna" data-shot data-bg="img/8444c71a7d59.webp" style="margin:20px 0;background-size:cover;background-position:center"></div>
+      <div class="g4"><div class="ph r11 sc-fauna" data-shot data-bg="img/d7a061e557c8.webp" style="background-size:cover;background-position:center"></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div><div class="ph r11 sc-fauna noise"><span>кадра нет</span></div></div>
+      <p style="margin-top:22px">Серо-бурый олень пуны, плотный и коротконогий — сложён под склон, а не под равнину. Рога у самца раздваиваются простой вилкой, без ветвистой короны, к которой привыкли в Европе.</p>
+      <p>Держится небольшими группами на открытых склонах, там, где видно далеко. Осторожен: чаще замечаешь не самого оленя, а то, как он уходит вверх — ровно, без паники, но и без остановок.</p>
+      <p>Вид внесён в перечни охраняемых: поголовье невелико и держится клочками по всему Андскому нагорью. Встреча — редкость, и это не оборот речи.</p>
+      <div class="card" style="margin:20px 0">
+        <p style="margin-bottom:6px"><span class="tag">✔ вид определён</span><span class="tag">✔ подтверждено фотографией</span></p>
+        <p class="muted" style="margin:0">Снят на тропе. По словам хозяина, однажды стоял прямо на пути наверх.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-atlas-alpaka">
+  <section>
+    <div class="wrap narrow">
+      <a class="backlink" href="#/atlas/zveri">← Животные</a>
+      <h1>Альпака</h1>
+      <p class="muted"><i>Vicugna pacos</i> · кечуа: allpaqa · EN: alpaca</p>
+      <div class="ph r169 sc-fauna" data-shot data-bg="img/f178a796d01d.webp" style="margin:20px 0;background-size:cover;background-position:center"></div>
+      <div class="g4"><div class="ph r11 sc-fauna" data-shot data-bg="img/b6480ce2cc30.webp" style="background-size:cover;background-position:center"></div><div class="ph r11 sc-fauna" data-shot data-bg="img/ca9e8b621b45.webp" style="background-size:cover;background-position:center"></div><div class="ph r11 sc-fauna" data-shot data-bg="img/a1f1c7b9b726.webp" style="background-size:cover;background-position:center"></div><div class="ph r11 sc-fauna" data-shot data-bg="img/9eb48bdfd7f2.webp" style="background-size:cover;background-position:center"></div></div>
+      <p style="margin-top:22px">Одомашнена в этих горах около пяти тысяч лет назад — ради шерсти, а не ради мяса. Ближайший дикий родственник, викунья, живёт здесь же, но её не пасут.</p>
+      <p>Шерсть альпаки полая внутри: тот же приём, что у кактуса с его белым пухом, — воздух внутри волокна держит тепло лучше, чем само волокно. На 4200 это не украшение, а условие того, что животное переживает ночь.</p>
+      <p>Маленьких гостей не боятся: к людям привыкли с рождения, потому что живут при людях. Стадо на тропе — не дикая природа, а чья-то работа, идущая вам навстречу.</p>
+      <div class="card" style="margin:20px 0">
+        <p style="margin-bottom:6px"><span class="tag">✔ вид определён</span><span class="tag">✔ подтверждено фотографией</span></p>
+        <p class="muted" style="margin:0">Снято на месте. Стада проходят мимо дома почти каждый день.</p>
+      </div>
     </div>
   </section>
 </div>
@@ -2182,10 +2287,10 @@
       <h1>Кинсакоча, Пумакоча, Асулкоча: три озера над облаками</h1>
       <p class="lead">Что это за озёра, чем они отличаются друг от друга и почему сюда стоит ехать не только ради них. Без маршрута и без координат.</p>
       <div class="ph r169 sc-water" data-shot data-bg="img/ef1a9c9264d7.webp" style="margin:22px 0;;background-size:cover;background-position:center"></div>
-      <p>Kinsa qucha на кечуа — «три озера». Kinsa значит три, qucha значит озеро. Место названо счётом: здесь ровно столько озёр, сколько сказано в имени. Ни метафоры, ни легенды — просто арифметика, которой несколько сотен лет.</p>
+      <p>Kinsa qucha на кечуа — «три озера». Kinsa значит три, qucha значит озеро. Место названо счётом. Не потому, что вода здесь кончается на третьем озере — её больше, — а потому, что три названы, а остальные так и лежат без имени. Ни метафоры, ни легенды: просто счёт, которому несколько сотен лет.</p>
       <p>Здесь не будет маршрута. Будет описание того, что вы увидите.</p>
       <h4>Почему едут именно за лагунами</h4>
-      <p>Из всего, что есть вокруг Писака, в поиске живут именно эти три озера. Их фотографируют, их ищут, про них спрашивают в чатах Куско. И это честная слава: озёра на высоте за четыре тысячи метров действительно выглядят так, как не выглядит вода нигде внизу — плотный бирюзовый цвет, который не получается ни на одном фильтре.</p>
+      <p>Из всей воды вокруг Писака в поиске живут именно эти три озера. Их фотографируют, их ищут, про них спрашивают в чатах Куско. И это честная слава: озёра на высоте за четыре тысячи метров действительно выглядят так, как не выглядит вода нигде внизу — плотный бирюзовый цвет, который не получается ни на одном фильтре.</p>
       <p>Но местные, если спросить их прямо, назовут другие места. Не потому что озёра плохи, а потому что вокруг есть вещи, которые никто не раскручивал. Мы их не публикуем — об этом ниже.</p>
       <h4>Пума Коча — 4325 метров</h4>
       <div class="ph r43 sc-water" data-shot data-bg="img/59ed4b8906cc.webp" style="margin:18px 0;;background-size:cover;background-position:center"></div>
@@ -2315,7 +2420,8 @@
       <a class="backlink" href="#/">← на главную</a>
       <h2>Артефакты</h2>
       <p class="lead">То, что отсюда можно унести.</p>
-      <p style="max-width:68ch">Фотографию тишины сделать нельзя. Записать её можно. Здесь две полки: одна со звуком — её слушают бесплатно и прямо отсюда, вторая с вещами, которые ткут руками в Пару-Пару. Мы не называем это магазином: половина раздела ничего не стоит, а вторая продаётся по цене мастерицы, без торга и без наценки за красивое слово.</p>
+      <p style="max-width:68ch">Фотографию тишины сделать нельзя. Записать её можно. Здесь четыре полки: звук, который слушают бесплатно и прямо отсюда; оригиналы этих записей целиком; отпечаток — любой кадр с сайта, напечатанный и высланный конвертом; и тканое, сделанное руками в Пару-Пару.</p>
+      <p style="max-width:68ch">Мы не называем это магазином. Первая полка не стоит ничего, остальные продаются по цене того, кто это сделал, — без торга и без наценки за красивое слово. Всё, что здесь есть, заказывается одним сообщением: корзины, кабинета и оплаты картой на сайте нет и не будет.</p>
     </div>
   </section>
 
@@ -2381,15 +2487,90 @@
         </div>
       </div>
       <div class="card accent" style="margin-top:20px">
-        <p style="margin:0"><b>Слушать можно без всего.</b> Ни почты, ни регистрации, ни кнопки «поделиться». Захотите забрать файл — напишите, пришлём.</p>
+        <p style="margin:0"><b>Слушать можно без всего.</b> Ни почты, ни регистрации, ни кнопки «поделиться». Здесь лежит короткий кусок каждой записи — сжатый, чтобы открывался на любом интернете.</p>
       </div>
       <div class="quote">Самая длинная запись — та, где ничего не происходит. Пять минут четырёх утра. Это и есть то, за чем сюда едут.</div>
+
+      <h3 style="margin-top:38px">Оригиналы</h3>
+      <p style="max-width:68ch">То же место, но целиком и без сжатия: полная длина, ничего не вырезано, ничего не почищено. Стадо, которое прошло на второй минуте, осталось на второй минуте. Файл приходит в сообщении — можно слушать в наушниках, можно поставить фоном на весь вечер.</p>
+      <div class="split" style="margin-top:18px">
+        <div class="card">
+          <h3>Одна запись</h3>
+          <p><span class="tag">полная длина</span><span class="tag">без обработки</span><span class="tag">WAV и mp3</span></p>
+          <div class="price">S/. 50</div>
+          <p class="muted">напишите, какая именно — пришлём файл и способ оплаты</p>
+        </div>
+        <div class="card accent">
+          <h3>Все шесть</h3>
+          <p><span class="tag">весь набор</span><span class="tag">по мере появления новых</span></p>
+          <div class="price">S/. 150</div>
+          <p class="muted">новые записи, которые появятся позже, придут тем же письмом и без доплаты</p>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:14px;max-width:68ch">Личного кабинета здесь нет намеренно: ни регистрации, ни пароля, ни сервиса между нами и вами. Написали — ответил человек.</p>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:8px">Спросить про записи</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>02</span><b>Отпечаток</b></div>
+      <h2>Фотография на бумаге</h2>
+      <p class="lead">Любой кадр с этого сайта — напечатанный и высланный вам конвертом.</p>
+      <p style="max-width:68ch">Экран отдаёт кадру свет, бумага отдаёт ему поверхность. Мокрый камень, ичу против солнца, вода Пума Кочи — на бумаге они выглядят иначе, чем здесь, и это не фигура речи. Печатаем в Куско, подписываем на обороте: что снято и когда.</p>
+      <div class="split" style="margin-top:18px">
+        <div class="card">
+          <h3>Как выбрать</h3>
+          <p>Пришлите ссылку на страницу и скажите, какой кадр. Если проще — опишите словами: «камень в воде», «кактус в пуху». Найдём.</p>
+          <p class="muted">Печатаем и то, чего на сайте нет: если кадр есть в архиве, он ваш.</p>
+        </div>
+        <div class="card">
+          <h3>Размеры и цена</h3>
+          <table class="prices">
+            <tr><td>13 × 18</td><td>S/. 35</td></tr>
+            <tr><td>20 × 30</td><td>S/. 70</td></tr>
+            <tr><td>30 × 45</td><td>S/. 140</td></tr>
+            <tr><td>Отправка конвертом</td><td>от S/. 40</td></tr>
+          </table>
+          <p class="muted">Конверт из Куско, с перуанским штемпелем. Идёт долго — сроки пишем честно.</p>
+        </div>
+      </div>
+      <div class="quote">Мы не ставим на снимок ни логотипа, ни подписи поверх кадра. Это ваша фотография, а не наша реклама у вас на стене.</div>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:8px">Заказать отпечаток</a>
+    </div>
+  </section>
+
+  <section class="ground-moss">
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>03</span><b>Оттиск</b></div>
+      <h2>Растение на бумаге</h2>
+      <p class="lead">Не гербарий. Оттиск.</p>
+      <p style="max-width:68ch">Настоящее сухое растение через границу не поедет: это карантин, разрешения и хороший шанс, что конверт вскроют и всё выбросят. Поэтому мы делаем иначе — кладём растение под краску и прижимаем к бумаге. Остаётся точный контур: жилки, зубцы листа, колючки кактуса в натуральную величину.</p>
+      <div class="g3" style="margin-top:18px">
+        <div class="card">
+          <h3>Что на листе</h3>
+          <p><span class="tag">оттиск</span><span class="tag">имя, где мы в нём уверены</span><span class="tag">высота и дата</span></p>
+          <p class="muted">Имени нет — так и написано: «имя уточняется». Наугад не подписываем.</p>
+        </div>
+        <div class="card">
+          <h3>Что можно взять</h3>
+          <p class="muted">ичу · кактус в шерсти · адесмия · кеуния · лишайник на камне</p>
+          <p>Растение для оттиска берём одно и с того же склона, где оно росло рядом с десятком таких же.</p>
+        </div>
+        <div class="card accent">
+          <h3>Цена</h3>
+          <div class="price">S/. 60 <small>один лист</small></div>
+          <p class="muted">три листа — S/. 150. Отправка конвертом, вместе с фотографиями, если заказывали и их</p>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:16px;max-width:68ch">Живого в конверте не будет. Это принципиально: правило про растения существует не для нас одних, и нарушать его ради сувенира — ровно та жадность, из-за которой такие правила и появляются.</p>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:8px">Заказать оттиск</a>
     </div>
   </section>
 
   <section class="ground-ember">
     <div class="wrap wide">
-      <div class="eyebrow"><i></i><span>02</span><b>Вещь</b></div>
+      <div class="eyebrow"><i></i><span>04</span><b>Вещь</b></div>
       <h2>Тканое</h2>
       <p style="max-width:68ch">Пояс, накидка, шапка, сумка, перчатки. Хорошая накидка ткётся месяцами, а турист на рынке хочет недорогой сувенир и хочет его сегодня — поэтому лучшее до прилавка не доходит: его носят сами, отдают соседке, кладут в сундук. Чтобы такое найти, надо здесь жить и знать людей.</p>
       <div class="g3" style="margin-top:20px">
@@ -2575,7 +2756,15 @@
     "dnevnik": "p-dnevnik",
     "dnevnik/tuman": "p-dnevnik-tuman",
     "atlas": "p-atlas",
+    "atlas/zveri": "p-atlas-zveri",
+    "atlas/rasteniya": "p-atlas-rasteniya",
+    "atlas/kamni": "p-atlas-kamni",
+    "atlas/lyudi": "p-atlas-lyudi",
     "atlas/vizcacha": "p-atlas-vizcacha",
+    "atlas/huallata": "p-atlas-huallata",
+    "atlas/kondor": "p-atlas-kondor",
+    "atlas/taruka": "p-atlas-taruka",
+    "atlas/alpaka": "p-atlas-alpaka",
     "gallery": "p-gallery",
     "blog": "p-blog",
     "blog/tri-ozera": "p-blog-tri-ozera",
