@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Kinsacocha — варианты оформления</title>
+<style>
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300 600; font-display: swap; src: url(font/4707efc4a5.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300 600; font-display: swap; src: url(font/ec4225ec16.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 300 600; font-display: swap; src: url(font/45ea393f38.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 300 600; font-display: swap; src: url(font/c154477b9a.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+:root{
+  --bg:#1C150F; --text:#EBEBEB; --accent:#A88923; --accent-hi:#C7A53A;
+  --raised:#241C14; --sunken:#16110C; --line:rgba(255,255,255,.10);
+  --muted:rgba(235,235,235,.55);
+  --serif:'Cormorant Garamond', ui-serif, Georgia, serif;
+  --sans:'Montserrat', ui-sans-serif, system-ui, sans-serif;
+}
+*{box-sizing:border-box} html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;letter-spacing:.01em;line-height:1.6}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:.02em;margin:0}
+h1{font-size:clamp(38px,7vw,80px);line-height:.95}
+h2{font-size:clamp(26px,4vw,42px);line-height:1.05}
+h3{font-size:clamp(19px,2.2vw,25px)}
+a{color:var(--accent);text-decoration:none}
+img,video{display:block;max-width:100%}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.head{padding:clamp(40px,8vw,90px) 0 clamp(24px,4vw,40px);border-bottom:1px solid var(--line)}
+.muted{color:var(--muted)}
+.lead{font-size:clamp(17px,2.1vw,21px);color:rgba(235,235,235,.8);max-width:62ch}
+.note{background:var(--raised);border-left:2px solid var(--accent);padding:14px 18px;margin:22px 0;font-size:15px}
+
+/* ─ шапка варианта ─ */
+.variant{padding:clamp(44px,7vw,86px) 0 clamp(30px,5vw,60px);border-bottom:1px solid var(--line)}
+.tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.tag i{width:38px;height:1px;background:var(--accent);opacity:.6}
+.why{font-size:14.5px;color:var(--muted);max-width:66ch;margin-top:10px}
+
+/* ══ ВАРИАНТ 1 — номер и плашка снизу ══════════════ */
+.b1{position:relative;overflow:hidden;margin-bottom:14px;background:var(--sunken)}
+.b1 .media{position:relative;aspect-ratio:16/7}
+.b1 video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.b1 .num{position:absolute;top:clamp(14px,2vw,26px);left:clamp(16px,2.4vw,32px);
+  font-family:var(--serif);font-size:clamp(48px,8vw,110px);line-height:1;color:#fff;
+  text-shadow:0 2px 40px rgba(0,0,0,.6);z-index:2}
+.b1 .plate{position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:clamp(16px,2.4vw,28px) clamp(16px,2.4vw,32px);
+  background:linear-gradient(to top, rgba(12,9,6,.92) 0%, rgba(12,9,6,.72) 55%, rgba(12,9,6,0) 100%);
+  backdrop-filter:blur(2px)}
+.b1 h3{margin-bottom:4px}
+.b1 .row{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;margin-top:8px;font-size:14px}
+.pill{border:1px solid rgba(255,255,255,.28);padding:3px 11px;font-size:12.5px;letter-spacing:.04em}
+
+/* ══ ВАРИАНТ 2 — текст сбоку ═══════════════════════ */
+.b2{position:relative;overflow:hidden;margin-bottom:14px;background:var(--sunken)}
+.b2 .media{position:relative;aspect-ratio:16/7}
+.b2 video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.b2 .panel{position:absolute;top:0;bottom:0;left:0;width:min(42%,430px);z-index:2;
+  display:flex;flex-direction:column;justify-content:center;gap:6px;
+  padding:clamp(18px,2.6vw,34px);
+  background:linear-gradient(to right, rgba(12,9,6,.97) 0%, rgba(12,9,6,.92) 55%, rgba(12,9,6,.55) 85%, rgba(12,9,6,0) 100%);
+  text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.b2.flip .panel{left:auto;right:0;background:linear-gradient(to left, rgba(12,9,6,.97) 0%, rgba(12,9,6,.92) 55%, rgba(12,9,6,.55) 85%, rgba(12,9,6,0) 100%)}
+.b2 .idx{font-size:11px;letter-spacing:.24em;color:var(--accent);text-transform:uppercase}
+.b2 .price{font-family:var(--serif);font-size:clamp(20px,2.4vw,28px);margin-top:6px}
+
+/* ══ ВАРИАНТ 3 — цифра во весь кадр ════════════════ */
+.b3{position:relative;overflow:hidden;margin-bottom:14px;background:var(--sunken)}
+.b3 .media{position:relative;aspect-ratio:16/7}
+.b3 video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.b3 .ghost{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:min(46vw,420px);line-height:.8;color:rgba(255,255,255,.3);
+  text-shadow:0 0 60px rgba(0,0,0,.5);pointer-events:none;user-select:none}
+.b3 .corner{position:absolute;right:clamp(14px,2vw,28px);bottom:clamp(14px,2vw,28px);z-index:3;
+  max-width:min(60%,420px);padding:clamp(13px,1.8vw,20px);
+  background:rgba(12,9,6,.74);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(6px)}
+.b3 .corner h3{font-size:clamp(17px,2vw,22px)}
+.b3 .corner p{margin:6px 0 0;font-size:13.5px;color:rgba(235,235,235,.75)}
+
+/* ══ ЖУРНАЛЬНЫЕ СЕТКИ ══════════════════════════════ */
+.card{display:block;color:inherit}
+.card .ph{position:relative;overflow:hidden;background:var(--sunken);background-size:cover;background-position:center}
+.card .cap{padding-top:10px}
+.card .cap b{font-weight:500;font-family:var(--serif);font-size:19px;letter-spacing:.02em}
+.card .cap i{display:block;font-size:13px;color:var(--muted);font-style:italic;margin-top:1px}
+.card .cap p{margin:6px 0 0;font-size:14px;color:rgba(235,235,235,.72)}
+.card .more{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-top:8px;display:inline-block}
+.card:hover .ph{filter:brightness(1.06)}
+.noise{background-image:url(img/noise.webp);background-size:180px;opacity:.55}
+.noise::after{content:attr(data-lb);position:absolute;left:10px;bottom:8px;font-size:11px;color:rgba(235,235,235,.5);letter-spacing:.08em}
+
+/* J1 — разворот: одна большая слева, лесенка справа */
+.j1{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,26px)}
+.j1 .big{grid-column:span 2;grid-row:span 2}
+.j1 .big .ph{aspect-ratio:3/4}
+.j1 .wide{grid-column:span 2}
+.j1 .wide .ph{aspect-ratio:16/9}
+.j1 .sm .ph{aspect-ratio:1/1}
+
+/* J2 — лента: чередование широкой и пары */
+.j2{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(14px,2vw,26px)}
+.j2 .hero{grid-column:span 6}
+.j2 .hero .ph{aspect-ratio:21/8}
+.j2 .half{grid-column:span 3}
+.j2 .half .ph{aspect-ratio:4/3}
+.j2 .third{grid-column:span 2}
+.j2 .third .ph{aspect-ratio:4/5}
+
+/* J3 — сетка с акцентами */
+.j3{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(12px,1.6vw,20px)}
+.j3 .c{grid-column:span 2}
+.j3 .c .ph{aspect-ratio:4/3}
+.j3 .c.tall{grid-row:span 2}
+.j3 .c.tall .ph{aspect-ratio:3/5}
+.j3 .c.w3{grid-column:span 3}
+.j3 .c.w3 .ph{aspect-ratio:16/10}
+.j3 .c.w4{grid-column:span 4}
+.j3 .c.w4 .ph{aspect-ratio:16/8}
+
+@media (max-width:860px){
+  .j1{grid-template-columns:repeat(2,1fr)}
+  .j1 .big,.j1 .wide{grid-column:span 2}
+  .j2{grid-template-columns:repeat(2,1fr)}
+  .j2 .hero,.j2 .half{grid-column:span 2}
+  .j2 .third{grid-column:span 1}
+  .j3{grid-template-columns:repeat(2,1fr)}
+  .j3 .c,.j3 .c.w3,.j3 .c.w4{grid-column:span 2}
+  .j3 .c.tall{grid-row:span 1}
+  .b2 .panel{position:static;width:100%;background:var(--raised)}
+  .b2 .media{aspect-ratio:16/10}
+  .b3 .corner{position:static;max-width:none;border:0;background:var(--raised)}
+}
+.foot{padding:clamp(40px,7vw,80px) 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+
+<div class="wrap head">
+  <p class="muted" style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px">Черновик · не индексируется · не часть сайта</p>
+  <h1>Варианты оформления</h1>
+  <p class="lead" style="margin-top:18px">Две вещи на выбор: как выглядят четыре тропы и как выглядит журнальная вёрстка карточек. Всё на настоящих петлях и настоящих кадрах — то, что выберете, уйдёт на сайт.</p>
+  <div class="note">Каждая петля — четыре разных куска по секунде подряд: вода, трава, альпаки, огонь, люди на привале. Смотрите не только на текст, но и на то, не мельтешит ли смена планов.</div>
+</div>
+
+<!-- ══════ ТРОПЫ ══════ -->
+<section class="variant">
+  <div class="wrap">
+    <div class="tag"><i></i><span>Тропы · вариант 1</span></div>
+    <h2>Номер и плашка снизу</h2>
+    <p class="why">Текст лежит в тёмной полосе внизу кадра — читается всегда, независимо от того, что в этот момент показывает видео. Номер тропы крупный, сверху. Полосы одинаковые, отличает их только видео.</p>
+  </div>
+  <div class="wrap" style="margin-top:26px">
+    <div class="b1">
+      <div class="media"><video src="vid/loop-t1.mp4" poster="img/loop-t1.webp" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
+        <div class="num">1</div>
+        <div class="plate">
+          <h3>Короткая · около двух часов</h3>
+          <p class="muted" style="margin:0">Ближняя вода и обратно. С детьми — успеете вернуться к обеду.</p>
+          <div class="row"><span class="pill">одна лагуна</span><span class="pill">горы над ней</span><span style="margin-left:auto">S/. 80 за группу · <a href="#">спросить →</a></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="b1">
+      <div class="media"><video src="vid/loop-t2.mp4" poster="img/loop-t2.webp" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
+        <div class="num">2</div>
+        <div class="plate">
+          <h3>Полдня</h3>
+          <p class="muted" style="margin:0">Дальше и выше. Для тех, кто хочет идти, а не гулять.</p>
+          <div class="row"><span class="pill">одна лагуна</span><span class="pill">горы с высоты</span><span style="margin-left:auto">S/. 150 за группу · <a href="#">спросить →</a></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="variant">
+  <div class="wrap">
+    <div class="tag"><i></i><span>Тропы · вариант 2</span></div>
+    <h2>Текст сбоку, стороны чередуются</h2>
+    <p class="why">Плашка занимает треть кадра и меняет сторону от полосы к полосе — глаз идёт зигзагом, а видео остаётся видно целиком. Больше места под текст, чем в первом варианте.</p>
+  </div>
+  <div class="wrap" style="margin-top:26px">
+    <div class="b2">
+      <div class="media"><video src="vid/loop-t3.mp4" poster="img/loop-t3.webp" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
+        <div class="panel">
+          <div class="idx">тропа три</div>
+          <h3>Целый день</h3>
+          <p class="muted" style="margin:4px 0 0;font-size:14.5px">Все три лагуны за один день. Привал с едой у воды. Не в первый день наверху.</p>
+          <div class="price">S/. 220</div>
+          <a href="#" style="font-size:13px;letter-spacing:.08em">спросить про эту тропу →</a>
+        </div>
+      </div>
+    </div>
+    <div class="b2 flip">
+      <div class="media"><video src="vid/loop-t4.mp4" poster="img/loop-t4.webp" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
+        <div class="panel">
+          <div class="idx">тропа четыре</div>
+          <h3>Тропа хозяина</h3>
+          <p class="muted" style="margin:4px 0 0;font-size:14.5px">Здесь ничего не описано, и это не оплошность. Собирается утром — под вас, под погоду.</p>
+          <div class="price">S/. 350</div>
+          <a href="#" style="font-size:13px;letter-spacing:.08em">написать →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="variant">
+  <div class="wrap">
+    <div class="tag"><i></i><span>Тропы · вариант 3</span></div>
+    <h2>Цифра во весь кадр</h2>
+    <p class="why">Номер тропы высотой в полосу, полупрозрачный, поверх видео. Текст мелкий, в углу, на матовой подложке. Самый «журнальный» и самый рискованный: текста помещается мало.</p>
+  </div>
+  <div class="wrap" style="margin-top:26px">
+    <div class="b3">
+      <div class="media"><video src="vid/loop-t1.mp4" poster="img/loop-t1.webp" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
+        <div class="ghost">1</div>
+        <div class="corner">
+          <h3>Короткая · 2 часа</h3>
+          <p>Ближняя вода и обратно. S/. 80 за группу.</p>
+          <a href="#" style="font-size:13px">спросить →</a>
+        </div>
+      </div>
+    </div>
+    <div class="b3">
+      <div class="media"><video src="vid/loop-t4.mp4" poster="img/loop-t4.webp" autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
+        <div class="ghost">4</div>
+        <div class="corner">
+          <h3>Тропа хозяина</h3>
+          <p>Собирается утром — под вас и под погоду. S/. 350.</p>
+          <a href="#" style="font-size:13px">написать →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ЖУРНАЛЬНЫЕ СЕТКИ ══════ -->
+<section class="variant">
+  <div class="wrap">
+    <div class="tag"><i></i><span>Карточки · вариант A</span></div>
+    <h2>Разворот: одна большая, вокруг лесенка</h2>
+    <p class="why">Как первый разворот главы в журнале: слева вертикальный кадр в полстраницы, справа широкий и два квадратных. Дальше ритм повторяется, но большая карточка переезжает на другую сторону. Подпись и ссылка — под кадром, как подпись к фотографии.</p>
+  </div>
+  <div class="wrap" style="margin-top:26px">
+    <div class="j1">
+      <a class="card big" href="#"><div class="ph" style="background-image:url(img/0e8d559d084d.webp)"></div>
+        <div class="cap"><b>Кактус в шерсти</b><i>Austrocylindropuntia sp. · кечуа waraqu</i>
+          <p>Растёт не столбиком, а лепёшкой у земли. Поверх колючек — белый пух: тот же приём, что шерсть альпаки.</p>
+          <span class="more">карточка →</span></div></a>
+      <a class="card wide" href="#"><div class="ph" style="background-image:url(img/ca77673aba09.webp)"></div>
+        <div class="cap"><b>Кеуния</b><i>Polylepis sp. · q'euña</i>
+          <p>Дерево, растущее выше всех деревьев планеты.</p></div></a>
+      <a class="card sm" href="#"><div class="ph" style="background-image:url(img/260087454854.webp)"></div>
+        <div class="cap"><b>Кальцеолярия</b><i>Calceolaria sp.</i></div></a>
+      <a class="card sm" href="#"><div class="ph" style="background-image:url(img/1512a7e233c6.webp)"></div>
+        <div class="cap"><b>Жёлтый цветок пуны</b><i>Hypochaeris sp.</i></div></a>
+      <a class="card wide" href="#"><div class="ph" style="background-image:url(img/4b722ae5a6d6.webp)"></div>
+        <div class="cap"><b>Ичу</b><i>трава пуны · ichhu</i>
+          <p>Крыши, верёвки, подстилка. Режет руку, скот ест её только молодой.</p></div></a>
+      <a class="card sm" href="#"><div class="ph" style="background-image:url(img/43d214c04f49.webp)"></div>
+        <div class="cap"><b>Лишайник</b><i>шов между камнем и растением</i></div></a>
+      <a class="card sm" href="#"><div class="ph noise" data-lb="кадра нет"></div>
+        <div class="cap"><b>Вира-вира</b><i>Achyrocline sp.</i></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="variant">
+  <div class="wrap">
+    <div class="tag"><i></i><span>Карточки · вариант B</span></div>
+    <h2>Лента: широкий кадр, потом пары и тройки</h2>
+    <p class="why">Каждая глава открывается кадром во всю ширину, дальше идут пары и тройки разной высоты. Ближе всего к тому, как устроен сам сайт сейчас, — но перестаёт быть решёткой.</p>
+  </div>
+  <div class="wrap" style="margin-top:26px">
+    <div class="j2">
+      <a class="card hero" href="#"><div class="ph" style="background-image:url(img/d6ef38b0e923.webp)"></div>
+        <div class="cap"><b>Андский гусь</b><i>Chloephaga melanoptera · huallata</i>
+          <p>Летают парами. Одной и той же парой — всю жизнь. На 4200 это выглядит как заявление, а не как факт из справочника.</p>
+          <span class="more">карточка →</span></div></a>
+      <a class="card half" href="#"><div class="ph" style="background-image:url(img/98ac1c59f9fd.webp)"></div>
+        <div class="cap"><b>Кондор</b><i>Vultur gryphus · kuntur</i>
+          <p>Три метра в размахе. Почти не машет крыльями — идёт вверх на потоке от нагретого склона.</p></div></a>
+      <a class="card half" href="#"><div class="ph" style="background-image:url(img/f178a796d01d.webp)"></div>
+        <div class="cap"><b>Альпака</b><i>Vicugna pacos · allpaqa</i>
+          <p>Одомашнена здесь пять тысяч лет назад ради шерсти. Волос внутри полый — воздух держит тепло.</p></div></a>
+      <a class="card third" href="#"><div class="ph" style="background-image:url(img/ee92e41af845.webp)"></div>
+        <div class="cap"><b>Ослы</b><i>по тропе, со своим делом</i></div></a>
+      <a class="card third" href="#"><div class="ph" style="background-image:url(img/95c29e31676e.webp)"></div>
+        <div class="cap"><b>Коровы</b><i>пасутся выше, чем ждёшь</i></div></a>
+      <a class="card third" href="#"><div class="ph noise" data-lb="кадра нет"></div>
+        <div class="cap"><b>Вискача</b><i>Lagidium viscacia · wisk'acha</i></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="variant">
+  <div class="wrap">
+    <div class="tag"><i></i><span>Карточки · вариант C</span></div>
+    <h2>Сетка с акцентами</h2>
+    <p class="why">Регулярная сетка, но раз в несколько карточек одна вырастает — то вширь, то ввысь. Держит порядок при большом числе кадров: на странице Атласа их будет полсотни, и первые два варианта там могут рассыпаться.</p>
+  </div>
+  <div class="wrap" style="margin-top:26px">
+    <div class="j3">
+      <a class="card c w4" href="#"><div class="ph" style="background-image:url(img/8aa29639c810.webp)"></div>
+        <div class="cap"><b>Кактус в шерсти</b><i>waraqu · сорок восемь кадров из ста двадцати</i></div></a>
+      <a class="card c tall" href="#"><div class="ph" style="background-image:url(img/7854c084507e.webp)"></div>
+        <div class="cap"><b>Пуйя</b><i>Puya sp.</i></div></a>
+      <a class="card c" href="#"><div class="ph" style="background-image:url(img/6c0ace904a66.webp)"></div>
+        <div class="cap"><b>Паслён</b><i>Solanum sp.</i></div></a>
+      <a class="card c" href="#"><div class="ph" style="background-image:url(img/30c67e838430.webp)"></div>
+        <div class="cap"><b>Мох</b><i>Polytrichum sp.</i></div></a>
+      <a class="card c w3" href="#"><div class="ph" style="background-image:url(img/b9d2fd0c2dd4.webp)"></div>
+        <div class="cap"><b>Адесмия</b><i>Adesmia sp. · колючая подушка</i></div></a>
+      <a class="card c w3" href="#"><div class="ph" style="background-image:url(img/d49e06b6fd8c.webp)"></div>
+        <div class="cap"><b>Вира-вира</b><i>Achyrocline sp. · ею лечат кашель</i></div></a>
+      <a class="card c" href="#"><div class="ph" style="background-image:url(img/881b5518374b.webp)"></div>
+        <div class="cap"><b>Майча</b><i>Senecio rudbeckiifolius?</i></div></a>
+      <a class="card c" href="#"><div class="ph" style="background-image:url(img/2d2d56a7b0de.webp)"></div>
+        <div class="cap"><b>Лишайник кустистый</b><i>имя уточняется</i></div></a>
+      <a class="card c" href="#"><div class="ph noise" data-lb="кадра нет"></div>
+        <div class="cap"><b>Бомарея</b><i>Bomarea sp.</i></div></a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap foot">
+  <p>Напишите номерами: тропы — 1, 2 или 3; карточки — A, B или C. Можно смешивать: например «тропы 2, карточки C».</p>
+  <p style="margin-top:6px">Если ни один не годится — скажите, что мешает, соберу следующий заход.</p>
+</div>
+
+</body>
+</html>
