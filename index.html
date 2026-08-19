@@ -148,6 +148,32 @@
       linear-gradient(to top right, transparent calc(50% - .5px), var(--line) 50%, transparent calc(50% + .5px)),
       linear-gradient(to top left, transparent calc(50% - .5px), var(--line) 50%, transparent calc(50% + .5px));
   }
+
+  /* ─── Белый шум вместо пустого кадра ────────────────
+     Там, где своей фотографии нет, стоит рябь как на телевизоре
+     без сигнала. Когда снимки появятся, шум исчезнет сам. */
+  .noise::after {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background-image: url(img/noise.webp);
+    background-size: 160px 160px;
+    opacity: .3; mix-blend-mode: screen;
+    animation: tv 420ms steps(4) infinite;
+    pointer-events: none;
+  }
+  .noise > span, .noise > * { position: relative; z-index: 1; }
+  .noise > span {
+    background: rgba(0,0,0,.62); padding: 5px 9px; color: #ddd4c6;
+    letter-spacing: .04em;
+  }
+  .noise::before { opacity: .18; }
+  @keyframes tv {
+    0%   { background-position:   0px   0px; }
+    25%  { background-position:  47px  31px; }
+    50%  { background-position:  92px  73px; }
+    75%  { background-position:  23px 108px; }
+    100% { background-position:   0px   0px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .noise::after { animation: none; } }
   .ph span { position: relative; background: var(--surface); padding: 3px 8px; }
   section.dark .ph { background: var(--dark-surface); border-color: var(--dark-line); color: var(--dark-muted); }
   section.dark .ph::before { background:
@@ -250,6 +276,67 @@
   .card.accent { border-color: var(--accent); }
   section.dark .card.accent { border-color: var(--accent-soft); }
 
+
+  /* ─── Артефакты: полка со звуком ────────────────── */
+  .recs { display: grid; gap: 10px; }
+  .rec {
+    display: flex; align-items: flex-start; gap: 14px;
+    border: 1px solid var(--dark-line); padding: 14px; position: relative;
+  }
+  .rec-play {
+    flex: 0 0 auto; width: 42px; height: 42px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); font-size: 14px; cursor: pointer;
+    font-family: inherit; line-height: 1;
+  }
+  .rec-play[disabled] { opacity: .35; cursor: default; }
+  .rec-body { flex: 1 1 auto; min-width: 0; }
+  .rec-top { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; }
+  .rec-note { font-size: 13px; margin: 6px 0 0; }
+  .wave {
+    display: flex; align-items: flex-end; gap: 2px; height: 34px;
+    margin-top: 8px; overflow: hidden; position: relative;
+  }
+  .wave i { flex: 1 1 auto; background: var(--accent-soft); opacity: .55; min-width: 1px; }
+  .rec-state {
+    position: absolute; top: 14px; right: 14px; font-size: 11px;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--dark-muted);
+  }
+  @media (max-width: 600px) { .rec-state { position: static; display: block; margin-top: 8px; } }
+
+  /* ─── Мозаика Атласа ───────────────────────────────
+     Плитки строго одного размера: спаны при auto-fill оставляют дыры
+     в конце ряда, а ряд тут обрывается на любой ширине экрана. */
+  .atlas-mos {
+    display: grid; gap: 4px; margin: 14px 0 6px;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(88px, 12vw, 132px), 1fr));
+  }
+  .atlas-mos .m {
+    position: relative; aspect-ratio: 1/1; overflow: hidden; display: block;
+    text-decoration: none; color: inherit; background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  section.dark .atlas-mos .m { background: var(--dark-surface); border-color: var(--dark-line); }
+  .atlas-mos .m .im { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .atlas-mos .m .lb {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 8px 7px;
+    font-size: 12px; line-height: 1.25; color: #fff;
+    background: linear-gradient(transparent, rgba(0,0,0,.78));
+    opacity: 0; transition: opacity .22s ease;
+  }
+  .atlas-mos .m .lb i { font-style: italic; opacity: .75; }
+  .atlas-mos a.m:hover .lb, .atlas-mos a.m:focus-visible .lb { opacity: 1; }
+  .atlas-mos .m.empty { display: flex; align-items: center; justify-content: center; text-align: center; }
+  .atlas-mos .m.empty span { font-size: 11px; color: var(--muted); padding: 0 6px; }
+  section.dark .atlas-mos .m.empty span { color: var(--dark-muted); }
+  @media (hover: none) { .atlas-mos a.m .lb { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .atlas-mos .m .lb { transition: none; } }
+
+  /* Карточки «кто готовит» идут без фотографий — их держит цифра */
+  .who {
+    font-family: var(--font-serif); font-size: 40px; line-height: 1; font-weight: 700;
+    color: var(--accent); opacity: .5; margin-bottom: 10px;
+  }
+
   .quote { border-left: 3px solid var(--accent); padding-left: 16px; margin: 22px 0; font-size: 18px; }
   section.dark .quote { border-left-color: var(--accent-soft); }
 
@@ -349,12 +436,6 @@
     border-radius: 50%; background: #fff; animation: pulse 1.7s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100% { opacity: .35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.7); } }
-  .wall-legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; color: var(--muted); }
-  .wall-legend span { display: inline-flex; align-items: center; gap: 7px; }
-  .wall-legend i { width: 11px; height: 11px; border: 1px solid var(--line); display: inline-block; background: var(--surface); }
-  .wall-legend i.v { background: var(--accent); border-color: var(--accent); }
-  section.dark .wall-legend { color: var(--dark-muted); }
-  section.dark .wall-legend i { border-color: var(--dark-line); background: var(--dark-surface); }
 
   .wall.mini { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 3px; aspect-ratio: 4/3; margin: 0 0 10px; }
   .wall.mini .tile { aspect-ratio: auto; }
@@ -456,13 +537,11 @@
   .fgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 26px; margin-bottom: 32px; }
   footer.site ul { list-style: none; margin: 0; padding: 0; }
   footer.site li { margin-bottom: 7px; font-size: 15px; }
+  .frefusal { margin: 26px 0 0; font-size: 14px; color: #9a9a9a; max-width: 68ch; }
   .fbottom { border-top: 1px solid #383838; padding-top: 20px; font-size: 14px; color: #888;
     display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; }
 
   /* ─── Липкая кнопка ─────────────────────────────────── */
-  .sticky-wa { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 30; text-align: center; display: none; }
-  .sticky-wa .btn { width: 100%; margin: 0; box-shadow: 0 6px 22px rgba(0,0,0,.25); }
-  @media (max-width: 900px) { .sticky-wa.show { display: block; } }
 
   .backlink { display: inline-block; margin-bottom: 20px; font-size: 15px; text-decoration: none; }
   .article-body p { max-width: 68ch; }
@@ -800,14 +879,13 @@
     <a class="logo" href="#/"><span class="word">KINSACOCHA</span><svg class="mark" viewBox="-3 -3 47.5692 42" aria-hidden="true" shape-rendering="geometricPrecision"><path d="M 20.7846 0 L 41.5692 36 L 0 36 Z" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round"/><circle cx="20.7846" cy="0" r="2.6" fill="currentColor"/><circle cx="41.5692" cy="36" r="2.6" fill="currentColor"/><circle cx="0" cy="36" r="2.6" fill="currentColor"/></svg></a>
     <button class="burger" id="burger" aria-label="Меню">Меню</button>
     <nav class="main" id="nav">
-      <a href="#/">Дом</a>
       <a href="#/ozera">Озёра</a>
       <a href="#/tseny">Цены</a>
       <a href="#/dnevnik">Заметки</a>
       <a href="#/atlas">Атлас</a>
       <a href="#/gallery">Фотографии</a>
       <a href="#/blog">Блог</a>
-      <a href="#/pravila">Правила дома</a>
+      <a href="#/artefakty">Артефакты</a>
       <a href="#/kontakty">Контакты</a>
     </nav>
   </div>
@@ -857,7 +935,7 @@
           <p style="margin-bottom:0">Земля, вода, форель в озере, тропы — общинные. Вы платите за дом, а попадаете в чужой мир, который живёт по своим правилам. Поэтому сюда нельзя приехать «как в отель» — и поэтому же сюда стоит приезжать.</p>
         </div>
         <div class="polaroids">
-          <div class="ph r34 sc-house"><span>Дом снаружи</span></div>
+          <div class="ph r34 sc-house noise"><span>Дом снаружи</span></div>
           <div class="ph video r34 sc-fire" data-shot data-bg="img/dc8818113aef.webp" style="background-size:cover;background-position:center"></div>
           <div class="ph r34 sc-food" data-shot data-bg="img/101f8d518985.webp" style="background-size:cover;background-position:center"></div>
           <div class="ph r34 sc-house" data-shot data-bg="img/e98507a7dde1.webp" style="background-size:cover;background-position:center"></div>
@@ -948,6 +1026,24 @@
         </div>
       </div>
 
+      <p class="kick">Три озера дали месту имя. Но озёр здесь пять.</p>
+      <p style="max-width:68ch">Два других лежат дальше. Настолько дальше, что за один день до них не дойти и вернуться обратно — день закончится раньше, чем начнётся дорога туда.</p>
+      <p style="max-width:68ch"><b>Их не прячут и не охраняют. До них просто не доходят.</b> Обычный маршрут из Куско рассчитан на светлое время: приехали, посмотрели три лагуны, уехали ночевать вниз. Четвёртое и пятое остаются за этой чертой — и потому их почти никто не видел.</p>
+
+      <div class="g2" style="margin-top:22px">
+        <div class="card">
+          <div class="ph r43 sc-water noise" style="margin-bottom:12px"><span>Четвёртое озеро — фото нет</span></div>
+          <h3>Четвёртое</h3>
+          <p class="muted">дальше всех и выше. Дойти можно, но только если вы уже наверху и никуда не спешите</p>
+        </div>
+        <div class="card">
+          <div class="ph r43 sc-water noise" style="margin-bottom:12px"><span>Пятое озеро — фото нет</span></div>
+          <h3>Пятое</h3>
+          <p class="muted">о нём знают немногие даже здесь. Мы не пишем ни имени, ни стороны света</p>
+        </div>
+      </div>
+      <p class="kick" style="margin-top:20px">Чтобы увидеть эти два, нужно остаться на ночь. Другого способа нет.</p>
+
       <p class="kick">Но озёра — это то, за чем едут. Не то, ради чего остаются.</p>
       <p style="max-width:68ch">Порядок обхода не задан. Есть длинные варианты и короткие, и какое озеро вы увидите первым, зависит от погоды, от времени и от того, кто с вами идёт. Проводник решит это утром, а не за неделю до вашего приезда.</p>
     </div>
@@ -957,13 +1053,34 @@
     <div class="wrap">
       <div class="eyebrow"><i></i><span>05</span><b>Путь</b></div>
       <h2>Дорога</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:36px;margin:20px 0 24px">
-        <div><div style="font-size:44px;font-weight:700;line-height:1">40</div><div class="muted">минут от Писака</div></div>
-        <div><div style="font-size:44px;font-weight:700;line-height:1">1,5</div><div class="muted">часа от Куско</div></div>
-      </div>
+      <p class="lead">Наверх ведут два пути. Это не «дешевле и дороже», это два разных дня.</p>
       <p style="max-width:68ch">Сначала Священная долина, потом дорога начинает подниматься, и через полчаса деревья заканчиваются. Дальше пуна: голое высокогорье, где видно далеко и где становится заметно холоднее прямо в машине. Последний участок — грунт.</p>
-      <p style="max-width:68ch">Доехать можно на такси. Из Писака — быстрее и дешевле, из Куско — без пересадок, если не хочется возиться. Машина доезжает до самой двери: идти пешком с вещами не придётся.</p>
-      <p style="max-width:68ch">Мы договоримся с водителем заранее — <a href="https://wa.me/447916693473" target="_blank" rel="noopener">напишите</a>, и мы всё устроим. Трансфер оплачивается отдельно от проживания.</p>
+
+      <div class="split" style="margin-top:24px">
+        <div class="card">
+          <h3>На такси</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:28px;margin:14px 0">
+            <div><div style="font-size:40px;font-weight:700;line-height:1">40</div><div class="muted">минут от Писака</div></div>
+            <div><div style="font-size:40px;font-weight:700;line-height:1">1,5</div><div class="muted">часа от Куско</div></div>
+          </div>
+          <p class="muted">Машина доезжает до самой двери: идти пешком с вещами не придётся. Из Писака быстрее и дешевле, из Куско — без пересадок.</p>
+          <p><span class="tag">от S/. 100 за машину</span></p>
+          <p class="muted">Договоримся с водителем заранее — <a href="https://wa.me/447916693473" target="_blank" rel="noopener">напишите</a>, и всё устроим. Оплачивается отдельно от проживания.</p>
+        </div>
+        <div class="card">
+          <h3>Пешком</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:28px;margin:14px 0">
+            <div><div style="font-size:40px;font-weight:700;line-height:1">2–2,5</div><div class="muted">часа вверх</div></div>
+            <div><div style="font-size:40px;font-weight:700;line-height:1">3</div><div class="muted">часа вниз</div></div>
+          </div>
+          <p class="muted">Снизу идёт коллективо — общая маршрутка. Она довозит до поворота, там кончается асфальт. Дальше только вверх и только пешком.</p>
+          <p><span class="tag">коллективо · S/. 3–5</span></p>
+          <p class="muted">Вниз — по той же тропе, почти до самого Писака. Спуск легче, но дольше, чем кажется.</p>
+        </div>
+      </div>
+
+      <div class="quote">Будет тяжело. Ноги устанут, дыхания будет не хватать — это 4200, и мы не станем говорить иначе.</div>
+      <p style="max-width:68ch">Зато вы пойдёте не по туристической тропе, а по той, по которой здесь ходят каждый день. Мимо домов, мимо стад, мимо людей, идущих по своим делам. Навстречу попадутся дети — им до школы столько же, и они идут быстрее вас. По пути встречаются животные: однажды прямо на тропе стоял олень.</p>
       <div class="quote">Наверху вы окажетесь примерно на километр выше Куско. Это чувствуется в первый же час. Поэтому дорогу лучше не проезжать в спешке: подъём — это уже часть акклиматизации, а не потерянное время.</div>
     </div>
   </section>
@@ -1032,7 +1149,7 @@
 
       <div class="split" style="margin-top:34px">
         <div>
-          <h3>Дом — только ваш</h3>
+          <h3>Аренда дома</h3>
           <p class="muted">с ночёвкой · за сутки · весь дом, а не место в нём</p>
           <table class="prices">
             <tr><td>Один гость</td><td>S/. 70</td></tr>
@@ -1071,11 +1188,11 @@
     <div class="wrap">
       <div class="eyebrow"><i></i><span>08</span><b>Честно</b></div>
       <h2>Честно о горе</h2>
-      <p class="lead">Никаких залогов. Но есть вещи, которые лучше знать до того, как вы напишете «да».</p>
+      <p class="lead">Залога мы не берём. Но есть вещи, которые лучше знать до того, как вы напишете «да».</p>
       <div class="g2" style="margin-top:22px">
         <div class="card"><h3>Дети</h3><p>До семи лет — бесплатно и в счёт гостей не идут. С семи — как все.</p></div>
         <div class="card"><h3>Еда</h3><p>Магазинов наверху нет. Продукты покупаются внизу, на рынке в Писаке, до подъёма. Ужин у соседей можно заказать заранее. И одно: мясо и рыбу на этой кухне не готовят.</p></div>
-        <div class="card"><h3>Бронь и отмена</h3><p>Половина вперёд. Отменили за три дня и раньше — возвращаем. Позже — нет: дом в эти сутки уже никому не сдан.</p></div>
+        <div class="card"><h3>Предоплата</h3><p>Половина вперёд. Не из недоверия: получив вашу дату, мы отказываем на неё всем остальным. Если вы не приедете, дом простоит пустым, а те, кто хотел в эти сутки, уже ушли к другим. Надеемся на понимание.</p><p class="muted">Отменили за три дня и раньше — возвращаем. Позже — нет.</p></div>
         <div class="card"><h3>Уборка и мусор</h3><p>Уборка входит в цену. Просим увезти вниз свой мусор — пластик, стекло, банки, батарейки. Мусоровоз сюда не поднимается.</p></div>
       </div>
       <div class="quote">Хозяин живёт рядом или находится на территории и не мешает — кроме тех дней, когда вы выбрали «одни на горе». Тогда наверху нет никого, кроме вас.</div>
@@ -1127,7 +1244,7 @@
       <div class="lvl"><span class="n">1</span><h3>Кто готовит</h3></div>
       <div class="g3">
         <div class="card">
-          <div class="ph r43 sc-food" data-shot data-bg="img/d715ab0b1b20.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
+          <div class="who">01</div>
           <h3>Готовят соседи</h3>
           <p class="muted">обед или ужин под заказ, за день</p>
           <p><span class="tag">суп из картошки</span><span class="tag">крем-суп из морайи</span><span class="tag">кукуруза</span><span class="tag">труча</span></p>
@@ -1135,13 +1252,13 @@
           <p class="muted">Готовят из того, что есть в этот день. Ужин 30, завтрак 20.</p>
         </div>
         <div class="card">
-          <div class="ph r43 sc-food" data-shot data-bg="img/243854a5dc20.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
+          <div class="who">02</div>
           <h3>Готовит хозяин</h3>
           <p class="muted">если он наверху — может сделать завтрак или прийти приготовить обед</p>
           <p><b>Ничего сложного. Простая еда, приготовленная вовремя.</b></p>
         </div>
         <div class="card">
-          <div class="ph r43 sc-food" data-shot data-bg="img/9764fe258473.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
+          <div class="who">03</div>
           <h3>Готовите сами</h3>
           <p class="muted">кухня, посуда, горячая вода. И две плиты</p>
           <p><b>Готовьте что хотите. Кроме мяса и рыбы.</b></p>
@@ -1150,17 +1267,15 @@
       </div>
 
       <div class="lvl"><span class="n">2</span><h3>На чём готовят</h3></div>
-      <p class="muted" style="margin-top:-8px">две плиты в одной комнате, и между ними лет пятьсот</p>
+      <p class="muted" style="margin-top:-8px">две плиты в одной комнате</p>
       <div class="split" style="margin-top:14px">
         <div class="card">
-          <div class="ph r43 sc-food" data-shot data-bg="img/dc7cc7a04f2c.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
           <h3>Газ</h3>
           <p class="muted">плита от баллона. Быстро, привычно, как дома. Ужин через двадцать минут</p>
         </div>
         <div class="card">
-          <div class="ph video r43 sc-fire" data-shot data-bg="img/ca51ca897df1.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
           <h3>Глиняная печь на дровах</h3>
-          <p class="muted">стоит прямо на кухне. Топится дровами, готовят в глиняных горшках</p>
+          <p class="muted">стоит прямо на кухне, готовят в глиняных горшках</p>
           <p><b>Долго. В этом и смысл.</b></p>
         </div>
       </div>
@@ -1173,62 +1288,31 @@
       <h3 style="margin-top:26px">Что здесь едят вообще</h3>
       <div class="g4">
         <div><div class="ph r11 sc-food" data-shot><video data-src="vid/cf98af38b9c9.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" preload="none"></video></div><p style="font-size:15px;margin-top:8px"><b>Чуньо и морайя</b><br><span class="muted">картошка, высушенная морозом и солнцем</span></p></div>
-        <div><div class="ph r11 sc-water"><span>Труча — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Труча</b><br><span class="muted">форель из лагуны. Разводит община — ловить нельзя, заказать можно</span></p></div>
+        <div><div class="ph r11 sc-water noise"><span>Труча — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Труча</b><br><span class="muted">форель из лагуны. Разводит община — ловить нельзя, заказать можно</span></p></div>
         <div><div class="ph r11 sc-food" data-shot data-bg="img/528180f38db2.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Яйца и молоко</b><br><span class="muted">из деревни, а не из магазина</span></p></div>
         <div><div class="ph r11 sc-food" data-shot data-bg="img/ad429921aa21.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Чича</b><br><span class="muted">здесь её пьют горячей</span></p></div>
       </div>
-      <a class="btn" href="#/blog/chuno" style="margin-top:14px">Что такое чуньо →</a>
     </div>
   </section>
 
   <section class="ground-ember">
     <div class="wrap wide">
       <div class="eyebrow"><i></i><span>11</span><b>Дом</b></div>
-      <h2>Что есть в доме</h2>
-      <div class="bento" style="margin-top:18px">
-        <div class="amen big">
-          <div class="ph sc-house" data-shot data-bg="img/666f6734722d.webp" style="background-size:cover;background-position:center"></div>
-          <div class="amen-t">
-            <h3>Горячий душ</h3>
-            <p>Вода греется всерьёз. На 4200 это первое, о чём вспоминают, вернувшись с тропы.</p>
-          </div>
+      <h2>Две печи</h2>
+      <p class="lead">Одна кормит, вторая греет. Между ними лет пятьсот.</p>
+      <div class="split" style="margin-top:20px">
+        <div>
+          <div class="ph video r43 sc-fire" data-shot><video src="vid/e8bd34320aab.mp4" poster="img/ca51ca897df1.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+          <h3 style="margin-top:12px">Глиняная, на кухне</h3>
+          <p class="muted">Топится дровами, готовят в глиняных горшках. Долго — в этом и смысл.</p>
         </div>
-        <div class="amen w2">
-          <div class="ph video sc-fire" data-shot><video data-src="vid/df60c17fef02.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" preload="none"></video></div>
-          <div class="amen-t">
-            <h3>Живой огонь</h3>
-            <p>Печь топится дровами. Дрова привозят снизу — здесь они не растут.</p>
-          </div>
-        </div>
-        <div class="amen">
-          <div class="ph sc-food" data-shot data-bg="img/101f8d518985.webp" style="background-size:cover;background-position:center"></div>
-          <div class="amen-t">
-            <h3>Кухня</h3>
-            <p>Можно готовить своё. Газ тоже привозят снизу.</p>
-          </div>
-        </div>
-        <div class="amen">
-          <div class="ph sc-house" data-shot data-bg="img/eb44ceff324a.webp" style="background-size:cover;background-position:center"></div>
-          <div class="amen-t">
-            <h3>Типи</h3>
-            <p>Пять мест. Холоднее, чем в доме, и мы говорим это первым.</p>
-          </div>
-        </div>
-        <div class="amen w2">
-          <div class="ph sc-trail" data-shot data-bg="img/36cf84cd37e8.webp" style="background-size:cover;background-position:center"></div>
-          <div class="amen-t">
-            <h3>Трансфер</h3>
-            <p>Машина доезжает до самой двери. Оплачивается отдельно, заказывается в переписке.</p>
-          </div>
-        </div>
-        <div class="amen w2">
-          <div class="ph sc-house" data-shot data-bg="img/f85d04d9b333.webp" style="background-size:cover;background-position:center"></div>
-          <div class="amen-t">
-            <h3>Стиральная машина</h3>
-            <p>Если вы в дороге давно. На этой высоте звучит почти нелепо — и в этом всё дело.</p>
-          </div>
+        <div>
+          <div class="ph r43 sc-fire noise"><span>Печка в доме — кадра нет</span></div>
+          <h3 style="margin-top:12px">Та, что в доме</h3>
+          <p class="muted">Её растапливают к вечеру, и к ужину в доме уже тепло. Дрова привозят снизу: здесь они не растут.</p>
         </div>
       </div>
+      <p class="muted" style="max-width:68ch;margin-top:24px">Ещё здесь есть горячий душ, стиральная машина, газовый обогреватель — его можно занести в комнату, — одеяла, посуда и свет. Перечисляем это одной строкой, потому что приезжают не за этим.</p>
       <div class="card accent" style="margin-top:20px">
         <h3>Связь</h3>
         <p>WiFi здесь нет. Мобильный интернет иногда ловит — по-разному, в зависимости от места, погоды и оператора.</p>
@@ -1262,7 +1346,7 @@
 
       <div style="margin-top:24px">
         <div class="band">
-          <div class="ph band-bg sc-water" data-shot data-bg="img/5320fb35746f.webp" style="background-size:cover;background-position:center"></div>
+          <div class="ph band-bg sc-water" data-shot><video data-src="vid/e390c6b1cc1d.mp4" poster="img/5320fb35746f.webp" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
           <div class="band-inner">
             <h3>Короткая · около двух часов</h3>
             <p>Ближняя вода и обратно.</p>
@@ -1272,7 +1356,7 @@
           </div>
         </div>
         <div class="band right">
-          <div class="ph band-bg sc-trail" data-shot><video data-src="vid/a9a91e51bc56.mp4" autoplay muted loop playsinline preload="none" preload="none"></video></div>
+          <div class="ph band-bg sc-trail" data-shot><video data-src="vid/80f58941bd07.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
           <div class="band-inner">
             <h3>Полдня</h3>
             <p>Дальше и выше.</p>
@@ -1282,7 +1366,7 @@
           </div>
         </div>
         <div class="band">
-          <div class="ph band-bg sc-trail" data-shot data-bg="img/dc30b56e9aac.webp" style="background-size:cover;background-position:center"></div>
+          <div class="ph band-bg sc-trail" data-shot><video data-src="vid/c5f2a8b39d16.mp4" poster="img/dc30b56e9aac.webp" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
           <div class="band-inner">
             <h3>Целый день</h3>
             <p>Все три лагуны за один день.</p>
@@ -1303,24 +1387,29 @@
       </div>
 
       <h3 style="margin-top:34px">Другой свет на тех же тропах</h3>
-      <div class="g3" style="margin-top:14px">
+      <p class="muted" style="font-size:13.5px">те же три тропы, но в другой час. Меняется не маршрут, а всё остальное</p>
+      <div class="g3" style="margin-top:16px">
         <div class="card">
+          <div class="ph r43 sc-dawn noise" style="margin-bottom:12px"><span>Рассвет — фото нет</span></div>
           <h3>Рассвет</h3>
           <p class="muted">выход в 5:30. Туман лежит в долинах, вершины загораются первыми. Любая из трёх троп, но выглядит она иначе</p>
         </div>
         <div class="card">
+          <div class="ph r43 sc-night noise" style="margin-bottom:12px"><span>Закат — фото нет</span></div>
           <h3>Закат</h3>
           <p class="muted">последний свет ложится на воду. Возвращаемся в темноте и потому только с проводником — налобник берите свой</p>
         </div>
         <div class="card">
+          <div class="ph r43 sc-night noise" style="margin-bottom:12px"><span>Полнолуние — фото нет</span></div>
           <h3>Полнолуние</h3>
-          <p class="muted">три ночи в месяц. Без фонарей — их просто не нужно</p>
+          <p class="muted">не одна ночь, а неделя: три дня до и три после. В эти дни света хватает, чтобы идти без фонаря</p>
           <div class="moon">
-            <div class="muted" style="font-size:13px">Ближайшее полнолуние</div>
+            <div class="muted" style="font-size:13px">Ближайшее окно</div>
             <div class="date" id="moon-date">—</div>
             <div class="muted" id="moon-in">—</div>
-            <a class="btn" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:10px">Спросить про эту дату</a>
+            <a class="btn" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:10px">Спросить про эти дни</a>
           </div>
+          <p class="muted" style="font-size:13px;margin-top:10px">Нужно ясное небо. В сухой сезон так чаще, в дождливый — как повезёт. Мы этого не обещаем: решает не календарь, а погода.</p>
         </div>
       </div>
 
@@ -1359,57 +1448,54 @@
 
   <section class="dark">
     <div class="wrap wide">
-      <div class="eyebrow"><i></i><span>13</span><b>Дневник</b></div>
-      <h2>Кого вы увидите</h2>
-      <p class="lead">Четыре ступени. Сверху вниз шансы падают.</p>
+      <div class="eyebrow"><i></i><span>13</span><b>Звери</b></div>
+      <h2>Животные</h2>
+      <p class="lead">Три ступени. Сверху вниз шансы падают.</p>
+      <p style="max-width:68ch">На четырёх тысячах живут те, кто научился обходиться малым: разреженным воздухом, морозом каждую ночь и травой, которая почти не растёт. Крупных зверей здесь мало, и каждый на виду — прятаться на голой пуне негде. Поэтому встреча тут — не удача следопыта, а вопрос того, во сколько вы вышли.</p>
+      <div class="ph r219 sc-fauna" data-shot style="margin:22px 0 20px"><video data-src="vid/e390c6b1cc1d.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
 
       <div class="step s1">
       <h3>Подойдут сами — те, кого пасут</h3>
-      <div class="ph r219 sc-fauna" data-shot style="margin-bottom:14px"><video data-src="vid/4e6aed59f3a0.mp4" autoplay muted loop playsinline preload="none" preload="none"></video></div>
       <p class="muted" style="max-width:68ch">Навстречу вам по тропе идёт не дикая природа, а чей-то заработок. Сказать это прямо честнее, чем выдать альпаку за дикое животное.</p>
       <div class="g4">
-        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/f178a796d01d.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Альпаки</b></p></div>
-        <div><div class="ph r43 sc-fauna" data-shot><video data-src="vid/a390b98fc64b.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" preload="none"></video></div><p style="font-size:15px;margin-top:8px"><b>Овцы</b><br><span class="muted">стадом, не по одной</span></p></div>
-        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/ee92e41af845.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Ослы</b></p></div>
-        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/95c29e31676e.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Коровы</b></p></div>
+        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/f178a796d01d.webp"></div><p style="font-size:15px;margin-top:8px"><b>Альпаки</b></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Овцы — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Овцы</b><br><span class="muted">стадом, не по одной</span></p></div>
+        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/ee92e41af845.webp"></div><p style="font-size:15px;margin-top:8px"><b>Ослы</b></p></div>
+        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/95c29e31676e.webp"></div><p style="font-size:15px;margin-top:8px"><b>Коровы</b></p></div>
       </div>
-
       </div>
 
       <div class="step s2">
       <h3>Увидите точно</h3>
       <div class="g4">
-        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/d6ef38b0e923.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Андский гусь</b> <span class="muted">huallata</span><br><span class="muted">летают парами. Одной и той же парой — всю жизнь</span></p></div>
-        <div><div class="ph r43 sc-fauna"><span>Яна вико — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Яна вико</b> <span class="muted">yanavico</span><br><span class="muted">стоят в воде неподвижно. Их проще принять за камень</span></p></div>
-        <div><div class="ph r43 sc-fauna"><span>Вискача — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Вискача</b> <span class="muted">wisk'acha</span><br><span class="muted">живёт в камнях, видно прямо с тропы</span></p></div>
-        <div><div class="ph r43 sc-fauna"><span>Утки — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Утки</b><br><span class="muted">на воде круглый год</span></p></div>
-        <div><div class="ph r43 sc-fauna"><span>Андская чайка — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Андская чайка</b><br><span class="muted">Chroicocephalus serranus · чайка на 4200</span></p></div>
-        <div><div class="ph r43 sc-fauna"><span>Дикий кролик — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Дикий кролик</b><br><span class="muted">Sylvilagus andinus</span></p></div>
-        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/0e5ade2c5783.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Труча</b><br><span class="muted">садки видно не всегда — не обещаем</span></p></div>
-        <div><div class="ph r43 sc-fauna"><span>Форель у стола — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Форель у стола</b></p></div>
+        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/d6ef38b0e923.webp"></div><p style="font-size:15px;margin-top:8px"><b>Андский гусь</b><br><span class="muted">huallata · летают парами, одной и той же парой всю жизнь</span></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Утки — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Утки</b><br><span class="muted">на воде круглый год</span></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Андская чайка — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Андская чайка</b><br><span class="muted">Chroicocephalus serranus · чайка на 4200</span></p></div>
       </div>
-
       </div>
 
       <div class="step s3">
       <h3>Если повезёт</h3>
       <div class="g4">
-        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/98ac1c59f9fd.webp" style="opacity:.65;;background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Кондор</b><br><span class="muted">над горами и над тропой</span></p></div>
-        <div><div class="ph r43 sc-fauna"><span>Тарука — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Тарука</b><br><span class="muted">Hippocamelus antisensis</span></p></div>
-        <div><div class="ph r43 sc-fauna"><span>Андская лиса — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Андская лиса</b></p></div>
-        <div><div class="ph r43 sc-fauna" style="opacity:.4;border-style:dashed"><span>Своей фотографии нет</span></div><p style="font-size:15px;margin-top:8px"><b>Скунс</b></p></div>
+        <div><div class="ph r43 sc-fauna" data-shot data-bg="img/98ac1c59f9fd.webp" style="opacity:.62"></div><p style="font-size:15px;margin-top:8px"><b>Кондор</b><br><span class="muted">над горами и над тропой</span></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Вискача — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Вискача</b><br><span class="muted">wisk'acha · живёт в камнях, видно прямо с тропы</span></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Яна вико — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Яна вико</b><br><span class="muted">yanavico · стоят в воде неподвижно, их проще принять за камень</span></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Дикий кролик — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Дикий кролик</b><br><span class="muted">Sylvilagus andinus</span></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Тарука — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Тарука</b><br><span class="muted">Hippocamelus antisensis</span></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Андская лиса — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Андская лиса</b></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Скунс — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Скунс</b></p></div>
+        <div><div class="ph r43 sc-fauna noise"><span>Бабочки — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Бабочки</b><br><span class="muted">их здесь больше, чем ждёшь на такой высоте</span></p></div>
       </div>
       <div class="card accent" style="margin-top:18px">
         <p><b>Если своего кадра нет — карточка остаётся пустой и говорит об этом вслух.</b></p>
         <p class="muted">Чужую фотографию не ставим никогда, даже бесплатную и даже похожую.</p>
       </div>
-
       </div>
 
       <div class="step s4">
       <h3>Почти никогда</h3>
       </div>
-      <div class="ph fullbleed puma-frame sc-water" data-shot data-bg="img/f6285e4e96d3.webp" style="background-size:cover;background-position:center"></div>
+      <div class="ph fullbleed puma-frame sc-water" data-shot data-bg="img/f6285e4e96d3.webp"></div>
       <div style="margin-top:clamp(26px,5vw,44px)">
       <p style="font-size:clamp(19px,3vw,25px);font-weight:700;margin-bottom:18px">Пума здесь есть. Её здесь не видели.</p>
       <p style="max-width:56ch">Местные говорят: она видит вас первой. Всегда. И уходит раньше, чем вы успеете о ней подумать.</p>
@@ -1423,40 +1509,76 @@
   <section class="ground-moss">
     <div class="wrap wide">
       <div class="eyebrow"><i></i><span>14</span><b>Живое</b></div>
-      <h2>То, что под ногами</h2>
-      <p class="lead">Кактус, которому холодно.</p>
-      <p class="kick" style="text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0">Здесь всё носит шерсть. Даже кактусы.</p>
+      <h2>Здесь всё носит шерсть. Даже кактусы.</h2>
+      <p class="lead">Единственный блок, который просит смотреть под ноги.</p>
+      <p style="max-width:68ch">Растения на четырёх тысячах — не уменьшенные копии равнинных. Это те же задачи, решённые иначе: ветер, ультрафиолет и мороз каждую ночь, круглый год. Ответ у всех примерно один — прижаться к земле, обрасти пухом, собраться в подушку и цвести коротко. Люди здесь носят альпаку, кактусы — свой белый пух, и по одной и той же причине.</p>
+      <div class="ph r219 sc-moss" data-shot style="margin:22px 0 20px"><video data-src="vid/c5f2a8b39d16.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
 
-      <div class="field" style="margin-top:20px">
-        <div class="g3">
-          <div class="pinned"><div class="ph r11 sc-moss" data-shot data-bg="img/1512a7e233c6.webp" style="background-size:cover;background-position:center"></div><p class="cap"><b>Ярета</b><br>подушка, которую принимают за камень. Растёт миллиметр в год</p></div>
-          <div class="pinned"><div class="ph r11 sc-moss" data-shot data-bg="img/260087454854.webp" style="background-size:cover;background-position:center"></div><p class="cap"><b>Кальцеолярия</b> <i>Calceolaria</i><br>жёлтый цветок, несколько миллиметров</p></div>
-          <div class="pinned"><div class="ph r11 sc-moss" data-shot data-bg="img/0e8d559d084d.webp" style="background-size:cover;background-position:center"></div><p class="cap"><b>Кактус-подушка</b><br>вид не определён — и мы так и пишем</p></div>
-          <div class="pinned"><div class="ph r11 sc-moss" data-shot><video data-src="vid/0391be7eaff8.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" preload="none"></video></div><p class="cap"><b>Ичу</b><br>трава пуны: крыши, верёвки, подстилка</p></div>
-          <div class="pinned"><div class="ph r11 sc-moss" data-shot data-bg="img/ca77673aba09.webp" style="background-size:cover;background-position:center"></div><p class="cap"><b>Кеуния</b> <i>Polylepis</i><br>растёт выше всех деревьев планеты</p></div>
-          <div class="pinned"><div class="ph r11 sc-moss" data-shot data-bg="img/43d214c04f49.webp" style="background-size:cover;background-position:center"></div><p class="cap"><b>Лишайник на камне</b><br>шов между растением и камнем</p></div>
-        </div>
-
-        <div class="pinned" style="margin-top:26px"><div class="ph r219 sc-moss" data-shot data-bg="img/9ec78eec4b3d.webp" style="background-size:cover;background-position:center"></div><p class="cap" style="max-width:68ch">Цветение — не карточка, а полоса: это про время, а не про растение. Конец сухого сезона и первые дожди приходят вместе.</p></div>
-
-        <h3 style="margin-top:34px">Что растёт по дороге снизу</h3>
-        <p class="muted" style="font-size:13.5px">на 4200 этого нет — но вы проедете мимо, поднимаясь</p>
-        <div class="g3" style="margin-top:12px">
-          <div class="pinned"><div class="ph r11 sc-moss"><span>Эвкалипт</span></div><p class="cap"><b>Эвкалипт</b></p></div>
-          <div class="pinned"><div class="ph r11 sc-moss" data-shot data-bg="img/1d8c8d8ec152.webp" style="background-size:cover;background-position:center"></div><p class="cap"><b>Муня</b><br>андская мята</p></div>
-          <div class="pinned"><div class="ph r11 sc-moss"><span>Кока</span></div><p class="cap"><b>Кока</b><br>в Перу лист коки легален и продаётся на любом рынке</p></div>
-        </div>
-
-        <h3 style="margin-top:34px">Камни</h3>
-        <p class="muted" style="font-size:13.5px;max-width:68ch">растения здесь живут не в почве, а между камнями — сначала порода, потом всё остальное</p>
-        <div class="g4" style="margin-top:12px">
-          <div class="pinned"><div class="ph r11 sc-stone"><span>Срез, слои</span></div><p class="cap"><b>Слоистость</b></p></div>
-          <div class="pinned"><div class="ph r11 sc-moss"><span>Цвет</span></div><p class="cap"><b>Цвет</b></p></div>
-          <div class="pinned"><div class="ph r11 sc-stone" data-shot data-bg="img/ef1a9c9264d7.webp" style="background-size:cover;background-position:center"></div><p class="cap"><b>Камень в воде</b><br>мокрый цвет всегда другой</p></div>
-          <div class="pinned"><div class="ph r11 sc-stone" data-shot data-bg="img/ccb54ab955c7.webp" style="background-size:cover;background-position:center"></div><p class="cap"><b>Камень в руке</b><br>ладонь для масштаба — и видно, что мы кладём его обратно</p></div>
-        </div>
+      <div class="g4">
+        <div><div class="ph r43 sc-moss" data-shot data-bg="img/0e8d559d084d.webp"></div><p style="font-size:15px;margin-top:8px"><b>Кактус в шерсти</b><br><span class="muted">кечуа waraqu · белый пух против холода и ультрафиолета</span></p></div>
+        <div><div class="ph r43 sc-moss" data-shot><video data-src="vid/0391be7eaff8.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div><p style="font-size:15px;margin-top:8px"><b>Ичу</b><br><span class="muted">трава пуны: крыши, верёвки, подстилка</span></p></div>
+        <div><div class="ph r43 sc-moss" data-shot data-bg="img/ca77673aba09.webp"></div><p style="font-size:15px;margin-top:8px"><b>Кеуния</b><br><span class="muted">Polylepis · растёт выше всех деревьев планеты</span></p></div>
+        <div><div class="ph r43 sc-moss" data-shot data-bg="img/260087454854.webp"></div><p style="font-size:15px;margin-top:8px"><b>Кальцеолярия</b><br><span class="muted">Calceolaria sp. · жёлтый башмачок в несколько миллиметров</span></p></div>
+        <div><div class="ph r43 sc-moss" data-shot data-bg="img/1512a7e233c6.webp"></div><p style="font-size:15px;margin-top:8px"><b>Жёлтый цветок пуны</b><br><span class="muted">Hypochaeris sp. · сидит прямо на земле</span></p></div>
+        <div><div class="ph r43 sc-moss" data-shot data-bg="img/43d214c04f49.webp"></div><p style="font-size:15px;margin-top:8px"><b>Лишайник на камне</b><br><span class="muted">шов между растением и камнем</span></p></div>
+        <div><div class="ph r43 sc-moss noise"><span>Вира-вира — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Вира-вира</b><br><span class="muted">местное имя · ею лечат кашель</span></p></div>
+        <div><div class="ph r43 sc-moss noise"><span>Бомарея — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Бомарея</b><br><span class="muted">Bomarea sp. · розовые трубки, свисают гроздью</span></p></div>
       </div>
-      <a class="btn" href="#/atlas" style="margin-top:18px">В Атлас →</a>
+
+      <div class="ph r219 sc-moss" data-shot data-bg="img/9ec78eec4b3d.webp" style="margin-top:22px"></div>
+      <p class="muted" style="max-width:68ch;margin-top:10px">Цветение — не карточка, а полоса: это про время, а не про растение. Октябрь и ноябрь: конец сухого сезона и первые дожди приходят вместе, и всё зацветает разом.</p>
+
+      <h3 style="margin-top:34px">Что растёт по дороге снизу</h3>
+      <p class="muted" style="font-size:13.5px">на 4200 этого нет — но вы проедете мимо, поднимаясь</p>
+      <div class="g4" style="margin-top:12px">
+        <div><div class="ph r43 sc-moss" data-shot data-bg="img/1d8c8d8ec152.webp"></div><p style="font-size:15px;margin-top:8px"><b>Муня</b><br><span class="muted">андская мята</span></p></div>
+        <div><div class="ph r43 sc-moss noise"><span>Эвкалипт — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Эвкалипт</b><br><span class="muted">не местный, посажен людьми</span></p></div>
+        <div><div class="ph r43 sc-moss noise"><span>Кока — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Кока</b><br><span class="muted">в Перу лист коки легален и продаётся на любом рынке</span></p></div>
+      </div>
+
+      <p class="muted" style="margin-top:20px;max-width:68ch">Двадцать семь видов отсняты. Пятнадцать мы уже готовы назвать, остальные проверяем — имя ставим только тогда, когда уверены.</p>
+      <a class="btn" href="#/atlas" style="margin-top:8px">Все растения →</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>15</span><b>Порода</b></div>
+      <h2>Камни</h2>
+      <p class="lead">Земли здесь почти нет. Сначала камень, потом всё остальное.</p>
+      <p style="max-width:68ch">Анды — молодые горы, они и сейчас растут. Породу здесь не прикрывает ни лес, ни толстая почва: она лежит открыто, разбитая морозом, вылизанная водой и раскрашенная лишайником. Растения селятся не в земле, а в трещинах между камнями — и то, что здесь вообще что-то живёт, начинается с породы.</p>
+      <div class="ph r219 sc-stone" data-shot style="margin:22px 0 20px"><video data-src="vid/d7a4b16c8e35.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+      <p style="max-width:68ch">Они очень разные: слоистые и гладкие, чёрные и рыжие, размером с кулак и размером с дом. Мы их не определяем — мы не геологи и не станем делать вид. Просто смотрим, иногда берём один в ладонь, чтобы разглядеть на свету, и кладём обратно туда же.</p>
+      <p style="max-width:68ch">Мокрый камень всегда другого цвета, чем сухой. Это первое, что замечают у воды, и то, из-за чего половина снимков сделана на берегу.</p>
+      <div class="g4" style="margin-top:20px">
+        <div><div class="ph r43 sc-stone" data-shot data-bg="img/ef1a9c9264d7.webp"></div><p style="font-size:15px;margin-top:8px"><b>Камень в воде</b><br><span class="muted">мокрый цвет всегда другой</span></p></div>
+        <div><div class="ph r43 sc-stone" data-shot data-bg="img/ccb54ab955c7.webp"></div><p style="font-size:15px;margin-top:8px"><b>Камень в руке</b><br><span class="muted">ладонь для масштаба — и видно, что мы кладём его обратно</span></p></div>
+        <div><div class="ph r43 sc-stone noise"><span>Слоистость — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Слоистость</b><br><span class="muted">порода лежит пластами</span></p></div>
+        <div><div class="ph r43 sc-stone noise"><span>Лишайник на породе — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Лишайник на породе</b><br><span class="muted">камень, который начали заселять</span></p></div>
+        <div><div class="ph r43 sc-stone noise"><span>Морозная трещина — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Морозная трещина</b><br><span class="muted">вода замёрзла и разорвала</span></p></div>
+        <div><div class="ph r43 sc-stone noise"><span>Валун размером с дом — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Валун размером с дом</b><br><span class="muted">масштаб, который не читается на фотографии</span></p></div>
+        <div><div class="ph r43 sc-stone noise"><span>Осыпь — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Осыпь</b><br><span class="muted">склон, который ещё едет</span></p></div>
+        <div><div class="ph r43 sc-stone noise"><span>Галька у воды — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Галька у воды</b><br><span class="muted">обкатанная до гладкости</span></p></div>
+      </div>
+      <a class="btn" href="#/atlas" style="margin-top:18px">Все камни →</a>
+    </div>
+  </section>
+
+  <section class="ground-ember">
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>16</span><b>Люди</b></div>
+      <h2>Местные жители</h2>
+      <p class="lead">Пуна выглядит пустой. Она не пустая.</p>
+      <p style="max-width:68ch">На этих высотах люди живут не веками, а тысячелетиями — дольше, чем существует само слово «Перу». Здесь вывели картошку, научились сушить её морозом, приручили альпаку и построили жизнь там, где у приезжего в первый день болит голова. Общину Пару-Пару держат не туристы, а картошка, рыба и то, что соткано руками.</p>
+      <div class="ph r219 sc-people" data-shot style="margin:22px 0 20px"><video data-src="vid/f0c93e7ab521.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+      <p style="max-width:68ch">Вы встретите их на тропе: пастухов со стадом, стариков, детей, идущих в школу быстрее вас. Здесь не проходят мимо друг друга молча — и это не гостеприимство для гостей, а то, как тут заведено между своими.</p>
+      <div class="g4" style="margin-top:20px">
+        <div><div class="ph r43 sc-people noise"><span>Портрет — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>В своей одежде</b><br><span class="muted">это не костюм для туристов, это то, в чём ходят</span></p></div>
+        <div><div class="ph r43 sc-people noise"><span>Пастух со стадом — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Со стадом</b><br><span class="muted">альпаки, овцы, иногда коровы</span></p></div>
+        <div><div class="ph r43 sc-people noise"><span>Руки за станком — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Ткут на ходу</b><br><span class="muted">шерсть и нитки всегда с собой</span></p></div>
+        <div><div class="ph r43 sc-people noise"><span>Дети на тропе — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Дети</b><br><span class="muted">им до школы столько же, и они идут быстрее вас</span></p></div>
+      </div>
+      <div class="quote">Фотографировать можно. Но мы сначала спрашиваем — не потому что закон, а потому что так себя ведут.</div>
     </div>
   </section>
 
@@ -1465,7 +1587,7 @@
       <div class="split">
         <div class="ph r45 sc-fauna" data-shot data-bg="img/ce8cb71d2747.webp" style="background-size:cover;background-position:center"></div>
         <div>
-          <div class="eyebrow"><i></i><span>15</span><b>Земля</b></div>
+          <div class="eyebrow"><i></i><span>17</span><b>Земля</b></div>
       <h2>Здесь ткут на ходу. Пока идут за стадом.</h2>
           <p>Шерсть и нитки всегда при себе — как телефон в кармане у городского человека. Руки заняты работой, ноги идут за альпаками, и так проходит день.</p>
           <p>Ткут на станке и вручную. Пояса, накидки, шапки, сумки, перчатки, пончо — то, что носят сами, и то, что продают.</p>
@@ -1502,38 +1624,26 @@
         <p style="margin-bottom:0"><b>На рынке в Писаке вы купите дешевле. Мы не делаем вид, что это не так.</b></p>
       </div>
 
-      <div class="split" style="margin-top:22px">
-        <div class="card">
-          <h3>У каждой вещи — паспорт</h3>
-          <p><span class="tag">кто ткал</span><span class="tag">сколько заняло</span><span class="tag">когда куплено</span><span class="tag">из чьей шерсти</span></p>
-          <p class="muted">«Три недели работы, половина из них — на ходу, за стадом.»</p>
-        </div>
-        <div class="card">
-          <h3>Отправляем по миру</h3>
-          <p>Тем же конвертом из Куско, что и отпечатки: с перуанским штемпелем.</p>
-          <p class="muted">Сроки пишем честно, идёт долго. Потеряется — отправим заново один раз за свой счёт.</p>
-        </div>
-      </div>
+      <a class="btn" href="#/artefakty" style="margin-top:22px">Артефакты — что отсюда можно унести →</a>
     </div>
   </section>
 
   <section>
     <div class="wrap wide">
-      <div class="eyebrow"><i></i><span>16</span><b>Руки</b></div>
+      <div class="eyebrow"><i></i><span>18</span><b>Руки</b></div>
       <h2>Как это выглядит</h2>
       <p class="lead">Вы не успеете рассмотреть плитку — а она уже другая.</p>
       <div class="wall" id="wall-big"></div>
-      <div class="wall-legend"><span><i></i> фотография</span><span><i class="v"></i> видео-петля</span></div>
       <a class="btn" href="#/gallery" style="margin-top:16px">Смотреть все фотографии →</a>
     </div>
   </section>
 
   <section class="dark">
     <div class="wrap wide">
-      <div class="eyebrow"><i></i><span>17</span><b>Кадры</b></div>
+      <div class="eyebrow"><i></i><span>19</span><b>Кадры</b></div>
       <h2>Что взять с собой</h2>
       <p class="lead">Днём вы обгорите. Ночью замёрзнете. Обе проблемы решаются заранее.</p>
-      <div class="ph r219 sc-food" style="margin:20px 0"><span>Рюкзак и вещи, разложенные на столе — вид сверху</span></div>
+      <div class="ph r219 sc-food noise" style="margin:20px 0"><span>Рюкзак и вещи, разложенные на столе — вид сверху</span></div>
 
       <div class="split">
         <div class="card">
@@ -1572,9 +1682,9 @@
           <p><span class="tag">одеяла</span><span class="tag">посуда</span><span class="tag">вода</span><span class="tag">дрова</span><span class="tag">свет</span><span class="tag">палки</span></p>
         </div>
         <div class="card">
-          <h3>Воду на весь день брать не нужно</h3>
-          <p><b>Она течёт из скалы.</b></p>
-          <p class="muted">В горах есть источники, где вода выходит прямо из породы, — там набирают и пьют.</p>
+          <h3>Воду берите с собой</h3>
+          <p><b>На высоте пьётся больше, чем внизу.</b></p>
+          <p class="muted">В горах есть источники, где вода выходит прямо из породы. Иногда тропа проходит мимо такого — можно долить и напиться. Но рассчитывать на это заранее не стоит: где источник есть, а где его нет, знает проводник.</p>
         </div>
         <div class="card accent">
           <h3>Аптечка</h3>
@@ -1599,7 +1709,7 @@
 
   <section>
     <div class="wrap narrow">
-      <div class="eyebrow"><i></i><span>18</span><b>Сборы</b></div>
+      <div class="eyebrow"><i></i><span>20</span><b>Сборы</b></div>
       <h2>Практика</h2>
       <details class="faq" open>
         <summary>Как быть с горной болезнью на высоте 4200?</summary>
@@ -1638,22 +1748,22 @@
 
   <section class="dark center">
     <div class="wrap">
-      <div class="eyebrow"><i></i><span>19</span><b>Вопросы</b></div>
+      <div class="eyebrow"><i></i><span>21</span><b>Вопросы</b></div>
       <h2>Мы работаем по рекомендации</h2>
       <p class="lead" style="max-width:52ch;margin:0 auto 18px">Сюда приезжают те, кому рассказали. Отзывы гостей мы не публикуем — люди приезжают сюда, чтобы их не разглядывали.</p>
       <div class="quote" style="text-align:left;max-width:56ch;margin:0 auto 26px">Мы не показываем лица тех, кто здесь был. Тропы и людей мы бережём одинаково.</div>
       <p class="muted" style="max-width:56ch;margin:0 auto 18px">Интернета наверху нет — гости пишут на бумаге. Мы показываем развороты гостевой книги, а не имена: чужой почерк и чужой язык человека не выдают.</p>
       <div class="g3" style="max-width:640px;margin:0 auto">
-        <div class="ph r43 sc-cloth"><span>Разворот · почерк</span></div>
-        <div class="ph r43 sc-cloth"><span>Разворот · другой язык</span></div>
-        <div class="ph r43 sc-people"><span>Разворот · детский рисунок</span></div>
+        <div class="ph r43 sc-cloth noise"><span>Разворот · почерк</span></div>
+        <div class="ph r43 sc-cloth noise"><span>Разворот · другой язык</span></div>
+        <div class="ph r43 sc-people noise"><span>Разворот · детский рисунок</span></div>
       </div>
     </div>
   </section>
 
   <section class="center" id="kontakty-block">
     <div class="wrap">
-      <div class="eyebrow"><i></i><span>20</span><b>Гости</b></div>
+      <div class="eyebrow"><i></i><span>22</span><b>Гости</b></div>
       <h2>Приезжайте</h2>
       <p class="lead" style="max-width:44ch;margin:0 auto 22px">Форм для брони нет. Есть человек, которому можно написать.</p>
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
@@ -1735,6 +1845,23 @@
         <a class="note-link card" href="#/ozera/azulkocha"><div class="ph r169 sc-water" data-shot data-bg="img/541b437f5505.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div><h3>Асуль Коча</h3><p class="muted">4247 м · самое синее</p></a>
         <a class="note-link card" href="#/ozera/kinsakocha"><div class="ph r169 sc-water" data-shot data-bg="img/1e925ab6d242.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div><h3>Кинса Коча</h3><p class="muted">самое большое · у него стоит дом</p></a>
       </div><div class="mosaic"><div class="mos mA" style="background-image:url(img/e941f22c2650.webp)"><video src="vid/087dfd792ba7.mp4" poster="img/e941f22c2650.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mB" data-slot style="background-image:url(img/26d11e647b00.webp)"></div><div class="mos mC" data-slot style="background-image:url(img/a6f9d164548f.webp)"></div><div class="mos mD" style="background-image:url(img/91620ca035b8.webp)"><video src="vid/1a9126d64654.mp4" poster="img/91620ca035b8.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mE" data-slot style="background-image:url(img/098f64fe5d93.webp)"></div><div class="mos mF" data-slot style="background-image:url(img/6884c8a658df.webp)"></div><div class="mos mG" style="background-image:url(img/bb2e98f01acb.webp)"><video src="vid/fc51b4213f0f.mp4" poster="img/bb2e98f01acb.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mH" data-slot style="background-image:url(img/c24ea42547e6.webp)"></div><div class="mos mI" data-slot style="background-image:url(img/ca8c53eb3cf7.webp)"></div><div class="mos mJ" style="background-image:url(img/2ec428921b9a.webp)"><video src="vid/f4e4c1a24ec1.mp4" poster="img/2ec428921b9a.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mK" data-slot style="background-image:url(img/29c37fd1e269.webp)"></div><div class="mos mL" data-slot style="background-image:url(img/3caa68d3457e.webp)"></div><div class="mos mM" style="background-image:url(img/4caedca7943f.webp)"><video src="vid/7319f4f5f6c3.mp4" poster="img/4caedca7943f.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div></div><p class="mos-note">Вода трёх озёр. Снимки сменяются сами.</p>
+
+      <h3 style="margin-top:38px">И ещё два</h3>
+      <p class="lead">Три озера дали месту имя. Но озёр здесь пять.</p>
+      <p style="max-width:68ch">Два других лежат дальше — настолько, что за один день до них не дойти и вернуться. Их не прячут и не охраняют. До них просто не доходят: обычный маршрут из Куско рассчитан на светлое время, а дорога туда начинается позже, чем этот день заканчивается.</p>
+      <div class="g2" style="margin-top:18px">
+        <div class="card">
+          <div class="ph r43 sc-water noise" style="margin-bottom:12px"><span>Четвёртое озеро — фото нет</span></div>
+          <h3>Четвёртое</h3>
+          <p class="muted">дальше всех и выше. Дойти можно, но только если вы уже наверху и никуда не спешите</p>
+        </div>
+        <div class="card">
+          <div class="ph r43 sc-water noise" style="margin-bottom:12px"><span>Пятое озеро — фото нет</span></div>
+          <h3>Пятое</h3>
+          <p class="muted">о нём знают немногие даже здесь. Мы не пишем ни имени, ни стороны света</p>
+        </div>
+      </div>
+      <p class="kick" style="margin-top:20px">Чтобы увидеть эти два, нужно остаться на ночь. Другого способа нет.</p>
       
     </div>
   </section>
@@ -1836,7 +1963,7 @@
       </div>
       <div class="split">
         <div class="ph r43 sc-stone" data-shot data-bg="img/ccc6bce5c7cc.webp" style="background-size:cover;background-position:center"></div>
-        <div class="ph video r43 sc-stone"><span>Живая фотография · 6 сек</span></div>
+        <div class="ph video r43 sc-stone noise"><span>Живая фотография · 6 сек</span></div>
       </div>
       <p style="margin-top:20px">К полудню туман начал рваться клочьями, и в один из разрывов на воду вышла пара яна вико — стояли неподвижно, будто ждали, пока их заметят.</p>
       <div class="card" style="margin:20px 0">
@@ -1848,38 +1975,128 @@
       <div class="g4">
         <div class="ph r11 sc-fauna" data-shot data-bg="img/dea0417d9019.webp" style="background-size:cover;background-position:center"></div>
         <div class="ph r11 sc-moss" data-shot data-bg="img/debeb8266bc5.webp" style="background-size:cover;background-position:center"></div>
-        <div class="ph r11 sc-fauna"><span>вискача</span></div>
+        <div class="ph r11 sc-fauna noise"><span>вискача</span></div>
         <div class="ph r11 sc-moss" data-shot data-bg="img/0e8d559d084d.webp" style="background-size:cover;background-position:center"></div>
       </div>
       <div style="display:flex;justify-content:space-between;margin-top:26px;font-size:15px">
         <a href="#/dnevnik">← 4 августа</a>
         <a href="#/dnevnik">18 августа →</a>
       </div>
-      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:20px">Написать в WhatsApp</a>
     </div>
   </section>
 </div>
 
 <!-- ══════════════════ АТЛАС ══════════════════ -->
 <div class="page" id="p-atlas">
-  <section>
+  <section class="dark">
     <div class="wrap wide">
       <a class="backlink" href="#/">← на главную</a>
       <h2>Атлас</h2>
-      <p class="lead">Кто здесь живёт, что здесь растёт, из чего это сделано.</p>
-      <p style="max-width:68ch">У каждой карточки честный статус источника: подтверждено фотографией, со слов местных или не подтверждено. Латынь ставим только там, где уверены. Имя на кечуа неверным быть не может: местные так называют, проверять не у кого.</p>
-      <p style="margin-top:18px"><span class="tag" style="background:var(--ink);color:#fff;border-color:var(--ink)">все</span><span class="tag">птицы</span><span class="tag">звери</span><span class="tag">растения</span><span class="tag">камни</span></p>
-      <div class="g4" style="margin-top:16px">
-        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11 sc-fauna" data-shot data-bg="img/f03bcbe563fd.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Вискача</b> ✔<br><span class="muted"><i>Lagidium viscacia</i></span></p></a>
-        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11 sc-fauna" data-shot data-bg="img/4ff0bd8ace0a.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Яна вико</b> ✔<br><span class="muted"><i>Plegadis ridgwayi</i></span></p></a>
-        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11 sc-fauna" data-shot data-bg="img/7628aa3f0b0a.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Андский гусь</b> ✔<br><span class="muted"><i>Chloephaga melanoptera</i></span></p></a>
-        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11 sc-fauna" data-shot data-bg="img/9ec78eec4b3d.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Тарука</b> ✔<br><span class="muted"><i>Hippocamelus antisensis</i></span></p></a>
-        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11 sc-fauna" data-shot data-bg="img/ad429921aa21.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Кеуния</b><br><span class="muted"><i>Polylepis</i></span></p></a>
-        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11 sc-fauna" data-shot data-bg="img/9ee36401333a.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Ярета</b><br><span class="muted"><i>Azorella compacta</i></span></p></a>
-        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11 sc-fauna" data-shot data-bg="img/b3d8b3e2a9da.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Кактус-подушка</b> ○<br><span class="muted">название уточняется</span></p></a>
-        <a class="note-link" href="#/atlas/vizcacha"><div class="ph r11 sc-fauna" data-shot data-bg="img/7939eb44e8f1.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Ичу</b><br><span class="muted">трава пуны</span></p></a>
-      </div>
-      <p class="muted" style="margin-top:22px">Двадцать восемь растений уже отсняты и разложены по папкам — карточки открываются по мере проверки имён.</p>
+      <p class="lead">Кто здесь живёт, что здесь растёт, из чего это сложено.</p>
+      <p style="max-width:68ch">Сначала фотографии, потом имена. Наведите на кадр — он подпишется; нажмите — откроется карточка. У каждой честный статус: ✔ подтверждено нашим снимком, ○ определён только род, без значка — имени пока нет. Латынь ставим там, где уверены.</p>
+      <p class="muted" style="max-width:68ch">Пустая плитка — это не недоделка. Своего кадра нет, и мы говорим об этом вслух, вместо того чтобы подставить чужой.</p>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>01</span><b>Звери</b></div>
+      <h2>Животные</h2>
+      <p style="max-width:68ch">Крупных зверей на четырёх тысячах мало, и каждый на виду — прятаться на голой пуне негде. Порядок здесь по убыванию вероятности встречи, а заканчивается всё пумой, которой нет ни на одном нашем кадре.</p>
+      <div class="ph r219 sc-fauna" data-shot style="margin:20px 0 16px"><video data-src="vid/e390c6b1cc1d.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+      <h3>Дикие</h3>
+    <div class="atlas-mos">
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/d6ef38b0e923.webp"></div><span class="lb"><b>Андский гусь</b> ✔<br><i>huallata · Chloephaga melanoptera</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/98ac1c59f9fd.webp"></div><span class="lb"><b>Кондор</b> ✔<br><i>над горами и над тропой</i></span></a>
+      <div class="m empty noise"><span>Вискача · Lagidium viscacia</span></div>
+      <div class="m empty noise"><span>Яна вико · Plegadis ridgwayi</span></div>
+      <div class="m empty noise"><span>Утки · на воде круглый год</span></div>
+      <div class="m empty noise"><span>Андская чайка · Chroicocephalus serranus</span></div>
+      <div class="m empty noise"><span>Дикий кролик · Sylvilagus andinus</span></div>
+      <div class="m empty noise"><span>Тарука · Hippocamelus antisensis</span></div>
+      <div class="m empty noise"><span>Андская лиса</span></div>
+      <div class="m empty noise"><span>Скунс</span></div>
+      <div class="m empty noise"><span>Бабочки · снят один вид, имя уточняется</span></div>
+      <div class="m empty noise"><span>Труча · садки общины</span></div>
+      <div class="m empty noise"><span>Пума · фотографии нет и не будет</span></div>
+    </div>
+      <h3 style="margin-top:26px">Те, кого пасут</h3>
+      <p class="muted" style="font-size:13.5px">не дикая природа: это чей-то заработок, который идёт вам навстречу по тропе</p>
+    <div class="atlas-mos">
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/f178a796d01d.webp"></div><span class="lb"><b>Альпаки</b> ✔</span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/ee92e41af845.webp"></div><span class="lb"><b>Ослы</b> ✔</span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/95c29e31676e.webp"></div><span class="lb"><b>Коровы</b> ✔</span></a>
+      <div class="m empty noise"><span>Овцы · кадр нужен</span></div>
+    </div>
+    </div>
+  </section>
+
+  <section class="ground-moss">
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>02</span><b>Живое</b></div>
+      <h2>Растения</h2>
+      <p style="max-width:68ch">Двадцать семь видов отсняты и разложены. Пятнадцать мы готовы назвать хотя бы до рода — они здесь. Остальные проверяем: определитель с телефона подставил мексиканские и европейские имена, потому что смотрит на картинку и не знает, где снято.</p>
+      <div class="ph r219 sc-moss" data-shot style="margin:20px 0 16px"><video data-src="vid/c5f2a8b39d16.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+    <div class="atlas-mos">
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/b9d2fd0c2dd4.webp"></div><span class="lb"><b>Адесмия</b> ○<br><i><i>Adesmia</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/ffc8c47deebd.webp"></div><span class="lb"><b>Адесмия</b> ○<br><i><i>Adesmia</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/135410c9f628.webp"></div><span class="lb"><b>Кактус в шерсти</b> ○<br><i>кечуа waraqu</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/8aa29639c810.webp"></div><span class="lb"><b>Кактус в шерсти</b> ○<br><i>кечуа waraqu</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/8e4cc1d65c91.webp"></div><span class="lb"><b>Бомарея</b> ○<br><i><i>Bomarea</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/cbace488fe23.webp"></div><span class="lb"><b>Бомарея</b> ○<br><i><i>Bomarea</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/17dd72861245.webp"></div><span class="lb"><b>Бомарея</b> ○<br><i><i>Bomarea</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/168dd9d59e4f.webp"></div><span class="lb"><b>Бомарея</b> ○<br><i><i>Bomarea</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/227374608fdb.webp"></div><span class="lb"><b>Кальцеолярия</b> ○<br><i><i>Calceolaria</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/8c79bcabd714.webp"></div><span class="lb"><b>Кальцеолярия</b> ○<br><i><i>Calceolaria</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/171de4bd7246.webp"></div><span class="lb"><b>Лишайник накипной</b> ○</span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/2cca03f60555.webp"></div><span class="lb"><b>Лишайник накипной</b> ○</span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/7e444c19a07f.webp"></div><span class="lb"><b>Жёлтый цветок пуны</b> ○<br><i><i>Hypochaeris</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/3866dfd88f2e.webp"></div><span class="lb"><b>Жёлтый цветок пуны</b> ○<br><i><i>Hypochaeris</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/4b722ae5a6d6.webp"></div><span class="lb"><b>Ичу</b> ○<br><i>трава пуны</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/0b6e0a7ab409.webp"></div><span class="lb"><b>Ичу</b> ○<br><i>трава пуны</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/881b5518374b.webp"></div><span class="lb"><b>Майча</b> ○<br><i>местное имя</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/8d0c29e1989c.webp"></div><span class="lb"><b>Майча</b> ○<br><i>местное имя</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/68597c1e68b0.webp"></div><span class="lb"><b>Кеуния</b> ○<br><i><i>Polylepis</i> · q'euña</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/0bd6e88fadfd.webp"></div><span class="lb"><b>Кеуния</b> ○<br><i><i>Polylepis</i> · q'euña</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/30c67e838430.webp"></div><span class="lb"><b>Мох</b> ○</span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/6f4ac8eb3ac2.webp"></div><span class="lb"><b>Мох</b> ○</span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/7854c084507e.webp"></div><span class="lb"><b>Пуйя</b> ○<br><i><i>Puya</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/30d68f02c0ef.webp"></div><span class="lb"><b>Пуйя</b> ○<br><i><i>Puya</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/2d2d56a7b0de.webp"></div><span class="lb"><b>Лишайник кустистый</b> ○</span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/dfac2d453954.webp"></div><span class="lb"><b>Лишайник кустистый</b> ○</span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/6c0ace904a66.webp"></div><span class="lb"><b>Паслён</b> ○<br><i><i>Solanum</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/dd8f84bafa46.webp"></div><span class="lb"><b>Паслён</b> ○<br><i><i>Solanum</i> sp.</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/d49e06b6fd8c.webp"></div><span class="lb"><b>Вира-вира</b> ○<br><i>местное имя · ею лечат кашель</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/b48c1e1b27a1.webp"></div><span class="lb"><b>Вира-вира</b> ○<br><i>местное имя · ею лечат кашель</i></span></a>
+      <div class="m empty noise"><span>Определяется</span></div>
+      <div class="m empty noise"><span>Определяется</span></div>
+      <div class="m empty noise"><span>Определяется</span></div>
+      <div class="m empty noise"><span>Определяется</span></div>
+      <div class="m empty noise"><span>Определяется</span></div>
+    </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>03</span><b>Порода</b></div>
+      <h2>Камни</h2>
+      <p style="max-width:68ch">Пород не называем: мы не геологи и не станем делать вид. Здесь просто то, что лежит под ногами и на что стоит посмотреть на свету.</p>
+      <div class="ph r219 sc-stone" data-shot style="margin:20px 0 16px"><video data-src="vid/d7a4b16c8e35.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+    <div class="atlas-mos">
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/ef1a9c9264d7.webp"></div><span class="lb"><b>Камень в воде</b><br><i>мокрый цвет всегда другой</i></span></a>
+      <a class="m" href="#/atlas/vizcacha"><div class="im" data-shot data-bg="img/ccb54ab955c7.webp"></div><span class="lb"><b>Камень в руке</b><br><i>ладонь для масштаба</i></span></a>
+      <div class="m empty noise"><span>Камень 3</span></div>
+      <div class="m empty noise"><span>Камень 4</span></div>
+      <div class="m empty noise"><span>Камень 5</span></div>
+      <div class="m empty noise"><span>Камень 6</span></div>
+      <div class="m empty noise"><span>Камень 7</span></div>
+      <div class="m empty noise"><span>Камень 8</span></div>
+      <div class="m empty noise"><span>Камень 9</span></div>
+      <div class="m empty noise"><span>Камень 10</span></div>
+      <div class="m empty noise"><span>Камень 11</span></div>
+      <div class="m empty noise"><span>Камень 12</span></div>
+    </div>
     </div>
   </section>
 </div>
@@ -2045,7 +2262,7 @@
         <li>Лист коки. В Перу легален, традиционен и продаётся на любом рынке. Местные жуют его или заваривают как чай — это часть повседневной жизни, а не экзотика для туристов</li>
         <li>Тепло. Замёрзший человек переносит высоту хуже</li>
       </ul>
-      <div class="ph r11 sc-fauna" style="max-width:300px;margin:20px 0"><span>Лист коки</span></div>
+      <div class="ph r11 sc-fauna noise" style="max-width:300px;margin:20px 0"><span>Лист коки</span></div>
       <h4>Дети</h4>
       <p>Дети переносят высоту не хуже взрослых, но хуже её описывают: ребёнок редко скажет «у меня одышка», он скажет, что не хочет идти, или просто начнёт капризничать. Поэтому смотреть надо не на слова, а на поведение — и не уговаривать пройти ещё немного, если ребёнок сел.</p>
       <p>Маршрут с детьми подбирается под ребёнка, а не наоборот. Три часа до ближнего озера и возвращение к обеду — нормальный полноценный день, а не урезанная версия чего-то большего.</p>
@@ -2065,25 +2282,25 @@
       <a class="backlink" href="#/blog">← блог</a>
       <h1>Что такое чуньо и почему инки сушили картошку на морозе</h1>
       <p class="lead">Технология, которой пять тысяч лет: как ночной мороз и дневное солнце превращают картошку в продукт, который хранится годами.</p>
-      <div class="ph r169 sc-moss" style="margin:22px 0"><span>Картошка на земле в изморози</span></div>
+      <div class="ph r169 sc-moss noise" style="margin:22px 0"><span>Картошка на земле в изморози</span></div>
       <p>На четырёх тысячах метров нельзя вырастить пшеницу и нельзя держать погреб. Зато можно вырастить картошку — и здесь её вырастили столько сортов, сколько нет больше нигде на планете. Проблема была не в том, чтобы её получить, а в том, чтобы дожить с ней до следующего урожая.</p>
       <p>Решение нашли простое до неприличия: использовать погоду как оборудование.</p>
       <h4>Как это работает</h4>
       <p>В сухой сезон на такой высоте ночью крепкий мороз, а днём — жёсткое солнце и очень сухой воздух. Картошку раскладывают прямо на земле и оставляют на несколько ночей.</p>
       <p>Ночью вода внутри клубня замерзает и рвёт клеточные стенки. Днём солнце вытапливает лёд, а сухой воздух уносит влагу. Люди топчут клубни ногами, выдавливая остатки воды. Цикл повторяется несколько раз подряд.</p>
       <p>На выходе — лёгкий, твёрдый, почти невесомый продукт, который хранится годами и не портится. По сути это лиофилизация: тот же принцип, по которому делают еду для космонавтов, только оборудование здесь — ночное небо.</p>
-      <div class="ph r43 sc-food" style="margin:20px 0"><span>Чуньо чёрный и морайя белая рядом</span></div>
+      <div class="ph r43 sc-food noise" style="margin:20px 0"><span>Чуньо чёрный и морайя белая рядом</span></div>
       <h4>Чёрный и белый</h4>
       <p>Чуньо — чёрный. Его делают без промывки, и он темнеет от процесса. Вкус плотный, землистый, ни на что не похожий.</p>
       <p>Морайя — белый. Разница в одном шаге: клубни держат в проточной воде — в ручье, под камнями, несколько недель — и только потом выкладывают на мороз. Вода вымывает то, что даёт горечь и цвет. Морайя мягче, светлее и ценится выше.</p>
       <h4>Зачем это было нужно</h4>
       <p>Империя инков держалась на логистике не меньше, чем на армии. По дорогам стояли склады — колька, — и в них хранили именно чуньо: он не тяжёлый, не гниёт и переживает годы. Это была страховка от неурожая для целых провинций и паёк для армии на марше.</p>
       <p>Технологии, по разным оценкам, около пяти тысяч лет. Она старше письменности в большинстве регионов мира и до сих пор работает без единого изменения.</p>
-      <div class="ph r11 sc-moss" style="max-width:300px;margin:20px 0"><span>Сорта картошки</span></div>
+      <div class="ph r11 sc-moss noise" style="max-width:300px;margin:20px 0"><span>Сорта картошки</span></div>
       <h4>Что с этим делают сегодня</h4>
       <p>То же самое. Чуньо размачивают и кладут в суп, где он набухает и становится похож на плотную клёцку. Морайю чаще подают отдельно, к мясу или к сыру.</p>
       <p>Здесь это не блюдо для гостей и не гастрономический опыт. Это то, что стоит в доме круглый год, потому что так удобнее. Гостю его дают ровно потому же, почему дали бы соседу.</p>
-      <div class="ph r43 sc-food" style="margin:20px 0"><span>Тарелка супа на столе в доме</span></div>
+      <div class="ph r43 sc-food noise" style="margin:20px 0"><span>Тарелка супа на столе в доме</span></div>
       <div class="quote">Пять тысяч лет назад кто-то заметил, что мороз работает бесплатно. С тех пор ничего лучше не придумали.</div>
       <hr style="border:0;border-top:1px solid var(--line-soft);margin:32px 0">
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
@@ -2092,12 +2309,128 @@
 </div>
 
 <!-- ══════════════════ ПРАВИЛА ══════════════════ -->
+<div class="page" id="p-artefakty">
+  <section class="dark">
+    <div class="wrap wide">
+      <a class="backlink" href="#/">← на главную</a>
+      <h2>Артефакты</h2>
+      <p class="lead">То, что отсюда можно унести.</p>
+      <p style="max-width:68ch">Фотографию тишины сделать нельзя. Записать её можно. Здесь две полки: одна со звуком — её слушают бесплатно и прямо отсюда, вторая с вещами, которые ткут руками в Пару-Пару. Мы не называем это магазином: половина раздела ничего не стоит, а вторая продаётся по цене мастерицы, без торга и без наценки за красивое слово.</p>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>01</span><b>Звук</b></div>
+      <h2>Записи</h2>
+      <p style="max-width:68ch">На 4200 нет ни машин, ни проводов, ни соседей за стеной. Городское ухо в первую ночь не спит именно от этого — не от холода, а от того, что стало слишком тихо. Эти записи сделаны здесь и ничем не обработаны: если на минуте второй прошло стадо, оно там и осталось.</p>
+      <div class="recs" style="margin-top:22px">
+        <div class="rec">
+          <button class="rec-play" type="button" aria-label="Слушать: Вода у берега Кинса Кочи" disabled>▶</button>
+          <div class="rec-body">
+            <div class="rec-top"><b>Вода у берега Кинса Кочи</b></div>
+            <div class="wave noise"><i style="height:22%"></i><i style="height:54%"></i><i style="height:31%"></i><i style="height:78%"></i><i style="height:44%"></i><i style="height:63%"></i><i style="height:29%"></i><i style="height:88%"></i><i style="height:41%"></i><i style="height:57%"></i><i style="height:35%"></i><i style="height:72%"></i><i style="height:26%"></i><i style="height:49%"></i><i style="height:66%"></i><i style="height:38%"></i><i style="height:81%"></i><i style="height:33%"></i><i style="height:59%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:28%"></i><i style="height:52%"></i><i style="height:85%"></i><i style="height:37%"></i><i style="height:61%"></i><i style="height:24%"></i><i style="height:74%"></i><i style="height:46%"></i><i style="height:55%"></i><i style="height:32%"></i><i style="height:68%"></i><i style="height:42%"></i><i style="height:79%"></i><i style="height:30%"></i><i style="height:58%"></i><i style="height:47%"></i><i style="height:64%"></i><i style="height:27%"></i><i style="height:51%"></i></div>
+            <p class="muted rec-note">3:12 · волна раз в шесть секунд, больше ничего</p>
+          </div>
+          <span class="rec-state">запись готовится</span>
+        </div>
+        <div class="rec">
+          <button class="rec-play" type="button" aria-label="Слушать: Ветер в ичу" disabled>▶</button>
+          <div class="rec-body">
+            <div class="rec-top"><b>Ветер в ичу</b></div>
+            <div class="wave noise"><i style="height:22%"></i><i style="height:54%"></i><i style="height:31%"></i><i style="height:78%"></i><i style="height:44%"></i><i style="height:63%"></i><i style="height:29%"></i><i style="height:88%"></i><i style="height:41%"></i><i style="height:57%"></i><i style="height:35%"></i><i style="height:72%"></i><i style="height:26%"></i><i style="height:49%"></i><i style="height:66%"></i><i style="height:38%"></i><i style="height:81%"></i><i style="height:33%"></i><i style="height:59%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:28%"></i><i style="height:52%"></i><i style="height:85%"></i><i style="height:37%"></i><i style="height:61%"></i><i style="height:24%"></i><i style="height:74%"></i><i style="height:46%"></i><i style="height:55%"></i><i style="height:32%"></i><i style="height:68%"></i><i style="height:42%"></i><i style="height:79%"></i><i style="height:30%"></i><i style="height:58%"></i><i style="height:47%"></i><i style="height:64%"></i><i style="height:27%"></i><i style="height:51%"></i></div>
+            <p class="muted rec-note">2:40 · звук, из-за которого кажется, что рядом кто-то идёт</p>
+          </div>
+          <span class="rec-state">запись готовится</span>
+        </div>
+        <div class="rec">
+          <button class="rec-play" type="button" aria-label="Слушать: Огонь в глиняной печи" disabled>▶</button>
+          <div class="rec-body">
+            <div class="rec-top"><b>Огонь в глиняной печи</b></div>
+            <div class="wave noise"><i style="height:22%"></i><i style="height:54%"></i><i style="height:31%"></i><i style="height:78%"></i><i style="height:44%"></i><i style="height:63%"></i><i style="height:29%"></i><i style="height:88%"></i><i style="height:41%"></i><i style="height:57%"></i><i style="height:35%"></i><i style="height:72%"></i><i style="height:26%"></i><i style="height:49%"></i><i style="height:66%"></i><i style="height:38%"></i><i style="height:81%"></i><i style="height:33%"></i><i style="height:59%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:28%"></i><i style="height:52%"></i><i style="height:85%"></i><i style="height:37%"></i><i style="height:61%"></i><i style="height:24%"></i><i style="height:74%"></i><i style="height:46%"></i><i style="height:55%"></i><i style="height:32%"></i><i style="height:68%"></i><i style="height:42%"></i><i style="height:79%"></i><i style="height:30%"></i><i style="height:58%"></i><i style="height:47%"></i><i style="height:64%"></i><i style="height:27%"></i><i style="height:51%"></i></div>
+            <p class="muted rec-note">4:05 · дрова привозят снизу — слышно, что они сухие</p>
+          </div>
+          <span class="rec-state">запись готовится</span>
+        </div>
+        <div class="rec">
+          <button class="rec-play" type="button" aria-label="Слушать: Стадо проходит мимо" disabled>▶</button>
+          <div class="rec-body">
+            <div class="rec-top"><b>Стадо проходит мимо</b></div>
+            <div class="wave noise"><i style="height:22%"></i><i style="height:54%"></i><i style="height:31%"></i><i style="height:78%"></i><i style="height:44%"></i><i style="height:63%"></i><i style="height:29%"></i><i style="height:88%"></i><i style="height:41%"></i><i style="height:57%"></i><i style="height:35%"></i><i style="height:72%"></i><i style="height:26%"></i><i style="height:49%"></i><i style="height:66%"></i><i style="height:38%"></i><i style="height:81%"></i><i style="height:33%"></i><i style="height:59%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:28%"></i><i style="height:52%"></i><i style="height:85%"></i><i style="height:37%"></i><i style="height:61%"></i><i style="height:24%"></i><i style="height:74%"></i><i style="height:46%"></i><i style="height:55%"></i><i style="height:32%"></i><i style="height:68%"></i><i style="height:42%"></i><i style="height:79%"></i><i style="height:30%"></i><i style="height:58%"></i><i style="height:47%"></i><i style="height:64%"></i><i style="height:27%"></i><i style="height:51%"></i></div>
+            <p class="muted rec-note">1:35 · копыта по камню и один колокольчик</p>
+          </div>
+          <span class="rec-state">запись готовится</span>
+        </div>
+        <div class="rec">
+          <button class="rec-play" type="button" aria-label="Слушать: Дождь по крыше типи" disabled>▶</button>
+          <div class="rec-body">
+            <div class="rec-top"><b>Дождь по крыше типи</b></div>
+            <div class="wave noise"><i style="height:22%"></i><i style="height:54%"></i><i style="height:31%"></i><i style="height:78%"></i><i style="height:44%"></i><i style="height:63%"></i><i style="height:29%"></i><i style="height:88%"></i><i style="height:41%"></i><i style="height:57%"></i><i style="height:35%"></i><i style="height:72%"></i><i style="height:26%"></i><i style="height:49%"></i><i style="height:66%"></i><i style="height:38%"></i><i style="height:81%"></i><i style="height:33%"></i><i style="height:59%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:28%"></i><i style="height:52%"></i><i style="height:85%"></i><i style="height:37%"></i><i style="height:61%"></i><i style="height:24%"></i><i style="height:74%"></i><i style="height:46%"></i><i style="height:55%"></i><i style="height:32%"></i><i style="height:68%"></i><i style="height:42%"></i><i style="height:79%"></i><i style="height:30%"></i><i style="height:58%"></i><i style="height:47%"></i><i style="height:64%"></i><i style="height:27%"></i><i style="height:51%"></i></div>
+            <p class="muted rec-note">3:20 · сезон дождей, ноябрь</p>
+          </div>
+          <span class="rec-state">запись готовится</span>
+        </div>
+        <div class="rec">
+          <button class="rec-play" type="button" aria-label="Слушать: Четыре утра. Ничего" disabled>▶</button>
+          <div class="rec-body">
+            <div class="rec-top"><b>Четыре утра. Ничего</b></div>
+            <div class="wave noise"><i style="height:22%"></i><i style="height:54%"></i><i style="height:31%"></i><i style="height:78%"></i><i style="height:44%"></i><i style="height:63%"></i><i style="height:29%"></i><i style="height:88%"></i><i style="height:41%"></i><i style="height:57%"></i><i style="height:35%"></i><i style="height:72%"></i><i style="height:26%"></i><i style="height:49%"></i><i style="height:66%"></i><i style="height:38%"></i><i style="height:81%"></i><i style="height:33%"></i><i style="height:59%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:28%"></i><i style="height:52%"></i><i style="height:85%"></i><i style="height:37%"></i><i style="height:61%"></i><i style="height:24%"></i><i style="height:74%"></i><i style="height:46%"></i><i style="height:55%"></i><i style="height:32%"></i><i style="height:68%"></i><i style="height:42%"></i><i style="height:79%"></i><i style="height:30%"></i><i style="height:58%"></i><i style="height:47%"></i><i style="height:64%"></i><i style="height:27%"></i><i style="height:51%"></i></div>
+            <p class="muted rec-note">5:00 · самая длинная запись и в ней ничего не происходит</p>
+          </div>
+          <span class="rec-state">запись готовится</span>
+        </div>
+      </div>
+      <div class="card accent" style="margin-top:20px">
+        <p style="margin:0"><b>Слушать можно без всего.</b> Ни почты, ни регистрации, ни кнопки «поделиться». Захотите забрать файл — напишите, пришлём.</p>
+      </div>
+      <div class="quote">Самая длинная запись — та, где ничего не происходит. Пять минут четырёх утра. Это и есть то, за чем сюда едут.</div>
+    </div>
+  </section>
+
+  <section class="ground-ember">
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>02</span><b>Вещь</b></div>
+      <h2>Тканое</h2>
+      <p style="max-width:68ch">Пояс, накидка, шапка, сумка, перчатки. Хорошая накидка ткётся месяцами, а турист на рынке хочет недорогой сувенир и хочет его сегодня — поэтому лучшее до прилавка не доходит: его носят сами, отдают соседке, кладут в сундук. Чтобы такое найти, надо здесь жить и знать людей.</p>
+      <div class="g3" style="margin-top:20px">
+        <div><div class="ph r43 sc-cloth noise"><span>Пояс — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Пояс</b><br><span class="muted">самое частое и самое плотное по работе</span></p></div>
+        <div><div class="ph r43 sc-cloth noise"><span>Накидка — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Накидка</b><br><span class="muted">месяцы работы</span></p></div>
+        <div><div class="ph r43 sc-cloth noise"><span>Шапка — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Шапка, сумка, перчатки</b><br><span class="muted">то, чем пользуются каждый день</span></p></div>
+      </div>
+
+      <div class="split" style="margin-top:22px">
+        <div class="card">
+          <h3>У каждой вещи — паспорт</h3>
+          <p><span class="tag">кто ткал</span><span class="tag">сколько заняло</span><span class="tag">когда куплено</span><span class="tag">из чьей шерсти</span></p>
+          <p class="muted">«Три недели работы, половина из них — на ходу, за стадом.»</p>
+        </div>
+        <div class="card">
+          <h3>Отправляем по миру</h3>
+          <p>Конвертом из Куско, с перуанским штемпелем.</p>
+          <p class="muted">Сроки пишем честно, идёт долго. Потеряется — отправим заново один раз за свой счёт.</p>
+        </div>
+      </div>
+
+      <div class="quote" style="margin-top:24px">
+        <p style="font-size:20px;font-weight:600;margin-bottom:10px">Мы покупаем у мастерицы по её цене и не торгуемся.</p>
+        <p>Дальше — наша наценка. Она платит за то, чтобы вещь доехала: за поиск, упаковку и конверт.</p>
+        <p style="margin-bottom:0"><b>На рынке в Писаке вы купите дешевле. Мы не делаем вид, что это не так.</b></p>
+      </div>
+      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:20px">Спросить, что есть сейчас</a>
+    </div>
+  </section>
+</div>
+
 <div class="page" id="p-pravila">
   <section>
     <div class="wrap narrow">
       <a class="backlink" href="#/">← на главную</a>
       <h2>Как здесь принято</h2>
       <p class="lead">Дом живёт на 4200 своими законами — не из строгости, а потому что здесь всё даётся дороже.</p>
+
+      <div class="card accent" style="margin-top:20px">
+        <p style="margin:0"><b>Мы можем отказать в приёме и не станем объяснять почему.</b> Это дом, а не гостиница: сюда пускают, а не продают номер. Отказ — это не обвинение и не оценка, и обсуждать его мы не будем.</p>
+      </div>
 
       <h3 style="margin-top:30px">В доме</h3>
       <div class="card accent">
@@ -2134,7 +2467,7 @@
       </div>
 
       <h3 style="margin-top:30px">Аптечка</h3>
-      <div class="ph r43 sc-stone" style="max-width:340px;margin-bottom:14px"><span>Фото аптечки</span></div>
+      <div class="ph r43 sc-stone noise" style="max-width:340px;margin-bottom:14px"><span>Фото аптечки</span></div>
       <p><span class="tag">от головы</span><span class="tag">от живота</span><span class="tag">от аллергии</span><span class="tag">бинт и пластыри</span><span class="tag">антисептик</span><span class="tag">ножницы, пинцет</span><span class="tag">крем от солнца</span><span class="tag">бальзам для губ</span><span class="tag">таблетки от высоты</span><span class="tag">кислород</span><span class="tag">лист коки</span></p>
       <p class="muted">Чего в ней нет: рецептурного, антибиотиков, вашего личного. Свои таблетки везите с собой — ближайшая аптека в сорока минутах вниз.</p>
 
@@ -2193,6 +2526,7 @@
           <li><a href="#/atlas">Атлас</a></li>
           <li><a href="#/gallery">Фотографии</a></li>
           <li><a href="#/blog">Блог</a></li>
+          <li><a href="#/artefakty">Артефакты</a></li>
           <li><a href="#/pravila">Правила дома</a></li>
         </ul>
       </div>
@@ -2206,6 +2540,7 @@
         </ul>
       </div>
     </div>
+    <p class="frefusal">Мы можем отказать в приёме и не станем объяснять почему. Это дом, а не гостиница.</p>
     <div class="fbottom">
       <span class="langs"><b class="on">RU</b><b>EN</b><b>ES</b></span>
       <span>© 2026 Kinsacocha · Pisac, Cusco, Peru</span>
@@ -2213,9 +2548,7 @@
   </div>
 </footer>
 
-<div class="sticky-wa" id="sticky">
-  <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
-</div>
+
 
 <div class="lightbox" id="lightbox">
   <button class="lb-close" id="lb-close" aria-label="Закрыть">×</button>
@@ -2248,6 +2581,7 @@
     "blog/tri-ozera": "p-blog-tri-ozera",
     "blog/gornaya-bolezn": "p-blog-gornaya-bolezn",
     "blog/chuno": "p-blog-chuno",
+    "artefakty": "p-artefakty",
     "pravila": "p-pravila",
     "kontakty": "p-kontakty"
   };
@@ -2365,9 +2699,13 @@
     return f;
   }
 
+  var wallGen = {};
+
   function buildWall(id, count, videoCount) {
     var root = document.getElementById(id);
     if (!root) return;
+    var gen = (wallGen[id] = (wallGen[id] || 0) + 1);
+    function alive() { return wallGen[id] === gen; }
     root.innerHTML = "";
     var tiles = [];
 
@@ -2403,7 +2741,7 @@
 
     function flipOne(t) {
       var hidden = t.shown === 0 ? t.back : t.front;
-      var makeVideo = Math.random() < 0.06;
+      var makeVideo = false;   /* в ячейке табло петля слишком мелкая */
       var next = makeFace(makeVideo, t.shown === 0);
       hidden.replaceWith(next);
       if (t.shown === 0) t.back = next; else t.front = next;
@@ -2413,13 +2751,15 @@
 
     function schedule(t) {
       setTimeout(function () {
+        if (!alive()) return;
         if (!paused) flipOne(t);
         schedule(t);
       }, rand(3200, 9000));
     }
-    tiles.forEach(function (t) { setTimeout(function () { schedule(t); }, rand(0, 4000)); });
+    tiles.forEach(function (t) { setTimeout(function () { if (alive()) schedule(t); }, rand(0, 4000)); });
 
     function wave() {
+      if (!alive()) return;
       if (!paused) {
         var start = rand(0, tiles.length - 1);
         var n = rand(6, 10);
@@ -2437,10 +2777,33 @@
     setTimeout(wave, rand(15000, 25000));
   }
 
-  buildWall("wall-big", 60, 4);
+  /* Табло собирается ровным прямоугольником: число плиток выводится из числа
+     колонок, которые насчитала сетка. Иначе последний ряд обрывается. */
+  var bigCols = 0;
+  function buildBigWall() {
+    var root = document.getElementById("wall-big");
+    if (!root || !root.clientWidth) return;
+    var cols = getComputedStyle(root).gridTemplateColumns.split(" ").filter(Boolean).length;
+    if (cols < 1 || cols === bigCols) return;
+    bigCols = cols;
+    var rows = cols < 8 ? 9 : 7;
+    var total = cols * rows;
+    buildWall("wall-big", total, 0);
+  }
   buildWall("wall-n1", 4, 0);
   buildWall("wall-n2", 4, 0);
   buildWall("wall-n3", 4, 0);
+
+  /* На старте страница может быть ещё скрыта — ширины нет. ResizeObserver ловит
+     и первый показ, и смену страницы, и поворот экрана одним механизмом.
+     Повторной сборки не будет: buildBigWall выходит, если колонок столько же. */
+  var bigWallT;
+  function bigWallLater() { clearTimeout(bigWallT); bigWallT = setTimeout(buildBigWall, 120); }
+  var bigWallEl = document.getElementById("wall-big");
+  if (bigWallEl && "ResizeObserver" in window) new ResizeObserver(bigWallLater).observe(bigWallEl);
+  window.addEventListener("resize", bigWallLater);
+  window.addEventListener("hashchange", bigWallLater);
+  bigWallLater();
 
   /* ─── Лунное окно ───────────────────────────────── */
   (function () {
@@ -2448,20 +2811,34 @@
     var inEl = document.getElementById("moon-in");
     if (!el) return;
     var SYN = 29.530588853;
+    var HALF = 3;              /* окно: три дня до полнолуния и три после */
     var refNew = Date.UTC(2000, 0, 6, 18, 14) / 86400000;
     var now = Date.now() / 86400000;
-    var n = Math.floor((now - refNew) / SYN);
-    var full = refNew + (n + 0.5) * SYN;
-    if (full < now) full = refNew + (n + 1.5) * SYN;
-    var d = new Date(full * 86400000);
+    function fullAt(i) { return refNew + (i + 0.5) * SYN; }
+    var k = Math.floor((now - refNew) / SYN - 0.5);
+    var full = fullAt(k);
+    if (full + HALF < now) full = fullAt(k + 1);   /* окно уже прошло — берём следующее */
+    var from = full - HALF, to = full + HALF;
+
     var months = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
-    el.textContent = d.getUTCDate() + " " + months[d.getUTCMonth()];
-    var days = Math.round(full - now);
-    var word = "дней";
-    var m10 = days % 10, m100 = days % 100;
-    if (m10 === 1 && m100 !== 11) word = "день";
-    else if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) word = "дня";
-    inEl.textContent = days <= 0 ? "сегодня" : "через " + days + " " + word;
+    var dF = new Date(from * 86400000), dT = new Date(to * 86400000);
+    el.textContent = dF.getUTCMonth() === dT.getUTCMonth()
+      ? dF.getUTCDate() + "—" + dT.getUTCDate() + " " + months[dT.getUTCMonth()]
+      : dF.getUTCDate() + " " + months[dF.getUTCMonth()] + " — " + dT.getUTCDate() + " " + months[dT.getUTCMonth()];
+
+    function plural(n) {
+      var m10 = n % 10, m100 = n % 100;
+      if (m10 === 1 && m100 !== 11) return "день";
+      if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return "дня";
+      return "дней";
+    }
+    if (now >= from) {
+      var left = Math.max(0, Math.round(to - now));
+      inEl.textContent = left === 0 ? "идёт сейчас, последняя ночь" : "идёт сейчас, ещё " + left + " " + plural(left);
+    } else {
+      var days = Math.round(from - now);
+      inEl.textContent = days <= 0 ? "начинается сегодня" : "через " + days + " " + plural(days);
+    }
   })();
 
   /* ─── Галерея ───────────────────────────────────── */
@@ -2561,12 +2938,6 @@
     if (e.key === "ArrowLeft") step(-1);
     if (e.key === "ArrowRight") step(1);
   });
-
-  /* ─── Липкая кнопка после первого экрана ────────── */
-  var sticky = document.getElementById("sticky");
-  window.addEventListener("scroll", function () {
-    sticky.classList.toggle("show", window.scrollY > 500);
-  }, { passive: true });
 
   /* ─── Старт ─────────────────────────────────────── */
 
