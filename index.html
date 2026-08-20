@@ -1352,7 +1352,11 @@ body.ob .card .cap u{display:inline-block;margin-top:6px;text-decoration:none;
 body.ob .hero{
   display:grid;grid-template-rows:1fr auto;grid-template-columns:100%;
   align-items:stretch;justify-items:stretch;justify-content:stretch;align-content:stretch;
-  height:100svh;min-height:560px;background:var(--ob-crack);color:#E7E9E6;overflow:hidden}
+  /* шапка стоит sticky и занимает своё место в потоке, поэтому ровный 100svh
+     свисал за нижний край ровно на её высоту — кнопки срезало на 17 px.
+     --hdr замеряется скриптом внизу и обновляется при смене размера окна */
+  height:calc(100svh - var(--hdr,0px));min-height:560px;
+  background:var(--ob-crack);color:#E7E9E6;overflow:hidden}
 body.ob .slider{grid-area:1/1;position:relative;inset:auto;overflow:hidden}
 body.ob .hero .scrim{grid-area:1/1;position:relative;inset:auto;
   background:linear-gradient(to bottom,rgba(12,14,16,.5) 0%,rgba(12,14,16,.05) 26%,rgba(12,14,16,0) 60%,rgba(21,24,27,.55) 100%)}
@@ -1377,6 +1381,47 @@ body.ob .hero .dots i.on{background:var(--ob-bloom);width:13px}
 }
 @media (max-width:760px){body.ob .hero .dots{position:static;justify-content:flex-start;margin-top:20px;max-width:none}}
 @media (max-height:620px){body.ob .hero{height:auto;min-height:0}}
+
+/* ── пробы первого экрана: #/shapka-a и #/shapka-b ───────────────────
+   В обеих кадр занимает весь экран, а текст лежит на нём. Разница в том,
+   на чём стоит текст: в «а» — только мягкое затемнение, в «б» — своя
+   тёмная плашка с ясным верхним краем. Проба снимается одной строкой:
+   убрать класс hero-a / hero-b — вернётся нынешний плинт под кадром. */
+body.hero-a.ob .hero,body.hero-b.ob .hero{grid-template-rows:1fr auto}
+body.hero-a.ob .slider,body.hero-b.ob .slider{grid-row:1/3}
+body.hero-a.ob .hero .scrim,body.hero-b.ob .hero .scrim{grid-row:1/3}
+
+/* «а» — текст прямо на кадре */
+body.hero-a.ob .hero .scrim{
+  background:linear-gradient(to bottom,rgba(12,14,16,.46) 0%,rgba(12,14,16,.06) 24%,
+    rgba(12,14,16,.10) 46%,rgba(21,24,27,.72) 82%,rgba(21,24,27,.92) 100%)}
+body.hero-a.ob .hero-body{background:none}
+body.hero-a.ob .hero-body h1{text-shadow:0 2px 24px rgba(12,14,16,.55)}
+body.hero-a.ob .hero-body .lead,body.hero-a.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14,16,.6)}
+
+/* «б» — плашка лежит на кадре, у неё есть верхний край */
+body.hero-b.ob .hero .scrim{
+  background:linear-gradient(to bottom,rgba(12,14,16,.5) 0%,rgba(12,14,16,.05) 30%,rgba(12,14,16,0) 62%)}
+.hero-plate{display:contents}
+body.hero-b.ob .hero-body{background:none;max-width:none;padding:0}
+body.hero-b.ob .hero-plate{display:block;
+  background:rgba(21,24,27,.88);border-top:1px solid rgba(231,233,230,.16);
+  width:100%;max-width:1120px;margin:0 auto;
+  padding:clamp(22px,3vw,32px) clamp(16px,4vw,24px) clamp(24px,3.2vw,34px)}
+@supports (backdrop-filter:blur(2px)){
+  body.hero-b.ob .hero-plate{background:rgba(21,24,27,.74);backdrop-filter:blur(10px)}}
+body.hero-b.ob .hero .dots{bottom:clamp(30px,3.8vw,44px)}
+@media (max-width:900px){
+  /* нижняя метка лифта висит поверх — плашке нужен тот же запас, что и плинту */
+  body.hero-b.ob .hero-plate{padding-bottom:100px}
+}
+/* на узком экране текста больше, и он заходит на светлую часть кадра:
+   затемнение в пробе «а» начинается выше */
+@media (max-width:760px){
+  body.hero-a.ob .hero .scrim{
+    background:linear-gradient(to bottom,rgba(12,14,16,.46) 0%,rgba(12,14,16,.08) 20%,
+      rgba(12,14,16,.34) 44%,rgba(21,24,27,.78) 68%,rgba(21,24,27,.93) 100%)}
+}
 
 /* ── глава «Растения»: спуск ───────────────────────────────── */
 .ob-page .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,26px)}
@@ -1505,12 +1550,16 @@ body.ob .hero .dots i.on{background:var(--ob-bloom);width:13px}
     </div>
     <div class="scrim"></div>
     <div class="hero-body">
+      <!-- обёртка нужна только пробе «б», где текст стоит на своей плашке.
+           В остальных случаях display:contents — её как будто нет -->
+      <div class="hero-plate">
       <div class="ob-hero-kick ob-only">4200 м · община Пару-Пару · над Священной долиной</div>
       <h1>Дом у трёх озёр</h1>
       <p class="lead" style="max-width:44ch;margin:0 auto 26px">4200 метров над Священной долиной. Приезжают на день — остаются на ночь.</p>
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
       <a class="btn" href="#dom">Посмотреть дом ↓</a>
       <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
     </div>
   </section>
 
@@ -3165,6 +3214,9 @@ body.ob .hero .dots i.on{background:var(--ob-bloom);width:13px}
   var ROUTES = {
     "": "p-home",
     "novyy": "p-home",
+    "shapka-a": "p-home",
+    "shapka-b": "p-home",
+    "shapka-net": "p-home",
     "tseny": "p-tseny",
     "friendly": "p-tseny",
     "svoi": "p-tseny",
@@ -4488,11 +4540,42 @@ var ATLAS = {
     }
   }
   window.__oblik = paint;
+
+  /* высота шапки: она sticky и занимает место в потоке, а первый экран
+     считается от неё. Меряем, а не вписываем числом — на телефоне другая */
+  function hdr() {
+    var el = document.querySelector("header.site");
+    if (el) document.documentElement.style.setProperty("--hdr", el.offsetHeight + "px");
+  }
+  hdr();
+  addEventListener("resize", hdr);
+  addEventListener("load", hdr);
+
+  /* пробы первого экрана: #/shapka-a — текст на кадре, #/shapka-b — плашка
+     поверх кадра, #/shapka-net — вернуть нынешний плинт под кадром.
+     Держится в сессии тем же приёмом, что и сам облик */
+  var SKEY = "kc-shapka";
+  function shapka() { try { return sessionStorage.getItem(SKEY) || ""; } catch (e) { return ""; } }
+  function setShapka(v) {
+    try { v ? sessionStorage.setItem(SKEY, v) : sessionStorage.removeItem(SKEY); } catch (e) {}
+  }
+  function paintShapka() {
+    var v = shapka();
+    document.body.classList.toggle("hero-a", v === "a");
+    document.body.classList.toggle("hero-b", v === "b");
+    hdr();
+  }
+
   function check() {
     var h = location.hash.replace(/^#\/?/, "");
     if (h === "novyy" || /(\?|&)novyy\b/.test(location.search)) set(true);
     if (h === "staryy") set(false);
+    /* пробы шапки живут только в новом облике — включаем его заодно */
+    if (h === "shapka-a") { set(true); setShapka("a"); }
+    if (h === "shapka-b") { set(true); setShapka("b"); }
+    if (h === "shapka-net") { setShapka(""); }
     paint();
+    paintShapka();
   }
   addEventListener("hashchange", function () { setTimeout(check, 40); });
   check();
