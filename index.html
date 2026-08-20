@@ -1068,9 +1068,10 @@ body.svoi .friends-note { display: block; }
   } 
   }
 
-/* ═══ Облик «Спуск» — глава Атласа «Растения» ═══════════════════
-   Палитра идёт сверху вниз, от воздуха к породе. Жёлтый достаётся
-   только цветущим. Правила целиком — в .claude/skills/oblik/ */
+/* ═══ Облик «Спуск» ═════════════════════════════════════════════
+   Сквозной облик сайта. Включается скрытой ссылкой #/novyy,
+   выключается #/staryy, держится в сессии. Глава «Растения» живёт
+   в нём всегда. Правила и раскладка — в .claude/skills/oblik/ */
 @font-face { font-family: 'PT Sans Narrow'; font-style: normal; font-weight: 700; font-display: swap; src: url(font/e1a5ebe74c.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
 @font-face { font-family: 'PT Sans Narrow'; font-style: normal; font-weight: 700; font-display: swap; src: url(font/a22f624597.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'Spectral'; font-style: italic; font-weight: 300; font-display: swap; src: url(font/2925118d5a.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
@@ -1079,6 +1080,10 @@ body.svoi .friends-note { display: block; }
 @font-face { font-family: 'Spectral'; font-style: normal; font-weight: 300; font-display: swap; src: url(font/e6ddae60b9.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url(font/f0071a68d5.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
 @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url(font/533c1157c0.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+.ob-only{display:none}
+body.ob .ob-only{display:block}
+
 body.ob{
   --ob-air:#E6E9E3;    /* разрежённый воздух */
   --ob-ichu:#C8C7B1;   /* выгоревшая ичу */
@@ -1089,52 +1094,221 @@ body.ob{
   --ob-disp:'PT Sans Narrow',Arial Narrow,Arial,sans-serif;
   --ob-text:'Spectral',Georgia,serif;
   --ob-mono:'JetBrains Mono',ui-monospace,monospace;
+  --ground:#E6E9E3; --fg:#1D2119; --dim:rgba(29,33,25,.62); --rule:rgba(29,33,25,.2);
+  background:var(--ob-air); color:#1D2119;
+  font-family:var(--ob-text); font-weight:300; letter-spacing:0;
+}
+/* спуск — только глава «Растения»: у неё есть настоящая ось */
+body.ob.ob-desc{
   background:var(--ob-crack);
   background-image:linear-gradient(180deg,var(--ob-air) 0%,var(--ob-air) 7%,var(--ob-ichu) 26%,var(--ob-moss) 50%,var(--ob-slate) 76%,var(--ob-crack) 95%);
-  background-attachment:scroll;
-  color:#1D2119;
-  font-family:var(--ob-text); font-weight:300;
 }
-body.ob header.site{background:rgba(230,233,227,.9);border-bottom-color:rgba(29,33,25,.16)}
-body.ob header.site .logo,body.ob header.site .burger{color:#1D2119}
-body.ob header.site nav.main a{color:#3E463A}
-body.ob header.site nav.main a.on{color:#1D2119;border-bottom-color:var(--ob-bloom)}
-body.ob.ob-deep header.site{background:rgba(21,24,27,.86);border-bottom-color:rgba(255,255,255,.14)}
-body.ob.ob-deep header.site .logo,body.ob.ob-deep header.site .burger{color:#E7E9E6}
-body.ob.ob-deep header.site nav.main a{color:#B9C0B4}
-body.ob.ob-deep header.site nav.main a.on{color:#fff}
-@media (max-width:900px){body.ob header.site nav.main{background:var(--ob-air)}
-  body.ob.ob-deep header.site nav.main{background:var(--ob-crack)}}
 
-.ob-page section{padding:0;border-bottom:0;background:none}
-.ob-page .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,26px) 0 clamp(16px,4vw,26px)}
+/* ── ступени ───────────────────────────────────────────────── */
+body.ob .og-air,body.ob .ob-g-air{background:var(--ob-air);color:#1D2119;--ground:#E6E9E3;--fg:#1D2119;--dim:rgba(29,33,25,.62);--rule:rgba(29,33,25,.2)}
+body.ob .og-ichu,body.ob .ob-g-ichu{background:var(--ob-ichu);color:#1D2119;--ground:#C8C7B1;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
+body.ob .og-moss,body.ob .ob-g-moss{background:var(--ob-moss);color:#151A14;--ground:#79836D;--fg:#151A14;--dim:rgba(21,26,20,.72);--rule:rgba(21,26,20,.28)}
+body.ob .og-slate,body.ob .ob-g-slate{background:var(--ob-slate);color:#EFEFE6;--ground:#3D4450;--fg:#EFEFE6;--dim:rgba(239,239,230,.7);--rule:rgba(239,239,230,.22)}
+body.ob .og-crack,body.ob .ob-g-crack{background:var(--ob-crack);color:#E7E9E6;--ground:#15181B;--fg:#E7E9E6;--dim:rgba(231,233,230,.66);--rule:rgba(231,233,230,.18)}
+
+/* старые классы фонов переводятся в ступени — так конвертируются
+   разом все страницы, а не только те, что расписаны поимённо */
+body.ob section{
+  background:var(--ob-air);color:#1D2119;
+  --ground:#E6E9E3;--fg:#1D2119;--dim:rgba(29,33,25,.62);--rule:rgba(29,33,25,.2);
+  border-bottom:0;padding:clamp(46px,7vw,92px) 0}
+body.ob section.ground-moss{background:var(--ob-ichu);--ground:#C8C7B1;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
+body.ob section.ground-lake{background:var(--ob-slate);color:#EFEFE6;--ground:#3D4450;--fg:#EFEFE6;--dim:rgba(239,239,230,.7);--rule:rgba(239,239,230,.22)}
+body.ob section.dark,body.ob section.ground-ember,body.ob section.dark.ground-lake,body.ob section.dark.ground-ember{
+  background:var(--ob-crack);color:#E7E9E6;--ground:#15181B;--fg:#E7E9E6;--dim:rgba(231,233,230,.66);--rule:rgba(231,233,230,.18)}
+body.ob .ob-page section{background:none;padding:0}
+/* главная расписана поимённо и перебивает общий перевод */
+body.ob #p-home > section.og-air{background:var(--ob-air);color:#1D2119;--ground:#E6E9E3;--fg:#1D2119;--dim:rgba(29,33,25,.62);--rule:rgba(29,33,25,.2)}
+body.ob #p-home > section.og-ichu{background:var(--ob-ichu);color:#1D2119;--ground:#C8C7B1;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
+body.ob #p-home > section.og-moss{background:var(--ob-moss);color:#151A14;--ground:#79836D;--fg:#151A14;--dim:rgba(21,26,20,.72);--rule:rgba(21,26,20,.28)}
+body.ob #p-home > section.og-slate{background:var(--ob-slate);color:#EFEFE6;--ground:#3D4450;--fg:#EFEFE6;--dim:rgba(239,239,230,.7);--rule:rgba(239,239,230,.22)}
+body.ob #p-home > section.og-crack{background:var(--ob-crack);color:#E7E9E6;--ground:#15181B;--fg:#E7E9E6;--dim:rgba(231,233,230,.66);--rule:rgba(231,233,230,.18)}
+body.ob #p-home > section.hero{padding:0}
+
+/* ── типографика ───────────────────────────────────────────── */
+body.ob h1,body.ob h2{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
+  letter-spacing:.01em;line-height:1;color:inherit}
+body.ob h1{font-size:clamp(34px,6.4vw,76px)}
+body.ob h2{font-size:clamp(26px,4.6vw,54px);margin:0 0 6px}
+body.ob h3,body.ob h4{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:inherit}
+body.ob h3{font-size:clamp(18px,2.5vw,25px)}
+body.ob h4{font-size:15px}
+body.ob p,body.ob li,body.ob td,body.ob th{font-family:var(--ob-text);font-weight:300}
+body.ob .lead{font-family:var(--ob-text);font-weight:300;font-size:clamp(17px,2.2vw,24px);line-height:1.4;color:var(--fg);opacity:.92}
+body.ob .kick{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+body.ob .muted,body.ob .note,body.ob .cap-note{color:var(--dim)}
+body.ob section.dark .lead,body.ob section.dark .muted{color:var(--dim)}
+body.ob .quote{font-family:var(--ob-text);font-weight:300;font-style:italic;border-color:var(--rule)}
+
+body.ob .eyebrow{gap:12px;margin-bottom:18px}
+body.ob .eyebrow i{background:currentColor;opacity:.4}
+body.ob .eyebrow span,body.ob .eyebrow b{font-family:var(--ob-mono);font-weight:500;font-size:10.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+body.ob .eyebrow span{color:var(--fg);opacity:.85}
+body.ob .backlink,body.ob .ob-page .backlink{font-family:var(--ob-mono);font-weight:500;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;text-decoration:none;opacity:.62}
+body.ob .backlink:hover{opacity:1}
+
+body.ob .btn{font-family:var(--ob-mono);font-weight:500;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;padding:13px 20px;border:1px solid currentColor;color:inherit;
+  background:none;border-radius:0}
+body.ob .btn:hover{background:var(--fg);color:var(--ob-air)}
+body.ob .og-crack .btn:hover,body.ob .og-slate .btn:hover,
+body.ob section.dark .btn:hover,body.ob section.ground-ember .btn:hover{background:var(--ob-air);color:var(--ob-crack)}
+body.ob .btn.primary{background:var(--ob-bloom);border-color:var(--ob-bloom);color:#241B05}
+body.ob .btn.primary:hover{background:#F2C557;border-color:#F2C557;color:#241B05}
+body.ob .tag,body.ob .pill,body.ob .chip,body.ob .gtag{font-family:var(--ob-mono);font-weight:500;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;border-radius:0;border-color:var(--rule);color:var(--dim)}
+body.ob .opts .pill.on,body.ob .gtag.on{border-color:var(--ob-bloom);color:var(--ob-bloom);background:none}
+body.ob .price{font-family:var(--ob-disp);font-weight:700;letter-spacing:.01em}
+
+body.ob .card,body.ob .amen,body.ob .lake,body.ob .pinned,body.ob .pair,body.ob .rec,body.ob .qa,body.ob .post{
+  background:transparent;border-color:var(--rule);border-radius:0}
+body.ob .day,body.ob .day-row{border-color:var(--rule)}
+body.ob a{color:inherit}
+/* старая тёмная тема раздавала цвета через свои переменные. Переводим их
+   на ступень: одна правка вместо полусотни точечных. Подстановка var(--fg)
+   считается на самой секции, поэтому цвет всегда её собственный. */
+body.ob section,
+body.ob .og-air,body.ob .og-ichu,body.ob .og-moss,body.ob .og-slate,body.ob .og-crack,
+body.ob .ob-band,body.ob .ob-cover,body.ob .ob-sp,body.ob .ob-floor{
+  --ink:var(--fg); --ink-2:var(--dim); --muted:var(--dim);
+  --line:var(--rule); --line-soft:var(--rule); --dark-line:var(--rule);
+  --dark-ink:var(--fg); --dark-muted:var(--dim); --dark-surface:rgba(0,0,0,.14);
+  --k-text:var(--fg); --k-border:var(--rule); --k-border-strong:var(--rule);
+  --k-glass-border:var(--rule); --k-surface:var(--rule);
+  --k-accent:var(--ob-bloom); --k-accent-hover:var(--ob-bloom); --k-on-accent:#241B05;
+  --k-lake:var(--fg); --accent:var(--ob-bloom); --accent-soft:var(--ob-bloom);
+  --k-sunken:rgba(0,0,0,.14); --k-raised:rgba(0,0,0,.10); --k-bg:transparent;
+}
+/* ссылки-акценты только в тексте: навигация, карточки и кнопки цвет не меняют */
+body.ob section.dark p a:not(.btn),body.ob section.dark li a:not(.btn),
+body.ob section.ground-ember p a:not(.btn),body.ob section.ground-ember li a:not(.btn),
+body.ob section.ground-lake p a:not(.btn),body.ob section.ground-lake li a:not(.btn),
+body.ob .og-crack p a:not(.btn),body.ob .og-crack li a:not(.btn),
+body.ob .og-slate p a:not(.btn),body.ob .og-slate li a:not(.btn){color:var(--ob-bloom)}
+body.ob :focus-visible{outline:2px solid var(--ob-bloom);outline-offset:3px}
+body.ob hr{border-color:var(--rule)}
+
+/* ── добор: элементы старой тёмной темы, у которых цвет прописан руками ── */
+body.ob section .btn,body.ob .ob-page .btn,body.ob footer .btn{color:var(--fg)}
+body.ob section .btn.primary,body.ob .ob-page .btn.primary,body.ob footer .btn.primary{
+  background:var(--ob-bloom);border-color:var(--ob-bloom);color:#241B05}
+body.ob section .ph:not([style*="background-image"]){background-color:rgba(0,0,0,.14)}
+body.ob section .ph span,body.ob .ph span{color:var(--dim)}
+body.ob .chapnav a.on,body.ob .ob-chapnav a.on,body.ob .gtag.on,body.ob button.tag.on{
+  background:var(--fg);color:var(--ground);border-color:var(--fg);opacity:1}
+body.ob .lake-cap .name,body.ob .ground-lake .lake-cap .name{color:var(--fg)}
+body.ob .lake-cap .name em{color:var(--dim)}
+body.ob .trail .plate h3,body.ob .trail .plate p,body.ob .trail .pill,
+body.ob .trail .num,body.ob .num,body.ob .step h3,
+body.ob .band .band-inner h3,body.ob .band .band-inner p,body.ob .band .band-inner .muted,
+body.ob .amen-t h3,body.ob .amen-t p,body.ob .pair .yes,body.ob .pair .no,
+body.ob .fclaim,body.ob .lvl .n,body.ob .frefusal,body.ob .fbottom,
+body.ob .ph span,body.ob .ph,body.ob .mos-note,body.ob .date{color:var(--fg)}
+body.ob .trail .plate p,body.ob .band .band-inner p,body.ob .band .band-inner .muted,
+body.ob .amen-t p,body.ob .pair .no,body.ob .ph span,body.ob .ph,
+body.ob .mos-note,body.ob .frefusal,body.ob .fbottom,body.ob .opts .or{color:var(--dim)}
+body.ob .opts .pill{color:var(--dim);border-color:var(--rule)}
+body.ob .opts .pill.on,body.ob .trail .pill.on{color:var(--fg);border-color:var(--fg);background:none}
+body.ob .lvl .n{background:var(--fg);color:var(--ground);border-color:var(--fg)}
+body.ob footer.site .fclaim{color:#E7E9E6}
+body.ob footer.site .frefusal,body.ob footer.site .fbottom{color:rgba(231,233,230,.5)}
+body.ob .lake-cap .name{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+body.ob .lake-cap .name em{font-family:var(--ob-mono);font-style:normal;font-size:11px;letter-spacing:.14em}
+
+/* ── карточки Атласа ───────────────────────────────────────── */
+body.ob .card{border:0;padding:0}
+body.ob .card .ph{background-color:rgba(0,0,0,.14)}
+body.ob .card .cap{padding:10px 0 2px}
+body.ob .card .cap b{font-family:var(--ob-disp);font-weight:700;font-size:15px;
+  text-transform:uppercase;letter-spacing:.03em}
+body.ob .card .cap i{font-family:var(--ob-text);font-weight:300;font-style:italic;font-size:13px;opacity:.72}
+body.ob .card .cap p{font-family:var(--ob-text);font-size:13.5px;line-height:1.45;opacity:.8;margin-top:7px}
+body.ob .card .more{display:none}          /* имя само ссылка, «карточка →» не нужна */
+body.ob .frames .card .ph{background-color:rgba(0,0,0,.14)}
+body.ob .chapnav{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 28px}
+body.ob .chapnav a{text-decoration:none;border:1px solid currentColor;padding:7px 11px;
+  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;opacity:.5;border-radius:0;background:none}
+body.ob .chapnav a:hover{opacity:.85}
+body.ob .chapnav a.on{opacity:1;background:var(--fg);color:var(--ground);border-color:var(--fg)}
+
+/* ── шапка и подвал: рама сайта, всегда порода ─────────────── */
+body.ob header.site{background:rgba(21,24,27,.86);border-bottom:1px solid rgba(231,233,230,.14)}
+body.ob .logo{font-family:var(--ob-disp);font-weight:700;color:#E7E9E6}
+body.ob .logo .word{font-family:var(--ob-disp);font-weight:700;letter-spacing:.28em}
+body.ob nav.main a{font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(231,233,230,.62)}
+body.ob nav.main a:hover{color:#E7E9E6}
+body.ob nav.main a.on{color:#E7E9E6;border-bottom-color:var(--ob-bloom)}
+body.ob .burger{color:#E7E9E6;border-color:rgba(231,233,230,.35);font-family:var(--ob-mono);
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
+@media (max-width:900px){body.ob nav.main{background:var(--ob-crack)}
+  body.ob nav.main a{font-size:14px;letter-spacing:.14em;border-bottom-color:rgba(231,233,230,.14)}}
+
+body.ob footer.site{background:var(--ob-crack);color:rgba(231,233,230,.66)}
+body.ob footer.site h4{color:#E7E9E6;font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.2em}
+body.ob footer.site a{color:rgba(231,233,230,.66)}
+body.ob footer.site a:hover{color:var(--ob-bloom)}
+body.ob .flogo,body.ob .flogo .word{font-family:var(--ob-disp);font-weight:700;letter-spacing:.28em}
+body.ob .fclaim{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;color:#E7E9E6}
+
+body.ob .lift{--lift-ink:#1D2119;--lift-dim:rgba(29,33,25,.3)}
+body.ob .lift.dark{--lift-ink:#E7E9E6;--lift-dim:rgba(231,233,230,.32)}
+body.ob .lift .lbl,body.ob .lift .grp{font-family:var(--ob-mono);font-weight:500;letter-spacing:.14em}
+
+/* ── первый экран: кадр сверху, дом снизу ──────────────────── */
+body.ob .hero{
+  display:grid;grid-template-rows:1fr auto;grid-template-columns:100%;
+  align-items:stretch;justify-items:stretch;justify-content:stretch;align-content:stretch;
+  height:100svh;min-height:560px;background:var(--ob-crack);color:#E7E9E6;overflow:hidden}
+body.ob .slider{grid-area:1/1;position:relative;inset:auto;overflow:hidden}
+body.ob .hero .scrim{grid-area:1/1;position:relative;inset:auto;
+  background:linear-gradient(to bottom,rgba(12,14,16,.5) 0%,rgba(12,14,16,.05) 26%,rgba(12,14,16,0) 60%,rgba(21,24,27,.55) 100%)}
+body.ob .hero-body{grid-area:2/1;position:relative;z-index:2;background:var(--ob-crack);
+  display:block;text-align:left;width:100%;max-width:1120px;margin:0 auto;
+  padding:clamp(22px,3vw,32px) clamp(16px,4vw,24px) clamp(24px,3.2vw,34px)}
+body.ob .ob-hero-kick{font-family:var(--ob-mono);font-weight:500;font-size:10.5px;
+  letter-spacing:.22em;text-transform:uppercase;color:rgba(231,233,230,.55);margin:0 0 12px}
+body.ob .hero-body h1{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
+  font-size:clamp(36px,7.6vw,92px);line-height:.92;letter-spacing:-.005em;
+  color:#E7E9E6;text-shadow:none;margin:0}
+body.ob .hero-body .lead{margin:14px 0 0!important;max-width:46ch!important;
+  color:rgba(231,233,230,.8);text-shadow:none;font-size:clamp(16px,1.9vw,20px)}
+body.ob .hero-body .btn{display:inline-block;margin:18px 10px 0 0;vertical-align:top}
+body.ob .hero .dots{position:absolute;right:clamp(16px,4vw,24px);bottom:clamp(30px,3.8vw,44px);
+  justify-content:flex-end;margin:0;max-width:210px}
+body.ob .hero .dots i{background:rgba(231,233,230,.26);border-radius:0;width:13px;height:2px;transition:none}
+body.ob .hero .dots i.on{background:var(--ob-bloom);width:13px}
+@media (max-width:760px){body.ob .hero .dots{position:static;justify-content:flex-start;margin-top:20px;max-width:none}}
+@media (max-height:620px){body.ob .hero{height:auto;min-height:0}}
+
+/* ── глава «Растения»: спуск ───────────────────────────────── */
+.ob-page .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,26px)}
 .ob-page a{color:inherit}
 .ob-page :focus-visible{outline:2px solid var(--ob-bloom);outline-offset:3px}
-
-/* обложка главы */
 .ob-cover{padding:clamp(30px,6vw,70px) 0 8px;color:#1D2119}
-.ob-page .backlink{display:inline-block;font:500 11px/1 var(--ob-mono);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;opacity:.6;margin-bottom:26px}
-.ob-page .backlink:hover{opacity:1}
-.ob-kick{font:500 11px/1 var(--ob-mono);letter-spacing:.24em;text-transform:uppercase;opacity:.62}
-.ob-cover h1{font:700 clamp(44px,10vw,124px)/.9 var(--ob-disp);letter-spacing:-.01em;text-transform:uppercase;margin:16px 0 0;color:#1D2119}
-.ob-cover h1 em{display:block;font-style:normal;opacity:.5}
-.ob-lead{font:300 clamp(18px,2.3vw,26px)/1.4 var(--ob-text);margin:20px 0 0;max-width:34ch}
+.ob-page .backlink{display:inline-block;margin-bottom:26px}
+.ob-kick{font-family:var(--ob-mono);font-weight:500;font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.62}
+.ob-cover h1{font-family:var(--ob-disp);font-weight:700;font-size:clamp(44px,10vw,124px);line-height:.9;
+  letter-spacing:-.01em;text-transform:uppercase;margin:16px 0 0;color:#1D2119}
+.ob-lead{font-family:var(--ob-text);font-weight:300;font-size:clamp(18px,2.3vw,26px);line-height:1.4;margin:20px 0 0;max-width:34ch}
 .ob-said{margin:26px 0 0;max-width:58ch;font-size:16.5px;line-height:1.6}
 .ob-said b{font-weight:400;box-shadow:inset 0 -.5em 0 rgba(232,179,58,.35)}
-.ob-note{margin:24px 0 0;font:400 11.5px/1.5 var(--ob-mono);letter-spacing:.04em;opacity:.6;max-width:52ch}
-
-/* навигация по главам */
+.ob-note{margin:24px 0 0;font-family:var(--ob-mono);font-size:11.5px;line-height:1.5;letter-spacing:.04em;opacity:.6;max-width:52ch}
 .ob-chapnav{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
 .ob-chapnav a{text-decoration:none;border:1px solid currentColor;padding:7px 11px;
-  font:500 10.5px/1 var(--ob-mono);letter-spacing:.14em;text-transform:uppercase;opacity:.5}
+  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.5}
 .ob-chapnav a:hover{opacity:.85}
 .ob-chapnav a.on{opacity:1;background:#1D2119;color:var(--ob-air);border-color:#1D2119}
-
-/* петля */
 .ob-loop{position:relative;overflow:hidden;aspect-ratio:21/9;margin:34px 0 0;background:rgba(0,0,0,.14)}
 .ob-loop video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-
-/* полосы высоты */
 .ob-band{padding:clamp(48px,7vw,78px) 0 0}
 .ob-b1,.ob-b2{--fg:#1D2119}
 .ob-b3{--fg:#151A14}
@@ -1142,12 +1316,11 @@ body.ob.ob-deep header.site nav.main a.on{color:#fff}
 .ob-b5{--fg:#E7E9E6}
 .ob-band{color:var(--fg)}
 .ob-bhead{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid currentColor;padding-bottom:9px}
-.ob-bhead .tick{font:500 12px/1 var(--ob-mono);letter-spacing:.1em;opacity:.55}
-.ob-bhead h2{font:700 clamp(26px,5.2vw,60px)/1 var(--ob-disp);text-transform:uppercase;margin:0;flex:1;color:inherit;letter-spacing:.01em}
-.ob-bhead .count{font:400 11px/1 var(--ob-mono);letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.ob-bhead .tick{font-family:var(--ob-mono);font-weight:500;font-size:12px;letter-spacing:.1em;opacity:.55}
+.ob-bhead h2{font-family:var(--ob-disp);font-weight:700;font-size:clamp(26px,5.2vw,60px);line-height:1;
+  text-transform:uppercase;margin:0;flex:1;color:inherit;letter-spacing:.01em}
+.ob-bhead .count{font-family:var(--ob-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
 .ob-bnote{margin:14px 0 0;max-width:56ch;font-size:16.5px;opacity:.86}
-
-/* ряд стоит на линии земли: высота кадра — высота растения */
 .ob-row{position:relative;display:flex;align-items:flex-start;gap:22px;flex-wrap:wrap;margin-top:32px}
 .ob-row::after{content:"";position:absolute;left:0;right:0;top:var(--maxh);height:2px;background:currentColor}
 .ob-pl{margin:0;flex:1 1 190px;max-width:290px;text-decoration:none;color:inherit;display:block}
@@ -1155,30 +1328,31 @@ body.ob.ob-deep header.site nav.main a.on{color:#fff}
 .ob-pl .ob-shot{width:100%;height:var(--h);overflow:hidden;background:rgba(0,0,0,.12);
   background-size:cover;background-position:center;background-repeat:no-repeat}
 .ob-cap{display:block;padding:11px 0 12px}
-.ob-cap b{display:block;font:700 15px/1.15 var(--ob-disp);text-transform:uppercase;letter-spacing:.03em}
-.ob-cap i{display:block;font:300 13px/1.3 var(--ob-text);font-style:italic;opacity:.7;margin-top:2px}
-.ob-cap u{display:inline-block;margin-top:6px;text-decoration:none;font:500 9.5px/1 var(--ob-mono);
-  letter-spacing:.16em;text-transform:uppercase;border:1px solid currentColor;padding:3px 5px;opacity:.65}
+.ob-cap b{display:block;font-family:var(--ob-disp);font-weight:700;font-size:15px;line-height:1.15;
+  text-transform:uppercase;letter-spacing:.03em}
+.ob-cap i{display:block;font-family:var(--ob-text);font-weight:300;font-style:italic;font-size:13px;opacity:.7;margin-top:2px}
+.ob-cap u{display:inline-block;margin-top:6px;text-decoration:none;font-family:var(--ob-mono);font-weight:500;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;border:1px solid currentColor;padding:3px 5px;opacity:.65}
 .ob-cap .ob-txt{display:block;margin:8px 0 0;font-size:13.5px;line-height:1.45;opacity:.78}
 .ob-pl.bloom .ob-cap b{color:var(--ob-bloom)}
 .ob-pl:hover .ob-cap b{text-decoration:underline;text-underline-offset:3px}
-
-/* дно главы */
 .ob-floor{margin-top:clamp(50px,7vw,84px);padding:clamp(40px,6vw,64px) 0 clamp(60px,9vw,96px);color:#D8DCDA}
-.ob-floor h3{font:700 clamp(22px,4vw,44px)/1.05 var(--ob-disp);text-transform:uppercase;margin:0 0 16px;color:#D8DCDA}
+.ob-floor h3{font-family:var(--ob-disp);font-weight:700;font-size:clamp(22px,4vw,44px);line-height:1.05;
+  text-transform:uppercase;margin:0 0 16px;color:#D8DCDA}
 .ob-floor p{max-width:56ch;margin:0 0 12px;font-size:16.5px;opacity:.82}
 .ob-floor a{color:var(--ob-bloom)}
-.ob-floor .sign{font:400 11px/1.5 var(--ob-mono);letter-spacing:.16em;text-transform:uppercase;opacity:.5;margin-top:24px}
+.ob-floor .sign{font-family:var(--ob-mono);font-size:11px;line-height:1.5;letter-spacing:.16em;text-transform:uppercase;opacity:.5;margin-top:24px}
 
-/* страница вида */
-.ob-sp{padding:clamp(30px,6vw,70px) 0 0;color:#1D2119}
-.ob-sp h1{font:700 clamp(34px,7vw,84px)/.95 var(--ob-disp);text-transform:uppercase;margin:14px 0 0;color:#1D2119}
-.ob-sp .sub{margin:10px 0 0;font:300 16px/1.4 var(--ob-text);opacity:.75}
+/* ── страница вида ─────────────────────────────────────────── */
+.ob-sp{padding:clamp(30px,6vw,70px) 0 clamp(50px,8vw,90px);color:#1D2119}
+.ob-sp h1{font-family:var(--ob-disp);font-weight:700;font-size:clamp(34px,7vw,84px);line-height:.95;
+  text-transform:uppercase;margin:14px 0 0;color:#1D2119}
+.ob-sp .sub{margin:10px 0 0;font-family:var(--ob-text);font-weight:300;font-size:16px;line-height:1.4;opacity:.75}
 .ob-sp .sub em{font-style:italic}
 .ob-sp .que{display:inline-block;margin-left:10px;border:1px solid currentColor;padding:3px 6px;
-  font:500 10px/1 var(--ob-mono);letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+  font-family:var(--ob-mono);font-weight:500;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
 .ob-sp .st{display:inline-block;margin:18px 0 0;background:#1D2119;color:var(--ob-air);
-  padding:6px 10px;font:500 10.5px/1 var(--ob-mono);letter-spacing:.12em;text-transform:uppercase}
+  padding:6px 10px;font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase}
 .ob-hero{margin:26px 0 0;aspect-ratio:16/9;background:rgba(0,0,0,.14);
   background-size:cover;background-position:center;background-repeat:no-repeat}
 .ob-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
@@ -1186,11 +1360,8 @@ body.ob.ob-deep header.site nav.main a.on{color:#fff}
 .ob-body{margin-top:26px}
 .ob-body p{max-width:62ch;margin:0 0 14px;font-size:17px;line-height:1.62;color:#20251E}
 .ob-near{margin-top:clamp(40px,6vw,64px)}
-.ob-near h3{font:700 clamp(18px,3vw,26px)/1 var(--ob-disp);text-transform:uppercase;letter-spacing:.04em;margin:0 0 18px}
-body.ob-flat{background-image:none;background:var(--ob-air)}
-/* подвал не должен спорить со спуском: садится на ту же породу */
-body.ob footer.site{background:var(--ob-crack)}
-body.ob.ob-flat footer.site{background:var(--ob-crack)}
+.ob-near h3{font-family:var(--ob-disp);font-weight:700;font-size:clamp(18px,3vw,26px);line-height:1;
+  text-transform:uppercase;letter-spacing:.04em;margin:0 0 18px}
 
 @media (max-width:820px){
   .ob-row{gap:14px}
@@ -1201,141 +1372,6 @@ body.ob.ob-flat footer.site{background:var(--ob-crack)}
   .ob-thumbs{grid-template-columns:repeat(2,1fr)}
 }
 @media (prefers-reduced-motion:reduce){body.ob *{transition:none!important;animation:none!important}}
-
-/* ═══ Облик «Спуск» на главной ══════════════════════════════════
-   Включается скрытой ссылкой #/novyy, держится в сессии.
-   Правило: свет — снаружи, темнота — внутри. Раскладка блоков
-   по ступеням — в HOME_GROUND ниже и в .claude/skills/oblik/ */
-
-.ob-only{display:none}
-body.ob-home .ob-only{display:block}
-
-body.ob-home{
-  --ob-air:#E6E9E3; --ob-ichu:#C8C7B1; --ob-moss:#79836D;
-  --ob-slate:#3D4450; --ob-crack:#15181B; --ob-bloom:#E8B33A;
-  --ob-disp:'PT Sans Narrow',Arial Narrow,Arial,sans-serif;
-  --ob-text:'Spectral',Georgia,serif;
-  --ob-mono:'JetBrains Mono',ui-monospace,monospace;
-  background:var(--ob-air); color:#1D2119;
-  font-family:var(--ob-text); font-weight:300; letter-spacing:0;
-}
-
-/* ── ступени ───────────────────────────────────────────────── */
-body.ob-home .og-air{background:var(--ob-air);color:#1D2119;--fg:#1D2119;--dim:rgba(29,33,25,.62);--rule:rgba(29,33,25,.2)}
-body.ob-home .og-ichu{background:var(--ob-ichu);color:#1D2119;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
-body.ob-home .og-moss{background:var(--ob-moss);color:#151A14;--fg:#151A14;--dim:rgba(21,26,20,.72);--rule:rgba(21,26,20,.28)}
-body.ob-home .og-slate{background:var(--ob-slate);color:#EFEFE6;--fg:#EFEFE6;--dim:rgba(239,239,230,.7);--rule:rgba(239,239,230,.22)}
-body.ob-home .og-crack{background:var(--ob-crack);color:#E7E9E6;--fg:#E7E9E6;--dim:rgba(231,233,230,.66);--rule:rgba(231,233,230,.18)}
-body.ob-home #p-home > section{border-bottom:0;padding:clamp(52px,8vw,104px) 0}
-body.ob-home #p-home > section.hero{padding:0}
-
-/* ── типографика ───────────────────────────────────────────── */
-body.ob-home h1,body.ob-home h2{
-  font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
-  letter-spacing:.01em;line-height:1;color:inherit}
-body.ob-home h2{font-size:clamp(28px,5vw,58px);margin:0 0 6px}
-body.ob-home h3,body.ob-home h4{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:inherit}
-body.ob-home h3{font-size:clamp(19px,2.6vw,26px)}
-body.ob-home h4{font-size:15px}
-body.ob-home p,body.ob-home li{font-family:var(--ob-text);font-weight:300}
-body.ob-home .lead{font-family:var(--ob-text);font-weight:300;font-size:clamp(18px,2.3vw,25px);line-height:1.4;color:var(--fg,inherit);opacity:.92}
-body.ob-home .kick{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
-body.ob-home .muted,body.ob-home .note{color:var(--dim,inherit)}
-body.ob-home section.dark .lead,body.ob-home section.dark .muted{color:var(--dim,inherit)}
-
-/* надзаголовок — моноширинный, без золотой засечки */
-body.ob-home .eyebrow{gap:12px;margin-bottom:18px}
-body.ob-home .eyebrow i{background:currentColor;opacity:.4}
-body.ob-home .eyebrow span,body.ob-home .eyebrow b{
-  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--dim,inherit)}
-body.ob-home .eyebrow span{color:var(--fg,inherit);opacity:.85}
-
-/* кнопки — прямые, моноширинные */
-body.ob-home .btn{
-  font-family:var(--ob-mono);font-weight:500;font-size:11px;letter-spacing:.16em;
-  text-transform:uppercase;padding:13px 20px;border:1px solid currentColor;color:inherit;
-  background:none;border-radius:0}
-body.ob-home .btn:hover{background:var(--fg,#1D2119);color:var(--ob-air)}
-body.ob-home .og-crack .btn:hover,body.ob-home .og-slate .btn:hover{background:var(--ob-air);color:var(--ob-crack)}
-body.ob-home .btn.primary{background:var(--ob-bloom);border-color:var(--ob-bloom);color:#241B05}
-body.ob-home .btn.primary:hover{background:#F2C557;border-color:#F2C557;color:#241B05}
-body.ob-home .tag,body.ob-home .pill{
-  font-family:var(--ob-mono);font-weight:500;font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;border-radius:0;border-color:var(--rule,currentColor);color:var(--dim,inherit)}
-body.ob-home .opts .pill.on{border-color:var(--ob-bloom);color:var(--ob-bloom)}
-
-/* карточки и линейки живут на ступени, а не носят свой фон */
-body.ob-home .card,body.ob-home .amen,body.ob-home .lake,body.ob-home .pinned,body.ob-home .pair{
-  background:transparent;border-color:var(--rule,currentColor);border-radius:0}
-body.ob-home .day,body.ob-home .day-row,body.ob-home .rec,body.ob-home .qa{border-color:var(--rule,currentColor)}
-body.ob-home a{color:inherit}
-body.ob-home .og-crack a:not(.btn),body.ob-home .og-slate a:not(.btn){color:var(--ob-bloom)}
-body.ob-home :focus-visible{outline:2px solid var(--ob-bloom);outline-offset:3px}
-body.ob-home .price{font-family:var(--ob-disp);font-weight:700;letter-spacing:.01em}
-
-/* ── шапка ─────────────────────────────────────────────────── */
-body.ob-home header.site{background:rgba(21,24,27,.82);border-bottom:1px solid rgba(231,233,230,.14)}
-body.ob-home .logo{font-family:var(--ob-disp);font-weight:700;color:#E7E9E6}
-body.ob-home .logo .word{font-family:var(--ob-disp);font-weight:700;letter-spacing:.28em}
-body.ob-home nav.main a{
-  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.18em;
-  text-transform:uppercase;color:rgba(231,233,230,.62)}
-body.ob-home nav.main a:hover{color:#E7E9E6}
-body.ob-home nav.main a.on{color:#E7E9E6;border-bottom-color:var(--ob-bloom)}
-body.ob-home .burger{color:#E7E9E6;border-color:rgba(231,233,230,.35);font-family:var(--ob-mono);
-  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
-@media (max-width:900px){body.ob-home nav.main{background:var(--ob-crack)}
-  body.ob-home nav.main a{font-size:14px;letter-spacing:.14em}}
-
-/* ── первый экран: кадр сверху, дом снизу ──────────────────── */
-body.ob-home .hero-plinth{grid-area:2/1;background:var(--ob-crack)}
-body.ob-home .hero{
-  display:grid;grid-template-rows:1fr auto;grid-template-columns:100%;
-  align-items:stretch;justify-items:stretch;justify-content:stretch;align-content:stretch;
-  height:100svh;min-height:560px;
-  background:var(--ob-crack);color:#E7E9E6;overflow:hidden}
-body.ob-home .slider{grid-area:1/1;position:relative;inset:auto;overflow:hidden}
-body.ob-home .hero .scrim{
-  grid-area:1/1;position:relative;inset:auto;
-  background:linear-gradient(to bottom,rgba(12,14,16,.5) 0%,rgba(12,14,16,.05) 26%,rgba(12,14,16,0) 60%,rgba(21,24,27,.55) 100%)}
-body.ob-home .hero-body{
-  grid-area:2/1;position:relative;z-index:2;background:var(--ob-crack);
-  display:block;text-align:left;width:100%;max-width:1120px;margin:0 auto;
-  padding:clamp(22px,3vw,32px) clamp(16px,4vw,24px) clamp(24px,3.2vw,34px)}
-body.ob-home .ob-hero-kick{
-  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;
-  letter-spacing:.22em;text-transform:uppercase;color:rgba(231,233,230,.55);margin:0 0 12px}
-body.ob-home .hero-body h1{
-  font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
-  font-size:clamp(36px,7.6vw,92px);line-height:.92;letter-spacing:-.005em;
-  color:#E7E9E6;text-shadow:none;margin:0}
-body.ob-home .hero-body .lead{
-  margin:14px 0 0!important;max-width:46ch!important;
-  color:rgba(231,233,230,.8);text-shadow:none;font-size:clamp(16px,1.9vw,20px)}
-body.ob-home .hero-body .btn{display:inline-block;margin:18px 10px 0 0;vertical-align:top}
-body.ob-home .hero .dots{
-  position:absolute;right:clamp(16px,4vw,24px);bottom:clamp(30px,3.8vw,44px);
-  justify-content:flex-end;margin:0;max-width:210px}
-body.ob-home .hero .dots i{background:rgba(231,233,230,.26);border-radius:0;width:13px;height:2px;transition:none}
-body.ob-home .hero .dots i.on{background:var(--ob-bloom);width:13px}
-@media (max-width:760px){
-  body.ob-home .hero .dots{position:static;justify-content:flex-start;margin-top:20px;max-width:none}
-}
-@media (max-height:620px){body.ob-home .hero{height:auto;min-height:0}}
-
-/* ── подвал ────────────────────────────────────────────────── */
-body.ob-home footer.site{background:var(--ob-crack);color:rgba(231,233,230,.66)}
-body.ob-home footer.site h4{color:#E7E9E6;font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.2em}
-body.ob-home footer.site a{color:rgba(231,233,230,.66)}
-body.ob-home footer.site a:hover{color:var(--ob-bloom)}
-body.ob-home .flogo,body.ob-home .flogo .word{font-family:var(--ob-disp);font-weight:700;letter-spacing:.28em}
-body.ob-home .fclaim{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;color:#E7E9E6}
-
-/* ── лифт ──────────────────────────────────────────────────── */
-body.ob-home .lift{--lift-ink:#1D2119;--lift-dim:rgba(29,33,25,.3)}
-body.ob-home .lift.dark{--lift-ink:#E7E9E6;--lift-dim:rgba(231,233,230,.32)}
-body.ob-home .lift .lbl,body.ob-home .lift .grp{font-family:var(--ob-mono);font-weight:500;letter-spacing:.14em}
 </style><style>[data-bg]{background-color:var(--k-raised,#241C14)}.bg-in{animation:bgIn .7s ease}@keyframes bgIn{from{opacity:.25}to{opacity:1}}</style>
 
 <header class="site">
@@ -3677,12 +3713,11 @@ var ATLAS = {
         id = okCh ? "p-atlas-ch" : "p-atlas"; if (id === "p-atlas") renderAtlasIndex();
       }
     }
-    var ob = id === "p-atlas-ch" || id === "p-atlas-sp";
-    ob = ob && am && am[1] === "rasteniya";
-    document.body.classList.toggle("ob", !!ob);
-    document.body.classList.toggle("ob-flat", !!ob && id === "p-atlas-sp");
-    if (!ob) document.body.classList.remove("ob-deep");
+    var rast = !!(am && am[1] === "rasteniya" && (id === "p-atlas-ch" || id === "p-atlas-sp"));
+    document.body.classList.toggle("ob-desc", rast && id === "p-atlas-ch");
+    window.__obRast = rast;
     show(id);
+    if (window.__oblik) window.__oblik();
     if (window.__scan) setTimeout(window.__scan, 30);
     window.scrollTo(0, 0);
     for (var i = 0; i < navLinks.length; i++) {
@@ -4198,19 +4233,7 @@ var ATLAS = {
   visible();
 })();
 
-/* шапка идёт за спуском: на тёмной половине главы она темнеет */
-(function () {
-  function tint() {
-    if (!document.body.classList.contains("ob") || document.body.classList.contains("ob-flat")) return;
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    var p = max > 0 ? (window.pageYOffset + 60) / max : 0;
-    document.body.classList.toggle("ob-deep", p > 0.62);
-  }
-  addEventListener("scroll", tint, { passive: true });
-  addEventListener("resize", tint);
-  addEventListener("hashchange", function () { setTimeout(tint, 60); });
-  tint();
-})();
+
 </script>
 <script>
 /* ─── Два набора цен ──────────────────────────────────────
@@ -4296,13 +4319,17 @@ var ATLAS = {
   var secs = [].slice.call(home.children).filter(function (e) { return e.tagName === "SECTION"; });
 
   function paint() {
-    var yes = on() && home.classList.contains("on");
-    document.body.classList.toggle("ob-home", yes);
+    /* облик включён по ссылке — или всегда, если открыта глава «Растения» */
+    var yes = on() || window.__obRast === true;
+    document.body.classList.toggle("ob", yes);
+    var homeOn = yes && home.classList.contains("on");
+    document.body.classList.toggle("ob-home", homeOn);
     for (var i = 0; i < secs.length; i++) {
       if (!GROUND[i]) continue;
-      secs[i].classList.toggle("og-" + GROUND[i], yes);
+      secs[i].classList.toggle("og-" + GROUND[i], homeOn);
     }
   }
+  window.__oblik = paint;
   function check() {
     var h = location.hash.replace(/^#\/?/, "");
     if (h === "novyy" || /(\?|&)novyy\b/.test(location.search)) set(true);
