@@ -75,6 +75,58 @@
 }
 .demo-switch button.sel { background: #9C5A32; }
 </style>
+
+<style>
+/* ─── ДЕМО: мобильные варианты лифта ──────────────────── */
+@media (max-width: 900px) {
+  /* М1 — линия прогресса под шапкой + оглавление в меню */
+  .m-bar { position: fixed; left: 0; top: 56px; height: 2px; width: 0; z-index: 38;
+           background: var(--k-accent); display: none; }
+  body.m1 .m-bar { display: block; }
+  .m-toc { display: none; }
+  body.m1 nav.main.open .m-toc { display: block; margin-top: 6px; }
+  .m-toc h5 { margin: 18px 0 2px; font: 500 11px/1 Inter, sans-serif; letter-spacing: .16em;
+              text-transform: uppercase; color: var(--muted); }
+  .m-toc a { font-size: 16px !important; padding: 10px 0 !important; display: block; }
+  .m-toc a.is-on { color: var(--accent); }
+
+  /* М2 — метка раздела снизу, тап открывает оглавление */
+  .m-pill { position: fixed; left: 12px; bottom: 12px; z-index: 38; display: none;
+            align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px;
+            background: rgba(31,29,26,.9); color: #EDE6DA; backdrop-filter: blur(8px);
+            font: 500 12px/1 Inter, sans-serif; letter-spacing: .06em; border: none; }
+  body.m2 .m-pill { display: flex; }
+  .m-pill i { font-style: normal; opacity: .55; }
+  .m-sheet { position: fixed; inset: auto 0 0 0; z-index: 39; background: var(--bg);
+             border-top: 1px solid var(--line); padding: 14px 18px 26px; max-height: 72vh;
+             overflow-y: auto; transform: translateY(101%); transition: transform .32s ease; }
+  .m-sheet.open { transform: none; }
+  .m-sheet h5 { margin: 16px 0 2px; font: 500 11px/1 Inter, sans-serif; letter-spacing: .16em;
+                text-transform: uppercase; color: var(--muted); }
+  .m-sheet button.row { all: unset; display: block; width: 100%; padding: 11px 0; font-size: 16px;
+                        border-bottom: 1px solid var(--line-soft); color: var(--ink); }
+  .m-sheet button.row.is-on { color: var(--accent); }
+
+  /* М3 — точки у правого края, под большой палец */
+  .m-dots { position: fixed; right: 6px; top: 50%; transform: translateY(-50%); z-index: 38;
+            display: none; flex-direction: column; gap: 7px; padding: 8px 6px; }
+  body.m3 .m-dots { display: flex; }
+  .m-dots b { display: block; width: 5px; height: 5px; border-radius: 50%;
+              background: rgba(38,35,31,.3); transition: all .3s ease; }
+  .m-dots.dark b { background: rgba(237,230,218,.35); }
+  .m-dots b.is-on { width: 7px; height: 7px; background: var(--k-accent); }
+  .m-dots .tip { position: absolute; right: 22px; white-space: nowrap; font-size: 12px;
+                 letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; border-radius: 4px;
+                 background: rgba(31,29,26,.92); color: #EDE6DA; opacity: 0; transition: opacity .25s ease; }
+  .m-dots .tip.show { opacity: 1; }
+
+  .demo-switch { bottom: auto; top: 66px; font-size: 11.5px; padding: 6px 8px; }
+  .demo-switch button { padding: 5px 8px; }
+  .demo-switch .d-only { display: none; }
+}
+@media (min-width: 901px) { .demo-switch .m-only { display: none; }
+  .m-bar, .m-pill, .m-sheet, .m-dots { display: none !important; } }
+</style>
 </head>
 <body>
 <title>Kinsacocha</title>
@@ -3651,6 +3703,117 @@ var ATLAS = {
   sw.querySelector("button").classList.add("sel");
 
   build("a"); onScroll(); visible();
+})();
+</script>
+
+<script>
+/* ─── ДЕМО: мобильные варианты ────────────────────────── */
+(function () {
+  var home = document.getElementById("p-home");
+  if (!home) return;
+  var secs = [], all = home.children;
+  for (var i = 0; i < all.length; i++) if (all[i].tagName === "SECTION") secs.push(all[i]);
+  var GROUPS = { 0: "Место", 5: "Приезд", 10: "Быт", 14: "Атлас", 18: "Дальше" };
+  function short(t) {
+    t = (t || "").replace(/\s+/g, " ").trim();
+    if (t.length <= 26) return t;
+    var cut = t.slice(0, 26), sp = cut.lastIndexOf(" ");
+    return (sp > 12 ? cut.slice(0, sp) : cut) + "…";
+  }
+  var items = secs.map(function (sec, n) {
+    var eb = sec.querySelector(".eyebrow span"), h2 = sec.querySelector("h2");
+    return { el: sec, num: eb ? eb.textContent.trim() : "",
+             name: h2 ? short(h2.textContent) : (n === 0 ? "Начало" : "") };
+  });
+  function group(n) { var g = "Место"; for (var k in GROUPS) if (n >= +k) g = GROUPS[k]; return g; }
+  function go(el) {
+    var y = el.getBoundingClientRect().top + window.pageYOffset - 52;
+    var soft = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: y, behavior: soft ? "smooth" : "auto" });
+  }
+
+  /* М1 — линия прогресса и оглавление внутри меню */
+  var mbar = document.createElement("div"); mbar.className = "m-bar";
+  document.body.appendChild(mbar);
+  var nav = document.getElementById("nav");
+  var toc = document.createElement("div"); toc.className = "m-toc";
+  items.forEach(function (it, n) {
+    if (GROUPS[n] !== undefined) { var h = document.createElement("h5"); h.textContent = GROUPS[n]; toc.appendChild(h); }
+    var a = document.createElement("a"); a.href = "javascript:void 0";
+    a.textContent = (it.num ? it.num + " · " : "") + it.name;
+    a.addEventListener("click", function (e) {
+      e.preventDefault(); nav.classList.remove("open");
+      document.getElementById("burger").textContent = "Меню"; go(it.el);
+    });
+    toc.appendChild(a);
+  });
+  nav.appendChild(toc);
+
+  /* М2 — метка снизу и шторка */
+  var pill = document.createElement("button"); pill.className = "m-pill";
+  pill.innerHTML = '<span class="t">Начало</span><i>▲</i>';
+  var sheet = document.createElement("div"); sheet.className = "m-sheet";
+  items.forEach(function (it, n) {
+    if (GROUPS[n] !== undefined) { var h = document.createElement("h5"); h.textContent = GROUPS[n]; sheet.appendChild(h); }
+    var b = document.createElement("button"); b.className = "row";
+    b.textContent = (it.num ? it.num + " · " : "") + it.name;
+    b.addEventListener("click", function () { sheet.classList.remove("open"); go(it.el); });
+    sheet.appendChild(b);
+  });
+  pill.addEventListener("click", function () { sheet.classList.toggle("open"); });
+  document.body.appendChild(pill); document.body.appendChild(sheet);
+
+  /* М3 — точки справа */
+  var dots = document.createElement("div"); dots.className = "m-dots";
+  var tip = document.createElement("span"); tip.className = "tip";
+  dots.appendChild(tip);
+  var dotEls = items.map(function (it) {
+    var d = document.createElement("b");
+    d.addEventListener("click", function () {
+      tip.textContent = (it.num ? it.num + " · " : "") + it.name;
+      tip.style.top = (d.offsetTop - 4) + "px"; tip.classList.add("show");
+      setTimeout(function () { tip.classList.remove("show"); }, 1400);
+      go(it.el);
+    });
+    dots.appendChild(d); return d;
+  });
+  document.body.appendChild(dots);
+
+  var cur = -1;
+  function tick() {
+    var mid = window.innerHeight * 0.42, best = 0;
+    for (var i = 0; i < items.length; i++) if (items[i].el.getBoundingClientRect().top <= mid) best = i;
+    if (best !== cur) {
+      cur = best;
+      pill.querySelector(".t").textContent = group(cur) + " · " + (items[cur].name || "Начало");
+      dotEls.forEach(function (d, i) { d.classList.toggle("is-on", i === cur); });
+      [].forEach.call(toc.querySelectorAll("a"), function (a, i) { a.classList.toggle("is-on", i === cur); });
+      [].forEach.call(sheet.querySelectorAll("button.row"), function (b, i) { b.classList.toggle("is-on", i === cur); });
+      dots.classList.toggle("dark", /dark|ground-ember|ground-lake/.test(items[cur].el.className));
+    }
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    mbar.style.width = (h > 0 ? (window.pageYOffset / h) * 100 : 0) + "%";
+  }
+  addEventListener("scroll", tick, { passive: true });
+  addEventListener("resize", tick);
+  tick();
+
+  /* кнопки выбора мобильного варианта */
+  var sw = document.querySelector(".demo-switch");
+  [].forEach.call(sw.querySelectorAll("button"), function (b) { b.classList.add("d-only"); });
+  [["m1", "М1 · линия"], ["m2", "М2 · метка"], ["m3", "М3 · точки"]].forEach(function (v) {
+    var b = document.createElement("button");
+    b.className = "m-only"; b.textContent = v[1];
+    b.addEventListener("click", function () {
+      document.body.classList.remove("m1", "m2", "m3");
+      document.body.classList.add(v[0]);
+      [].forEach.call(sw.querySelectorAll(".m-only"), function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel"); sheet.classList.remove("open"); tick();
+    });
+    sw.appendChild(b);
+  });
+  document.body.classList.add("m1");
+  sw.querySelector(".m-only").classList.add("sel");
 })();
 </script>
 </body>
