@@ -50,6 +50,10 @@
     letter-spacing: .06em; max-width: calc(100vw - 24px); overflow: hidden; white-space: nowrap;
   }
   .m-pill.on { display: flex; }
+  /* плашка висит поверх текста и накрывала кнопки. Пока листают — уезжает вниз,
+     останавливаются — возвращается. Открытая шторка её не прячет */
+  .m-pill { transition: transform .25s ease, opacity .25s ease; }
+  .m-pill.away { transform: translateY(calc(100% + 16px)); opacity: 0; pointer-events: none; }
   .m-pill i { font-style: normal; opacity: .55; }
   .m-sheet {
     position: fixed; inset: auto 0 0 0; z-index: 39; display: block; background: var(--bg);
@@ -68,7 +72,8 @@
   }
   .m-sheet button.row.is-on { color: var(--accent); }
 }
-@media (prefers-reduced-motion: reduce) { .lift *, .m-sheet { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { .lift *, .m-sheet { transition: none !important; }
+  .m-pill { transition: none; } .m-pill.away { transform: none; opacity: 1; pointer-events: auto; } }
 </style>
 <style>
 /* цены для своих: плашка видна только в этом режиме */
@@ -604,12 +609,18 @@ body.svoi .friends-note { display: block; }
   .card .cap { padding-top:10px; }
   .card .cap b { font-weight:500; font-family:var(--font-serif); font-size:19px; letter-spacing:.02em; }
   .card .cap i { display:block; font-size:13px; color:var(--muted); font-style:italic; margin-top:1px; }
+  /* кечуа отдельной пометкой, а не одной строкой с латынью */
+  .card .cap u { display:inline-block; margin-top:5px; text-decoration:none; font-size:10.5px;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--muted); border:1px solid currentColor; padding:2px 6px; }
   .card .cap p { margin:6px 0 0; font-size:14px; color:var(--ink-2); }
   .card .more { font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-top:8px; display:inline-block; }
   .card:hover .ph { filter:brightness(1.07); }
 
   /* кадры Атласа всегда покрывают ячейку и не повторяются */
   .card .ph, #p-atlas-sp .ph, #p-atlas-ch .ph, #p-atlas .ph { background-size:cover; background-position:center; background-repeat:no-repeat; }
+  /* кадр во всю ширину лежит вне карточки, и правило выше до него не доходило:
+     фон вставал в натуральную величину и повторялся — на 1920 был виден шов */
+  .ph.fullbleed { background-size:cover; background-position:center; background-repeat:no-repeat; }
 
   /* A — разворот: большая, вокруг лесенка */
   .jA { display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,2vw,26px); }
@@ -1277,9 +1288,13 @@ body.ob header.site,body.ob footer.site,body.ob .m-pill,body.ob .m-sheet,body.ob
   --k-text:var(--fg); --k-border:var(--rule); --k-accent:var(--ob-bloom);
   --k-accent-hover:var(--ob-bloom); --k-on-accent:#241B05; --accent:var(--ob-bloom); --accent-soft:var(--ob-bloom);
 }
-/* подпись «кадра нет» стоит на тёмной плашке поверх шума — ей нужен свой светлый цвет */
-body.ob .noise > span{background:rgba(0,0,0,.68);color:#E7E9E6;
-  font-family:var(--ob-mono);font-weight:500;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+/* подпись «кадра нет» стоит на тёмной плашке поверх шума — ей нужен свой светлый цвет.
+   Правило перебивалось общим `.ph span` (тот же вес, но ниже по файлу), и подпись
+   выходила тёмной по тёмному. Плюс прописные с разрядкой шире, чем считает
+   раскладка, — хвост срезался краем плашки с overflow:hidden */
+body.ob .ph.noise > span{background:rgba(21,24,27,.82);color:#E7E9E6;
+  font-family:var(--ob-mono);font-weight:500;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 12px 4px 9px;max-width:100%;line-height:1.35}
 body.ob .rec-play{border-color:var(--fg);color:var(--fg);border-radius:0}
 body.ob .rec-play:not([disabled]):hover{background:var(--fg);color:var(--ground)}
 body.ob .langs b{font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.16em;color:var(--dim)}
@@ -1289,7 +1304,10 @@ body.ob .who{font-family:var(--ob-mono);font-weight:500;font-size:11px;letter-sp
   color:var(--dim);opacity:1;margin-bottom:8px}
 /* цели пальца: в подвале и в фильтрах галереи было 23 px вместо 44 */
 @media (max-width:900px){
-  body.ob footer.site li a,body.ob footer.site .fl a{display:inline-block;padding:11px 0;line-height:1.2}
+  /* ссылки подвала стоят каждая своей строкой — делаем нажимаемой всю строку,
+     а не только буквы: «Блог» давал цель шириной 32 px */
+  body.ob footer.site li a{display:block;padding:11px 0;line-height:1.2}
+  body.ob footer.site .fl a{display:inline-block;padding:11px 0;line-height:1.2}
   body.ob .gtag,body.ob button.tag{min-height:40px;padding:11px 14px}
   body.ob .backlink{display:inline-block;padding:10px 0}
   body.ob .logo{display:inline-block;padding:12px 0}
@@ -1299,6 +1317,36 @@ body.ob .who{font-family:var(--ob-mono);font-weight:500;font-size:11px;letter-sp
 body.ob .m-pill{background:rgba(21,24,27,.9);color:#E7E9E6;border-radius:0;border:1px solid rgba(231,233,230,.22);
   font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:11px 14px}
 body.ob .m-pill i{color:var(--ob-bloom);opacity:1}
+
+/* ── ревью 20 августа: найденное скиллом web-design-reviewer ── */
+/* ступень задаётся сокращением background, а оно сбрасывает background-size:
+   фоновые кадры секций переставали покрывать и начинали повторяться */
+body.ob section.has-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
+/* затемнение поверх кадра было глухо-чёрным (rgba(18,12,7,.82)) и гасило ступень:
+   блок 03 назначен сланцем, а выглядел породой. Теперь затемняет сама ступень */
+body.ob section.has-bg::before{background:var(--ground);opacity:.76}
+/* лифт лежит поверх кадра первого экрана — на светлой фотографии ему нужна тень */
+body.ob .lift.dark .grp,body.ob .lift.dark .lbl{text-shadow:0 1px 4px rgba(0,0,0,.55)}
+body.ob .lift.dark .mark{box-shadow:0 0 3px rgba(0,0,0,.45)}
+/* кечуа — в рамке, как в главе «Растения», а не одной строкой с латынью */
+body.ob .card .cap u{display:inline-block;margin-top:6px;text-decoration:none;
+  font-family:var(--ob-mono);font-weight:500;font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;border:1px solid currentColor;padding:3px 5px;opacity:.65}
+/* переход к содержанию: показывается только при обходе с клавиатуры */
+.skip{position:absolute;left:-9999px;top:0;z-index:80}
+.skip:focus{left:12px;top:10px;background:var(--ob-bloom,#E8B33A);color:#241B05;
+  padding:10px 16px;font-family:var(--ob-mono,monospace);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+#main:focus{outline:none}
+@media (max-width:900px){
+  /* плашка лифта висит внизу слева и накрывала последние ссылки подвала */
+  body.ob footer.site{padding-bottom:96px}
+  /* цели пальца: строчные ссылки-призывы были 19–23 px по высоте.
+     Растягиваем область нажатия псевдоэлементом, чтобы не двигать вёрстку */
+  body.ob .lake-cap a,body.ob .trail .row a,body.ob p.muted a,body.ob .ob-floor p a{position:relative}
+  body.ob .lake-cap a::after,body.ob .trail .row a::after,body.ob p.muted a::after,
+  body.ob .ob-floor p a::after{
+    content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}
+}
 
 /* ── первый экран: кадр сверху, дом снизу ──────────────────── */
 body.ob .hero{
@@ -1415,6 +1463,7 @@ body.ob .hero .dots i.on{background:var(--ob-bloom);width:13px}
 @media (prefers-reduced-motion:reduce){body.ob *{transition:none!important;animation:none!important}}
 </style><style>[data-bg]{background-color:var(--k-raised,#241C14)}.bg-in{animation:bgIn .7s ease}@keyframes bgIn{from{opacity:.25}to{opacity:1}}</style>
 
+<a class="skip" href="#main">К содержанию</a>
 <header class="site">
   <div class="wrap wide bar">
     <a class="logo" href="#/"><span class="word">KINSACOCHA</span><svg class="mark" viewBox="-3 -3 47.5692 42" aria-hidden="true" shape-rendering="geometricPrecision"><path d="M 20.7846 0 L 41.5692 36 L 0 36 Z" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round"/><circle cx="20.7846" cy="0" r="2.6" fill="currentColor"/><circle cx="41.5692" cy="36" r="2.6" fill="currentColor"/><circle cx="0" cy="36" r="2.6" fill="currentColor"/></svg></a>
@@ -1432,7 +1481,7 @@ body.ob .hero .dots i.on{background:var(--ob-bloom);width:13px}
   </div>
 </header>
 
-<main id="main">
+<main id="main" tabindex="-1">
 
 <!-- ══════════════════ ГЛАВНАЯ ══════════════════ -->
 <div class="page" id="p-home">
@@ -2034,7 +2083,7 @@ body.ob .hero .dots i.on{background:var(--ob-bloom);width:13px}
 
       <div data-atlas-preview="zveri"></div>
 
-      <div class="ph fullbleed puma-frame sc-water" data-shot data-bg="img/cea2f5214876.webp" style="margin-top:clamp(30px,5vw,52px)">
+      <div class="ph fullbleed puma-frame sc-water" data-shot data-bg="img/cea2f5214876.webp" role="img" aria-label="Пустой склон над водой — фотографии пумы нет" style="margin-top:clamp(30px,5vw,52px);background-size:cover;background-position:center;background-repeat:no-repeat">
         <svg class="puma-draw" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <!-- тело -->
           <path d="M148 132 C150 108, 196 102, 226 106 C252 109, 268 116, 270 128 C272 142, 250 150, 214 150 C178 150, 146 148, 148 132 Z"/>
@@ -3413,7 +3462,10 @@ var ATLAS = {
     return ATLAS.species.filter(function (x) { return x.ch === slug; });
   }
   function phBox(name, label, cls) {
-    if (name) return '<div class="ph ' + cls + '" data-bg="img/' + name + '.webp"></div>';
+    /* кадры вставлены фоном, <img> здесь нет — имя отдаём через role/aria-label,
+       иначе для скринридера фотографии просто не существует */
+    var alt = esc(String(label || "").replace(/ — (?:своего )?кадра нет$/, "")) || "Фотография";
+    if (name) return '<div class="ph ' + cls + '" role="img" aria-label="' + alt + '" data-bg="img/' + name + '.webp"></div>';
     return '<div class="ph ' + cls + ' noise"><span>' + esc(label || "кадра нет") + '</span></div>';
   }
   var ST = { ok: "✔ подтверждено нашим снимком", genus: "○ определён род", local: "местное имя",
@@ -3421,8 +3473,9 @@ var ATLAS = {
 
   /* карточка вида — журнальная, класс размера приходит снаружи */
   function speciesCard(sp, sizeCls) {
-    var lat = sp.lat ? '<i>' + esc(sp.lat) + (sp.que ? ' · ' + esc(sp.que) : '') + '</i>'
-                     : (sp.que ? '<i>' + esc(sp.que) + '</i>' : '');
+    /* порядок подписи по облику: имя → латынь курсивом → кечуа в рамке → строка сути */
+    var lat = (sp.lat ? '<i>' + esc(sp.lat) + '</i>' : '') +
+              (sp.que ? '<u>' + esc(sp.que) + '</u>' : '');
     return '<a class="card ' + sizeCls + '" href="#/atlas/' + sp.ch + '/' + sp.slug + '">' +
       phBox(sp.ph[0], sp.name + " — кадра нет", "") +
       '<div class="cap"><b>' + esc(sp.name) + '</b>' + lat +
@@ -3688,7 +3741,7 @@ var ATLAS = {
     for (var i = 0; i < ATLAS.chapters.length; i++) {
       var c = ATLAS.chapters[i];
       cards += '<a class="card ' + (i === 0 ? "big" : i === 1 ? "wide" : "sm") + '" href="#/atlas/' + c.slug + '">' +
-        phBox(covers[c.slug], "", "") +
+        phBox(covers[c.slug], c.title, "") +
         '<div class="cap"><b>' + esc(c.title) + '</b><i>' + counts[c.slug] + '</i><p>' + esc(c.kicker) + '</p>' +
         '<span class="more">открыть главу →</span></div></a>';
     }
@@ -4246,14 +4299,30 @@ var ATLAS = {
     sheet.appendChild(r); rows.push(r);
   });
   pill.addEventListener("click", function () { sheet.classList.toggle("open"); });
+  /* пока страницу листают, плашка уходит вниз: она стоит в левом нижнем углу
+     и накрывала кнопки блоков. Через полсекунды покоя возвращается */
+  var awayT = null, lastY = window.pageYOffset;
+  addEventListener("scroll", function () {
+    var y = window.pageYOffset;
+    if (!sheet.classList.contains("open") && Math.abs(y - lastY) > 6) pill.classList.add("away");
+    lastY = y;
+    if (awayT) clearTimeout(awayT);
+    awayT = setTimeout(function () { pill.classList.remove("away"); }, 520);
+  }, { passive: true });
   document.body.appendChild(pill); document.body.appendChild(sheet);
 
   var cur = -1;
+  var allSecs = [].slice.call(home.children).filter(function (e) { return e.tagName === "SECTION"; });
   function tick() {
     if (!home.classList.contains("on")) return;
     var mid = window.innerHeight * 0.42, best = 0;
     for (var i = 0; i < items.length; i++) if (items[i].el.getBoundingClientRect().top <= mid) best = i;
-    lift.classList.toggle("dark", /dark|ground-ember|ground-lake|og-crack|og-slate|og-moss/.test(items[best].el.className));
+    /* цвет лифта берём у секции, которая сейчас на экране, а не у ближайшего
+       пункта списка: пунктов меньше, чем секций, и на светлых ступенях между
+       ними лифт оставался белым по белому и пропадал */
+    var ground = items[best].el;
+    for (var g = 0; g < allSecs.length; g++) if (allSecs[g].getBoundingClientRect().top <= mid) ground = allSecs[g];
+    lift.classList.toggle("dark", /dark|ground-ember|ground-lake|og-crack|og-slate|og-moss/.test(ground.className));
     if (best === cur) return;
     cur = best;
     for (var k = 0; k < btns.length; k++) btns[k].classList.toggle("is-on", k === cur);

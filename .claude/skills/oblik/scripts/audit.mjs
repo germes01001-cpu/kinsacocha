@@ -24,18 +24,36 @@ const CHECK = `(function(){
     }
     var tag=e.tagName.toLowerCase();
     var clickable = tag==='button'||tag==='a'||e.getAttribute('role')==='button';
-    if(clickable&&vw<900&&(r.width<40||r.height<28)){
-      var s2=tag+(typeof e.className==='string'&&e.className?'.'+e.className.trim().split(/\\s+/).slice(0,2).join('.'):'');
-      out.small.push(s2+' '+Math.round(r.width)+'×'+Math.round(r.height));
+    if(clickable&&vw<900){
+      /* область нажатия может быть растянута псевдоэлементом — строчную ссылку
+         не двигают, а ::after поверх неё делают в 44 px. Меряем то, по чему палец
+         реально попадает, иначе проверка кричит на уже исправленное */
+      var hw=r.width, hh=r.height, pa=getComputedStyle(e,'::after');
+      if(pa && pa.position==='absolute' && pa.content && pa.content!=='none'){
+        var ph=parseFloat(pa.height)||0, pw=parseFloat(pa.width)||0;
+        if(ph>hh) hh=ph; if(pw>hw) hw=pw;
+      }
+      if(hw<40||hh<28){
+        var s2=tag+(typeof e.className==='string'&&e.className?'.'+e.className.trim().split(/\\s+/).slice(0,2).join('.'):'');
+        out.small.push(s2+' '+Math.round(r.width)+'×'+Math.round(r.height)+(hh>r.height?' (нажатие '+Math.round(hh)+')':''));
+      }
     }
-    if(e.scrollWidth>e.clientWidth+2&&st.overflowX!=='auto'&&st.overflowX!=='scroll'&&r.width>60){
+    /* кадр во всю ширину намеренно вылезает за колонку: у секции стоит
+       overflow-x:clip, ничего не режется. Это не находка, а приём */
+    var bleed = e.querySelector && e.querySelector('.fullbleed');
+    if(!bleed&&e.scrollWidth>e.clientWidth+2&&st.overflowX!=='auto'&&st.overflowX!=='scroll'&&r.width>60){
       var s3=tag+(typeof e.className==='string'&&e.className?'.'+e.className.trim().split(/\\s+/).slice(0,2).join('.'):'');
       if(out.clip.length<6) out.clip.push(s3+' '+e.scrollWidth+'>'+e.clientWidth);
     }
   }
+  /* <img> на сайте почти нет — кадры вставлены фоном. Проверка alt проходила
+     вхолостую и всегда молчала. Считаем то, что есть: фоновые кадры без имени */
   var im=document.querySelectorAll('.page.on img');
   out.imgs=im.length;
   for(var j=0;j<im.length;j++) if(!im[j].getAttribute('alt')) out.noalt++;
+  var bg=document.querySelectorAll('.page.on .ph[data-bg], .page.on .ph[style*="background-image"]');
+  out.bgtotal=bg.length; out.bgnamed=0;
+  for(var q=0;q<bg.length;q++) if(bg[q].getAttribute('aria-label')) out.bgnamed++;
   out.bgshots=document.querySelectorAll('.page.on [data-bg], .page.on .ph[style*="background-image"]').length;
   function uniq(a){var s={},o=[];for(var k=0;k<a.length;k++){if(s[a[k]])continue;s[a[k]]=1;o.push(a[k]);}return o;}
   out.overflow=uniq(out.overflow).slice(0,6); out.small=uniq(out.small).slice(0,8);
@@ -56,6 +74,7 @@ for (const [w,dsf,mob] of VPS) {
     if(o.small.length) bits.push('МЕЛКИЕ ЦЕЛИ: '+o.small.join(' | '));
     if(o.clip.length) bits.push('ОБРЕЗАНО: '+o.clip.join(' | '));
     if(o.noalt) bits.push('без alt: '+o.noalt+'/'+o.imgs);
+    if(o.bgtotal) bits.push('кадров фоном: '+o.bgtotal+', с именем: '+o.bgnamed);
     if(bits.length) console.log('  ' + (r||'главная').padEnd(24) + bits.join('\n' + ' '.repeat(28)));
   }
 }

@@ -12,6 +12,22 @@ const CHECK=`(function(){
   var OLD_FONTS=['Cormorant','Montserrat'];
   var OLD_COLORS=['rgb(168, 137, 35)','rgb(199, 165, 58)','rgb(23, 122, 205)','rgb(93, 81, 66)','rgb(143, 207, 198)','rgb(159, 216, 207)'];
   var f={},c={};
+  /* getComputedStyle врёт на связке «сокращение + var() + !important»: на кнопке
+     WhatsApp он отдавал старую охру, а пиксель на снимке был чистый #E8B33A.
+     Поэтому перед тем как записать находку, смотрим, не перебито ли свойство
+     правилом с !important — если перебито, компьютерное значение недостоверно */
+  function overridden(el, prop){
+    for(var si=0; si<document.styleSheets.length; si++){
+      var rules; try{ rules=document.styleSheets[si].cssRules }catch(err){ continue }
+      if(!rules) continue;
+      for(var ri=0; ri<rules.length; ri++){
+        var rl=rules[ri]; if(!rl.selectorText||!rl.style) continue;
+        if(rl.style.getPropertyPriority(prop)!=='important') continue;
+        try{ if(el.matches(rl.selectorText)) return true }catch(err){}
+      }
+    }
+    return false;
+  }
   var all=document.querySelectorAll('.page.on *, footer.site *, header.site *');
   for(var i=0;i<all.length;i++){
     var e=all[i],st=getComputedStyle(e);
@@ -21,7 +37,7 @@ const CHECK=`(function(){
     var sel=e.tagName.toLowerCase()+(typeof e.className==='string'&&e.className?'.'+e.className.trim().split(/\\s+/).slice(0,2).join('.'):'');
     var ff=st.fontFamily;
     for(var j=0;j<OLD_FONTS.length;j++) if(ff.indexOf(OLD_FONTS[j])===0){ f[sel+' ← '+OLD_FONTS[j]+' « '+t.slice(0,24)+' »']=1; }
-    if(OLD_COLORS.indexOf(st.color)>=0) c[sel+' ← '+st.color+' « '+t.slice(0,24)+' »']=1;
+    if(OLD_COLORS.indexOf(st.color)>=0 && !overridden(e,'color')) c[sel+' ← '+st.color+' « '+t.slice(0,24)+' »']=1;
   }
   return JSON.stringify({f:Object.keys(f).slice(0,8),c:Object.keys(c).slice(0,8)});
 })()`;
