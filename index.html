@@ -520,6 +520,15 @@
   .jA .wide .ph { aspect-ratio:16/9; }
   .jA .sm .ph { aspect-ratio:1/1; }
 
+  /* кадры без подписей — камни и люди: плотнее и без рамки */
+  .frames { gap: clamp(8px, 1.1vw, 14px); }
+  .frames .card, section.dark .frames .card {
+    padding: 0; border: none; background: none; transition: transform .35s ease;
+  }
+  .frames .card .ph { border: none; }
+  .frames .card:hover { transform: translateY(-2px); }
+  .frames .card:hover .ph { filter: brightness(1.1); }
+
   /* C — сетка с акцентами: держит полсотни кадров */
   .jC { display:grid; grid-template-columns:repeat(6,1fr); gap:clamp(12px,1.6vw,20px); }
   .jC .c { grid-column:span 2; }
@@ -2846,6 +2855,10 @@ var ATLAS = {
       { ph:"",             cap:"Слоистость",         note:"порода лежит пластами" }
     ],
     lyudi: [
+      { ph:"55a412ff4582", cap:"", note:"" }, { ph:"9f2ab7f9db07", cap:"", note:"" },
+      { ph:"a6c06c210a90", cap:"", note:"" }, { ph:"130a4287f4d2", cap:"", note:"" },
+      { ph:"60b6275586ed", cap:"", note:"" }, { ph:"974a34fb8e3d", cap:"", note:"" },
+      { ph:"5df1f6fafee0", cap:"", note:"" },
       { ph:"f7219459af8c", cap:"", note:"" }, { ph:"a6ebd8d17e52", cap:"", note:"" },
       { ph:"57569e85d77f", cap:"", note:"" }, { ph:"1e583b4e2ddb", cap:"", note:"" },
       { ph:"a383b8137401", cap:"", note:"" }, { ph:"c889ef55bb1c", cap:"", note:"" },
@@ -2911,11 +2924,9 @@ var ATLAS = {
     for (var i = 0; i < list.length; i++) {
       var f = list[i];
       out += '<div class="card ' + C_PATTERN[i % C_PATTERN.length] + '">' +
-        phBox(f.ph, f.cap || "кадра нет", "") +
-        (f.cap ? '<div class="cap"><b>' + esc(f.cap) + '</b>' + (f.note ? '<i>' + esc(f.note) + '</i>' : '') + '</div>' : '') +
-        '</div>';
+        phBox(f.ph, f.cap || "кадра нет", "") + '</div>';
     }
-    return '<div class="jC">' + out + '</div>';
+    return '<div class="jC frames">' + out + '</div>';
   }
 
   function chapNav(active) {
@@ -2997,11 +3008,9 @@ var ATLAS = {
         for (var k = 0; k < frames.length; k++) {
           var f = frames[k];
           out += '<div class="card ' + A_PATTERN[k % A_PATTERN.length] + '">' +
-            phBox(f.ph, f.cap || "кадра нет", "") +
-            (f.cap ? '<div class="cap"><b>' + esc(f.cap) + '</b>' + (f.note ? '<i>' + esc(f.note) + '</i>' : '') + '</div>' : '') +
-            '</div>';
+            phBox(f.ph, f.cap || "кадра нет", "") + '</div>';
         }
-        slots[i].innerHTML = '<div class="jA">' + out + '</div>';
+        slots[i].innerHTML = '<div class="jA frames">' + out + '</div>';
       } else {
         var all = speciesOf(ch);
         var shot = all.filter(function (x) { return x.ph && x.ph.length; });
