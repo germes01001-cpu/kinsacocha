@@ -65,6 +65,11 @@
 }
 @media (prefers-reduced-motion: reduce) { .lift *, .m-sheet { transition: none !important; } }
 </style>
+<style>
+/* цены для своих: плашка видна только в этом режиме */
+body .friends-note { display: none; border-color: var(--accent); }
+body.svoi .friends-note { display: block; }
+</style>
 </head>
 <body>
 <title>Kinsacocha</title>
@@ -1224,14 +1229,14 @@
             <div><div style="font-size:40px;font-weight:700;line-height:1">3–4</div><div class="muted">часа вниз</div></div>
           </div>
           <p class="muted">Снизу идёт коллективо — общая маршрутка. Она довозит до поворота, там кончается асфальт. Дальше только вверх и только пешком.</p>
-          <p><span class="tag">коллективо · S/. 3–5</span><span class="tag">с проводником · S/. 150 за группу до трёх</span><span class="tag">+30 за каждого следующего</span></p>
+          <p><span class="tag">коллективо · S/. 3–5</span><span class="tag">с проводником · S/. <span data-p="climb">300</span> за группу до трёх</span><span class="tag">+<span data-p="climb_n">60</span> за каждого следующего</span></p>
           <p class="muted">Цена за подъём или за спуск, в одну сторону. Вниз — по той же тропе, почти до самого Писака: спуск легче, но дольше подъёма.</p>
         </div>
       </div>
 
       <div class="card accent" style="margin-top:22px">
         <h3>Да, пешком дороже, чем на такси. Так и должно быть.</h3>
-        <p>Такси стоит сотню и решает задачу «оказаться наверху». Подъём с проводником стоит полторы — потому что это не перевозка, а первый день здесь. Вы платите не за то, чтобы преодолеть эти километры, а за то, чтобы их увидеть.</p>
+        <p>Такси стоит сотню и решает задачу «оказаться наверху». Подъём с проводником стоит вдвое дороже — потому что это не перевозка, а первый день здесь. Вы платите не за то, чтобы преодолеть эти километры, а за то, чтобы их увидеть.</p>
         <p class="muted">Разница между двумя вариантами — не пятьдесят солей. Это разница между «приехал» и «поднялся».</p>
       </div>
 
@@ -1282,8 +1287,8 @@
           <h3>Кинсакоча целиком</h3>
           <p class="muted">3 дня · 2 ночи</p>
           <p><span class="tag">дом</span><span class="tag">тропа на полдня</span><span class="tag">тропа на день</span><span class="tag">дрова</span><span class="tag">ужин</span></p>
-          <div class="price">S/. 590 <small>на двоих</small></div>
-          <p class="muted">одному — S/. 490 · по частям было бы 730</p>
+          <div class="price">S/. <span data-p="all2">1180</span> <small>на двоих</small></div>
+          <p class="muted">одному — S/. <span data-p="all1">980</span> · по частям было бы <span data-p="all_parts">1460</span></p>
           <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
         </div>
         <div class="card">
@@ -1291,8 +1296,8 @@
           <h3>Ночь у озера</h3>
           <p class="muted">2 дня · 1 ночь</p>
           <p><span class="tag">дом</span><span class="tag">короткая тропа</span><span class="tag">дрова</span></p>
-          <div class="price">S/. 190 <small>на двоих</small></div>
-          <p class="muted">одному — S/. 150 · по частям было бы 230</p>
+          <div class="price">S/. <span data-p="night2">380</span> <small>на двоих</small></div>
+          <p class="muted">одному — S/. <span data-p="night1">300</span> · по частям было бы <span data-p="night_parts">460</span></p>
           <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
         </div>
         <div class="card accent">
@@ -1300,7 +1305,7 @@
           <h3>Дом на день</h3>
           <p class="muted">без ночёвки · приехали утром, уехали к вечеру</p>
           <p><span class="tag">дом</span><span class="tag">душ</span><span class="tag">кухня</span><span class="tag">типи</span></p>
-          <div class="price">S/. 30 <small>с человека</small></div>
+          <div class="price">S/. <span data-p="day">60</span> <small>с человека</small></div>
           <p class="muted">кинуть вещи, погулять, вернуться в тепло и уехать вниз</p>
           <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
         </div>
@@ -1311,10 +1316,10 @@
           <h3>Аренда дома</h3>
           <p class="muted">с ночёвкой · за сутки · весь дом, а не место в нём</p>
           <table class="prices">
-            <tr><td>Один гость</td><td>S/. 70</td></tr>
-            <tr><td>Двое</td><td>S/. 120</td></tr>
-            <tr><td>Трое</td><td>S/. 180</td></tr>
-            <tr><td>Каждый следующий</td><td>+ S/. 50</td></tr>
+            <tr><td>Один гость</td><td>S/. <span data-p="dom1">140</span></td></tr>
+            <tr><td>Двое</td><td>S/. <span data-p="dom2">240</span></td></tr>
+            <tr><td>Трое</td><td>S/. <span data-p="dom3">360</span></td></tr>
+            <tr><td>Каждый следующий</td><td>+ S/. <span data-p="dom_next">100</span></td></tr>
           </table>
           <p class="muted">Дети до семи лет в этот счёт не входят. До трёх — кровати в комнате. С четвёртого — типи: пять мест, и там холоднее. Всего восемь человек.</p>
         </div>
@@ -1322,10 +1327,10 @@
           <h3>Тропы с хозяином</h3>
           <p class="muted">цена за группу до трёх человек, дальше по одному</p>
           <table class="prices">
-            <tr><td>Короткая <span class="muted">· около двух часов</span></td><td>S/. 80<br><span class="muted" style="font-weight:400">+20 / чел.</span></td></tr>
-            <tr><td>Полдня <span class="muted">· выход после завтрака</span></td><td>S/. 150<br><span class="muted" style="font-weight:400">+40 / чел.</span></td></tr>
-            <tr><td>Целый день <span class="muted">· с едой у воды</span></td><td>S/. 220<br><span class="muted" style="font-weight:400">+50 / чел.</span></td></tr>
-            <tr><td>Тропа хозяина <span class="muted">· день, собранный под вас</span></td><td>S/. 350<br><span class="muted" style="font-weight:400">+80 / чел.</span></td></tr>
+            <tr><td>Короткая <span class="muted">· около двух часов</span></td><td>S/. <span data-p="t_short">160</span><br><span class="muted" style="font-weight:400">+<span data-p="t_short_n">40</span> / чел.</span></td></tr>
+            <tr><td>Полдня <span class="muted">· выход после завтрака</span></td><td>S/. <span data-p="t_half">300</span><br><span class="muted" style="font-weight:400">+<span data-p="t_half_n">80</span> / чел.</span></td></tr>
+            <tr><td>Целый день <span class="muted">· с едой у воды</span></td><td>S/. <span data-p="t_day">440</span><br><span class="muted" style="font-weight:400">+<span data-p="t_day_n">100</span> / чел.</span></td></tr>
+            <tr><td>Тропа хозяина <span class="muted">· день, собранный под вас</span></td><td>S/. <span data-p="t_host">700</span><br><span class="muted" style="font-weight:400">+<span data-p="t_host_n">160</span> / чел.</span></td></tr>
           </table>
           <p class="muted">Тропы бывают только в те дни, когда хозяин наверху. Больше восьми человек на одного проводника мы не берём — на 4200 один человек не удержит глазами больше.</p>
         </div>
@@ -1335,6 +1340,16 @@
         <h3>Напишите, сколько вас и на сколько дней</h3>
         <p>Посчитаю и отвечу числом. Калькулятора здесь нет намеренно: он не знает ни дат, ни того, наверху ли хозяин в эти сутки.</p>
         <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать и спросить цену →</a>
+      </div>
+
+
+      <div class="friends-note card" style="margin-top:18px">
+        <p style="margin:0"><b>Вы смотрите цены для своих.</b> Так мы считаем для друзей, знакомых и тех, кого они привели. Для всех остальных цены другие — <a href="#/tseny" data-price-public>вот они</a>.</p>
+      </div>
+      <div class="card" style="margin-top:18px;border-color:var(--accent)">
+        <h3>Коммерческие мероприятия — отдельно</h3>
+        <p>Ретрит, съёмка, семинар, выезд с группой, любое событие, на котором вы зарабатываете, — считается не по этим ценам. Дом закрывается под вас целиком, и условия обсуждаются заранее.</p>
+        <p class="muted">Напишите, что вы задумали и сколько будет людей: <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить условия →</a></p>
       </div>
 
       <h3 style="margin-top:32px">Дополнения</h3>
@@ -1517,7 +1532,7 @@
               <h3>Короткая · около двух часов</h3>
               <p>Ближняя вода и обратно. С детьми: успеете вернуться к обеду, и они устанут ровно настолько, чтобы уснуть до заката.</p>
               <div class="row"><span class="pill">одна лагуна</span><span class="pill">горы над ней</span>
-                <span class="grow">S/. 80 за группу · <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить →</a></span></div>
+                <span class="grow">S/. <span data-p="t_short">160</span> за группу · <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить →</a></span></div>
             </div>
           </div>
         </div>
@@ -1529,7 +1544,7 @@
               <h3>Полдня</h3>
               <p>Дальше и выше. Для тех, кто хочет идти, а не гулять.</p>
               <div class="row"><span class="pill">одна лагуна</span><span class="pill">горы с высоты</span>
-                <span class="grow">S/. 150 за группу · <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить →</a></span></div>
+                <span class="grow">S/. <span data-p="t_half">300</span> за группу · <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить →</a></span></div>
             </div>
           </div>
         </div>
@@ -1541,7 +1556,7 @@
               <h3>Целый день</h3>
               <p>Все три лагуны за один день, привал с едой у воды. Не в первый день наверху: целый день на 4200 стоит проходить уже привыкшим.</p>
               <div class="row"><span class="pill">три лагуны</span><span class="pill">привал</span><span class="pill">горы весь день</span>
-                <span class="grow">S/. 220 за группу · <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить →</a></span></div>
+                <span class="grow">S/. <span data-p="t_day">440</span> за группу · <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить →</a></span></div>
             </div>
           </div>
         </div>
@@ -1553,7 +1568,7 @@
               <h3>Тропа хозяина</h3>
               <p>Здесь ничего не описано, и это не оплошность. Она собирается утром — под вас, под погоду, под то, сколько вы готовы идти.</p>
               <div class="row"><span class="pill">целый день</span><span class="pill">маршрут не назван</span>
-                <span class="grow">S/. 350 за группу · <a href="https://wa.me/447916693473" target="_blank" rel="noopener">написать →</a></span></div>
+                <span class="grow">S/. <span data-p="t_host">700</span> за группу · <a href="https://wa.me/447916693473" target="_blank" rel="noopener">написать →</a></span></div>
             </div>
           </div>
         </div>
@@ -1925,43 +1940,53 @@
         <div class="card">
           <h3>Кинсакоча целиком</h3>
           <p class="muted">3 дня · 2 ночи · дом, тропа на полдня, тропа на целый день, дрова, ужин</p>
-          <div class="price">S/. 590 <small>на двоих</small></div>
-          <p class="muted">одному — S/. 490</p>
+          <div class="price">S/. <span data-p="all2">1180</span> <small>на двоих</small></div>
+          <p class="muted">одному — S/. <span data-p="all1">980</span></p>
         </div>
         <div class="card">
           <h3>Ночь у озера</h3>
           <p class="muted">2 дня · 1 ночь · дом, короткая тропа, дрова</p>
-          <div class="price">S/. 190 <small>на двоих</small></div>
-          <p class="muted">одному — S/. 150</p>
+          <div class="price">S/. <span data-p="night2">380</span> <small>на двоих</small></div>
+          <p class="muted">одному — S/. <span data-p="night1">300</span></p>
         </div>
         <div class="card accent">
           <h3>Дом на день</h3>
           <p class="muted">без ночёвки · дом, душ, кухня, типи</p>
-          <div class="price">S/. 30 <small>с человека</small></div>
+          <div class="price">S/. <span data-p="day">60</span> <small>с человека</small></div>
         </div>
       </div>
 
       <h3 style="margin-top:32px">Дом с ночёвкой</h3>
       <table class="prices">
-        <tr><td>Один гость</td><td>S/. 70</td></tr>
-        <tr><td>Двое</td><td>S/. 120</td></tr>
-        <tr><td>Трое</td><td>S/. 180</td></tr>
-        <tr><td>Каждый следующий</td><td>+ S/. 50</td></tr>
+        <tr><td>Один гость</td><td>S/. <span data-p="dom1">140</span></td></tr>
+        <tr><td>Двое</td><td>S/. <span data-p="dom2">240</span></td></tr>
+        <tr><td>Трое</td><td>S/. <span data-p="dom3">360</span></td></tr>
+        <tr><td>Каждый следующий</td><td>+ S/. <span data-p="dom_next">100</span></td></tr>
       </table>
       <p class="muted">Дети до семи лет в этот счёт не входят. Всего восемь мест: три кровати в комнате, пять в типи.</p>
 
       <h3 style="margin-top:28px">Тропы с хозяином</h3>
       <p class="muted">цена за группу до трёх человек, дальше по одному</p>
       <table class="prices">
-        <tr><td>Короткая · около двух часов</td><td>S/. 80 <span class="muted" style="font-weight:400">(+20)</span></td></tr>
-        <tr><td>Полдня</td><td>S/. 150 <span class="muted" style="font-weight:400">(+40)</span></td></tr>
-        <tr><td>Целый день</td><td>S/. 220 <span class="muted" style="font-weight:400">(+50)</span></td></tr>
-        <tr><td>Тропа хозяина</td><td>S/. 350 <span class="muted" style="font-weight:400">(+80)</span></td></tr>
+        <tr><td>Короткая · около двух часов</td><td>S/. <span data-p="t_short">160</span> <span class="muted" style="font-weight:400">(+<span data-p="t_short_n">40</span>)</span></td></tr>
+        <tr><td>Полдня</td><td>S/. <span data-p="t_half">300</span> <span class="muted" style="font-weight:400">(+<span data-p="t_half_n">80</span>)</span></td></tr>
+        <tr><td>Целый день</td><td>S/. <span data-p="t_day">440</span> <span class="muted" style="font-weight:400">(+<span data-p="t_day_n">100</span>)</span></td></tr>
+        <tr><td>Тропа хозяина</td><td>S/. <span data-p="t_host">700</span> <span class="muted" style="font-weight:400">(+<span data-p="t_host_n">160</span>)</span></td></tr>
       </table>
       <p class="muted">Тропы бывают только в те дни, когда хозяин наверху.</p>
 
       <h3 style="margin-top:28px">Дополнения</h3>
+      
       <p><span class="tag">одни на горе · +50%</span><span class="tag">дрова · связка S/. 30</span><span class="tag">трансфер · S/. 100 в одну сторону</span><span class="tag">ужин · S/. 30</span><span class="tag">завтрак · S/. 20</span></p>
+<div class="friends-note card" style="margin-top:18px">
+        <p style="margin:0"><b>Вы смотрите цены для своих.</b> Так мы считаем для друзей, знакомых и тех, кого они привели. Для всех остальных цены другие — <a href="#/tseny" data-price-public>вот они</a>.</p>
+      </div>
+      <div class="card" style="margin-top:18px;border-color:var(--accent)">
+        <h3>Коммерческие мероприятия — отдельно</h3>
+        <p>Ретрит, съёмка, семинар, выезд с группой, любое событие, на котором вы зарабатываете, — считается не по этим ценам. Дом закрывается под вас целиком, и условия обсуждаются заранее.</p>
+        <p class="muted">Напишите, что вы задумали и сколько будет людей: <a href="https://wa.me/447916693473" target="_blank" rel="noopener">спросить условия →</a></p>
+      </div>
+      
 
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener" style="margin-top:20px">Написать и спросить цену</a>
     </div>
@@ -2677,6 +2702,7 @@
   var ROUTES = {
     "": "p-home",
     "tseny": "p-tseny",
+    "svoi": "p-tseny",
     "ozera": "p-ozera",
     "ozera/pumakocha": "p-ozera-pumakocha",
     "ozera/azulkocha": "p-ozera-azulkocha",
@@ -3658,6 +3684,49 @@ var ATLAS = {
   addEventListener("resize", tick);
   addEventListener("hashchange", function () { setTimeout(visible, 40); });
   visible();
+})();
+</script>
+<script>
+/* ─── Два набора цен ──────────────────────────────────────
+   В разметке стоят обычные цены. Ссылка #/svoi включает
+   дружеские: они подставляются в те же места и держатся,
+   пока открыта вкладка. ★ ЗДЕСЬ ПРАВЯТСЯ ЧИСЛА.          */
+(function () {
+  var PRICES = {
+    /* ключ:      [для своих, для всех] */
+    all2:       [590, 1180],   all1:      [490, 980],   all_parts:  [730, 1460],
+    night2:     [190, 380],    night1:    [150, 300],   night_parts:[230, 460],
+    day:        [30, 60],
+    dom1:       [70, 140],     dom2:      [120, 240],   dom3:       [180, 360],  dom_next: [50, 100],
+    t_short:    [80, 160],     t_short_n: [20, 40],
+    t_half:     [150, 300],    t_half_n:  [40, 80],
+    t_day:      [220, 440],    t_day_n:   [50, 100],
+    t_host:     [350, 700],    t_host_n:  [80, 160],
+    climb:      [150, 300],    climb_n:   [30, 60]
+  };
+  var KEY = "kc-svoi";
+  function svoi() { try { return sessionStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+  function setSvoi(v) { try { v ? sessionStorage.setItem(KEY, "1") : sessionStorage.removeItem(KEY); } catch (e) {} }
+
+  function paint() {
+    var on = svoi();
+    document.body.classList.toggle("svoi", on);
+    var nodes = document.querySelectorAll("[data-p]");
+    for (var i = 0; i < nodes.length; i++) {
+      var p = PRICES[nodes[i].getAttribute("data-p")];
+      if (p) nodes[i].textContent = on ? p[0] : p[1];
+    }
+  }
+  function check() {
+    if (location.hash.replace(/^#\/?/, "") === "svoi") setSvoi(true);
+    paint();
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("[data-price-public]");
+    if (a) { setSvoi(false); paint(); }
+  });
+  addEventListener("hashchange", function () { setTimeout(check, 30); });
+  check();
 })();
 </script>
 </body>
