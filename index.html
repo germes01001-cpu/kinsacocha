@@ -1201,6 +1201,141 @@ body.ob.ob-flat footer.site{background:var(--ob-crack)}
   .ob-thumbs{grid-template-columns:repeat(2,1fr)}
 }
 @media (prefers-reduced-motion:reduce){body.ob *{transition:none!important;animation:none!important}}
+
+/* ═══ Облик «Спуск» на главной ══════════════════════════════════
+   Включается скрытой ссылкой #/novyy, держится в сессии.
+   Правило: свет — снаружи, темнота — внутри. Раскладка блоков
+   по ступеням — в HOME_GROUND ниже и в .claude/skills/oblik/ */
+
+.ob-only{display:none}
+body.ob-home .ob-only{display:block}
+
+body.ob-home{
+  --ob-air:#E6E9E3; --ob-ichu:#C8C7B1; --ob-moss:#79836D;
+  --ob-slate:#3D4450; --ob-crack:#15181B; --ob-bloom:#E8B33A;
+  --ob-disp:'PT Sans Narrow',Arial Narrow,Arial,sans-serif;
+  --ob-text:'Spectral',Georgia,serif;
+  --ob-mono:'JetBrains Mono',ui-monospace,monospace;
+  background:var(--ob-air); color:#1D2119;
+  font-family:var(--ob-text); font-weight:300; letter-spacing:0;
+}
+
+/* ── ступени ───────────────────────────────────────────────── */
+body.ob-home .og-air{background:var(--ob-air);color:#1D2119;--fg:#1D2119;--dim:rgba(29,33,25,.62);--rule:rgba(29,33,25,.2)}
+body.ob-home .og-ichu{background:var(--ob-ichu);color:#1D2119;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
+body.ob-home .og-moss{background:var(--ob-moss);color:#151A14;--fg:#151A14;--dim:rgba(21,26,20,.72);--rule:rgba(21,26,20,.28)}
+body.ob-home .og-slate{background:var(--ob-slate);color:#EFEFE6;--fg:#EFEFE6;--dim:rgba(239,239,230,.7);--rule:rgba(239,239,230,.22)}
+body.ob-home .og-crack{background:var(--ob-crack);color:#E7E9E6;--fg:#E7E9E6;--dim:rgba(231,233,230,.66);--rule:rgba(231,233,230,.18)}
+body.ob-home #p-home > section{border-bottom:0;padding:clamp(52px,8vw,104px) 0}
+body.ob-home #p-home > section.hero{padding:0}
+
+/* ── типографика ───────────────────────────────────────────── */
+body.ob-home h1,body.ob-home h2{
+  font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
+  letter-spacing:.01em;line-height:1;color:inherit}
+body.ob-home h2{font-size:clamp(28px,5vw,58px);margin:0 0 6px}
+body.ob-home h3,body.ob-home h4{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:inherit}
+body.ob-home h3{font-size:clamp(19px,2.6vw,26px)}
+body.ob-home h4{font-size:15px}
+body.ob-home p,body.ob-home li{font-family:var(--ob-text);font-weight:300}
+body.ob-home .lead{font-family:var(--ob-text);font-weight:300;font-size:clamp(18px,2.3vw,25px);line-height:1.4;color:var(--fg,inherit);opacity:.92}
+body.ob-home .kick{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+body.ob-home .muted,body.ob-home .note{color:var(--dim,inherit)}
+body.ob-home section.dark .lead,body.ob-home section.dark .muted{color:var(--dim,inherit)}
+
+/* надзаголовок — моноширинный, без золотой засечки */
+body.ob-home .eyebrow{gap:12px;margin-bottom:18px}
+body.ob-home .eyebrow i{background:currentColor;opacity:.4}
+body.ob-home .eyebrow span,body.ob-home .eyebrow b{
+  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--dim,inherit)}
+body.ob-home .eyebrow span{color:var(--fg,inherit);opacity:.85}
+
+/* кнопки — прямые, моноширинные */
+body.ob-home .btn{
+  font-family:var(--ob-mono);font-weight:500;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;padding:13px 20px;border:1px solid currentColor;color:inherit;
+  background:none;border-radius:0}
+body.ob-home .btn:hover{background:var(--fg,#1D2119);color:var(--ob-air)}
+body.ob-home .og-crack .btn:hover,body.ob-home .og-slate .btn:hover{background:var(--ob-air);color:var(--ob-crack)}
+body.ob-home .btn.primary{background:var(--ob-bloom);border-color:var(--ob-bloom);color:#241B05}
+body.ob-home .btn.primary:hover{background:#F2C557;border-color:#F2C557;color:#241B05}
+body.ob-home .tag,body.ob-home .pill{
+  font-family:var(--ob-mono);font-weight:500;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;border-radius:0;border-color:var(--rule,currentColor);color:var(--dim,inherit)}
+body.ob-home .opts .pill.on{border-color:var(--ob-bloom);color:var(--ob-bloom)}
+
+/* карточки и линейки живут на ступени, а не носят свой фон */
+body.ob-home .card,body.ob-home .amen,body.ob-home .lake,body.ob-home .pinned,body.ob-home .pair{
+  background:transparent;border-color:var(--rule,currentColor);border-radius:0}
+body.ob-home .day,body.ob-home .day-row,body.ob-home .rec,body.ob-home .qa{border-color:var(--rule,currentColor)}
+body.ob-home a{color:inherit}
+body.ob-home .og-crack a:not(.btn),body.ob-home .og-slate a:not(.btn){color:var(--ob-bloom)}
+body.ob-home :focus-visible{outline:2px solid var(--ob-bloom);outline-offset:3px}
+body.ob-home .price{font-family:var(--ob-disp);font-weight:700;letter-spacing:.01em}
+
+/* ── шапка ─────────────────────────────────────────────────── */
+body.ob-home header.site{background:rgba(21,24,27,.82);border-bottom:1px solid rgba(231,233,230,.14)}
+body.ob-home .logo{font-family:var(--ob-disp);font-weight:700;color:#E7E9E6}
+body.ob-home .logo .word{font-family:var(--ob-disp);font-weight:700;letter-spacing:.28em}
+body.ob-home nav.main a{
+  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(231,233,230,.62)}
+body.ob-home nav.main a:hover{color:#E7E9E6}
+body.ob-home nav.main a.on{color:#E7E9E6;border-bottom-color:var(--ob-bloom)}
+body.ob-home .burger{color:#E7E9E6;border-color:rgba(231,233,230,.35);font-family:var(--ob-mono);
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
+@media (max-width:900px){body.ob-home nav.main{background:var(--ob-crack)}
+  body.ob-home nav.main a{font-size:14px;letter-spacing:.14em}}
+
+/* ── первый экран: кадр сверху, дом снизу ──────────────────── */
+body.ob-home .hero-plinth{grid-area:2/1;background:var(--ob-crack)}
+body.ob-home .hero{
+  display:grid;grid-template-rows:1fr auto;grid-template-columns:100%;
+  align-items:stretch;justify-items:stretch;justify-content:stretch;align-content:stretch;
+  height:100svh;min-height:560px;
+  background:var(--ob-crack);color:#E7E9E6;overflow:hidden}
+body.ob-home .slider{grid-area:1/1;position:relative;inset:auto;overflow:hidden}
+body.ob-home .hero .scrim{
+  grid-area:1/1;position:relative;inset:auto;
+  background:linear-gradient(to bottom,rgba(12,14,16,.5) 0%,rgba(12,14,16,.05) 26%,rgba(12,14,16,0) 60%,rgba(21,24,27,.55) 100%)}
+body.ob-home .hero-body{
+  grid-area:2/1;position:relative;z-index:2;background:var(--ob-crack);
+  display:block;text-align:left;width:100%;max-width:1120px;margin:0 auto;
+  padding:clamp(22px,3vw,32px) clamp(16px,4vw,24px) clamp(24px,3.2vw,34px)}
+body.ob-home .ob-hero-kick{
+  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;
+  letter-spacing:.22em;text-transform:uppercase;color:rgba(231,233,230,.55);margin:0 0 12px}
+body.ob-home .hero-body h1{
+  font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
+  font-size:clamp(36px,7.6vw,92px);line-height:.92;letter-spacing:-.005em;
+  color:#E7E9E6;text-shadow:none;margin:0}
+body.ob-home .hero-body .lead{
+  margin:14px 0 0!important;max-width:46ch!important;
+  color:rgba(231,233,230,.8);text-shadow:none;font-size:clamp(16px,1.9vw,20px)}
+body.ob-home .hero-body .btn{display:inline-block;margin:18px 10px 0 0;vertical-align:top}
+body.ob-home .hero .dots{
+  position:absolute;right:clamp(16px,4vw,24px);bottom:clamp(30px,3.8vw,44px);
+  justify-content:flex-end;margin:0;max-width:210px}
+body.ob-home .hero .dots i{background:rgba(231,233,230,.26);border-radius:0;width:13px;height:2px;transition:none}
+body.ob-home .hero .dots i.on{background:var(--ob-bloom);width:13px}
+@media (max-width:760px){
+  body.ob-home .hero .dots{position:static;justify-content:flex-start;margin-top:20px;max-width:none}
+}
+@media (max-height:620px){body.ob-home .hero{height:auto;min-height:0}}
+
+/* ── подвал ────────────────────────────────────────────────── */
+body.ob-home footer.site{background:var(--ob-crack);color:rgba(231,233,230,.66)}
+body.ob-home footer.site h4{color:#E7E9E6;font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.2em}
+body.ob-home footer.site a{color:rgba(231,233,230,.66)}
+body.ob-home footer.site a:hover{color:var(--ob-bloom)}
+body.ob-home .flogo,body.ob-home .flogo .word{font-family:var(--ob-disp);font-weight:700;letter-spacing:.28em}
+body.ob-home .fclaim{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;color:#E7E9E6}
+
+/* ── лифт ──────────────────────────────────────────────────── */
+body.ob-home .lift{--lift-ink:#1D2119;--lift-dim:rgba(29,33,25,.3)}
+body.ob-home .lift.dark{--lift-ink:#E7E9E6;--lift-dim:rgba(231,233,230,.32)}
+body.ob-home .lift .lbl,body.ob-home .lift .grp{font-family:var(--ob-mono);font-weight:500;letter-spacing:.14em}
 </style><style>[data-bg]{background-color:var(--k-raised,#241C14)}.bg-in{animation:bgIn .7s ease}@keyframes bgIn{from{opacity:.25}to{opacity:1}}</style>
 
 <header class="site">
@@ -1244,6 +1379,7 @@ body.ob.ob-flat footer.site{background:var(--ob-crack)}
     </div>
     <div class="scrim"></div>
     <div class="hero-body">
+      <div class="ob-hero-kick ob-only">4200 м · община Пару-Пару · над Священной долиной</div>
       <h1>Дом у трёх озёр</h1>
       <p class="lead" style="max-width:44ch;margin:0 auto 26px">4200 метров над Священной долиной. Приезжают на день — остаются на ночь.</p>
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
@@ -2902,6 +3038,7 @@ body.ob.ob-flat footer.site{background:var(--ob-crack)}
   /* ─── Маршрутизация ─────────────────────────────── */
   var ROUTES = {
     "": "p-home",
+    "novyy": "p-home",
     "tseny": "p-tseny",
     "friendly": "p-tseny",
     "svoi": "p-tseny",
@@ -4040,12 +4177,12 @@ var ATLAS = {
     if (!home.classList.contains("on")) return;
     var mid = window.innerHeight * 0.42, best = 0;
     for (var i = 0; i < items.length; i++) if (items[i].el.getBoundingClientRect().top <= mid) best = i;
+    lift.classList.toggle("dark", /dark|ground-ember|ground-lake|og-crack|og-slate|og-moss/.test(items[best].el.className));
     if (best === cur) return;
     cur = best;
     for (var k = 0; k < btns.length; k++) btns[k].classList.toggle("is-on", k === cur);
     for (var m = 0; m < rows.length; m++) rows[m].classList.toggle("is-on", m === cur);
     for (var g = 0; g < heads.length; g++) heads[g].el.classList.toggle("is-here", heads[g].name === items[cur].group);
-    lift.classList.toggle("dark", /dark|ground-ember|ground-lake/.test(items[cur].el.className));
     pill.querySelector(".t").textContent = items[cur].group + " · " + (items[cur].name || "Начало");
   }
   function visible() {
@@ -4117,6 +4254,65 @@ var ATLAS = {
   });
   addEventListener("hashchange", function () { setTimeout(check, 30); });
   check();
+})();
+</script>
+<script>
+/* ─── Облик «Спуск» на главной: скрытая ссылка #/novyy ───────
+   Раскладка блоков по ступеням палитры. Карта и обоснование —
+   в .claude/skills/oblik/. Порядок строго по секциям #p-home. */
+(function () {
+  var GROUND = [
+    "crack",  /* 00 первый экран  — кадр и плинт */
+    "crack",  /* 01 Просто дом    — дом, значит внутри */
+    "crack",  /* 02 Кому вы пишете — разговор с хозяином */
+    "slate",  /* 03 Чего не найдёте — условие входа, не разговор у печи */
+    "air",    /* 04 Озёра */
+    "air",    /* 05 Дорога */
+    "air",    /* 06 Высота */
+    "ichu",   /* 07 Как приезжают */
+    "ichu",   /* 08 Честно о горе */
+    "moss",   /* 09 Сутки здесь   — порог: и снаружи, и в доме */
+    "crack",  /* 10 Еда */
+    "crack",  /* 11 Пять печей */
+    "air",    /* 12 Тропы */
+    "air",    /* 13 Полевые заметки */
+    "air",    /* 14 Атлас · звери */
+    "ichu",   /* 15 Атлас · растения */
+    "slate",  /* 16 Атлас · камни */
+    "crack",  /* 17 Атлас · люди */
+    "crack",  /* 18 Дома из земли */
+    "crack",  /* 19 Ткачество — община одним куском */
+    "air",    /* 20 Как это выглядит — выдох на свет */
+    "ichu",   /* 21 Что взять с собой */
+    "moss",   /* 22 Практика */
+    "crack",  /* 23 По рекомендации */
+    "crack"   /* 24 Приезжайте */
+  ];
+  var KEY = "kc-oblik";
+  function on() { try { return sessionStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+  function set(v) { try { v ? sessionStorage.setItem(KEY, "1") : sessionStorage.removeItem(KEY); } catch (e) {} }
+
+  var home = document.getElementById("p-home");
+  var secs = [].slice.call(home.children).filter(function (e) { return e.tagName === "SECTION"; });
+
+  function paint() {
+    var yes = on() && home.classList.contains("on");
+    document.body.classList.toggle("ob-home", yes);
+    for (var i = 0; i < secs.length; i++) {
+      if (!GROUND[i]) continue;
+      secs[i].classList.toggle("og-" + GROUND[i], yes);
+    }
+  }
+  function check() {
+    var h = location.hash.replace(/^#\/?/, "");
+    if (h === "novyy" || /(\?|&)novyy\b/.test(location.search)) set(true);
+    if (h === "staryy") set(false);
+    paint();
+  }
+  addEventListener("hashchange", function () { setTimeout(check, 40); });
+  check();
+  /* лифт читает класс секции при прокрутке — толкаем его, чтобы взял ступени сразу */
+  setTimeout(function () { try { dispatchEvent(new Event("scroll")); } catch (e) {} }, 60);
 })();
 </script>
 <script>
