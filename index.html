@@ -1197,8 +1197,12 @@ body.ob hr{border-color:var(--rule)}
 
 /* ── добор: элементы старой тёмной темы, у которых цвет прописан руками ── */
 body.ob section .btn,body.ob .ob-page .btn,body.ob footer .btn{color:var(--fg)}
-body.ob section .btn.primary,body.ob .ob-page .btn.primary,body.ob footer .btn.primary{
-  background:var(--ob-bloom);border-color:var(--ob-bloom);color:#241B05}
+/* главная кнопка: старая тема задаёт ей цвет в четырёх местах с разным весом,
+   включая .hero/.kontakty-cta/section.center. Перебиваем явно — иначе текст
+   остаётся старым золотом на золотом фоне и не читается. */
+body.ob .btn.primary{
+  background:var(--ob-bloom)!important;border-color:var(--ob-bloom)!important;color:#241B05!important}
+body.ob .btn.primary:hover{background:#F2C557!important;border-color:#F2C557!important;color:#241B05!important}
 body.ob section .ph:not([style*="background-image"]){background-color:rgba(0,0,0,.14)}
 body.ob section .ph span,body.ob .ph span{color:var(--dim)}
 body.ob .chapnav a.on,body.ob .ob-chapnav a.on,body.ob .gtag.on,body.ob button.tag.on{
@@ -1263,6 +1267,33 @@ body.ob .lift{--lift-ink:#1D2119;--lift-dim:rgba(29,33,25,.3)}
 body.ob .lift.dark{--lift-ink:#E7E9E6;--lift-dim:rgba(231,233,230,.32)}
 body.ob .lift .lbl,body.ob .lift .grp{font-family:var(--ob-mono);font-weight:500;letter-spacing:.14em}
 
+/* ── ревью дизайна: правки по найденному ────────────────────── */
+/* шапка, подвал, плашка лифта — не секции, переменные до них не доходили */
+body.ob header.site,body.ob footer.site,body.ob .m-pill,body.ob .m-sheet,body.ob .lift{
+  --ground:#15181B; --fg:#E7E9E6; --dim:rgba(231,233,230,.62); --rule:rgba(231,233,230,.18);
+  --ink:var(--fg); --ink-2:var(--dim); --muted:var(--dim);
+  --line:var(--rule); --line-soft:var(--rule); --dark-ink:var(--fg); --dark-muted:var(--dim);
+  --k-text:var(--fg); --k-border:var(--rule); --k-accent:var(--ob-bloom);
+  --k-accent-hover:var(--ob-bloom); --k-on-accent:#241B05; --accent:var(--ob-bloom); --accent-soft:var(--ob-bloom);
+}
+body.ob .langs b{font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.16em;color:var(--dim)}
+body.ob .langs b.on{color:var(--ob-bloom);font-weight:500}
+/* крупные номера в карточках — на служебный шрифт, без старого золота */
+body.ob .who{font-family:var(--ob-mono);font-weight:500;font-size:11px;letter-spacing:.2em;
+  color:var(--dim);opacity:1;margin-bottom:8px}
+/* цели пальца: в подвале и в фильтрах галереи было 23 px вместо 44 */
+@media (max-width:900px){
+  body.ob footer.site li a,body.ob footer.site .fl a{display:inline-block;padding:11px 0;line-height:1.2}
+  body.ob .gtag,body.ob button.tag{min-height:40px;padding:11px 14px}
+  body.ob .backlink{display:inline-block;padding:10px 0}
+  body.ob .logo{display:inline-block;padding:12px 0}
+  body.ob .langs a,body.ob .langs b{display:inline-block;padding:11px 10px;margin-right:2px}
+}
+/* плашка лифта в новом облике */
+body.ob .m-pill{background:rgba(21,24,27,.9);color:#E7E9E6;border-radius:0;border:1px solid rgba(231,233,230,.22);
+  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:11px 14px}
+body.ob .m-pill i{color:var(--ob-bloom);opacity:1}
+
 /* ── первый экран: кадр сверху, дом снизу ──────────────────── */
 body.ob .hero{
   display:grid;grid-template-rows:1fr auto;grid-template-columns:100%;
@@ -1286,6 +1317,10 @@ body.ob .hero .dots{position:absolute;right:clamp(16px,4vw,24px);bottom:clamp(30
   justify-content:flex-end;margin:0;max-width:210px}
 body.ob .hero .dots i{background:rgba(231,233,230,.26);border-radius:0;width:13px;height:2px;transition:none}
 body.ob .hero .dots i.on{background:var(--ob-bloom);width:13px}
+@media (max-width:900px){
+  /* плашка лифта висит внизу слева и перекрывала вторую кнопку первого экрана */
+  body.ob .hero-body{padding-bottom:100px}
+}
 @media (max-width:760px){body.ob .hero .dots{position:static;justify-content:flex-start;margin-top:20px;max-width:none}}
 @media (max-height:620px){body.ob .hero{height:auto;min-height:0}}
 
