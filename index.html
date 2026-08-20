@@ -4530,6 +4530,9 @@ var ATLAS = {
     var h = location.hash.replace(/^#\/?/, "");
     if (h === "novyy" || /(\?|&)novyy\b/.test(location.search)) set(true);
     if (h === "staryy") set(false);
+    /* ссылки на снятые пробы первого экрана могли где-то остаться —
+       пусть ведут в новый облик, а не выбрасывают на старый сайт */
+    if (h.indexOf("shapka") === 0) set(true);
     paint();
     hdr();
   }
