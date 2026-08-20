@@ -1105,11 +1105,11 @@ body.ob.ob-desc{
 }
 
 /* ── ступени ───────────────────────────────────────────────── */
-body.ob .og-air,body.ob .ob-g-air{background:var(--ob-air);color:#1D2119;--ground:#E6E9E3;--fg:#1D2119;--dim:rgba(29,33,25,.62);--rule:rgba(29,33,25,.2)}
-body.ob .og-ichu,body.ob .ob-g-ichu{background:var(--ob-ichu);color:#1D2119;--ground:#C8C7B1;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
-body.ob .og-moss,body.ob .ob-g-moss{background:var(--ob-moss);color:#151A14;--ground:#79836D;--fg:#151A14;--dim:rgba(21,26,20,.72);--rule:rgba(21,26,20,.28)}
-body.ob .og-slate,body.ob .ob-g-slate{background:var(--ob-slate);color:#EFEFE6;--ground:#3D4450;--fg:#EFEFE6;--dim:rgba(239,239,230,.7);--rule:rgba(239,239,230,.22)}
-body.ob .og-crack,body.ob .ob-g-crack{background:var(--ob-crack);color:#E7E9E6;--ground:#15181B;--fg:#E7E9E6;--dim:rgba(231,233,230,.66);--rule:rgba(231,233,230,.18)}
+body.ob section.og-air,body.ob .og-air,body.ob .ob-g-air{background:var(--ob-air);color:#1D2119;--ground:#E6E9E3;--fg:#1D2119;--dim:rgba(29,33,25,.62);--rule:rgba(29,33,25,.2)}
+body.ob section.og-ichu,body.ob .og-ichu,body.ob .ob-g-ichu{background:var(--ob-ichu);color:#1D2119;--ground:#C8C7B1;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
+body.ob section.og-moss,body.ob .og-moss,body.ob .ob-g-moss{background:var(--ob-moss);color:#151A14;--ground:#79836D;--fg:#151A14;--dim:rgba(21,26,20,.72);--rule:rgba(21,26,20,.28)}
+body.ob section.og-slate,body.ob .og-slate,body.ob .ob-g-slate{background:var(--ob-slate);color:#EFEFE6;--ground:#3D4450;--fg:#EFEFE6;--dim:rgba(239,239,230,.7);--rule:rgba(239,239,230,.22)}
+body.ob section.og-crack,body.ob .og-crack,body.ob .ob-g-crack{background:var(--ob-crack);color:#E7E9E6;--ground:#15181B;--fg:#E7E9E6;--dim:rgba(231,233,230,.66);--rule:rgba(231,233,230,.18)}
 
 /* старые классы фонов переводятся в ступени — так конвертируются
    разом все страницы, а не только те, что расписаны поимённо */
@@ -1117,9 +1117,10 @@ body.ob section{
   background:var(--ob-air);color:#1D2119;
   --ground:#E6E9E3;--fg:#1D2119;--dim:rgba(29,33,25,.62);--rule:rgba(29,33,25,.2);
   border-bottom:0;padding:clamp(46px,7vw,92px) 0}
-body.ob section.ground-moss{background:var(--ob-ichu);--ground:#C8C7B1;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
-body.ob section.ground-lake{background:var(--ob-slate);color:#EFEFE6;--ground:#3D4450;--fg:#EFEFE6;--dim:rgba(239,239,230,.7);--rule:rgba(239,239,230,.22)}
-body.ob section.dark,body.ob section.ground-ember,body.ob section.dark.ground-lake,body.ob section.dark.ground-ember{
+/* старый класс работает только там, где ступень не назначена явно */
+body.ob section.ground-moss:not([class*="og-"]){background:var(--ob-ichu);--ground:#C8C7B1;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
+body.ob section.ground-lake:not([class*="og-"]){background:var(--ob-slate);color:#EFEFE6;--ground:#3D4450;--fg:#EFEFE6;--dim:rgba(239,239,230,.7);--rule:rgba(239,239,230,.22)}
+body.ob section.dark:not([class*="og-"]),body.ob section.ground-ember:not([class*="og-"]){
   background:var(--ob-crack);color:#E7E9E6;--ground:#15181B;--fg:#E7E9E6;--dim:rgba(231,233,230,.66);--rule:rgba(231,233,230,.18)}
 body.ob .ob-page section{background:none;padding:0}
 /* главная расписана поимённо и перебивает общий перевод */
@@ -1276,6 +1277,11 @@ body.ob header.site,body.ob footer.site,body.ob .m-pill,body.ob .m-sheet,body.ob
   --k-text:var(--fg); --k-border:var(--rule); --k-accent:var(--ob-bloom);
   --k-accent-hover:var(--ob-bloom); --k-on-accent:#241B05; --accent:var(--ob-bloom); --accent-soft:var(--ob-bloom);
 }
+/* подпись «кадра нет» стоит на тёмной плашке поверх шума — ей нужен свой светлый цвет */
+body.ob .noise > span{background:rgba(0,0,0,.68);color:#E7E9E6;
+  font-family:var(--ob-mono);font-weight:500;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+body.ob .rec-play{border-color:var(--fg);color:var(--fg);border-radius:0}
+body.ob .rec-play:not([disabled]):hover{background:var(--fg);color:var(--ground)}
 body.ob .langs b{font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.16em;color:var(--dim)}
 body.ob .langs b.on{color:var(--ob-bloom);font-weight:500}
 /* крупные номера в карточках — на служебный шрифт, без старого золота */
@@ -4346,6 +4352,32 @@ var ATLAS = {
     "crack",  /* 23 По рекомендации */
     "crack"   /* 24 Приезжайте */
   ];
+  /* внутренние страницы: то же правило, что и на главной — свет снаружи,
+     темнота внутри. Без этого они наследуют старые классы и остаются тёмными. */
+  var PAGE_GROUND = {
+    "p-atlas":            ["air"],                                  /* обложка раздела */
+    "p-artefakty":        ["air","ichu","slate","crack","crack"],   /* звук → оригиналы → отпечаток → тканое */
+    "p-tseny":            ["air"],
+    "p-ozera":            ["air"],
+    "p-ozera-pumakocha":  ["air"],
+    "p-ozera-azulkocha":  ["air"],
+    "p-ozera-kinsakocha": ["air"],
+    "p-dnevnik":          ["air"],
+    "p-dnevnik-tuman":    ["air"],
+    "p-gallery":          ["air"],
+    "p-blog":             ["air"],
+    "p-blog-tri-ozera":   ["air"],
+    "p-blog-gornaya-bolezn": ["air"],
+    "p-blog-chuno":       ["air"],
+    "p-pravila":          ["air"],
+    "p-kontakty":         ["crack"],                                /* прощание — снова дом */
+    "p-atlas-evkalipt":   ["ichu"],
+    "p-atlas-sp":         ["air"]                                   /* карточка вида: длинный текст */
+  };
+  /* четыре главы Атласа проходят тот же спуск, что и глава «Растения» */
+  var CHAPTER_GROUND = { zveri: "air", rasteniya: null, kamni: "slate", lyudi: "crack" };
+  var STEPS = ["air","ichu","moss","slate","crack"];
+
   var KEY = "kc-oblik";
   function on() { try { return sessionStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
   function set(v) { try { v ? sessionStorage.setItem(KEY, "1") : sessionStorage.removeItem(KEY); } catch (e) {} }
@@ -4362,6 +4394,28 @@ var ATLAS = {
     for (var i = 0; i < secs.length; i++) {
       if (!GROUND[i]) continue;
       secs[i].classList.toggle("og-" + GROUND[i], homeOn);
+    }
+    /* внутренние страницы */
+    var page = document.querySelector(".page.on");
+    var all = document.querySelectorAll(".page section");
+    for (var k = 0; k < all.length; k++)
+      for (var g = 0; g < STEPS.length; g++) all[k].classList.remove("og-" + STEPS[g]);
+    if (homeOn) {
+      for (var m = 0; m < secs.length; m++) if (GROUND[m]) secs[m].classList.add("og-" + GROUND[m]);
+      return;
+    }
+    if (!yes || !page || page === home) return;
+    var plan = PAGE_GROUND[page.id];
+    if (page.id === "p-atlas-ch") {
+      var slug = (location.hash.match(/atlas\/([a-z-]+)/) || [])[1];
+      var one = CHAPTER_GROUND[slug];
+      plan = one ? [one] : null;          /* растения идут спуском, ступень им не нужна */
+    }
+    if (!plan) return;
+    var ps = page.querySelectorAll("section");
+    for (var n = 0; n < ps.length; n++) {
+      var step = plan[n] || plan[plan.length - 1];
+      if (step) ps[n].classList.add("og-" + step);
     }
   }
   window.__oblik = paint;
