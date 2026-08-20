@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Определитель — проба В</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --prussian:#0C2135;    /* берлинская лазурь — грунт отпечатка */
+  --deep:#081726;        /* тень */
+  --panel:#12314C;       /* поле ключа */
+  --print:#E2EDF1;       /* белое на отпечатке */
+  --halftone:#8CB2C6;    /* полутон */
+  --chalk:#E9DCBC;       /* мел — номера и выбранное */
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --sans:"Golos Text",system-ui,sans-serif;
+}
+*{box-sizing:border-box} html,body{margin:0;padding:0}
+body{background:var(--prussian);color:var(--print);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(120% 80% at 20% -10%,rgba(140,178,198,.14),transparent 55%)}
+.wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--chalk);outline-offset:2px}
+
+/* ── шапка ──────────────────────────────────────────── */
+.head{padding:64px 0 30px;border-bottom:1px solid rgba(140,178,198,.28)}
+.eyebrow{font:400 11px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--halftone)}
+.head h1{font:800 clamp(34px,6.4vw,74px)/.98 var(--mono);letter-spacing:-.045em;margin:20px 0 0}
+.head h1 span{color:var(--halftone)}
+.head .lead{margin:20px 0 0;max-width:56ch;font-size:17px;color:#CBDDE6}
+.head .lead b{font-weight:500;color:var(--chalk)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;align-items:center}
+button{font:inherit;cursor:pointer}
+.tool{background:transparent;border:1px solid rgba(140,178,198,.5);color:var(--print);
+  padding:9px 14px;font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;border-radius:0}
+.tool:hover{border-color:var(--chalk);color:var(--chalk)}
+.tool[aria-pressed="true"]{background:var(--chalk);color:var(--deep);border-color:var(--chalk)}
+
+/* ── две колонки: ключ и плашка ─────────────────────── */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:44px;padding:34px 0 90px;align-items:start}
+
+/* ключ */
+.step{border-top:1px solid rgba(140,178,198,.22);padding:20px 0 4px}
+.step:first-child{border-top:0}
+.step .no{font:600 11px/1 var(--mono);letter-spacing:.16em;color:var(--halftone)}
+.step .q{font:600 20px/1.25 var(--sans);margin:9px 0 14px}
+.lead-btn{display:block;width:100%;text-align:left;background:transparent;
+  border:1px solid rgba(140,178,198,.3);border-left:3px solid rgba(140,178,198,.5);
+  color:var(--print);padding:12px 14px;margin:0 0 8px;font:400 15.5px/1.4 var(--sans)}
+.lead-btn .ab{font:600 11px/1 var(--mono);color:var(--halftone);margin-right:10px;letter-spacing:.1em}
+.lead-btn:hover{background:var(--panel);border-left-color:var(--chalk)}
+.done{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid rgba(140,178,198,.14);
+  font-size:14px;color:var(--halftone)}
+.done b{font:600 11px/1 var(--mono);color:var(--chalk);letter-spacing:.1em;white-space:nowrap}
+.done span{color:#B9CFDB}
+.restart{margin-top:18px}
+.aside-alt{margin-top:26px;border-top:1px solid rgba(140,178,198,.22);padding-top:16px}
+.aside-alt .no{font:600 11px/1 var(--mono);letter-spacing:.16em;color:var(--halftone);margin-bottom:12px;text-transform:uppercase}
+.lead-btn.alt{border-left-color:rgba(233,220,188,.35);font-size:14.5px}
+.lead-btn.alt em{display:block;font:600 11px/1 var(--mono);color:var(--chalk);letter-spacing:.08em;margin-top:7px;font-style:normal}
+
+/* плашка с результатом */
+.plate{position:sticky;top:26px;border:1px solid rgba(140,178,198,.3);background:var(--deep);padding:0 0 22px}
+.plate .empty{padding:20px 20px 4px;color:var(--halftone);font-size:14px}
+.plate .empty b{display:block;font:600 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--chalk);margin-bottom:9px}
+.contact{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;padding:14px 20px 0}
+.contact img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#071522;
+  filter:grayscale(1) contrast(1.04) sepia(1) hue-rotate(171deg) saturate(2.5) brightness(.84)}
+.shot{position:relative;background:#071522;aspect-ratio:4/3;overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(1) contrast(1.04) sepia(1) hue-rotate(171deg) saturate(2.5) brightness(.84)}
+body.truecolor .shot img,body.truecolor .thumbs img{filter:none}
+.plate .txt{padding:20px 22px 0}
+.plate h2{font:600 clamp(23px,2.6vw,31px)/1.1 var(--sans);margin:0}
+.plate .bin{margin:7px 0 0;font:400 14px/1.4 var(--mono);color:var(--halftone)}
+.plate .que{display:inline-block;margin-left:10px;border:1px solid rgba(140,178,198,.45);padding:2px 6px;
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--chalk)}
+.plate .st{display:inline-block;margin:14px 0 0;background:var(--chalk);color:var(--deep);
+  padding:5px 9px;font:600 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.plate .sh{margin:14px 0 0;font-size:17px;color:var(--chalk)}
+.plate .body{margin:10px 0 0;font-size:15px;color:#C4D8E2}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:16px 22px 0}
+.thumbs img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#071522;
+  filter:grayscale(1) contrast(1.04) sepia(1) hue-rotate(171deg) saturate(2.5) brightness(.84)}
+
+/* ── подвал ─────────────────────────────────────────── */
+.foot{border-top:1px solid rgba(140,178,198,.28);padding:34px 0 90px;max-width:64ch}
+.foot p{margin:0 0 12px;color:#C4D8E2;font-size:16px}
+.foot .big{font:800 clamp(20px,3vw,32px)/1.15 var(--mono);letter-spacing:-.03em;color:var(--print);margin-bottom:16px}
+.foot .sign{font:400 11px/1.5 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--halftone);margin-top:22px}
+
+@media (max-width:900px){
+  .cols{grid-template-columns:1fr;gap:26px}
+  .plate{position:static;order:-1}
+  .head{padding-top:38px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head><body>
+<div class="wrap">
+  <header class="head">
+    <div class="eyebrow">Атлас · растения · проба В</div>
+    <h1>Определитель<br><span>восемнадцати растений</span></h1>
+    <p class="lead">Не список и не галерея. Ключ: на каждом шаге выбирайте то, что видите под ногами, — и он доведёт вас до названия. <b>Снимки напечатаны синькой</b> — тем же способом, каким в 1843 году впервые напечатали растения. Так лучше видно форму и хуже видно пейзаж; это здесь и нужно.</p>
+    <div class="tools">
+      <button class="tool" id="color" aria-pressed="false">снять синьку</button>
+      <button class="tool" id="reset">начать заново</button>
+    </div>
+  </header>
+  <div class="cols">
+    <div id="key"></div>
+    <aside class="plate" id="plate">
+      <div class="empty"><b>Контактный лист</b>Восемнадцать отпечатков. Ключ приведёт к одному.</div>
+    </aside>
+  </div>
+  <section class="foot">
+    <p class="big">Ключ приводит к 18 названиям. До вида не доведён ни один.</p>
+    <p>Тринадцать растений определены до рода, три — до группы, два носят имя, которое дали местные. Это не недоработка: без цветка в руках и без определителя точнее не скажешь, а угадывать с телефона мы не будем.</p>
+    <p>Сам ключ собран по нашим же снимкам и словам местных, а не по научной литературе. Он работает на этом склоне и, скорее всего, не работает нигде больше.</p>
+    <p class="sign">Пару-Пару · 4200 м · снято хозяином дома</p>
+  </section>
+</div>
+<script>
+var KEY = {"1":{"q":"Где оно сидит","leads":[["Прямо на камне, не в земле",2],["В земле или между камней",4]]},"2":{"q":"Как держится за камень","leads":[["Плоской коркой, от камня не отделяется","sp:lishaynik-nakipnoy"],["Приподнимается над камнем",3]]},"3":{"q":"Что именно приподнимается","leads":[["Кустик или борода, сухим крошится от пальца","sp:lishaynik-kustistyy"],["Мягкая зелёная подушка, после дождя оживает за часы","sp:moh"]]},"4":{"q":"Как оно относится к земле","leads":[["Прижато: подушка, коврик или розетка",5],["Поднимается: стеблем, пучком или стволом",9]]},"5":{"q":"Колется ли","leads":[["Есть колючки или зубцы",6],["Гладкое",7]]},"6":{"q":"Чем колется","leads":[["Лепёшка с крупными колючками, поверх — белый пух","sp:kaktus"],["Рыжая подушка, колючки мелкие, старое не сбрасывает","sp:adesmiya"],["Розетка жёстких листьев, зубцы загнуты назад","sp:puya"]]},"7":{"q":"Как выглядит вблизи","leads":[["Цветок сидит в середине розетки, стебля нет вовсе","sp:hypochaeris"],["Цветок как жёлтый башмачок в несколько миллиметров","sp:kalceolyariya"],["Лист из трёх долек — обычный трилистник","sp:klever"],["Плотный зелёный купол, растёт вширь","sp:azorella"]]},"9":{"q":"Насколько поднимается","leads":[["Одревесневший ствол, кора отслаивается рыжими листами","sp:keunia"],["Трава или кустик",10]]},"10":{"q":"Трава или нет","leads":[["Жёсткая трава пучком, режет руку, если тянуть на себя","sp:ichu"],["Не трава",11]]},"11":{"q":"Что бросается в глаза","leads":[["Всё растение в белом войлоке","sp:wirawira"],["Пахнет, если растереть лист",12],["Розовые трубки гроздью, лезет вверх по чужому стеблю","sp:bomareya"],["Сиреневая звезда с жёлтой серединой","sp:paslyon"],["Соцветие мохнатое от рыльцев, размером с ноготь","sp:purpurnyy"]]},"12":{"q":"Чем пахнет","leads":[["Мятой и перцем разом","sp:munya"],["Резко, лист смолистый","sp:maycha"]]}};
+var SP = [{"slug":"purpurnyy","name":"Пурпурный цветок пуны","lat":"Eupatorieae","que":"","short":"Каждый цветок размером с ноготь, а рыльца торчат во все стороны.","st":"group","t":"Соцветие собрано из десятков крошечных цветков, и у каждого наружу выходят длинные раздвоенные рыльца — отсюда ощущение, что цветок мохнатый. Вблизи это самое сложное устройство из всего, что растёт на этой высоте.","ph":["887433f43ec0"]},{"slug":"azorella","name":"Асорелла","lat":"Azorella sp.","que":"","short":"Не куст и не трава. Плотный зелёный коврик, растущий вширь.","st":"genus","t":"Подушка — главное изобретение высокогорья. Растение отказывается расти вверх и собирается в плотный купол: внутри него теплее, чем снаружи, ветер не достаёт, а влага держится дольше.","ph":["aafdb4daab35"]},{"slug":"wirawira","name":"Вира-вира","lat":"Achyrocline sp.","que":"wira wira","short":"Белая, будто из войлока. Ею лечат кашель.","st":"genus","t":"Всё растение покрыто белым войлоком — против холода и ультрафиолета, как и у кактуса.","ph":["d622016fe9aa","d49e06b6fd8c","b48c1e1b27a1","c2abdadd2e4f"]},{"slug":"ichu","name":"Ичу","lat":"","que":"ichhu","short":"Крыши, верёвки, подстилка. То, из чего сделана пуна.","st":"local","t":"Жёсткая пучковая трава, которой покрыто здесь всё. Ичу — не один вид, а собирательное имя для нескольких злаков пуны.","ph":["352b1c4dbfa5","4b722ae5a6d6","0b6e0a7ab409","4ce7bda60d60"]},{"slug":"kaktus","name":"Кактус в шерсти","lat":"Austrocylindropuntia sp.","que":"waraqu","short":"Растёт не столбиком, а лепёшкой у земли. Поверх колючек — белый пух.","st":"genus","t":"Главный герой раздела: почти половина всех наших кадров растений — он. Кактус, которому холодно, — сбой ожидания, на котором держится весь блок.","ph":["2c3c28987ec2","845e86e41486","0e8d559d084d","135410c9f628"]},{"slug":"lishaynik-kustistyy","name":"Лишайник кустистый","lat":"Ramalina sp.","que":"","short":"Растёт кустиком, а не коркой. Ломается сухим.","st":"group","t":"Приподнимается над камнем кустиком или бородой — так больше поверхности достаётся туману и росе.","ph":["4cf233128224","2d2d56a7b0de","dfac2d453954","222a98cfb1b5"]},{"slug":"klever","name":"Клевер","lat":"Trifolium amabile","que":"","short":"Тот самый клевер, только на четырёх тысячах.","st":"genus","t":"Обычный на вид трилистник — и при этом местный вид, а не занесённый: растёт по всему нагорью от двух тысяч метров и выше четырёх. Морозы и засуху держит спокойно.","ph":["0844de448a07"]},{"slug":"keunia","name":"Кеуния","lat":"Polylepis sp.","que":"q'euña","short":"Дерево, растущее выше всех деревьев планеты.","st":"genus","t":"Род держит мировой рекорд высоты, на которой вообще растёт дерево: отдельные рощи стоят выше пяти тысяч метров.","ph":["ca77673aba09","68597c1e68b0","0bd6e88fadfd","2fc3f8cc33d6"]},{"slug":"munya","name":"Муня","lat":"Minthostachys sp.","que":"muña","short":"Андская мята. Растёт наверху, пахнет, если растереть лист.","st":"genus","t":"Пахнет мятой и перцем разом. Лист растирают в пальцах и нюхают на высоте — говорят, помогает от тошноты и тяжёлой головы.","ph":["1d8c8d8ec152"]},{"slug":"kalceolyariya","name":"Кальцеолярия","lat":"Calceolaria sp.","que":"","short":"Жёлтый башмачок в несколько миллиметров.","st":"genus","t":"Цветок формой действительно похож на туфельку — отсюда и латинское имя, от calceolus, «башмачок».","ph":["260087454854","227374608fdb","8c79bcabd714","34349cbae217"]},{"slug":"hypochaeris","name":"Жёлтый цветок пуны","lat":"Hypochaeris sp.","que":"","short":"Сидит розеткой прямо на земле, без стебля.","st":"genus","t":"Стебля нет вовсе: цветок сидит в середине розетки листьев, прижатой к грунту. Ветер на 4200 — главный враг всего, что торчит вверх.","ph":["1512a7e233c6","7e444c19a07f","3866dfd88f2e","2f790d9bb8d0"]},{"slug":"bomareya","name":"Бомарея","lat":"Bomarea sp.","que":"","short":"Розовые трубки, висят гроздью.","st":"genus","t":"Единственное здесь, что тянется вверх — по чужому стеблю, лианой. Все остальные жмутся к земле.","ph":["8e4cc1d65c91","cbace488fe23","17dd72861245","168dd9d59e4f"]},{"slug":"adesmiya","name":"Адесмия","lat":"Adesmia sp.","que":"","short":"Колючая рыжая подушка.","st":"genus","t":"Подушка — не форма, а решение: внутри неё теплее и тише, чем снаружи, и там держится собственная влага.","ph":["b9d2fd0c2dd4","ffc8c47deebd","9cb4c55365c9","b10bf5175742"]},{"slug":"puya","name":"Пуйя","lat":"Puya sp.","que":"","short":"Розетка жёстких листьев с зубцами по краю.","st":"genus","t":"Родня знаменитой пуйи Раймонди, которая вырастает в десятиметровую свечу и цветёт один раз в жизни. Наша — размером с ладонь.","ph":["7854c084507e","30d68f02c0ef","7c9de6c675d5","79095e44c77a"]},{"slug":"paslyon","name":"Паслён","lat":"Solanum sp.","que":"","short":"Сиреневая звезда с жёлтой серединой.","st":"genus","t":"Тот же род, что и картошка, которую вывели именно здесь, в этих общинах. Цветок картошки выглядит почти так же.","ph":["6c0ace904a66","dd8f84bafa46","073799515cff"]},{"slug":"maycha","name":"Майча","lat":"Senecio rudbeckiifolius","que":"maycha","short":"Смолистый кустик, пахнет, если растереть лист.","st":"local","t":"В общинах Куско этим именем зовут Senecio rudbeckiifolius: его настаивают на спирту вместе с эвкалиптом и мольё и растирают ноги от судорог.","ph":["881b5518374b","8d0c29e1989c","99ca960d84e8"]},{"slug":"moh","name":"Мох","lat":"Polytrichum sp.","que":"","short":"Ярко-зелёная подушка там, где держится вода.","st":"genus","t":"Пересыхает до бурого и оживает после первого дождя — за часы. Корней нет: воду берёт всей поверхностью.","ph":["30c67e838430","6f4ac8eb3ac2","79d5b93932f0"]},{"slug":"lishaynik-nakipnoy","name":"Лишайник накипной","lat":"","que":"","short":"Шов между камнем и растением.","st":"group","t":"Не одно существо, а два: гриб держит форму и воду, водоросль внутри кормит обоих.","ph":["171de4bd7246","2cca03f60555","00dc9c1001d4"]}];
+var ST = {"genus":"род определён · вид нет","group":"группа, не род","local":"имя местное · латынь под вопросом","ok":"подтверждено снимком"};
+var byslug = {}; SP.forEach(function(s){ byslug[s.slug] = s; });
+var path = [], cur = 1, found = null;
+var keyEl = document.getElementById("key"), plateEl = document.getElementById("plate");
+
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function renderKey(){
+  var out = "";
+  path.forEach(function(p){
+    out += '<div class="done"><b>' + p.n + ' →</b><span>' + esc(p.txt) + '</span></div>';
+  });
+  if (!found && KEY[cur]) {
+    var c = KEY[cur];
+    out += '<div class="step"><div class="no">шаг ' + cur + '</div><div class="q">' + esc(c.q) + '</div>';
+    c.leads.forEach(function(l, i){
+      out += '<button class="lead-btn" data-go="' + esc(l[1]) + '" data-txt="' + esc(l[0]) + '">' +
+             '<span class="ab">' + cur + String.fromCharCode(97+i) + '</span>' + esc(l[0]) + '</button>';
+    });
+    out += '</div>';
+  }
+  if (found && path.length) {
+    var last = path[path.length-1], c2 = KEY[last.n], alt = "";
+    if (c2) c2.leads.forEach(function(l,i){
+      if (l[0] === last.txt) return;
+      var to = String(l[1]).indexOf("sp:") === 0 ? byslug[String(l[1]).slice(3)].name : "шаг " + l[1];
+      alt += '<button class="lead-btn alt" data-go="' + esc(l[1]) + '" data-txt="' + esc(l[0]) + '" data-back="' + last.n + '">' +
+             '<span class="ab">' + last.n + String.fromCharCode(97+i) + '</span>' + esc(l[0]) +
+             '<em>→ ' + esc(to) + '</em></button>';
+    });
+    if (alt) out += '<div class="aside-alt"><div class="no">один шаг в сторону</div>' + alt + '</div>';
+  }
+  if (path.length) out += '<button class="tool restart" data-restart="1">вернуться к началу</button>';
+  keyEl.innerHTML = out;
+}
+
+function renderPlate(){
+  if (!found) {
+    var all = SP.map(function(s){
+      return '<img loading="lazy" decoding="async" src="img/' + s.ph[0] + '.webp" alt="' + esc(s.name) + '" title="' + esc(s.name) + '">'; }).join("");
+    plateEl.innerHTML = '<div class="empty"><b>Контактный лист</b>Восемнадцать отпечатков. Ключ приведёт к одному.</div>' +
+      '<div class="contact">' + all + '</div>';
+    return;
+  }
+  var s = found;
+  var th = s.ph.slice(1,4).map(function(h){
+    return '<img loading="lazy" decoding="async" src="img/' + h + '.webp" alt="">'; }).join("");
+  plateEl.innerHTML =
+    '<div class="shot"><img src="img/' + s.ph[0] + '.webp" alt="' + esc(s.name) + '"></div>' +
+    '<div class="txt"><h2>' + esc(s.name) + '</h2>' +
+    '<p class="bin">' + (s.lat ? '<i>' + esc(s.lat) + '</i>' : 'без латыни') +
+      (s.que ? '<span class="que">' + esc(s.que) + '</span>' : '') + '</p>' +
+    '<span class="st">' + esc(s.st === "local" && !s.lat ? "имя местное · латыни нет" : (ST[s.st] || "")) + '</span>' +
+    '<p class="sh">' + esc(s.short) + '</p>' +
+    '<p class="body">' + esc(s.t) + '</p></div>' +
+    (th ? '<div class="thumbs">' + th + '</div>' : '');
+}
+
+keyEl.addEventListener("click", function(e){
+  var b = e.target.closest("button"); if (!b) return;
+  if (b.getAttribute("data-restart")) { path = []; cur = 1; found = null; renderKey(); renderPlate(); return; }
+  var go = b.getAttribute("data-go"); if (!go) return;
+  var back = b.getAttribute("data-back");
+  if (back) { path = path.slice(0, path.length - 1); cur = +back; found = null; }
+  path.push({ n: cur, txt: b.getAttribute("data-txt") });
+  if (go.indexOf("sp:") === 0) { found = byslug[go.slice(3)]; }
+  else { cur = +go; }
+  renderKey(); renderPlate();
+});
+document.getElementById("reset").addEventListener("click", function(){
+  path = []; cur = 1; found = null; renderKey(); renderPlate();
+});
+document.getElementById("color").addEventListener("click", function(){
+  var on = document.body.classList.toggle("truecolor");
+  this.setAttribute("aria-pressed", on ? "true" : "false");
+  this.textContent = on ? "вернуть синьку" : "снять синьку";
+});
+renderKey(); renderPlate();
+</script>
+</body></html>

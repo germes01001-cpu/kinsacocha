@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Гербарий Пару-Пару — проба А</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#CFD0C0;        /* промокашка, не крем */
+  --paper-2:#C2C3B2;      /* тень листа */
+  --ink:#252A22;          /* оливковые чернила */
+  --ink-soft:#5A6152;     /* выцветшее */
+  --rule:#9EA08C;         /* карандашная линейка */
+  --cochineal:#8E2F3A;    /* кошениль — штамп определения */
+  --serif:"Literata",Georgia,serif;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box} html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font:400 16px/1.62 var(--sans); letter-spacing:.005em;
+  -webkit-font-smoothing:antialiased;
+  background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.02) 0 1px,transparent 1px 3px);
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cochineal);outline-offset:3px}
+
+/* ── шапка листа коллекции ─────────────────────────── */
+.top{padding:70px 0 0}
+.eyebrow{font:500 11px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);
+  display:flex;gap:14px;align-items:center}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule)}
+h1{font:700 clamp(40px,7vw,78px)/1.02 var(--serif);letter-spacing:-.02em;margin:22px 0 0;max-width:14ch}
+.lead{font:400 clamp(19px,2.4vw,25px)/1.4 var(--serif);font-style:italic;color:var(--ink-soft);margin:16px 0 0;max-width:30ch}
+.intro{margin:38px 0 0;max-width:62ch;font-size:17px}
+.intro p+p{margin-top:14px}
+.tally{margin:34px 0 0;display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.tally div{flex:1 1 150px;padding:14px 16px 15px;border-right:1px solid var(--rule)}
+.tally div:last-child{border-right:0}
+.tally b{display:block;font:700 30px/1 var(--serif)}
+.tally span{display:block;font:400 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:7px}
+
+/* ── лист ───────────────────────────────────────────── */
+.sheets{margin:64px 0 0}
+.sheet{
+  position:relative;background:#D9DACA;
+  border:1px solid var(--rule);
+  padding:20px 22px 26px;margin:0 0 34px;
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 10px 24px -20px rgba(0,0,0,.5);
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px 34px;
+  align-items:start;
+}
+.sheet-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:2px}
+.folio{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}
+.folio i{font-style:normal;color:var(--ink-soft)}
+.herb{font:400 11px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+.sheet.flip .mount{order:2}
+.sheet.flip .desc{order:1}
+
+.specimen{position:relative;background:var(--paper-2)}
+.specimen img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+/* ── подпись направления: бумажные ленты, которыми образец прижат к листу ── */
+.strap{position:absolute;background:linear-gradient(180deg,#E7E7DA 0%,#DCDCCC 55%,#CBCCBA 100%);
+  box-shadow:0 2px 5px -1px rgba(0,0,0,.35);pointer-events:none;opacity:.94}
+.strap.s1{left:-9px;right:-9px;top:15%;height:10px;transform:rotate(-.45deg)}
+.strap.s2{left:-9px;right:-9px;bottom:15%;height:9px;transform:rotate(.35deg)}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.strip-shot{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--paper-2)}
+
+.desc h2{font:600 clamp(26px,3.4vw,36px)/1.08 var(--serif);letter-spacing:-.015em;margin:0}
+.binom{margin:7px 0 0;font:400 15px/1.4 var(--serif)}
+.binom i{color:var(--ink-soft)}
+.binom .none{opacity:.55}
+.binom .que{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;margin-left:12px;
+  padding:4px 7px;border:1px solid var(--rule);white-space:nowrap}
+.short{margin:16px 0 0;font:400 18px/1.45 var(--serif);font-style:italic}
+.body{margin:12px 0 0;font-size:15.5px;color:#333a30}
+.habit{margin:16px 0 0;font:500 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* определительная этикетка — приколота, слегка косо */
+.label{position:relative;margin:26px 0 0;background:#E4E4D5;border:1px solid var(--rule);
+  padding:12px 14px 13px;max-width:290px;transform:rotate(-.7deg);
+  box-shadow:0 6px 14px -10px rgba(0,0,0,.6)}
+.sheet.flip .label{transform:rotate(.8deg)}
+.det{display:block;font:400 9.5px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft)}
+.label b{display:block;font:600 17px/1.2 var(--serif);margin-top:6px}
+.label em{display:block;font:400 12.5px/1.3 var(--sans);font-style:normal;color:var(--ink-soft);margin-top:2px}
+.stamp{position:absolute;right:-16px;top:-14px;transform:rotate(-11deg);
+  width:52px;height:52px;border:2px solid var(--cochineal);border-radius:50%;color:var(--cochineal);
+  box-shadow:0 0 0 3px #E4E4D5,0 0 0 4px var(--cochineal);
+  font:700 24px/48px var(--serif);text-align:center;opacity:.72;mix-blend-mode:multiply}
+
+.foot{margin:20px 0 90px;border-top:1px solid var(--rule);padding-top:20px;max-width:60ch}
+.foot p{margin:0 0 10px;font-size:15.5px}
+.foot .sign{font:500 11px/1.5 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+
+@media (max-width:760px){
+  .sheet{grid-template-columns:1fr;padding:16px 16px 20px}
+  .sheet.flip .mount{order:0}.sheet.flip .desc{order:0}
+  .label{max-width:none}
+  .top{padding-top:44px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head><body>
+<div class="wrap">
+  <div class="top">
+    <div class="eyebrow">Атлас · растения · проба А</div>
+    <h1>Что здесь растёт</h1>
+    <p class="lead">Восемнадцать листов. Ни одного определения до вида.</p>
+    <div class="intro">
+      <p>Мы не ботаники. Мы снимаем то, что растёт вокруг дома, и подписываем ровно настолько, насколько уверены. Дальше уверенности не идём — иначе это будет угадывание с телефона.</p>
+      <p>Это не оговорка перед началом, это и есть содержание. На четырёх тысячах метров всё живое решает одну задачу: не расти вверх, обрасти шерстью, собраться в подушку, отцвести за три недели. Кто именно это делает, здесь важно меньше, чем то, как это сделано.</p>
+    </div>
+    <div class="tally">
+      <div><b>13</b><span>до рода</span></div>
+      <div><b>3</b><span>до группы</span></div>
+      <div><b>2</b><span>только местное имя</span></div>
+      <div><b>60</b><span>кадров в папке</span></div>
+    </div>
+  </div>
+  <div class="sheets">
+<article class="sheet ">
+  <header class="sheet-head">
+    <span class="folio">лист 01 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/887433f43ec0.webp" alt="Пурпурный цветок пуны">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    
+  </div>
+  <div class="desc">
+    <h2>Пурпурный цветок пуны</h2>
+    <p class="binom"><i>Eupatorieae</i></p>
+    <p class="short">Каждый цветок размером с ноготь, а рыльца торчат во все стороны.</p>
+    <p class="body">Соцветие собрано из десятков крошечных цветков, и у каждого наружу выходят длинные раздвоенные рыльца — отсюда ощущение, что цветок мохнатый. Вблизи это самое сложное устройство из всего, что растёт на этой высоте.</p>
+    <p class="habit">Цветёт</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>группа</b>
+      <em>род не разводим</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet flip">
+  <header class="sheet-head">
+    <span class="folio">лист 02 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/aafdb4daab35.webp" alt="Асорелла">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    
+  </div>
+  <div class="desc">
+    <h2>Асорелла</h2>
+    <p class="binom"><i>Azorella sp.</i></p>
+    <p class="short">Не куст и не трава. Плотный зелёный коврик, растущий вширь.</p>
+    <p class="body">Подушка — главное изобретение высокогорья. Растение отказывается расти вверх и собирается в плотный купол: внутри него теплее, чем снаружи, ветер не достаёт, а влага держится дольше.</p>
+    <p class="habit">Подушки</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet ">
+  <header class="sheet-head">
+    <span class="folio">лист 03 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/d622016fe9aa.webp" alt="Вира-вира">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/d49e06b6fd8c.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/b48c1e1b27a1.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/c2abdadd2e4f.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Вира-вира</h2>
+    <p class="binom"><i>Achyrocline sp.</i><span class="que">wira wira</span></p>
+    <p class="short">Белая, будто из войлока. Ею лечат кашель.</p>
+    <p class="body">Всё растение покрыто белым войлоком — против холода и ультрафиолета, как и у кактуса.</p>
+    <p class="habit">Что заваривают</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet flip">
+  <header class="sheet-head">
+    <span class="folio">лист 04 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/352b1c4dbfa5.webp" alt="Ичу">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/4b722ae5a6d6.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/0b6e0a7ab409.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/4ce7bda60d60.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Ичу</h2>
+    <p class="binom"><i class="none">без латыни</i><span class="que">ichhu</span></p>
+    <p class="short">Крыши, верёвки, подстилка. То, из чего сделана пуна.</p>
+    <p class="body">Жёсткая пучковая трава, которой покрыто здесь всё. Ичу — не один вид, а собирательное имя для нескольких злаков пуны.</p>
+    <p class="habit">На 4200</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>имя местное</b>
+      <em>латынь под вопросом</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet ">
+  <header class="sheet-head">
+    <span class="folio">лист 05 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/2c3c28987ec2.webp" alt="Кактус в шерсти">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/845e86e41486.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/0e8d559d084d.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/135410c9f628.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Кактус в шерсти</h2>
+    <p class="binom"><i>Austrocylindropuntia sp.</i><span class="que">waraqu</span></p>
+    <p class="short">Растёт не столбиком, а лепёшкой у земли. Поверх колючек — белый пух.</p>
+    <p class="body">Главный герой раздела: почти половина всех наших кадров растений — он. Кактус, которому холодно, — сбой ожидания, на котором держится весь блок.</p>
+    <p class="habit">На 4200</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet flip">
+  <header class="sheet-head">
+    <span class="folio">лист 06 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/4cf233128224.webp" alt="Лишайник кустистый">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/2d2d56a7b0de.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/dfac2d453954.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/222a98cfb1b5.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Лишайник кустистый</h2>
+    <p class="binom"><i>Ramalina sp.</i></p>
+    <p class="short">Растёт кустиком, а не коркой. Ломается сухим.</p>
+    <p class="body">Приподнимается над камнем кустиком или бородой — так больше поверхности достаётся туману и росе.</p>
+    <p class="habit">На камне</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>группа</b>
+      <em>род не разводим</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet ">
+  <header class="sheet-head">
+    <span class="folio">лист 07 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/0844de448a07.webp" alt="Клевер">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    
+  </div>
+  <div class="desc">
+    <h2>Клевер</h2>
+    <p class="binom"><i>Trifolium amabile</i></p>
+    <p class="short">Тот самый клевер, только на четырёх тысячах.</p>
+    <p class="body">Обычный на вид трилистник — и при этом местный вид, а не занесённый: растёт по всему нагорью от двух тысяч метров и выше четырёх. Морозы и засуху держит спокойно.</p>
+    <p class="habit">На 4200</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet flip">
+  <header class="sheet-head">
+    <span class="folio">лист 08 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/ca77673aba09.webp" alt="Кеуния">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/68597c1e68b0.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/0bd6e88fadfd.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/2fc3f8cc33d6.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Кеуния</h2>
+    <p class="binom"><i>Polylepis sp.</i><span class="que">q'euña</span></p>
+    <p class="short">Дерево, растущее выше всех деревьев планеты.</p>
+    <p class="body">Род держит мировой рекорд высоты, на которой вообще растёт дерево: отдельные рощи стоят выше пяти тысяч метров.</p>
+    <p class="habit">На 4200</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet ">
+  <header class="sheet-head">
+    <span class="folio">лист 09 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/1d8c8d8ec152.webp" alt="Муня">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    
+  </div>
+  <div class="desc">
+    <h2>Муня</h2>
+    <p class="binom"><i>Minthostachys sp.</i><span class="que">muña</span></p>
+    <p class="short">Андская мята. Растёт наверху, пахнет, если растереть лист.</p>
+    <p class="body">Пахнет мятой и перцем разом. Лист растирают в пальцах и нюхают на высоте — говорят, помогает от тошноты и тяжёлой головы.</p>
+    <p class="habit">На 4200</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet flip">
+  <header class="sheet-head">
+    <span class="folio">лист 10 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/260087454854.webp" alt="Кальцеолярия">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/227374608fdb.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/8c79bcabd714.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/34349cbae217.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Кальцеолярия</h2>
+    <p class="binom"><i>Calceolaria sp.</i></p>
+    <p class="short">Жёлтый башмачок в несколько миллиметров.</p>
+    <p class="body">Цветок формой действительно похож на туфельку — отсюда и латинское имя, от calceolus, «башмачок».</p>
+    <p class="habit">Цветёт</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet ">
+  <header class="sheet-head">
+    <span class="folio">лист 11 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/1512a7e233c6.webp" alt="Жёлтый цветок пуны">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/7e444c19a07f.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/3866dfd88f2e.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/2f790d9bb8d0.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Жёлтый цветок пуны</h2>
+    <p class="binom"><i>Hypochaeris sp.</i></p>
+    <p class="short">Сидит розеткой прямо на земле, без стебля.</p>
+    <p class="body">Стебля нет вовсе: цветок сидит в середине розетки листьев, прижатой к грунту. Ветер на 4200 — главный враг всего, что торчит вверх.</p>
+    <p class="habit">Цветёт</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet flip">
+  <header class="sheet-head">
+    <span class="folio">лист 12 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/8e4cc1d65c91.webp" alt="Бомарея">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/cbace488fe23.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/17dd72861245.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/168dd9d59e4f.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Бомарея</h2>
+    <p class="binom"><i>Bomarea sp.</i></p>
+    <p class="short">Розовые трубки, висят гроздью.</p>
+    <p class="body">Единственное здесь, что тянется вверх — по чужому стеблю, лианой. Все остальные жмутся к земле.</p>
+    <p class="habit">Цветёт</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet ">
+  <header class="sheet-head">
+    <span class="folio">лист 13 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/b9d2fd0c2dd4.webp" alt="Адесмия">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/ffc8c47deebd.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/9cb4c55365c9.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/b10bf5175742.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Адесмия</h2>
+    <p class="binom"><i>Adesmia sp.</i></p>
+    <p class="short">Колючая рыжая подушка.</p>
+    <p class="body">Подушка — не форма, а решение: внутри неё теплее и тише, чем снаружи, и там держится собственная влага.</p>
+    <p class="habit">Подушки</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet flip">
+  <header class="sheet-head">
+    <span class="folio">лист 14 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/7854c084507e.webp" alt="Пуйя">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/30d68f02c0ef.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/7c9de6c675d5.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/79095e44c77a.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Пуйя</h2>
+    <p class="binom"><i>Puya sp.</i></p>
+    <p class="short">Розетка жёстких листьев с зубцами по краю.</p>
+    <p class="body">Родня знаменитой пуйи Раймонди, которая вырастает в десятиметровую свечу и цветёт один раз в жизни. Наша — размером с ладонь.</p>
+    <p class="habit">Подушки</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet ">
+  <header class="sheet-head">
+    <span class="folio">лист 15 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/6c0ace904a66.webp" alt="Паслён">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/dd8f84bafa46.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/073799515cff.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Паслён</h2>
+    <p class="binom"><i>Solanum sp.</i></p>
+    <p class="short">Сиреневая звезда с жёлтой серединой.</p>
+    <p class="body">Тот же род, что и картошка, которую вывели именно здесь, в этих общинах. Цветок картошки выглядит почти так же.</p>
+    <p class="habit">Цветёт</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet flip">
+  <header class="sheet-head">
+    <span class="folio">лист 16 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/881b5518374b.webp" alt="Майча">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/8d0c29e1989c.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/99ca960d84e8.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Майча</h2>
+    <p class="binom"><i>Senecio rudbeckiifolius</i><span class="que">maycha</span></p>
+    <p class="short">Смолистый кустик, пахнет, если растереть лист.</p>
+    <p class="body">В общинах Куско этим именем зовут Senecio rudbeckiifolius: его настаивают на спирту вместе с эвкалиптом и мольё и растирают ноги от судорог.</p>
+    <p class="habit">Что заваривают</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>имя местное</b>
+      <em>латынь под вопросом</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet ">
+  <header class="sheet-head">
+    <span class="folio">лист 17 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/30c67e838430.webp" alt="Мох">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/6f4ac8eb3ac2.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/79d5b93932f0.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Мох</h2>
+    <p class="binom"><i>Polytrichum sp.</i></p>
+    <p class="short">Ярко-зелёная подушка там, где держится вода.</p>
+    <p class="body">Пересыхает до бурого и оживает после первого дождя — за часы. Корней нет: воду берёт всей поверхностью.</p>
+    <p class="habit">На камне</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>род определён</b>
+      <em>вид — нет</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+<article class="sheet flip">
+  <header class="sheet-head">
+    <span class="folio">лист 18 <i>/ 18</i></span>
+    <span class="herb">Гербарий Пару-Пару</span>
+  </header>
+  <div class="mount">
+    <div class="specimen">
+      <img loading="lazy" decoding="async" src="img/171de4bd7246.webp" alt="Лишайник накипной">
+      <span class="strap s1"></span><span class="strap s2"></span>
+    </div>
+    <div class="strip"><img class="strip-shot" loading="lazy" decoding="async" src="img/2cca03f60555.webp" alt=""><img class="strip-shot" loading="lazy" decoding="async" src="img/00dc9c1001d4.webp" alt=""></div>
+  </div>
+  <div class="desc">
+    <h2>Лишайник накипной</h2>
+    <p class="binom"><i class="none">без латыни</i></p>
+    <p class="short">Шов между камнем и растением.</p>
+    <p class="body">Не одно существо, а два: гриб держит форму и воду, водоросль внутри кормит обоих.</p>
+    <p class="habit">На камне</p>
+    <div class="label">
+      <span class="det">determinavit</span>
+      <b>группа</b>
+      <em>род не разводим</em>
+      <span class="stamp">?</span>
+    </div>
+  </div>
+</article>
+  </div>
+  <div class="foot">
+    <p>Каждый лист подписан так, как есть: род, группа или имя, которое дали местные. Пустых мест мы не заполняем красивой латынью.</p>
+    <p class="sign">Пару-Пару · 4200 м · снято хозяином дома</p>
+  </div>
+</div>
+</body></html>
