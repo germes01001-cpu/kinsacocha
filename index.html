@@ -1326,8 +1326,12 @@ body.ob section.has-bg{background-size:cover;background-position:center;backgrou
    блок 03 назначен сланцем, а выглядел породой. Теперь затемняет сама ступень */
 body.ob section.has-bg::before{background:var(--ground);opacity:.76}
 /* лифт лежит поверх кадра первого экрана — на светлой фотографии ему нужна тень */
-body.ob .lift.dark .grp,body.ob .lift.dark .lbl{text-shadow:0 1px 4px rgba(0,0,0,.55)}
-body.ob .lift.dark .mark{box-shadow:0 0 3px rgba(0,0,0,.45)}
+/* непрозрачность поднимаем только у названий групп: подписи пунктов (.lbl)
+   скрыты до наведения, и трогать их opacity нельзя — вылезет всё оглавление */
+body.ob .lift.dark .grp{opacity:.62}
+body.ob .lift.dark .grp.is-here{opacity:1}
+body.ob .lift.dark .grp,body.ob .lift.dark .lbl{text-shadow:0 1px 3px rgba(0,0,0,.75),0 0 10px rgba(0,0,0,.5)}
+body.ob .lift.dark .mark{box-shadow:0 0 4px rgba(0,0,0,.6)}
 /* кечуа — в рамке, как в главе «Растения», а не одной строкой с латынью */
 body.ob .card .cap u{display:inline-block;margin-top:6px;text-decoration:none;
   font-family:var(--ob-mono);font-weight:500;font-size:9.5px;letter-spacing:.16em;
@@ -4555,9 +4559,11 @@ var ATLAS = {
      поверх кадра, #/shapka-net — вернуть нынешний плинт под кадром.
      Держится в сессии тем же приёмом, что и сам облик */
   var SKEY = "kc-shapka";
-  function shapka() { try { return sessionStorage.getItem(SKEY) || ""; } catch (e) { return ""; } }
+  /* по умолчанию — проба «а»: текст стоит прямо на кадре. Прежний плинт
+     под кадром никуда не делся, он за ссылкой #/shapka-net */
+  function shapka() { try { return sessionStorage.getItem(SKEY) || "a"; } catch (e) { return "a"; } }
   function setShapka(v) {
-    try { v ? sessionStorage.setItem(SKEY, v) : sessionStorage.removeItem(SKEY); } catch (e) {}
+    try { sessionStorage.setItem(SKEY, v); } catch (e) {}
   }
   function paintShapka() {
     var v = shapka();
@@ -4573,7 +4579,7 @@ var ATLAS = {
     /* пробы шапки живут только в новом облике — включаем его заодно */
     if (h === "shapka-a") { set(true); setShapka("a"); }
     if (h === "shapka-b") { set(true); setShapka("b"); }
-    if (h === "shapka-net") { setShapka(""); }
+    if (h === "shapka-net") { set(true); setShapka("net"); }
     paint();
     paintShapka();
   }
