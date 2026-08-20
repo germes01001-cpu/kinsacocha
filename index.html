@@ -175,7 +175,7 @@
   }
   @media (prefers-reduced-motion: reduce) { .noise::after { animation: none; } }
   .ph span { position: relative; background: var(--surface); padding: 3px 8px; }
-  section.dark .ph { background: var(--dark-surface); border-color: var(--dark-line); color: var(--dark-muted); }
+  section.dark .ph { background-color: var(--dark-surface); border-color: var(--dark-line); color: var(--dark-muted); }
   section.dark .ph::before { background:
       linear-gradient(to top right, transparent calc(50% - .5px), var(--dark-line) 50%, transparent calc(50% + .5px)),
       linear-gradient(to top left, transparent calc(50% - .5px), var(--dark-line) 50%, transparent calc(50% + .5px)); }
@@ -1203,7 +1203,7 @@
 
       <div class="g3" style="margin-top:24px">
         <div class="card">
-          <div class="ph r219 sc-dawn" data-shot data-bg="img/9f10988e0971.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
+          <div class="ph r219 sc-dawn" data-shot data-bg="img/5393e8e26284.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
           <h3>Кинсакоча целиком</h3>
           <p class="muted">3 дня · 2 ночи</p>
           <p><span class="tag">дом</span><span class="tag">тропа на полдня</span><span class="tag">тропа на день</span><span class="tag">дрова</span><span class="tag">ужин</span></p>
@@ -1212,7 +1212,7 @@
           <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
         </div>
         <div class="card">
-          <div class="ph r219 sc-fire" data-shot data-bg="img/e19c39e32b83.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
+          <div class="ph r219 sc-fire" data-shot data-bg="img/df276396e257.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
           <h3>Ночь у озера</h3>
           <p class="muted">2 дня · 1 ночь</p>
           <p><span class="tag">дом</span><span class="tag">короткая тропа</span><span class="tag">дрова</span></p>
@@ -1221,7 +1221,7 @@
           <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
         </div>
         <div class="card accent">
-          <div class="ph r219 sc-house" data-shot data-bg="img/eb44ceff324a.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
+          <div class="ph r219 sc-house" data-shot data-bg="img/37fce212ad86.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
           <h3>Дом на день</h3>
           <p class="muted">без ночёвки · приехали утром, уехали к вечеру</p>
           <p><span class="tag">дом</span><span class="tag">душ</span><span class="tag">кухня</span><span class="tag">типи</span></p>
@@ -1372,30 +1372,34 @@
 
       <h3 style="margin-top:26px">Что здесь едят вообще</h3>
       <div class="g4">
-        <div><div class="ph r11 sc-food" data-shot><video data-src="vid/cf98af38b9c9.mp4" autoplay muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" preload="none"></video></div><p style="font-size:15px;margin-top:8px"><b>Чуньо и морайя</b><br><span class="muted">картошка, высушенная морозом и солнцем</span></p></div>
-        <div><div class="ph r11 sc-water noise"><span>Труча — фото нет</span></div><p style="font-size:15px;margin-top:8px"><b>Труча</b><br><span class="muted">форель из лагуны. Разводит община — ловить нельзя, заказать можно</span></p></div>
-        <div><div class="ph r11 sc-food" data-shot data-bg="img/528180f38db2.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Яйца и молоко</b><br><span class="muted">из деревни, а не из магазина</span></p></div>
-        <div><div class="ph r11 sc-food" data-shot data-bg="img/ad429921aa21.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Чича</b><br><span class="muted">здесь её пьют горячей</span></p></div>
+        <div><div class="ph r43 sc-food" data-shot data-bg="img/70fcdb907edf.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Чуньо и морайя</b><br><span class="muted">картошка, высушенная морозом и солнцем</span></p></div>
+        <div><div class="ph r43 sc-food" data-shot data-bg="img/556011de7367.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Яйца с хлебом</b><br><span class="muted">яйца из деревни, хлеб снизу</span></p></div>
+        <div><div class="ph r43 sc-food" data-shot data-bg="img/0815a87339d9.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Макароны с овощами</b><br><span class="muted">то, что хозяин готовит чаще всего</span></p></div>
+        <div><div class="ph r43 sc-food" data-shot data-bg="img/2c01467bfb3c.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Перец</b><br><span class="muted">красный и зелёный, к любому блюду</span></p></div>
+        <div><div class="ph r43 sc-food" data-shot data-bg="img/539dd1d76045.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:8px"><b>Чича</b><br><span class="muted">здесь её пьют горячей</span></p></div>
       </div>
+      <p class="muted" style="margin-top:12px;max-width:68ch">Труча — форель из лагуны. Разводит община: ловить нельзя, заказать к ужину можно. Своего кадра у нас пока нет.</p>
     </div>
   </section>
 
   <section class="ground-ember">
     <div class="wrap wide">
       <div class="eyebrow"><i></i><span>11</span><b>Дом</b></div>
-      <h2>Две печи</h2>
-      <p class="lead">Одна кормит, вторая греет. Между ними лет пятьсот.</p>
-      <div class="split" style="margin-top:20px">
-        <div>
-          <div class="ph video r43 sc-fire" data-shot><video src="vid/e8bd34320aab.mp4" poster="img/ca51ca897df1.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
-          <h3 style="margin-top:12px">Глиняная, на кухне</h3>
-          <p class="muted">Топится дровами, готовят в глиняных горшках. Долго — в этом и смысл.</p>
-        </div>
-        <div>
-          <div class="ph r43 sc-fire noise"><span>Печка в доме — кадра нет</span></div>
-          <h3 style="margin-top:12px">Та, что в доме</h3>
-          <p class="muted">Её растапливают к вечеру, и к ужину в доме уже тепло. Дрова привозят снизу: здесь они не растут.</p>
-        </div>
+      <h2>Пять печей</h2>
+      <p class="lead">Одна кормит, вторая греет, третья горит под открытым небом. Четвёртая нарисована.</p>
+      <p style="max-width:68ch">Дрова здесь не растут — их привозят снизу. Поэтому огонь тут не декорация и не «атмосфера»: это единственный способ согреться, высушить одежду и приготовить еду. Считать печи в доме имеет тот же смысл, что в городе считать розетки.</p>
+      <div class="g4" style="margin-top:22px">
+        <div><div class="ph r11 sc-fire" data-shot data-bg="img/b947ac5afd21.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:10px"><b>Глиняная, на кухне</b><br><span class="muted">топится дровами, готовят в глиняных горшках. Долго — в этом и смысл</span></p></div>
+        <div><div class="ph r11 sc-fire noise"><span>Печь в доме — кадра нет</span></div><p style="font-size:15px;margin-top:10px"><b>Та, что в доме</b><br><span class="muted">растапливают к вечеру, и к ужину в доме уже тепло</span></p></div>
+        <div><div class="ph r11 sc-fire" data-shot data-bg="img/fc3594b2f9e3.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:10px"><b>Очаг в типи</b><br><span class="muted">огонь в нескольких шагах от того места, где вы спите</span></p></div>
+        <div><div class="ph r11 sc-fire noise"><span>Очаг во дворе — кадра нет</span></div><p style="font-size:15px;margin-top:10px"><b>Очаг во дворе</b><br><span class="muted">круг камней под открытым небом. К нему выносят чай</span></p></div>
+        <div><div class="ph r11 sc-fire" data-shot data-bg="img/e387925e5391.webp" style="background-size:cover;background-position:center"></div><p style="font-size:15px;margin-top:10px"><b>Нарисованная</b><br><span class="muted">холст, котёл, огонь. Не греет и не должна</span></p></div>
+      </div>
+      <div class="card accent" style="margin-top:22px">
+        <h3>Про пятую</h3>
+        <p>Очаг с котлом, нарисованный на холсте, — это из «Золотого ключика»: в каморке папы Карло очаг был нарисован, а за холстом пряталась дверца. Буратино проткнул его носом — и нашёл то, ради чего вся история затевалась.</p>
+        <p class="muted">У сказки есть и алхимическое прочтение: Толстой писал её, зная символистов Серебряного века с их оккультизмом и алхимией. Печь у алхимика — место превращения, а золотой ключик стоит там, где в других историях стоял бы философский камень. То, что ищут по всему свету, оказывается за нарисованным огнём в собственной каморке.</p>
+        <p><b>Эта печь висит на стене и не греет.</b> Четыре другие настоящие — пятая напоминает, зачем вы вообще поехали так высоко.</p>
       </div>
       <p class="muted" style="max-width:68ch;margin-top:24px">Ещё здесь есть горячий душ, стиральная машина, газовый обогреватель — его можно занести в комнату, — одеяла, посуда и свет. Перечисляем это одной строкой, потому что приезжают не за этим.</p>
       <div class="card accent" style="margin-top:20px">
@@ -1408,12 +1412,12 @@
       <p class="lead">Восемь мест. Три в доме, пять в типи.</p>
       <div class="split" style="margin-top:16px">
         <div class="card">
-          <div class="ph r43 sc-house" data-shot data-bg="img/5215d0b25904.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
+          <div class="ph r43 sc-house" data-shot data-bg="img/9b7d133812d4.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
           <h3>Комната · три кровати</h3>
           <p class="muted">тёплые одеяла, печь за стеной. Со своим спальником всё равно теплее — но без него не замёрзнете</p>
         </div>
         <div class="card">
-          <div class="ph r43 sc-house" data-shot data-bg="img/2971dc0a33ea.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
+          <div class="ph r43 sc-house noise" style="margin-bottom:12px"><span>Типи изнутри — кадра нет</span></div>
           <h3>Типи · пять мест</h3>
           <p class="muted">здесь холоднее, и это первое, что мы о нём говорим. Спальник обязателен</p>
         </div>
@@ -1485,17 +1489,17 @@
       <p class="muted" style="font-size:13.5px">те же три тропы, но в другой час. Меняется не маршрут, а всё остальное</p>
       <div class="g3" style="margin-top:16px">
         <div class="card">
-          <div class="ph r43 sc-dawn noise" style="margin-bottom:12px"><span>Рассвет — фото нет</span></div>
+          <div class="ph r11 sc-dawn" data-shot data-bg="img/674c4155fc08.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
           <h3>Рассвет</h3>
           <p class="muted">выход в 5:30. Туман лежит в долинах, вершины загораются первыми. Любая из трёх троп, но выглядит она иначе</p>
         </div>
         <div class="card">
-          <div class="ph r43 sc-night noise" style="margin-bottom:12px"><span>Закат — фото нет</span></div>
+          <div class="ph r11 sc-night noise" style="margin-bottom:12px"><span>Закат — кадра нет</span></div>
           <h3>Закат</h3>
           <p class="muted">последний свет ложится на воду. Возвращаемся в темноте и потому только с проводником — налобник берите свой</p>
         </div>
         <div class="card">
-          <div class="ph r43 sc-night noise" style="margin-bottom:12px"><span>Полнолуние — фото нет</span></div>
+          <div class="ph r11 sc-night" data-shot data-bg="img/3aa273ccbb3f.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
           <h3>Полнолуние</h3>
           <p class="muted">не одна ночь, а неделя: три дня до и три после. В эти дни света хватает, чтобы идти без фонаря</p>
           <div class="moon">
@@ -1557,7 +1561,7 @@
       <p style="max-width:56ch">Местные говорят: она видит вас первой. Всегда. И уходит раньше, чем вы успеете о ней подумать.</p>
       <p style="max-width:56ch">У нас нет её фотографии. Поэтому её здесь не будет.</p>
       <div class="quote">Опасности нет. Пума уходит от человека, а не к нему — она замечает вас задолго до того, как вы могли бы заметить её.</div>
-      <a class="btn" href="#/atlas/zveri">Вся глава — семнадцать видов →</a>
+      <a class="btn" href="#/atlas/zveri">Все животные — семнадцать видов →</a>
       </div>
     </div>
   </section>
@@ -2622,29 +2626,29 @@ var ATLAS = {
     /* ── ЗВЕРИ ─────────────────────────────────────────── */
     { ch:"zveri", slug:"alpaka", name:"Альпака", lat:"Vicugna pacos", que:"allpaqa", group:"Те, кого пасут",
       short:"Одомашнена здесь пять тысяч лет назад — ради шерсти, а не ради мяса.",
-      ph:["f178a796d01d","b6480ce2cc30","ca9e8b621b45","a1f1c7b9b726","9eb48bdfd7f2"], st:"ok",
+      ph:["1ffa4822e8e4","df21d8a381e2","f178a796d01d","b6480ce2cc30","ca9e8b621b45","a1f1c7b9b726","9eb48bdfd7f2"], st:"ok",
       text:["Одомашнена в этих горах около пяти тысяч лет назад — ради шерсти, а не ради мяса. Ближайший дикий родственник, викунья, живёт здесь же, но её не пасут.",
             "Шерсть альпаки полая внутри: тот же приём, что у кактуса с его белым пухом — воздух внутри волокна держит тепло лучше, чем само волокно. На 4200 это не украшение, а условие того, что животное переживает ночь.",
             "Маленьких гостей не боятся: к людям привыкли с рождения, потому что живут при людях. Стадо на тропе — не дикая природа, а чья-то работа, идущая вам навстречу."] },
     { ch:"zveri", slug:"ovcy", name:"Овцы", lat:"Ovis aries", que:"uwiha", group:"Те, кого пасут",
       short:"Ходят стадом, не по одной. Держатся ниже альпак.",
-      ph:[], st:"nophoto",
+      ph:["13cdaf3682c3"], st:"ok",
       text:["Овца пришла сюда с испанцами и осталась: шерсть грубее альпачьей, зато животное неприхотливее и растёт быстрее.",
             "Стадо идёт плотно и почти всегда с собакой или с ребёнком. На тропе вы услышите его раньше, чем увидите."] },
     { ch:"zveri", slug:"osly", name:"Ослы", lat:"Equus asinus", que:"asnu", group:"Те, кого пасут",
       short:"Здесь это транспорт, а не украшение пейзажа.",
-      ph:["ee92e41af845"], st:"ok",
+      ph:["7f7a471ddc83","ee92e41af845"], st:"ok",
       text:["Дрова, картошка, мешки с шерстью — всё, что не поднимает машина, поднимает осёл. Дорога наверх для него обычный рабочий день.",
             "Пасутся свободно и часто без хозяина рядом: их знают в лицо, и они знают дорогу домой."] },
     { ch:"zveri", slug:"korovy", name:"Коровы", lat:"Bos taurus", que:"waka", group:"Те, кого пасут",
       short:"Пасутся выше, чем ждёшь от коровы.",
-      ph:["95c29e31676e","c45f0997e3ab","40e32ae87900"], st:"ok",
+      ph:["afb6eeaf1cd7","95c29e31676e","c45f0997e3ab","40e32ae87900"], st:"ok",
       text:["На четырёх тысячах корова выглядит неуместно — и всё-таки стоит по колено в ичу и жуёт. Молоко отсюда попадает на стол в тот же день: холодильник не нужен, ночь и так холодная.",
             "Держатся у воды и на пологих склонах, куда не забираются альпаки."] },
 
     { ch:"zveri", slug:"huallata", name:"Андский гусь", lat:"Chloephaga melanoptera", que:"huallata", group:"Увидите точно",
       short:"Летают парами. Одной и той же парой — всю жизнь.",
-      ph:["d6ef38b0e923","3ac8b1775b93","11d6362a4d49","294fab7dc867"], st:"ok",
+      ph:["d810bd17aad0","d6ef38b0e923","3ac8b1775b93","11d6362a4d49","294fab7dc867"], st:"ok",
       text:["Белый с чёрными крыльями, размером с домашнего гуся, но плотнее и тяжелее на вид. Держится у воды круглый год: на 4200 ему хватает травы по берегу и мелководья.",
             "Летают парами. Одной и той же парой — всю жизнь. На четырёх тысячах, где всё живое занято тем, чтобы дожить до утра, это выглядит не как факт из справочника, а как заявление.",
             "Гнездо ставят на земле у самой воды, и защищает его пара вдвоём: один шипит и идёт навстречу, второй уводит выводок. Если гусь пошёл на вас — вы близко к гнезду, отойдите."] },
@@ -2666,7 +2670,7 @@ var ATLAS = {
 
     { ch:"zveri", slug:"kondor", name:"Кондор", lat:"Vultur gryphus", que:"kuntur", group:"Если повезёт",
       short:"Три метра в размахе. Почти не машет крыльями.",
-      ph:["98ac1c59f9fd","7bd021f95839"], st:"ok",
+      ph:["fd2944dbba9d","98ac1c59f9fd","7bd021f95839"], st:"ok",
       text:["Размах крыльев — больше трёх метров, вес до пятнадцати килограммов. Такая птица не может держаться на взмахах: она ждёт, когда склон нагреется, и уходит вверх на восходящем потоке. Поэтому кондора чаще видят в середине дня, а не на рассвете.",
             "Падальщик, а не охотник: ищет мёртвое, а не живое. За скотом кондор не приходит — приходит после.",
             "Бывает над горами и над тропой. Не каждый день и не по расписанию: увидеть его — вопрос того, во сколько вы вышли и куда смотрели."] },
@@ -2683,7 +2687,7 @@ var ATLAS = {
             "Держится в кустарнике и в траве, выходит в сумерках. Чаще видно движение, чем зверя."] },
     { ch:"zveri", slug:"taruka", name:"Тарука", lat:"Hippocamelus antisensis", que:"taruka", group:"Если повезёт",
       short:"Андский олень. Чаще замечаешь, как он уходит.",
-      ph:["8444c71a7d59","d7a061e557c8"], st:"ok",
+      ph:["52d38eb01ece","8444c71a7d59","d7a061e557c8"], st:"ok",
       text:["Серо-бурый олень пуны, плотный и коротконогий — сложён под склон, а не под равнину. Рога у самца раздваиваются простой вилкой, без ветвистой короны, к которой привыкли в Европе.",
             "Держится небольшими группами на открытых склонах, там, где видно далеко. Осторожен: чаще замечаешь не самого оленя, а то, как он уходит вверх — ровно, без паники и без остановок.",
             "Вид охраняемый: поголовье невелико и держится клочками по всему нагорью. Встреча — редкость, и это не оборот речи."] },
@@ -2978,7 +2982,10 @@ var ATLAS = {
         }
         slots[i].innerHTML = '<div class="jA">' + out + '</div>';
       } else {
-        slots[i].innerHTML = gridA(speciesOf(ch).slice(0, 7));
+        var all = speciesOf(ch);
+        var shot = all.filter(function (x) { return x.ph && x.ph.length; });
+        var rest = all.filter(function (x) { return !(x.ph && x.ph.length); });
+        slots[i].innerHTML = gridA(shot.concat(rest).slice(0, 7));
       }
     }
   }
