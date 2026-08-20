@@ -8,6 +8,63 @@
 <meta name="description" content="Частный дом на 4200 метров в Андах, община Пару-Пару, Писак, Куско.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%23A88923'%3E%3Cpath d='M24 6 44.8 42 3.2 42Z' fill='none' stroke='%23A88923' stroke-width='2'/%3E%3Ccircle cx='24' cy='6' r='3'/%3E%3Ccircle cx='44.8' cy='42' r='3'/%3E%3Ccircle cx='3.2' cy='42' r='3'/%3E%3C/g%3E%3C/svg%3E">
 <style>*{box-sizing:border-box}html,body{margin:0;padding:0}</style><style>.mos{position:relative;overflow:hidden;background:var(--k-sunken);background-size:cover;background-position:center}.mos video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}</style>
+<style>
+/* ─── Лифт: где мы на странице и как уехать к блоку ─────
+   На компьютере — засечки слева, собранные в пять разделов.
+   На телефоне — метка снизу и шторка с оглавлением. */
+.lift {
+  position: fixed; left: clamp(10px, 1.6vw, 22px); top: 50%; transform: translateY(-50%);
+  z-index: 35; display: none; flex-direction: column; gap: 9px;
+  --lift-ink: var(--k-text); --lift-dim: rgba(38,35,31,.28);
+}
+.lift.on { display: flex; }
+.lift.dark { --lift-ink: #EDE6DA; --lift-dim: rgba(237,230,218,.32); }
+.lift button { all: unset; cursor: pointer; display: flex; align-items: center; gap: 9px; height: 14px; }
+.lift .mark { display: block; width: 11px; height: 2px; background: var(--lift-dim); transition: all .35s ease; }
+.lift .lbl {
+  font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap;
+  color: var(--lift-ink); opacity: 0; transform: translateX(-4px);
+  transition: opacity .3s ease, transform .3s ease; pointer-events: none;
+}
+.lift button:hover .mark, .lift button:focus-visible .mark { background: var(--lift-ink); }
+.lift button:hover .lbl, .lift button:focus-visible .lbl { opacity: .85; transform: none; }
+.lift .is-on .mark { width: 24px; background: var(--lift-ink); }
+.lift .is-on .lbl { opacity: 1; transform: none; }
+.lift .gap { height: 16px; }
+.lift .grp {
+  font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--lift-ink); opacity: .45; margin-bottom: 3px; white-space: nowrap;
+}
+
+.m-pill, .m-sheet { display: none; }
+@media (max-width: 900px) {
+  .lift { display: none !important; }
+  .m-pill {
+    position: fixed; left: 12px; bottom: 12px; z-index: 38; align-items: center; gap: 8px;
+    padding: 9px 14px; border-radius: 999px; background: rgba(31,29,26,.9); color: #EDE6DA;
+    backdrop-filter: blur(8px); border: none; font: 500 12px/1 var(--font-sans, Inter, sans-serif);
+    letter-spacing: .06em; max-width: calc(100vw - 24px); overflow: hidden; white-space: nowrap;
+  }
+  .m-pill.on { display: flex; }
+  .m-pill i { font-style: normal; opacity: .55; }
+  .m-sheet {
+    position: fixed; inset: auto 0 0 0; z-index: 39; display: block; background: var(--bg);
+    border-top: 1px solid var(--line); padding: 14px 18px 26px; max-height: 72vh; overflow-y: auto;
+    transform: translateY(101%); transition: transform .32s ease;
+  }
+  .m-sheet.open { transform: none; }
+  .m-sheet h5 {
+    margin: 16px 0 2px; font: 500 11px/1 var(--font-sans, Inter, sans-serif);
+    letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+  }
+  .m-sheet button.row {
+    all: unset; display: block; width: 100%; padding: 11px 0; font-size: 16px;
+    border-bottom: 1px solid var(--line-soft); color: var(--ink);
+  }
+  .m-sheet button.row.is-on { color: var(--accent); }
+}
+@media (prefers-reduced-motion: reduce) { .lift *, .m-sheet { transition: none !important; } }
+</style>
 </head>
 <body>
 <title>Kinsacocha</title>
@@ -1636,7 +1693,7 @@
   <section class="dark ground-ember">
     <div class="wrap wide">
       <div class="split">
-        <div class="ph r45 sc-fauna" data-shot data-bg="img/ce8cb71d2747.webp" style="background-size:cover;background-position:center"></div>
+        <div class="ph r34 sc-fauna" data-shot data-bg="img/329643f64987.webp" style="background-size:cover;background-position:center"></div>
         <div>
           <div class="eyebrow"><i></i><span>17</span><b>Земля</b></div>
       <h2>Здесь ткут на ходу. Пока идут за стадом.</h2>
@@ -1651,14 +1708,14 @@
         <div class="card">
           <p class="muted">дверь первая</p>
           <h3>Приезжайте и выберите сами</h3>
-          <div class="ph r169 sc-water" data-shot data-bg="img/c85ce69055d4.webp" style="margin:12px 0;;background-size:cover;background-position:center"></div>
+          <div class="ph r169 sc-water" data-shot data-bg="img/f96b0d5107a6.webp" style="margin:12px 0;;background-size:cover;background-position:center"></div>
           <p>У лагуны есть музей: выставка тканого и то, что можно унести с собой. Там много, выбор большой, и это не пункт программы — просто рядом.</p>
           <p class="muted">Мы с этого не имеем ничего. И говорим об этом первыми, до того как предложим своё. Фотографировать можно — но мы спрашиваем разрешения.</p>
         </div>
         <div class="card accent">
           <p class="muted">дверь вторая</p>
           <h3>То, что до прилавка не доходит</h3>
-          <div class="ph r169 sc-moss" data-shot data-bg="img/8954aaa05726.webp" style="margin:12px 0;;background-size:cover;background-position:center"></div>
+          <div class="ph r34 sc-moss" data-shot data-bg="img/98a216a44181.webp" style="margin:12px 0;background-size:cover;background-position:center"></div>
           <p>Эти вещи мы находим сами, покупаем у мастериц и отправляем куда угодно в мире.</p>
         </div>
       </div>
@@ -3483,6 +3540,99 @@ var ATLAS = {
   window.__scan=scan;
 })();</script>
 
+<script>
+/* ─── Лифт по главной ─────────────────────────────────── */
+(function () {
+  var home = document.getElementById("p-home");
+  if (!home) return;
+  var secs = [], kids = home.children;
+  for (var i = 0; i < kids.length; i++) if (kids[i].tagName === "SECTION") secs.push(kids[i]);
+  /* раздел начинается на блоке с этим номером */
+  var GROUPS = { "": "Место", "05": "Приезд", "10": "Быт", "13": "Атлас", "17": "Дальше" };
+
+  function short(t) {
+    t = (t || "").replace(/\s+/g, " ").trim();
+    if (t.length <= 26) return t;
+    var cut = t.slice(0, 26), sp = cut.lastIndexOf(" ");
+    return (sp > 12 ? cut.slice(0, sp) : cut) + "…";
+  }
+  var items = secs.map(function (sec, n) {
+    var eb = sec.querySelector(".eyebrow span"), h2 = sec.querySelector("h2");
+    return { el: sec, num: eb ? eb.textContent.trim() : "",
+             name: h2 ? short(h2.textContent) : (n === 0 ? "Начало" : "") };
+  });
+  var curGroup = "Место";
+  items.forEach(function (it, n) {
+    var g = n === 0 ? GROUPS[""] : (it.num ? GROUPS[it.num] : null);
+    if (g) { it.head = g; curGroup = g; }
+    it.group = curGroup;
+  });
+  function go(el) {
+    var y = el.getBoundingClientRect().top + window.pageYOffset - 52;
+    var soft = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: y, behavior: soft ? "smooth" : "auto" });
+  }
+
+  /* компьютер — засечки слева */
+  var lift = document.createElement("nav");
+  lift.className = "lift"; lift.setAttribute("aria-label", "Разделы страницы");
+  var btns = [];
+  items.forEach(function (it, n) {
+    if (it.head) {
+      if (n > 0) { var sp = document.createElement("div"); sp.className = "gap"; lift.appendChild(sp); }
+      var t = document.createElement("div"); t.className = "grp"; t.textContent = it.head; lift.appendChild(t);
+    }
+    var b = document.createElement("button");
+    b.type = "button"; b.title = (it.num ? it.num + " · " : "") + it.name;
+    b.innerHTML = '<span class="mark"></span><span class="lbl">' +
+                  (it.num ? it.num + " · " : "") + it.name + "</span>";
+    b.addEventListener("click", function () { go(it.el); });
+    lift.appendChild(b); btns.push(b);
+  });
+  document.body.appendChild(lift);
+
+  /* телефон — метка и шторка */
+  var pill = document.createElement("button");
+  pill.className = "m-pill"; pill.type = "button";
+  pill.innerHTML = '<span class="t">Начало</span><i>▲</i>';
+  var sheet = document.createElement("div"); sheet.className = "m-sheet";
+  var rows = [];
+  items.forEach(function (it) {
+    if (it.head) { var h = document.createElement("h5"); h.textContent = it.head; sheet.appendChild(h); }
+    var r = document.createElement("button");
+    r.type = "button"; r.className = "row";
+    r.textContent = (it.num ? it.num + " · " : "") + it.name;
+    r.addEventListener("click", function () { sheet.classList.remove("open"); go(it.el); });
+    sheet.appendChild(r); rows.push(r);
+  });
+  pill.addEventListener("click", function () { sheet.classList.toggle("open"); });
+  document.body.appendChild(pill); document.body.appendChild(sheet);
+
+  var cur = -1;
+  function tick() {
+    if (!home.classList.contains("on")) return;
+    var mid = window.innerHeight * 0.42, best = 0;
+    for (var i = 0; i < items.length; i++) if (items[i].el.getBoundingClientRect().top <= mid) best = i;
+    if (best === cur) return;
+    cur = best;
+    for (var k = 0; k < btns.length; k++) btns[k].classList.toggle("is-on", k === cur);
+    for (var m = 0; m < rows.length; m++) rows[m].classList.toggle("is-on", m === cur);
+    lift.classList.toggle("dark", /dark|ground-ember|ground-lake/.test(items[cur].el.className));
+    pill.querySelector(".t").textContent = items[cur].group + " · " + (items[cur].name || "Начало");
+  }
+  function visible() {
+    var on = home.classList.contains("on");
+    lift.classList.toggle("on", on);
+    pill.classList.toggle("on", on);
+    if (!on) sheet.classList.remove("open");
+    cur = -1; tick();
+  }
+  addEventListener("scroll", tick, { passive: true });
+  addEventListener("resize", tick);
+  addEventListener("hashchange", function () { setTimeout(visible, 40); });
+  visible();
+})();
+</script>
 </body>
 </html>
 
