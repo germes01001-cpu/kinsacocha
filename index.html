@@ -1494,6 +1494,69 @@ body.ob .hero .dots i.on{background:var(--ob-bloom);width:13px}
 @media (max-width:760px){body.ob .hero .dots{position:static;justify-content:flex-start;margin-top:20px;max-width:none}}
 @media (max-height:620px){body.ob .hero{height:auto;min-height:0}}
 
+/* ── Страницы озёр ──────────────────────────────────────────────
+   Устройство одно на все три: кадр во весь экран с плитой снизу,
+   текст на воздухе, вода на сланце, соседние озёра на породе.
+   Плита лежит поверх снимка, поэтому красится явным светом,
+   а не переменными ступени: на светлой ступени --fg тёмный,
+   и заголовок лёг бы тёмным по тёмному. */
+body.ob .oz{display:grid;grid-template-rows:1fr auto;grid-template-columns:100%;
+  height:calc(100svh - var(--hdr,0px));min-height:560px;padding:0!important;
+  background:var(--ob-crack);color:#E7E9E6;overflow:hidden}
+body.ob .oz .oz-bg,body.ob .oz .oz-scrim{grid-area:1/1/-1/-1}
+body.ob .oz .oz-bg{background-size:cover;background-position:center}
+body.ob .oz .oz-scrim{background:linear-gradient(180deg,
+  rgba(21,24,27,.46) 0%,rgba(21,24,27,.04) 30%,rgba(21,24,27,.22) 58%,rgba(21,24,27,.74) 100%)}
+/* плита несёт собственный градиент: кадры у трёх озёр разной яркости,
+   и общего затемнения не хватало — подпись «← озёра» тонула на светлом склоне */
+body.ob .oz-plate{grid-area:2/1;position:relative;z-index:2;width:100%;
+  padding:clamp(30px,5vw,64px) 0 clamp(26px,3.4vw,38px);
+  background:linear-gradient(180deg,rgba(21,24,27,0) 0%,rgba(21,24,27,.42) 34%,rgba(21,24,27,.82) 100%)}
+/* обёртка, а не правка детей: правило body.ob .oz-plate h1{margin:0} стоит ниже
+   и с тем же весом — оно гасило margin:auto, и текст уезжал к краю окна */
+body.ob .oz-in{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,24px)}
+body.ob .oz-back{font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(231,233,230,.88);text-decoration:none;
+  display:block;margin:0 0 14px;padding:6px 0}
+body.ob .oz-back:hover{color:#E7E9E6}
+body.ob .oz-plate h1{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
+  font-size:clamp(38px,8vw,96px);line-height:.92;letter-spacing:-.005em;color:#E7E9E6;margin:0}
+body.ob .oz-ru{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
+  font-size:clamp(15px,2.1vw,23px);letter-spacing:.07em;color:rgba(231,233,230,.74);margin:10px 0 0}
+body.ob .oz-facts{font-family:var(--ob-mono);font-weight:500;font-size:11px;letter-spacing:.17em;
+  text-transform:uppercase;color:rgba(231,233,230,.68);margin:16px 0 0;
+  display:flex;flex-wrap:wrap;gap:6px 20px}
+@media (max-width:900px){body.ob .oz-plate{padding-bottom:104px}}
+@media (max-height:620px){body.ob .oz{height:auto;min-height:0}}
+
+/* вода: карта фиксированная, спанов по вертикали нет — дыр не бывает */
+.ozm{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(6px,.7vw,10px);
+  grid-auto-rows:clamp(112px,13vw,208px);margin-top:6px;
+  grid-template-areas:"a a b c" "d e f f" "g h h i" "j j k l"}
+.ozm .c{overflow:hidden;background:rgba(0,0,0,.18);background-size:cover;background-position:center}
+.oza{grid-area:a}.ozb{grid-area:b}.ozc{grid-area:c}.ozd{grid-area:d}
+.oze{grid-area:e}.ozf{grid-area:f}.ozg{grid-area:g}.ozh{grid-area:h}
+.ozi{grid-area:i}.ozj{grid-area:j}.ozk{grid-area:k}.ozl{grid-area:l}
+@media (max-width:760px){
+  .ozm{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(104px,26vw,170px);
+    grid-template-areas:"a a" "b c" "d e" "f f" "g h" "i j" "k k" "l l"}
+}
+
+/* соседние озёра: текущее подсвечено, как переключатель глав в Атласе */
+body.ob .oz-near{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(10px,1.5vw,20px);margin-top:10px}
+body.ob .oz-near a,body.ob .oz-near span.cur{display:block;text-decoration:none;color:inherit}
+body.ob .oz-near .sh{aspect-ratio:16/10;background-size:cover;background-position:center;
+  filter:grayscale(.4);transition:filter .4s ease}
+body.ob .oz-near a:hover .sh,body.ob .oz-near a:focus-visible .sh{filter:none}
+body.ob .oz-near .nm{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
+  font-size:clamp(14px,1.7vw,19px);letter-spacing:.02em;margin-top:11px}
+body.ob .oz-near .mt{font-family:var(--ob-mono);font-weight:500;font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:5px}
+body.ob .oz-near .cur .sh{filter:grayscale(1);opacity:.34}
+body.ob .oz-near .cur .nm{color:var(--dim)}
+@media (max-width:620px){body.ob .oz-near{grid-template-columns:1fr}}
+
 /* ── текст и кнопки стоят прямо на кадре ─────────────────────────────
    Кадр занимает весь первый экран, текст лежит на нём, читаемость держит
    затемнение снизу. Выбрано заказчиком 20 августа из двух проб. */
@@ -2601,117 +2664,116 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
 </div>
 
 <div class="page" id="p-ozera-pumakocha">
+  <section class="oz">
+    <div class="oz-bg" role="img" aria-label="Пума Коча, самое высокое" data-shot data-bg="img/e6ac95b67191.webp"></div>
+    <div class="oz-scrim"></div>
+    <div class="oz-plate"><div class="oz-in">
+      <a class="oz-back" href="#/ozera">← озёра</a>
+      <h1>Puma qucha</h1>
+      <p class="oz-ru">Пума Коча</p>
+      <div class="oz-facts"><span>4325 м</span><span>самое высокое</span><span>озеро пумы</span></div>
+    </div></div>
+  </section>
+
   <section>
     <div class="wrap narrow">
-      <a class="backlink" href="#/ozera">← озёра</a>
-      <h1>Puma qucha</h1>
-      <p class="muted">Pumacocha · «озеро пумы» · 4325 м · самое высокое из трёх</p>
-      <div class="ph r219 sc-water" data-shot data-bg="img/73c5390f1a98.webp" style="margin:20px 0;;background-size:cover;background-position:center"></div>
-      <div class="ph video r169 sc-water" data-shot data-bg="img/bcafc6a8f111.webp" style="margin-bottom:20px;;background-size:cover;background-position:center"></div>
-      <p>Самое высокое из трёх. Название переводится с кечуа как «озеро пумы». Пума для инков была не просто зверем: она означала силу и связь с землёй, один из трёх уровней мира. Назвать её именем воду на такой высоте — это не то же самое, что назвать озеро в честь красивой птицы.</p>
-      <p>Пуму здесь не видели. В регионе она есть, но следов не находят, и никто из местных не может сказать, что встречал её. Озеро носит её имя, а самой пумы в кадре не будет — и это, пожалуй, самое точное описание этого места.</p>
-      <p>Тёмная вода, голый склон, ощущение, что здесь холоднее. Не открыточный вид — тяжёлый.</p>
+      <p>Самое высокое из трёх. Название переводится с кечуа как «озеро пумы». Пума для инков была не просто зверем: она означала силу и связь с землёй, один из трёх уровней мира. Назвать её именем воду на такой высоте — это не то же самое, что назвать озеро в честь красивой птицы.</p><p>Пуму здесь не видели. В регионе она есть, но следов не находят, и никто из местных не может сказать, что встречал её. Озеро носит её имя, а самой пумы в кадре не будет — и это, пожалуй, самое точное описание этого места.</p><p>Тёмная вода, голый склон, ощущение, что здесь холоднее. Не открыточный вид — тяжёлый.</p>
       <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
-      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
-      <p class="navrow" style="margin-top:22px"><a href="#/ozera/azulkocha">Асуль Коча →</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
     </div>
   </section>
 
   <section>
     <div class="wrap wide">
-      <div class="ozgal">
-        <div class="ph" data-shot data-bg="img/e6ac95b67191.webp" style="aspect-ratio:3500/1969;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/0751edd19a13.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/fa9738c91487.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/2a11127f0885.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/2e707d861fb7.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/f9c8b2417cc4.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/11433e6707fb.webp" style="aspect-ratio:2448/3264;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/fdedafb1a44d.webp" style="aspect-ratio:3264/2448;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/1daef864e56c.webp" style="aspect-ratio:3072/4096;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/0f650b99b6e0.webp" style="aspect-ratio:3072/4096;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/2d3eac6d92ba.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/d2ebeca2656a.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
-      </div>
-      <p class="muted" style="margin-top:16px">Одно озеро, разные дни. Снято между июлем и августом.</p>
+      <div class="eyebrow"><i></i><span>Вода</span><b>Пума Коча</b></div>
+      <h2>Одно озеро, разные дни</h2>
+      <p class="muted" style="max-width:60ch">Снято между июлем и августом. Ни один кадр не подписан местом — здесь это и не нужно, вода у всех трёх разная.</p>
+      <div class="ozm"><div class="c oza" data-shot data-bg="img/0751edd19a13.webp"></div><div class="c ozb" data-shot data-bg="img/2e707d861fb7.webp"></div><div class="c ozc" data-shot data-bg="img/f9c8b2417cc4.webp"></div><div class="c ozd" data-shot data-bg="img/11433e6707fb.webp"></div><div class="c oze" data-shot data-bg="img/fdedafb1a44d.webp"></div><div class="c ozf" data-shot data-bg="img/fa9738c91487.webp"></div><div class="c ozg" data-shot data-bg="img/1daef864e56c.webp"></div><div class="c ozh" data-shot data-bg="img/2a11127f0885.webp"></div><div class="c ozi" data-shot data-bg="img/0f650b99b6e0.webp"></div><div class="c ozj" data-shot data-bg="img/73c5390f1a98.webp"></div><div class="c ozk" data-shot data-bg="img/2d3eac6d92ba.webp"></div><div class="c ozl" data-shot data-bg="img/d2ebeca2656a.webp"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <h3>Два других озера</h3>
+      <div class="oz-near"><span class="cur"><div class="sh" data-shot data-bg="img/33202bafb99b.webp"></div><div class="nm">Пума Коча</div><div class="mt">4325 м · самое высокое</div></span><a href="#/ozera/azulkocha"><div class="sh" data-shot data-bg="img/cdcfad5f3313.webp"></div><div class="nm">Асуль Коча</div><div class="mt">4243 м · самое синее</div></a><a href="#/ozera/kinsakocha"><div class="sh" data-shot data-bg="img/6a691cc9da63.webp"></div><div class="nm">Кинса Коча</div><div class="mt">самое большое · у него стоит дом</div></a></div>
+      <p style="margin-top:26px"><a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a></p>
     </div>
   </section>
 </div>
 
 <div class="page" id="p-ozera-azulkocha">
+  <section class="oz">
+    <div class="oz-bg" role="img" aria-label="Асуль Коча, самое синее" data-shot data-bg="img/2a6147bf14dd.webp"></div>
+    <div class="oz-scrim"></div>
+    <div class="oz-plate"><div class="oz-in">
+      <a class="oz-back" href="#/ozera">← озёра</a>
+      <h1>Asul qucha</h1>
+      <p class="oz-ru">Асуль Коча</p>
+      <div class="oz-facts"><span>4243 м</span><span>самое синее</span><span>камень у воды</span></div>
+    </div></div>
+  </section>
+
   <section>
     <div class="wrap narrow">
-      <a class="backlink" href="#/ozera">← озёра</a>
-      <h1>Asul qucha</h1>
-      <p class="muted">Azulcocha · «синее озеро» · 4243 м · самое синее из трёх</p>
-      <div class="ph r219 sc-water" data-shot data-bg="img/d1fbd2f6b440.webp" style="margin:20px 0;;background-size:cover;background-position:center"></div>
-      <div class="ph video r169 sc-water" data-shot data-bg="img/bcafc6a8f111.webp" style="margin-bottom:20px;;background-size:cover;background-position:center"></div>
-      <p>Ниже Пума Кочи на восемьдесят с лишним метров. Асуль — «синее» по-испански, и название не преувеличивает: вода здесь уходит в насыщенную бирюзу, а в ясный день, когда небо стоит без единого облака, граница между водой и небом почти исчезает.</p>
-      <p>Цвет — не краска и не минерал в привычном смысле. Так работает высота: чистая холодная вода, мало органики, много света. Внизу такой воды не бывает просто потому, что внизу теплее.</p>
-      <p>Высоту мы не считали сами. У воды лежит камень Parque de la Papa, и на нём выбито: 4243,74. Он есть в кадрах ниже.</p>
+      <p>Ниже Пума Кочи на восемьдесят с лишним метров. Асуль — «синее» по-испански, и название не преувеличивает: вода здесь уходит в насыщенную бирюзу, а в ясный день, когда небо стоит без единого облака, граница между водой и небом почти исчезает.</p><p>Цвет — не краска и не минерал в привычном смысле. Так работает высота: чистая холодная вода, мало органики, много света. Внизу такой воды не бывает просто потому, что внизу теплее.</p><p>Высоту мы не считали сами. У воды лежит камень Parque de la Papa, и на нём выбито: 4243,74. Он есть в кадрах ниже.</p>
       <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
-      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
-      <p class="navrow" style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
     </div>
   </section>
 
   <section>
     <div class="wrap wide">
-      <div class="ozgal">
-        <div class="ph" data-shot data-bg="img/2a6147bf14dd.webp" style="aspect-ratio:3500/2625;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/4f9252494f26.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/d3cf20d79fe1.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/828bdacb4d5f.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/8c7ec587998e.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/756e66432d61.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/b26e2d9d3ccb.webp" style="aspect-ratio:2448/3264;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/ff61491e845f.webp" style="aspect-ratio:3072/4096;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/502ed1c56636.webp" style="aspect-ratio:3264/2448;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/e1b84a628045.webp" style="aspect-ratio:3264/2448;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/b1658e5e7dee.webp" style="aspect-ratio:3264/2448;background-size:cover;background-position:center"></div>
-      </div>
-      <p class="muted" style="margin-top:16px">Одно озеро, разные дни. Снято между июлем и августом.</p>
+      <div class="eyebrow"><i></i><span>Вода</span><b>Асуль Коча</b></div>
+      <h2>Одно озеро, разные дни</h2>
+      <p class="muted" style="max-width:60ch">Снято между июлем и августом. Ни один кадр не подписан местом — здесь это и не нужно, вода у всех трёх разная.</p>
+      <div class="ozm"><div class="c oza" data-shot data-bg="img/b26e2d9d3ccb.webp"></div><div class="c ozb" data-shot data-bg="img/4f9252494f26.webp"></div><div class="c ozc" data-shot data-bg="img/d3cf20d79fe1.webp"></div><div class="c ozd" data-shot data-bg="img/828bdacb4d5f.webp"></div><div class="c oze" data-shot data-bg="img/8c7ec587998e.webp"></div><div class="c ozf" data-shot data-bg="img/d1fbd2f6b440.webp"></div><div class="c ozg" data-shot data-bg="img/756e66432d61.webp"></div><div class="c ozh" data-shot data-bg="img/ff61491e845f.webp"></div><div class="c ozi" data-shot data-bg="img/502ed1c56636.webp"></div><div class="c ozj" data-shot data-bg="img/e1b84a628045.webp"></div><div class="c ozk" data-shot data-bg="img/b1658e5e7dee.webp"></div><div class="c ozl" data-shot data-bg="img/bcafc6a8f111.webp"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <h3>Два других озера</h3>
+      <div class="oz-near"><a href="#/ozera/pumakocha"><div class="sh" data-shot data-bg="img/33202bafb99b.webp"></div><div class="nm">Пума Коча</div><div class="mt">4325 м · самое высокое</div></a><span class="cur"><div class="sh" data-shot data-bg="img/cdcfad5f3313.webp"></div><div class="nm">Асуль Коча</div><div class="mt">4243 м · самое синее</div></span><a href="#/ozera/kinsakocha"><div class="sh" data-shot data-bg="img/6a691cc9da63.webp"></div><div class="nm">Кинса Коча</div><div class="mt">самое большое · у него стоит дом</div></a></div>
+      <p style="margin-top:26px"><a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a></p>
     </div>
   </section>
 </div>
 
 <div class="page" id="p-ozera-kinsakocha">
+  <section class="oz">
+    <div class="oz-bg" role="img" aria-label="Кинса Коча, у него стоит дом" data-shot data-bg="img/5b69d9787764.webp"></div>
+    <div class="oz-scrim"></div>
+    <div class="oz-plate"><div class="oz-in">
+      <a class="oz-back" href="#/ozera">← озёра</a>
+      <h1>Kinsa qucha</h1>
+      <p class="oz-ru">Кинса Коча</p>
+      <div class="oz-facts"><span>самое большое</span><span>у него стоит дом</span><span>дало имя месту</span></div>
+    </div></div>
+  </section>
+
   <section>
     <div class="wrap narrow">
-      <a class="backlink" href="#/ozera">← озёра</a>
-      <h1>Kinsa qucha</h1>
-      <p class="muted">Kinsacocha · «три озера» · самое большое и самое близкое</p>
-      <div class="ph r219 sc-water" data-shot data-bg="img/753eddcc73bc.webp" style="margin:20px 0;;background-size:cover;background-position:center"></div>
-      <div class="ph video r169 sc-water" data-shot data-bg="img/bcafc6a8f111.webp" style="margin-bottom:20px;;background-size:cover;background-position:center"></div>
-      <p>Самое большое из трёх и самое близкое. Именно у него стоит дом, и именно оно дало имя всему месту. В нём же община разводит форель — тручу. Ловить её нельзя, а заказать к ужину можно: это единственная еда, которую здесь не нужно везти с собой снизу.</p>
+      <p>Самое большое из трёх и самое близкое. Именно у него стоит дом, и именно оно дало имя всему месту. В нём же община разводит форель — тручу. Ловить её нельзя, а заказать к ужину можно: это единственная еда, которую здесь не нужно везти с собой снизу.</p><p>Kinsa qucha на кечуа — «три озера». Место названо счётом: не в честь горы, не в честь человека, а по тому, сколько здесь воды. Дом стоит у того озера, которое дало имя остальным двум.</p>
       <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
-      <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
-      <p class="navrow" style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/azulkocha">← Асуль Коча</a></p>
     </div>
   </section>
 
   <section>
     <div class="wrap wide">
-      <div class="ozgal">
-        <div class="ph" data-shot data-bg="img/d69525d97753.webp" style="aspect-ratio:3500/1969;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/5b69d9787764.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/c46b37ec7629.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/843f8db6bd1b.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/5c4af0dba440.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/132b626f6adf.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/f96df5622fce.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/f551cb64705b.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/61a6a0bbc0d8.webp" style="aspect-ratio:2304/4096;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/1fbd25cab362.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/7e736ba77644.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
-        <div class="ph" data-shot data-bg="img/ff6a85f3f5a6.webp" style="aspect-ratio:1836/3264;background-size:cover;background-position:center"></div>
-      </div>
-      <p class="muted" style="margin-top:16px">Одно озеро, разные дни. Снято между июлем и августом.</p>
+      <div class="eyebrow"><i></i><span>Вода</span><b>Кинса Коча</b></div>
+      <h2>Одно озеро, разные дни</h2>
+      <p class="muted" style="max-width:60ch">Снято между июлем и августом. Ни один кадр не подписан местом — здесь это и не нужно, вода у всех трёх разная.</p>
+      <div class="ozm"><div class="c oza" data-shot data-bg="img/753eddcc73bc.webp"></div><div class="c ozb" data-shot data-bg="img/d69525d97753.webp"></div><div class="c ozc" data-shot data-bg="img/c46b37ec7629.webp"></div><div class="c ozd" data-shot data-bg="img/843f8db6bd1b.webp"></div><div class="c oze" data-shot data-bg="img/5c4af0dba440.webp"></div><div class="c ozf" data-shot data-bg="img/ff6a85f3f5a6.webp"></div><div class="c ozg" data-shot data-bg="img/132b626f6adf.webp"></div><div class="c ozh" data-shot data-bg="img/f96df5622fce.webp"></div><div class="c ozi" data-shot data-bg="img/f551cb64705b.webp"></div><div class="c ozj" data-shot data-bg="img/61a6a0bbc0d8.webp"></div><div class="c ozk" data-shot data-bg="img/1fbd25cab362.webp"></div><div class="c ozl" data-shot data-bg="img/7e736ba77644.webp"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <h3>Два других озера</h3>
+      <div class="oz-near"><a href="#/ozera/pumakocha"><div class="sh" data-shot data-bg="img/33202bafb99b.webp"></div><div class="nm">Пума Коча</div><div class="mt">4325 м · самое высокое</div></a><a href="#/ozera/azulkocha"><div class="sh" data-shot data-bg="img/cdcfad5f3313.webp"></div><div class="nm">Асуль Коча</div><div class="mt">4243 м · самое синее</div></a><span class="cur"><div class="sh" data-shot data-bg="img/6a691cc9da63.webp"></div><div class="nm">Кинса Коча</div><div class="mt">самое большое · у него стоит дом</div></span></div>
+      <p style="margin-top:26px"><a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a></p>
     </div>
   </section>
 </div>
 
-<!-- ══════════════════ ЗАМЕТКИ ══════════════════ -->
 <div class="page" id="p-dnevnik">
   <section>
     <div class="wrap narrow">
@@ -4779,9 +4841,10 @@ var ATLAS = {
     "p-artefakty":        ["air","ichu","slate","crack","crack"],   /* звук → оригиналы → отпечаток → тканое */
     "p-tseny":            ["air"],
     "p-ozera":            ["air"],
-    "p-ozera-pumakocha":  ["air"],
-    "p-ozera-azulkocha":  ["air"],
-    "p-ozera-kinsakocha": ["air"],
+    /* озеро: тёмная комната кадра → свет текста → мокрый сланец воды → тень */
+    "p-ozera-pumakocha":  ["crack","air","slate","crack"],
+    "p-ozera-azulkocha":  ["crack","air","slate","crack"],
+    "p-ozera-kinsakocha": ["crack","air","slate","crack"],
     "p-dnevnik":          ["air"],
     "p-dnevnik-tuman":    ["air"],
     "p-gallery":          ["air"],
