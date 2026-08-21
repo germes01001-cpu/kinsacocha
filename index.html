@@ -1092,6 +1092,35 @@ body.svoi .friends-note { display: block; }
 @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url(font/f0071a68d5.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
 @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url(font/533c1157c0.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
+/* ── Атлас: две вёрстки глав ────────────────────────────────
+   Журнальная — там, где у кадра есть имя. Мозаика — там, где нет. */
+.jJ{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:clamp(24px,3.2vw,44px);margin-top:18px}
+.jJ .card{margin:0}
+.jJ .card .ph{aspect-ratio:3/2}
+.jJ .card .cap{padding-top:12px}
+
+.jM2{display:grid;grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:clamp(94px,10.5vw,170px);gap:10px;margin-top:18px}
+.jM2 .mz{overflow:hidden}
+.jM2 .mz .ph{width:100%;height:100%;aspect-ratio:auto;margin:0}
+.jM2 .mz.big{grid-column:span 2;grid-row:span 2}
+@media (max-width:700px){
+  .jM2{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(88px,26vw,140px)}
+}
+
+/* оглавление Атласа: четыре равных входа */
+.gEnt{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:clamp(20px,2.6vw,32px);margin-top:22px}
+.gEnt .card{margin:0}
+.gEnt .card .ph{aspect-ratio:4/3}
+.gEnt .cap .no{display:block;font-family:var(--ob-mono,monospace);font-weight:500;
+  font-size:11px;letter-spacing:.2em;opacity:.55;margin-bottom:6px}
+.gEnt .cap b{font-size:23px}
+
+.card .cap .st{display:block;font-family:var(--ob-mono,monospace);font-weight:500;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-top:9px}
+
 .ob-only{display:none}
 body.ob .ob-only{display:block}
 
@@ -1110,11 +1139,6 @@ body.ob{
   font-family:var(--ob-text); font-weight:300; letter-spacing:0;
 }
 /* спуск — только глава «Растения»: у неё есть настоящая ось */
-body.ob.ob-desc{
-  background:var(--ob-crack);
-  background-image:linear-gradient(180deg,var(--ob-air) 0%,var(--ob-air) 7%,var(--ob-ichu) 26%,var(--ob-moss) 50%,var(--ob-slate) 76%,var(--ob-crack) 95%);
-}
-
 /* ── ступени ───────────────────────────────────────────────── */
 body.ob section.og-air,body.ob .og-air,body.ob .ob-g-air{background:var(--ob-air);color:#1D2119;--ground:#E6E9E3;--fg:#1D2119;--dim:rgba(29,33,25,.62);--rule:rgba(29,33,25,.2)}
 body.ob section.og-ichu,body.ob .og-ichu,body.ob .ob-g-ichu{background:var(--ob-ichu);color:#1D2119;--ground:#C8C7B1;--fg:#1D2119;--dim:rgba(29,33,25,.66);--rule:rgba(29,33,25,.24)}
@@ -1188,7 +1212,7 @@ body.ob a{color:inherit}
    считается на самой секции, поэтому цвет всегда её собственный. */
 body.ob section,
 body.ob .og-air,body.ob .og-ichu,body.ob .og-moss,body.ob .og-slate,body.ob .og-crack,
-body.ob .ob-band,body.ob .ob-cover,body.ob .ob-sp,body.ob .ob-floor{
+body.ob .ob-sp{
   --ink:var(--fg); --ink-2:var(--dim); --muted:var(--dim);
   --line:var(--rule); --line-soft:var(--rule); --dark-line:var(--rule);
   --dark-ink:var(--fg); --dark-muted:var(--dim); --dark-surface:rgba(0,0,0,.14);
@@ -1346,9 +1370,9 @@ body.ob .card .cap u{display:inline-block;margin-top:6px;text-decoration:none;
   body.ob footer.site{padding-bottom:96px}
   /* цели пальца: строчные ссылки-призывы были 19–23 px по высоте.
      Растягиваем область нажатия псевдоэлементом, чтобы не двигать вёрстку */
-  body.ob .lake-cap a,body.ob .trail .row a,body.ob p.muted a,body.ob .ob-floor p a{position:relative}
+  body.ob .lake-cap a,body.ob .trail .row a,body.ob p.muted a,body.ob .navrow a{position:relative}
   body.ob .lake-cap a::after,body.ob .trail .row a::after,body.ob p.muted a::after,
-  body.ob .ob-floor p a::after{
+  body.ob .navrow a::after{
     content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}
 }
 
@@ -1409,34 +1433,15 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
 .ob-page .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,26px)}
 .ob-page a{color:inherit}
 .ob-page :focus-visible{outline:2px solid var(--ob-bloom);outline-offset:3px}
-.ob-cover{padding:clamp(30px,6vw,70px) 0 8px;color:#1D2119}
 .ob-page .backlink{display:inline-block;margin-bottom:26px}
 .ob-kick{font-family:var(--ob-mono);font-weight:500;font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.62}
-.ob-cover h1{font-family:var(--ob-disp);font-weight:700;font-size:clamp(44px,10vw,124px);line-height:.9;
-  letter-spacing:-.01em;text-transform:uppercase;margin:16px 0 0;color:#1D2119}
-.ob-lead{font-family:var(--ob-text);font-weight:300;font-size:clamp(18px,2.3vw,26px);line-height:1.4;margin:20px 0 0;max-width:34ch}
-.ob-said{margin:26px 0 0;max-width:58ch;font-size:16.5px;line-height:1.6}
-.ob-said b{font-weight:400;box-shadow:inset 0 -.5em 0 rgba(232,179,58,.35)}
 .ob-note{margin:24px 0 0;font-family:var(--ob-mono);font-size:11.5px;line-height:1.5;letter-spacing:.04em;opacity:.6;max-width:52ch}
-.ob-chapnav{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
-.ob-chapnav a{text-decoration:none;border:1px solid currentColor;padding:7px 11px;
-  font-family:var(--ob-mono);font-weight:500;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.5}
-.ob-chapnav a:hover{opacity:.85}
-.ob-chapnav a.on{opacity:1;background:#1D2119;color:var(--ob-air);border-color:#1D2119}
 .ob-loop{position:relative;overflow:hidden;aspect-ratio:21/9;margin:34px 0 0;background:rgba(0,0,0,.14)}
 .ob-loop video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.ob-band{padding:clamp(48px,7vw,78px) 0 0}
 .ob-b1,.ob-b2{--fg:#1D2119}
 .ob-b3{--fg:#151A14}
 .ob-b4{--fg:#EFEFE6}
 .ob-b5{--fg:#E7E9E6}
-.ob-band{color:var(--fg)}
-.ob-bhead{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid currentColor;padding-bottom:9px}
-.ob-bhead .tick{font-family:var(--ob-mono);font-weight:500;font-size:12px;letter-spacing:.1em;opacity:.55}
-.ob-bhead h2{font-family:var(--ob-disp);font-weight:700;font-size:clamp(26px,5.2vw,60px);line-height:1;
-  text-transform:uppercase;margin:0;flex:1;color:inherit;letter-spacing:.01em}
-.ob-bhead .count{font-family:var(--ob-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
-.ob-bnote{margin:14px 0 0;max-width:56ch;font-size:16.5px;opacity:.86}
 .ob-row{position:relative;display:flex;align-items:flex-start;gap:22px;flex-wrap:wrap;margin-top:32px}
 .ob-row::after{content:"";position:absolute;left:0;right:0;top:var(--maxh);height:2px;background:currentColor}
 .ob-pl{margin:0;flex:1 1 190px;max-width:290px;text-decoration:none;color:inherit;display:block}
@@ -1450,15 +1455,14 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
 .ob-cap u{display:inline-block;margin-top:6px;text-decoration:none;font-family:var(--ob-mono);font-weight:500;
   font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;border:1px solid currentColor;padding:3px 5px;opacity:.65}
 .ob-cap .ob-txt{display:block;margin:8px 0 0;font-size:13.5px;line-height:1.45;opacity:.78}
-.ob-pl.bloom .ob-cap b{color:var(--ob-bloom)}
+/* Цветущие помечаем знаком, а не цветом имени. Жёлтый по светлой ступени
+   даёт контраст 1.57 — имя пропадает совсем (проверено по пикселям на
+   #/atlas/rasteniya/ichu). Знак читается на любой ступени, а имя остаётся
+   в цвете текста, как у всех остальных. */
+.ob-pl.bloom .ob-cap b::before{content:"";display:inline-block;
+  width:.46em;height:.46em;background:var(--ob-bloom);
+  margin-right:.42em;vertical-align:.04em;flex:none}
 .ob-pl:hover .ob-cap b{text-decoration:underline;text-underline-offset:3px}
-.ob-floor{margin-top:clamp(50px,7vw,84px);padding:clamp(40px,6vw,64px) 0 clamp(60px,9vw,96px);color:#D8DCDA}
-.ob-floor h3{font-family:var(--ob-disp);font-weight:700;font-size:clamp(22px,4vw,44px);line-height:1.05;
-  text-transform:uppercase;margin:0 0 16px;color:#D8DCDA}
-.ob-floor p{max-width:56ch;margin:0 0 12px;font-size:16.5px;opacity:.82}
-.ob-floor a{color:var(--ob-bloom)}
-.ob-floor .sign{font-family:var(--ob-mono);font-size:11px;line-height:1.5;letter-spacing:.16em;text-transform:uppercase;opacity:.5;margin-top:24px}
-
 /* ── страница вида ─────────────────────────────────────────── */
 .ob-sp{padding:clamp(30px,6vw,70px) 0 clamp(50px,8vw,90px);color:#1D2119}
 .ob-sp h1{font-family:var(--ob-disp);font-weight:700;font-size:clamp(34px,7vw,84px);line-height:.95;
@@ -2530,7 +2534,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p>Тёмная вода, голый склон, ощущение, что здесь холоднее. Не открыточный вид — тяжёлый.</p>
       <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
-      <p style="margin-top:22px"><a href="#/ozera/azulkocha">Асуль Коча →</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
+      <p class="navrow" style="margin-top:22px"><a href="#/ozera/azulkocha">Асуль Коча →</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
     </div>
   </section>
 </div>
@@ -2547,7 +2551,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p>Цвет — не краска и не минерал в привычном смысле. Так работает высота: чистая холодная вода, мало органики, много света. Внизу такой воды не бывает просто потому, что внизу теплее.</p>
       <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
-      <p style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
+      <p class="navrow" style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
     </div>
   </section>
 </div>
@@ -2563,7 +2567,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p>Самое большое из трёх и самое близкое. Именно у него стоит дом, и именно оно дало имя всему месту. В нём же община разводит форель — тручу. Ловить её нельзя, а заказать к ужину можно: это единственная еда, которую здесь не нужно везти с собой снизу.</p>
       <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
-      <p style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/azulkocha">← Асуль Коча</a></p>
+      <p class="navrow" style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/azulkocha">← Асуль Коча</a></p>
     </div>
   </section>
 </div>
@@ -2618,7 +2622,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p style="margin-top:20px">К полудню туман начал рваться клочьями, и в один из разрывов на воду вышла пара яна вико — стояли неподвижно, будто ждали, пока их заметят.</p>
       <div class="card" style="margin:20px 0">
         <div class="muted" style="font-size:13px">справка</div>
-        <p style="margin:6px 0 0"><b>Яна вико</b> · <i>Plegadis ridgwayi</i> — <a href="#/atlas/zveri">все животные →</a></p>
+        <p class="navrow" style="margin:6px 0 0"><b>Яна вико</b> · <i>Plegadis ridgwayi</i> — <a href="#/atlas/zveri">все животные →</a></p>
       </div>
       <p>К вечеру небо расчистило совсем, и стало заметно холоднее — первый признак того, что назавтра будет ясно.</p>
       <p class="muted" style="margin-top:24px">Кто и что попалось в этот день</p>
@@ -2628,7 +2632,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         <div class="ph r11 sc-fauna noise"><span>вискача</span></div>
         <div class="ph r11 sc-moss" data-shot data-bg="img/0e8d559d084d.webp" style="background-size:cover;background-position:center"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;margin-top:26px;font-size:15px">
+      <div class="navrow" style="display:flex;justify-content:space-between;margin-top:26px;font-size:15px">
         <a href="#/dnevnik">← 4 августа</a>
         <a href="#/dnevnik">18 августа →</a>
       </div>
@@ -2750,7 +2754,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <h4>Купаться — можно. Но подумайте дважды</h4>
       <p>Да, здесь купаются. Вода холодная — не «бодрящая», а именно холодная, и это не преувеличение для красного словца.</p>
       <p>Честная часть: вы находитесь выше четырёх тысяч двухсот метров. Кислорода примерно на сорок процентов меньше, чем на уровне моря. Резкий холод — это дополнительная нагрузка на сердце, а на такой высоте организм и без того работает в непривычном режиме. Поэтому: не в первый день после подъёма, не в одиночку, не после алкоголя и не «на слабо».</p>
-      <p><a href="#/blog/gornaya-bolezn">→ Что нужно знать про высоту 4200 до того, как подниматься</a></p>
+      <p class="navrow"><a href="#/blog/gornaya-bolezn">→ Что нужно знать про высоту 4200 до того, как подниматься</a></p>
       <h4>Что здесь есть кроме озёр</h4>
       <p>Пики. Малые лагуны, у которых нет ни имени в интернете, ни фотографий. Тропы, о которых знает довольно мало людей.</p>
       <p>Мы не будем про них писать. Не из вредности и не ради интриги: эти места существуют в нынешнем виде ровно потому, что о них не пишут. Как только появляется координата, появляется поток, а за потоком — мусор, вытоптанная трава и очередь на фотографию.</p>
@@ -2817,7 +2821,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <div class="ph r43 sc-moss" data-shot data-bg="img/35d8870c2429.webp" style="margin:20px 0;;background-size:cover;background-position:center"></div>
       <h4>Про купание в озёрах</h4>
       <p>Купаться на такой высоте можно, и люди купаются. Но резкий холод — это нагрузка на сердце поверх той, которую уже даёт высота. Не в первый день после подъёма, не в одиночку и не после алкоголя.</p>
-      <p><a href="#/blog/tri-ozera">→ Про сами озёра — что это за вода и чем они отличаются</a></p>
+      <p class="navrow"><a href="#/blog/tri-ozera">→ Про сами озёра — что это за вода и чем они отличаются</a></p>
       <hr style="border:0;border-top:1px solid var(--line-soft);margin:32px 0">
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
     </div>
@@ -3507,7 +3511,9 @@ var ATLAS = {
       phBox(sp.ph[0], sp.name + " — кадра нет", "") +
       '<div class="cap"><b>' + esc(sp.name) + '</b>' + lat +
       (sp.short ? '<p>' + esc(sp.short) + '</p>' : '') +
-      '<span class="more">карточка →</span></div></a>';
+      /* статус вместо «карточка →»: облик запрещает «подробнее» и «читать далее» —
+         имя само ссылка. А статус говорит то, чего больше нигде не сказано. */
+      '<span class="st">' + esc(ST[sp.st] || "") + '</span></div></a>';
   }
 
   /* сетка A: большая, широкая, две мелких — и так по кругу */
@@ -3524,6 +3530,28 @@ var ATLAS = {
     for (var i = 0; i < list.length; i++) out += speciesCard(list[i], C_PATTERN[i % C_PATTERN.length]);
     return '<div class="jC">' + out + '</div>';
   }
+  /* ── глава с видами: журнальная. Выбрана заказчиком 20 августа 2026 ──
+     Ровные столбцы, крупный кадр, подпись под ним. Ни спуска, ни линии земли:
+     главы Атласа устроены одинаково, и различает их ровно одно — есть ли
+     у кадра имя. Растения больше не особенные. */
+  function gridJournal(list) {
+    var out = "";
+    for (var i = 0; i < list.length; i++) out += speciesCard(list[i], "jn");
+    return '<div class="jJ">' + out + '</div>';
+  }
+
+  /* ── глава с кадрами: мозаика. Камни и Местные жители ──
+     Блок из пяти: один крупный на четверть сетки и четыре мелких — вместе
+     ровно два ряда. Остаток идёт мелкими. Спаны при auto-fill оставляют дыры
+     посреди сетки, поэтому размер задаётся блоком, а не потоком. */
+  function mosaicFrames(list) {
+    var out = "", full = Math.floor(list.length / 5) * 5;
+    for (var i = 0; i < list.length; i++)
+      out += '<div class="mz ' + (i < full && i % 5 === 0 ? "big" : "s") + '">' +
+             phBox(list[i].ph, list[i].cap || "кадра нет", "") + '</div>';
+    return '<div class="jM2">' + out + '</div>';
+  }
+
   /* кадры без имён — камни и люди */
   function gridFrames(list) {
     var out = "";
@@ -3560,29 +3588,6 @@ var ATLAS = {
                "lishaynik-kustistyy":64, "lishaynik-nakipnoy":50 };
   /* Полосы названы не по росту человека, а по тому, как это увидеть:
      на камнях «по щиколотку» было бы враньём — валун лежит где угодно. */
-  var OB_BANDS = [
-    { cls:"ob-b1", mark:"издалека", sp:"видно издалека",
-      note:"Единственное дерево в главе. У дома его нет — растёт ниже, по дороге.",
-      keys:["keunia"] },
-    { cls:"ob-b2", mark:"на ходу", sp:"видно на ходу",
-      note:"Трава, два кустика и одна лиана. Всё, что решается подняться, поднимается пучком или по чужому стеблю.",
-      keys:["ichu","bomareya","maycha","munya"] },
-    { cls:"ob-b3", mark:"если замедлиться", sp:"если замедлиться",
-      note:"Выше начинается ветер, и дальше вверх никто не идёт. Эти уже наполовину у земли.",
-      keys:["wirawira","paslyon","kaktus"] },
-    { cls:"ob-b4", mark:"под ногами", sp:"под ногами",
-      note:"Подушка, розетка, коврик — три способа не отрываться от земли. Здесь живёт большинство.",
-      keys:["puya","adesmiya","purpurnyy","azorella","klever"] },
-    { cls:"ob-b5", mark:"вплотную", sp:"вплотную",
-      note:"Мхи и лишайники. Растут миллиметры за годы и сидят прямо на породе — к ним надо подойти вплотную, где бы ни лежал камень.",
-      keys:["kalceolyariya","hypochaeris","moh","lishaynik-kustistyy","lishaynik-nakipnoy"] }
-  ];
-  function obBandOf(slug) {
-    for (var i = 0; i < OB_BANDS.length; i++)
-      if (OB_BANDS[i].keys.indexOf(slug) >= 0) return OB_BANDS[i];
-    return null;
-  }
-  function obPlural(n) { return n === 1 ? "растение" : n < 5 ? "растения" : "растений"; }
   function obShot(name, h) {
     return name
       ? '<div class="ob-shot" data-bg="img/' + name + '.webp" style="--h:' + h + 'px"></div>'
@@ -3607,67 +3612,28 @@ var ATLAS = {
     return '<div class="ob-row" style="--maxh:' + maxh + 'px">' + out + '</div>';
   }
 
-  function renderChapterOb(slug) {
-    var c = chapterBy(slug); if (!c) return false;
-    var list = speciesOf(slug), body = "";
-    for (var i = 0; i < OB_BANDS.length; i++) {
-      var b = OB_BANDS[i];
-      body += '<div class="ob-band ' + b.cls + '">' +
-        '<div class="ob-bhead"><span class="tick">' + ("0" + (i + 1)).slice(-2) + '</span>' +
-        '<h2>' + esc(b.mark) + '</h2>' +
-        '<span class="count">' + b.keys.length + ' ' + obPlural(b.keys.length) + '</span></div>' +
-        '<p class="ob-bnote">' + esc(b.note) + '</p>' +
-        obRow(b.keys, list, 1) + '</div>';
-    }
-    var el = document.getElementById("p-atlas-ch");
-    el.className = "page ob-page";
-    el.innerHTML =
-      '<section><div class="wrap">' +
-      '<div class="ob-cover">' +
-      '<a class="backlink" href="#/atlas">← Атлас</a>' +
-      '<div class="ob-kick">Атлас · глава вторая</div>' +
-      '<h1>Растения</h1>' +
-      '<p class="ob-lead">Единственная глава, которая просит смотреть не вдаль, а под ноги.</p>' +
-      obChapNav(slug) +
-      '<p class="ob-said">На четырёх тысячах вверх не растёт почти ничего: ветер, ультрафиолет и мороз каждую ночь. Поэтому глава разложена <b>по тому, как это увидеть</b> — от того, что заметно издалека, до того, к чему надо подойти вплотную. Чем ниже спускаетесь, тем больше здесь живёт.</p>' +
-      '<p class="ob-note">Порядок — на глаз, по нашим же кадрам. Ничего не измеряли.</p>' +
-      '<div class="ob-loop"><video data-src="' + c.loop + '" autoplay muted loop playsinline preload="none"></video></div>' +
-      '</div>' + body +
-      '<div class="ob-floor"><h3>Ниже — порода</h3>' +
-      '<p>Земли здесь почти нет. Сначала камень, разбитый морозом, потом лишайник, который его красит, потом всё остальное. Накипной лишайник растёт миллиметры за годы: по некоторым пятнам можно считать десятилетия.</p>' +
-      '<p>Тринадцать растений в этой главе определены до рода, три — до группы, два носят только имя, которое дали местные. Дальше уверенности мы не идём.</p>' +
-      '<p>Отдельно от всего этого стоит эвкалипт: он не местный и растёт не здесь, а по дороге снизу. <a href="#/atlas/rasteniya/evkalipt">Открыть →</a></p>' +
-      '<p class="sign">Пару-Пару · 4200 м · снято хозяином дома</p></div>' +
-      '</div></section>';
-    return true;
-  }
-
-  function obChapNav(active) {
-    var out = '<div class="ob-chapnav">';
-    for (var i = 0; i < ATLAS.chapters.length; i++) {
-      var c = ATLAS.chapters[i];
-      out += '<a class="' + (c.slug === active ? "on" : "") + '" href="#/atlas/' + c.slug + '">' + esc(c.title) + '</a>';
-    }
-    return out + '</div>';
-  }
-
   function renderSpeciesOb(chSlug, spSlug) {
     var list = speciesOf(chSlug), sp = null;
     for (var i = 0; i < list.length; i++) if (list[i].slug === spSlug) sp = list[i];
     if (!sp) return false;
-    var band = obBandOf(spSlug);
     var thumbs = "";
     for (var j = 1; j < 5 && j < sp.ph.length; j++)
       thumbs += '<div class="ob-shot" data-bg="img/' + sp.ph[j] + '.webp"></div>';
     var body = "";
     for (var k = 0; k < sp.text.length; k++) body += '<p>' + esc(sp.text[k]) + '</p>';
-    var near = band ? band.keys.filter(function (x) { return x !== spSlug; }) : [];
+    /* «рядом» раньше бралось из полос спуска. Полос больше нет — берём
+       соседей по главе, это и есть то, что подпись обещает. */
+    var at = 0;
+    for (var q = 0; q < list.length; q++) if (list[q].slug === spSlug) at = q;
+    var near = list.slice(Math.max(0, at - 2), at + 3)
+                   .map(function (x) { return x.slug; })
+                   .filter(function (x) { return x !== spSlug; });
     var el = document.getElementById("p-atlas-sp");
     el.className = "page ob-page";
     el.innerHTML =
       '<section><div class="wrap"><div class="ob-sp">' +
       '<a class="backlink" href="#/atlas/' + chSlug + '">← Растения</a>' +
-      '<div class="ob-kick">Атлас · растения' + (band ? ' · ' + esc(band.sp || band.mark) : '') + '</div>' +
+      '<div class="ob-kick">Атлас · растения</div>' +
       '<h1>' + esc(sp.name) + '</h1>' +
       '<p class="sub">' + (sp.lat ? '<em>' + esc(sp.lat) + '</em>' : 'без латыни') +
         (sp.que ? '<span class="que">' + esc(sp.que) + '</span>' : '') + '</p>' +
@@ -3675,26 +3641,22 @@ var ATLAS = {
       '<div class="ob-hero" data-bg="img/' + sp.ph[0] + '.webp"></div>' +
       (thumbs ? '<div class="ob-thumbs">' + thumbs + '</div>' : '') +
       '<div class="ob-body">' + body + '</div>' +
-      (near.length ? '<div class="ob-near"><h3>Рядом — на том же расстоянии</h3>' + obRow(near, list, .45) + '</div>' : '') +
+      (near.length ? '<div class="ob-near"><h3>Рядом в этой главе</h3>' + obRow(near, list, .45) + '</div>' : '') +
       '</div></div></section>';
     return true;
   }
 
   function renderChapter(slug) {
     var c = chapterBy(slug); if (!c) return false;
-    var body = "";
-    if (slug === "kamni" || slug === "lyudi") {
-      body = gridFrames(ATLAS.frames[slug]);
-    } else {
-      body = gridC(speciesOf(slug));
-    }
+    /* глава либо про виды с именами, либо про кадры без них — третьего нет */
+    var named = (slug === "zveri" || slug === "rasteniya");
+    var body = named ? gridJournal(speciesOf(slug)) : mosaicFrames(ATLAS.frames[slug]);
     var extra = "";
-    if (slug === "kamni") extra = KAMNI_GEO;
     if (slug === "rasteniya") extra = '<p class="muted" style="margin-top:22px;max-width:68ch">Отдельно от всего этого стоит эвкалипт: он не местный и растёт не здесь, а по дороге снизу. <a href="#/atlas/rasteniya/evkalipt">Открыть →</a></p>';
     if (slug === "lyudi") extra = '<div class="quote" style="margin-top:20px">Фотографировать можно. Но мы сначала спрашиваем — не потому что закон, а потому что так себя ведут.</div>';
     document.getElementById("p-atlas-ch").className = "page";   /* снять облик «Спуск» */
     document.getElementById("p-atlas-ch").innerHTML =
-      '<section class="' + (c.tone || "") + '"><div class="wrap wide">' +
+      '<section class="dark"><div class="wrap wide">' +
       '<a class="backlink" href="#/atlas">← Атлас</a>' +
       '<div class="eyebrow"><i></i><span>Атлас</span><b>' + esc(c.eyebrow) + '</b></div>' +
       '<h1>' + esc(c.title) + '</h1>' +
@@ -3762,15 +3724,17 @@ var ATLAS = {
   /* оглавление Атласа + съёмочный лист */
   function renderAtlasIndex() {
     var cards = "";
-    var covers = { zveri: "d6ef38b0e923", rasteniya: "0e8d559d084d", kamni: "ef1a9c9264d7", lyudi: "ce8cb71d2747" };
+    /* ⚠ обложкой «Камней» стояло открытое озеро с уткой — не камень вообще.
+       Заменено на «Клык в тумане» из самой главы, 20 августа 2026. */
+    var covers = { zveri: "d6ef38b0e923", rasteniya: "0e8d559d084d", kamni: "380a67ce3009", lyudi: "ce8cb71d2747" };
     var counts = { zveri: speciesOf("zveri").length + " видов", rasteniya: speciesOf("rasteniya").length + " видов",
                    kamni: ATLAS.frames.kamni.length + " кадров", lyudi: ATLAS.frames.lyudi.length + " кадров" };
     for (var i = 0; i < ATLAS.chapters.length; i++) {
       var c = ATLAS.chapters[i];
-      cards += '<a class="card ' + (i === 0 ? "big" : i === 1 ? "wide" : "sm") + '" href="#/atlas/' + c.slug + '">' +
+      cards += '<a class="card ent" href="#/atlas/' + c.slug + '">' +
         phBox(covers[c.slug], c.title, "") +
-        '<div class="cap"><b>' + esc(c.title) + '</b><i>' + counts[c.slug] + '</i><p>' + esc(c.kicker) + '</p>' +
-        '<span class="more">открыть главу →</span></div></a>';
+        '<div class="cap"><span class="no">0' + (i + 1) + '</span><b>' + esc(c.title) + '</b>' +
+        '<i>' + counts[c.slug] + '</i><p>' + esc(c.kicker) + '</p></div></a>';
     }
     /* чего не хватает — считается само */
     var need = [];
@@ -3791,7 +3755,7 @@ var ATLAS = {
       '<p class="lead">Кто здесь живёт, что здесь растёт, из чего это сложено.</p>' +
       '<p style="max-width:68ch">Четыре главы. В каждой сначала кадры, потом имена — и честный статус у каждого имени: подтверждено нашим снимком, определён только род, или имени пока нет. Латынь ставим там, где уверены.</p>' +
       '<p class="muted" style="max-width:68ch">Пустая плитка — это не недоделка. Своего кадра нет, и мы говорим об этом вслух, вместо того чтобы подставить чужой.</p>' +
-      '<div class="jA" style="margin-top:26px">' + cards + '</div>' +
+      '<div class="gEnt">' + cards + '</div>' +
       '<h3 style="margin-top:44px">Что осталось снять</h3>' +
       '<p class="muted" style="max-width:68ch">Список считается сам по Атласу: как только кадр появится, строка отсюда исчезнет. Пума в него не входит — её здесь не будет намеренно.</p>' +
       '<div class="lines" style="margin-top:16px">' + rows + '</div>' +
@@ -3830,12 +3794,11 @@ var ATLAS = {
         id = okSp ? "p-atlas-sp" : "p-atlas"; if (id === "p-atlas") renderAtlasIndex();
       }
       else {
-        var okCh = am[1] === "rasteniya" ? renderChapterOb(am[1]) : renderChapter(am[1]);
+        var okCh = renderChapter(am[1]);
         id = okCh ? "p-atlas-ch" : "p-atlas"; if (id === "p-atlas") renderAtlasIndex();
       }
     }
-    var rast = !!(am && am[1] === "rasteniya" && (id === "p-atlas-ch" || id === "p-atlas-sp"));
-    document.body.classList.toggle("ob-desc", rast && id === "p-atlas-ch");
+    var rast = !!(am && am[1] === "rasteniya" && id === "p-atlas-sp");
     window.__obRast = rast;
     show(id);
     if (window.__oblik) window.__oblik();
@@ -4471,7 +4434,9 @@ var ATLAS = {
     "p-atlas-sp":         ["air"]                                   /* карточка вида: длинный текст */
   };
   /* четыре главы Атласа проходят тот же спуск, что и глава «Растения» */
-  var CHAPTER_GROUND = { zveri: "air", rasteniya: null, kamni: "slate", lyudi: "crack" };
+  /* Четыре главы больше не проходят спуск: они устроены одинаково,
+     значит и стоят на одной ступени. Атлас — одна тёмная комната. */
+  var CHAPTER_GROUND = { zveri: "crack", rasteniya: "crack", kamni: "crack", lyudi: "crack" };
   var STEPS = ["air","ichu","moss","slate","crack"];
 
   var KEY = "kc-oblik";

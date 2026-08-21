@@ -1,0 +1,432 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Атлас — пробы вёрстки</title>
+<style>
+@font-face{font-family:'PT Sans Narrow';font-weight:700;src:url(font/e1a5ebe74c.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'PT Sans Narrow';font-weight:700;src:url(font/a22f624597.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Spectral';font-weight:300;src:url(font/cd5fc5bfb0.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Spectral';font-weight:300;src:url(font/e6ddae60b9.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Spectral';font-weight:300;font-style:italic;src:url(font/2925118d5a.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Spectral';font-weight:300;font-style:italic;src:url(font/889468ecba.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-weight:500;src:url(font/f0071a68d5.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'JetBrains Mono';font-weight:500;src:url(font/533c1157c0.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+:root{--air:#E6E9E3;--ichu:#C8C7B1;--slate:#3D4450;--crack:#15181B;--bloom:#E8B33A;
+ --dk:#1D2119;--lt:#EFEFE6;--disp:'PT Sans Narrow',sans-serif;--text:'Spectral',Georgia,serif;--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--air);color:var(--dk);font-family:var(--text);font-weight:300;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none;display:block}
+.bar{position:sticky;top:0;z-index:9;background:var(--crack);color:var(--lt);
+ padding:12px clamp(16px,4vw,40px);display:flex;gap:6px;flex-wrap:wrap;align-items:center;
+ font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.bar b{margin-right:12px;color:var(--bloom)}
+.bar a{display:inline-block;padding:5px 9px;border:1px solid rgba(239,239,230,.3);color:rgba(239,239,230,.85)}
+.bar a:hover{border-color:var(--bloom);color:var(--bloom)}
+.board{padding:clamp(34px,5vw,64px) clamp(16px,4vw,40px) clamp(48px,7vw,86px)}
+.board.air{background:var(--air);color:var(--dk)}
+.board.crack{background:var(--crack);color:var(--lt)}
+.bhead{max-width:70ch;margin-bottom:clamp(22px,3vw,34px);border-top:2px solid currentColor;padding-top:16px}
+.bno{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.66}
+.bhead h2{font-family:var(--disp);font-weight:700;font-size:clamp(30px,4.4vw,52px);line-height:1;
+ text-transform:uppercase;margin:8px 0 10px}
+.bhead p{font-size:17px;line-height:1.5;opacity:.78}
+.ph{display:block;background-size:cover;background-position:center;background-color:rgba(29,33,25,.1)}
+.ph.noise{background-image:url(img/noise.webp);background-size:180px;opacity:.5}
+.r43{aspect-ratio:4/3}.r32{aspect-ratio:3/2}.r11{aspect-ratio:1/1}.r219{aspect-ratio:21/9}
+.sq{aspect-ratio:1/1;width:82px;flex:none}
+.cap{display:block;padding:11px 0 0}
+.cap b{display:block;font-family:var(--disp);font-weight:700;font-size:16px;line-height:1.14;
+ text-transform:uppercase;letter-spacing:.03em}
+.cap i{display:block;font-style:italic;font-size:13.5px;opacity:.66;margin-top:3px}
+.cap u{display:inline-block;text-decoration:none;font-family:var(--mono);font-weight:500;font-size:9.5px;
+ letter-spacing:.16em;text-transform:uppercase;border:1px solid currentColor;padding:3px 5px;opacity:.7;margin-top:7px}
+.cap .txt{display:block;font-size:14px;line-height:1.45;opacity:.8;margin-top:8px}
+.cap .st{display:block;font-family:var(--mono);font-weight:500;font-size:10px;letter-spacing:.1em;
+ text-transform:uppercase;opacity:.62;margin-top:9px}
+/* A */
+.gA{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:clamp(18px,2.4vw,30px)}
+/* B */
+.gB{border-top:2px solid currentColor}
+.rowB{display:flex;gap:20px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(29,33,25,.22)}
+.rowB .mid{flex:1}
+.rowB .mid b{display:block;font-family:var(--disp);font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em}
+.rowB .mid i{font-style:italic;font-size:14px;opacity:.66;margin-right:9px}
+.rowB .mid u{display:inline-block;text-decoration:none;font-family:var(--mono);font-weight:500;font-size:9.5px;
+ letter-spacing:.16em;text-transform:uppercase;border:1px solid currentColor;padding:2px 5px;opacity:.7}
+.rowB .mid .txt{display:block;font-size:14.5px;line-height:1.45;opacity:.8;margin-top:6px;max-width:62ch}
+.rowB .stR{flex:none;width:190px;text-align:right;font-family:var(--mono);font-weight:500;font-size:10px;
+ letter-spacing:.1em;text-transform:uppercase;opacity:.62;line-height:1.5}
+/* C */
+.gC{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:clamp(26px,3.4vw,44px)}
+/* D */
+.gD{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+/* E */
+.gE{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:10px}
+.mos{display:block;background-size:cover;background-position:center;background-color:rgba(29,33,25,.1)}
+.mos.noise{background-image:url(img/noise.webp);background-size:180px;opacity:.5}
+.mA{grid-column:span 2;grid-row:span 2}.mF{grid-column:span 2}.mI{grid-row:span 2}
+/* F */
+.gF{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:clamp(20px,2.6vw,32px)}
+.cap .no{display:block;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.2em;opacity:.55;margin-bottom:6px}
+.cap .cnt{display:inline-block;font-family:var(--mono);font-weight:500;font-size:10px;letter-spacing:.14em;
+ text-transform:uppercase;opacity:.66;margin-top:5px}
+.entF .cap b{font-size:24px}
+/* G */
+.wideG .cap b{font-size:30px}
+.listG{border-top:2px solid currentColor;margin-top:26px}
+.rowG{display:flex;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid rgba(29,33,25,.22)}
+.rowG .mid{flex:1}
+.rowG .mid b{display:block;font-family:var(--disp);font-weight:700;font-size:26px;text-transform:uppercase}
+.rowG .mid .no{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.2em;opacity:.55}
+.rowG .mid .txt{display:block;font-size:14.5px;opacity:.78;margin-top:4px}
+.rowG .cnt{flex:none;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;
+ text-transform:uppercase;opacity:.62}
+/* съёмочный лист */
+.shot{margin-top:clamp(34px,4.6vw,58px);border-top:2px solid currentColor;padding-top:20px}
+.shot h3{font-family:var(--disp);font-weight:700;font-size:26px;text-transform:uppercase;letter-spacing:.02em}
+.lead2{font-size:15.5px;opacity:.76;margin:7px 0 16px;max-width:62ch}
+.shotlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:9px 22px}
+.sl{display:block;border-bottom:1px solid rgba(29,33,25,.2);padding-bottom:7px}
+.sl b{font-family:var(--disp);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.02em}
+.sl i{display:block;font-family:var(--mono);font-weight:500;font-style:normal;font-size:9.5px;
+ letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-top:2px}
+.board.crack .sl,.board.crack .rowG,.board.crack .rowB{border-color:rgba(239,239,230,.22)}
+@media (max-width:700px){
+  .rowB{flex-wrap:wrap}.rowB .stR{width:auto;text-align:left;flex:1}
+  .gE{grid-template-columns:repeat(2,1fr);grid-auto-rows:120px}
+}
+</style></head><body>
+
+<div class="bar"><b>Атлас · пробы</b>
+  <a href="#a">A сетка</a><a href="#b">B определитель</a><a href="#c">C журнальная</a>
+  <a href="#d">D плитка</a><a href="#e">E мозаика</a>
+  <a href="#f">F четыре входа</a><a href="#g">G обложка и список</a>
+</div>
+
+<section class="board air" id="a">
+  <div class="bhead"><span class="bno">Проба A · глава с видами</span><h2>Ровная сетка</h2><p>Все карточки одного размера, подпись под каждой. Самое спокойное и предсказуемое. Растения, 18 видов — настоящие данные и настоящие кадры.</p></div>
+  <div class="gA"><a class="cardA"><span class="ph r43" style="background-image:url(img/887433f43ec0.webp)"></span><span class="cap">
+      <b>Пурпурный цветок пуны</b>
+      <i>Eupatorieae</i>
+      
+      <span class="txt">Каждый цветок размером с ноготь, а рыльца торчат во все стороны.</span>
+      <span class="st">группа, не вид</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/aafdb4daab35.webp)"></span><span class="cap">
+      <b>Асорелла</b>
+      <i>Azorella sp.</i>
+      
+      <span class="txt">Не куст и не трава. Плотный зелёный коврик, растущий вширь.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/d622016fe9aa.webp)"></span><span class="cap">
+      <b>Вира-вира</b>
+      <i>Achyrocline sp.</i>
+      <u>wira wira</u>
+      <span class="txt">Белая, будто из войлока. Ею лечат кашель.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/352b1c4dbfa5.webp)"></span><span class="cap">
+      <b>Ичу</b>
+      
+      <u>ichhu</u>
+      <span class="txt">Крыши, верёвки, подстилка. То, из чего сделана пуна.</span>
+      <span class="st">местное имя</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/2c3c28987ec2.webp)"></span><span class="cap">
+      <b>Кактус в шерсти</b>
+      <i>Austrocylindropuntia sp.</i>
+      <u>waraqu</u>
+      <span class="txt">Растёт не столбиком, а лепёшкой у земли. Поверх колючек — белый пух.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/4cf233128224.webp)"></span><span class="cap">
+      <b>Лишайник кустистый</b>
+      <i>Ramalina sp.</i>
+      
+      <span class="txt">Растёт кустиком, а не коркой. Ломается сухим.</span>
+      <span class="st">группа, не вид</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/0844de448a07.webp)"></span><span class="cap">
+      <b>Клевер</b>
+      <i>Trifolium amabile</i>
+      
+      <span class="txt">Тот самый клевер, только на четырёх тысячах.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/ca77673aba09.webp)"></span><span class="cap">
+      <b>Кеуния</b>
+      <i>Polylepis sp.</i>
+      <u>q'euña</u>
+      <span class="txt">Дерево, растущее выше всех деревьев планеты.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/1d8c8d8ec152.webp)"></span><span class="cap">
+      <b>Муня</b>
+      <i>Minthostachys sp.</i>
+      <u>muña</u>
+      <span class="txt">Андская мята. Растёт наверху, пахнет, если растереть лист.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/260087454854.webp)"></span><span class="cap">
+      <b>Кальцеолярия</b>
+      <i>Calceolaria sp.</i>
+      
+      <span class="txt">Жёлтый башмачок в несколько миллиметров.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/1512a7e233c6.webp)"></span><span class="cap">
+      <b>Жёлтый цветок пуны</b>
+      <i>Hypochaeris sp.</i>
+      
+      <span class="txt">Сидит розеткой прямо на земле, без стебля.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/8e4cc1d65c91.webp)"></span><span class="cap">
+      <b>Бомарея</b>
+      <i>Bomarea sp.</i>
+      
+      <span class="txt">Розовые трубки, висят гроздью.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/b9d2fd0c2dd4.webp)"></span><span class="cap">
+      <b>Адесмия</b>
+      <i>Adesmia sp.</i>
+      
+      <span class="txt">Колючая рыжая подушка.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/7854c084507e.webp)"></span><span class="cap">
+      <b>Пуйя</b>
+      <i>Puya sp.</i>
+      
+      <span class="txt">Розетка жёстких листьев с зубцами по краю.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/6c0ace904a66.webp)"></span><span class="cap">
+      <b>Паслён</b>
+      <i>Solanum sp.</i>
+      
+      <span class="txt">Сиреневая звезда с жёлтой серединой.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/881b5518374b.webp)"></span><span class="cap">
+      <b>Майча</b>
+      <i>Senecio rudbeckiifolius</i>
+      <u>maycha</u>
+      <span class="txt">Смолистый кустик, пахнет, если растереть лист.</span>
+      <span class="st">местное имя</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/30c67e838430.webp)"></span><span class="cap">
+      <b>Мох</b>
+      <i>Polytrichum sp.</i>
+      
+      <span class="txt">Ярко-зелёная подушка там, где держится вода.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardA"><span class="ph r43" style="background-image:url(img/171de4bd7246.webp)"></span><span class="cap">
+      <b>Лишайник накипной</b>
+      
+      
+      <span class="txt">Шов между камнем и растением.</span>
+      <span class="st">группа, не вид</span>
+    </span></a></div>
+</section>
+<section class="board air" id="b">
+  <div class="bhead"><span class="bno">Проба B · глава с видами</span><h2>Определитель</h2><p>Строка на вид: кадр слева, имя и латынь в середине, статус справа. Читается как полевой определитель, а не как витрина. Больше текста помещается, меньше кадра.</p></div>
+  <div class="gB"><a class="rowB"><span class="ph sq" style="background-image:url(img/887433f43ec0.webp)"></span>
+     <span class="mid"><b>Пурпурный цветок пуны</b><i>Eupatorieae</i>
+       <span class="txt">Каждый цветок размером с ноготь, а рыльца торчат во все стороны.</span></span>
+     <span class="stR">группа, не вид</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/aafdb4daab35.webp)"></span>
+     <span class="mid"><b>Асорелла</b><i>Azorella sp.</i>
+       <span class="txt">Не куст и не трава. Плотный зелёный коврик, растущий вширь.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/d622016fe9aa.webp)"></span>
+     <span class="mid"><b>Вира-вира</b><i>Achyrocline sp.</i><u>wira wira</u>
+       <span class="txt">Белая, будто из войлока. Ею лечат кашель.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/352b1c4dbfa5.webp)"></span>
+     <span class="mid"><b>Ичу</b><u>ichhu</u>
+       <span class="txt">Крыши, верёвки, подстилка. То, из чего сделана пуна.</span></span>
+     <span class="stR">местное имя</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/2c3c28987ec2.webp)"></span>
+     <span class="mid"><b>Кактус в шерсти</b><i>Austrocylindropuntia sp.</i><u>waraqu</u>
+       <span class="txt">Растёт не столбиком, а лепёшкой у земли. Поверх колючек — белый пух.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/4cf233128224.webp)"></span>
+     <span class="mid"><b>Лишайник кустистый</b><i>Ramalina sp.</i>
+       <span class="txt">Растёт кустиком, а не коркой. Ломается сухим.</span></span>
+     <span class="stR">группа, не вид</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/0844de448a07.webp)"></span>
+     <span class="mid"><b>Клевер</b><i>Trifolium amabile</i>
+       <span class="txt">Тот самый клевер, только на четырёх тысячах.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/ca77673aba09.webp)"></span>
+     <span class="mid"><b>Кеуния</b><i>Polylepis sp.</i><u>q'euña</u>
+       <span class="txt">Дерево, растущее выше всех деревьев планеты.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/1d8c8d8ec152.webp)"></span>
+     <span class="mid"><b>Муня</b><i>Minthostachys sp.</i><u>muña</u>
+       <span class="txt">Андская мята. Растёт наверху, пахнет, если растереть лист.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/260087454854.webp)"></span>
+     <span class="mid"><b>Кальцеолярия</b><i>Calceolaria sp.</i>
+       <span class="txt">Жёлтый башмачок в несколько миллиметров.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/1512a7e233c6.webp)"></span>
+     <span class="mid"><b>Жёлтый цветок пуны</b><i>Hypochaeris sp.</i>
+       <span class="txt">Сидит розеткой прямо на земле, без стебля.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/8e4cc1d65c91.webp)"></span>
+     <span class="mid"><b>Бомарея</b><i>Bomarea sp.</i>
+       <span class="txt">Розовые трубки, висят гроздью.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/b9d2fd0c2dd4.webp)"></span>
+     <span class="mid"><b>Адесмия</b><i>Adesmia sp.</i>
+       <span class="txt">Колючая рыжая подушка.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/7854c084507e.webp)"></span>
+     <span class="mid"><b>Пуйя</b><i>Puya sp.</i>
+       <span class="txt">Розетка жёстких листьев с зубцами по краю.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/6c0ace904a66.webp)"></span>
+     <span class="mid"><b>Паслён</b><i>Solanum sp.</i>
+       <span class="txt">Сиреневая звезда с жёлтой серединой.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/881b5518374b.webp)"></span>
+     <span class="mid"><b>Майча</b><i>Senecio rudbeckiifolius</i><u>maycha</u>
+       <span class="txt">Смолистый кустик, пахнет, если растереть лист.</span></span>
+     <span class="stR">местное имя</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/30c67e838430.webp)"></span>
+     <span class="mid"><b>Мох</b><i>Polytrichum sp.</i>
+       <span class="txt">Ярко-зелёная подушка там, где держится вода.</span></span>
+     <span class="stR">○ определён род</span></a><a class="rowB"><span class="ph sq" style="background-image:url(img/171de4bd7246.webp)"></span>
+     <span class="mid"><b>Лишайник накипной</b>
+       <span class="txt">Шов между камнем и растением.</span></span>
+     <span class="stR">группа, не вид</span></a></div>
+</section>
+<section class="board crack" id="c">
+  <div class="bhead"><span class="bno">Проба C · глава с видами</span><h2>Журнальная</h2><p>Крупнее кадр, больше воздуха, два столбца. Смотреть приятнее, но страница становится длиннее вдвое.</p></div>
+  <div class="gC"><a class="cardC"><span class="ph r32" style="background-image:url(img/887433f43ec0.webp)"></span><span class="cap">
+      <b>Пурпурный цветок пуны</b>
+      <i>Eupatorieae</i>
+      
+      <span class="txt">Каждый цветок размером с ноготь, а рыльца торчат во все стороны.</span>
+      <span class="st">группа, не вид</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/aafdb4daab35.webp)"></span><span class="cap">
+      <b>Асорелла</b>
+      <i>Azorella sp.</i>
+      
+      <span class="txt">Не куст и не трава. Плотный зелёный коврик, растущий вширь.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/d622016fe9aa.webp)"></span><span class="cap">
+      <b>Вира-вира</b>
+      <i>Achyrocline sp.</i>
+      <u>wira wira</u>
+      <span class="txt">Белая, будто из войлока. Ею лечат кашель.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/352b1c4dbfa5.webp)"></span><span class="cap">
+      <b>Ичу</b>
+      
+      <u>ichhu</u>
+      <span class="txt">Крыши, верёвки, подстилка. То, из чего сделана пуна.</span>
+      <span class="st">местное имя</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/2c3c28987ec2.webp)"></span><span class="cap">
+      <b>Кактус в шерсти</b>
+      <i>Austrocylindropuntia sp.</i>
+      <u>waraqu</u>
+      <span class="txt">Растёт не столбиком, а лепёшкой у земли. Поверх колючек — белый пух.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/4cf233128224.webp)"></span><span class="cap">
+      <b>Лишайник кустистый</b>
+      <i>Ramalina sp.</i>
+      
+      <span class="txt">Растёт кустиком, а не коркой. Ломается сухим.</span>
+      <span class="st">группа, не вид</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/0844de448a07.webp)"></span><span class="cap">
+      <b>Клевер</b>
+      <i>Trifolium amabile</i>
+      
+      <span class="txt">Тот самый клевер, только на четырёх тысячах.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/ca77673aba09.webp)"></span><span class="cap">
+      <b>Кеуния</b>
+      <i>Polylepis sp.</i>
+      <u>q'euña</u>
+      <span class="txt">Дерево, растущее выше всех деревьев планеты.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/1d8c8d8ec152.webp)"></span><span class="cap">
+      <b>Муня</b>
+      <i>Minthostachys sp.</i>
+      <u>muña</u>
+      <span class="txt">Андская мята. Растёт наверху, пахнет, если растереть лист.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/260087454854.webp)"></span><span class="cap">
+      <b>Кальцеолярия</b>
+      <i>Calceolaria sp.</i>
+      
+      <span class="txt">Жёлтый башмачок в несколько миллиметров.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/1512a7e233c6.webp)"></span><span class="cap">
+      <b>Жёлтый цветок пуны</b>
+      <i>Hypochaeris sp.</i>
+      
+      <span class="txt">Сидит розеткой прямо на земле, без стебля.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/8e4cc1d65c91.webp)"></span><span class="cap">
+      <b>Бомарея</b>
+      <i>Bomarea sp.</i>
+      
+      <span class="txt">Розовые трубки, висят гроздью.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/b9d2fd0c2dd4.webp)"></span><span class="cap">
+      <b>Адесмия</b>
+      <i>Adesmia sp.</i>
+      
+      <span class="txt">Колючая рыжая подушка.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/7854c084507e.webp)"></span><span class="cap">
+      <b>Пуйя</b>
+      <i>Puya sp.</i>
+      
+      <span class="txt">Розетка жёстких листьев с зубцами по краю.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/6c0ace904a66.webp)"></span><span class="cap">
+      <b>Паслён</b>
+      <i>Solanum sp.</i>
+      
+      <span class="txt">Сиреневая звезда с жёлтой серединой.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/881b5518374b.webp)"></span><span class="cap">
+      <b>Майча</b>
+      <i>Senecio rudbeckiifolius</i>
+      <u>maycha</u>
+      <span class="txt">Смолистый кустик, пахнет, если растереть лист.</span>
+      <span class="st">местное имя</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/30c67e838430.webp)"></span><span class="cap">
+      <b>Мох</b>
+      <i>Polytrichum sp.</i>
+      
+      <span class="txt">Ярко-зелёная подушка там, где держится вода.</span>
+      <span class="st">○ определён род</span>
+    </span></a><a class="cardC"><span class="ph r32" style="background-image:url(img/171de4bd7246.webp)"></span><span class="cap">
+      <b>Лишайник накипной</b>
+      
+      
+      <span class="txt">Шов между камнем и растением.</span>
+      <span class="st">группа, не вид</span>
+    </span></a></div>
+</section>
+<section class="board air" id="d">
+  <div class="bhead"><span class="bno">Проба D · глава с кадрами</span><h2>Ровная плитка</h2><p>Камни, 12 кадров. Подписей нет — только кадры одного размера. Спокойно и честно: смотреть, а не читать.</p></div>
+  <div class="gD"><span class="ph r11 tile" style="background-image:url(img/380a67ce3009.webp)"></span><span class="ph r11 tile" style="background-image:url(img/bd77a79e1acb.webp)"></span><span class="ph r11 tile" style="background-image:url(img/f2b57b91f203.webp)"></span><span class="ph r11 tile" style="background-image:url(img/4a37b7e98844.webp)"></span><span class="ph r11 tile" style="background-image:url(img/db306b667865.webp)"></span><span class="ph r11 tile" style="background-image:url(img/a084dfd973c8.webp)"></span><span class="ph r11 tile" style="background-image:url(img/7304888246db.webp)"></span><span class="ph r11 tile" style="background-image:url(img/ef1a9c9264d7.webp)"></span><span class="ph r11 tile" style="background-image:url(img/ccb54ab955c7.webp)"></span><span class="ph noise r11 tile"></span><span class="ph noise r11 tile"></span><span class="ph noise r11 tile"></span></div>
+</section>
+<section class="board crack" id="e">
+  <div class="bhead"><span class="bno">Проба E · глава с кадрами</span><h2>Мозаика</h2><p>Те же 12 кадров, но разного размера — крупные и мелкие вперемежку. Живее, но взгляду некуда встать.</p></div>
+  <div class="gE"><span class="mos mA" style="background-image:url(img/380a67ce3009.webp)"></span><span class="mos mB" style="background-image:url(img/bd77a79e1acb.webp)"></span><span class="mos mC" style="background-image:url(img/f2b57b91f203.webp)"></span><span class="mos mD" style="background-image:url(img/4a37b7e98844.webp)"></span><span class="mos mE" style="background-image:url(img/db306b667865.webp)"></span><span class="mos mF" style="background-image:url(img/a084dfd973c8.webp)"></span><span class="mos mG" style="background-image:url(img/7304888246db.webp)"></span><span class="mos mH" style="background-image:url(img/ef1a9c9264d7.webp)"></span><span class="mos mI" style="background-image:url(img/ccb54ab955c7.webp)"></span><span class="mos mJ noise"></span><span class="mos mK noise"></span><span class="mos mL noise"></span></div>
+</section>
+<section class="board air" id="f">
+  <div class="bhead"><span class="bno">Проба F · страница Атласа</span><h2>Четыре входа</h2><p>Четыре равные карточки с номером, названием и счётом. Ниже — съёмочный лист.</p></div>
+  <div class="gF"><a class="entF"><span class="ph r43" style="background-image:url(img/d6ef38b0e923.webp)"></span>
+    <span class="cap"><span class="no">01</span><b>Животные</b>
+      <span class="cnt">17 видов</span>
+      <span class="txt">Кто здесь живёт — и в каком порядке вы их встретите.</span></span></a><a class="entF"><span class="ph r43" style="background-image:url(img/0e8d559d084d.webp)"></span>
+    <span class="cap"><span class="no">02</span><b>Растения</b>
+      <span class="cnt">18 видов</span>
+      <span class="txt">Здесь всё носит шерсть. Даже кактусы.</span></span></a><a class="entF"><span class="ph r43" style="background-image:url(img/ef1a9c9264d7.webp)"></span>
+    <span class="cap"><span class="no">03</span><b>Камни</b>
+      <span class="cnt">12 кадров</span>
+      <span class="txt">Земли здесь почти нет. Сначала камень, потом всё остальное.</span></span></a><a class="entF"><span class="ph r43" style="background-image:url(img/ce8cb71d2747.webp)"></span>
+    <span class="cap"><span class="no">04</span><b>Местные жители</b>
+      <span class="cnt">33 кадров</span>
+      <span class="txt">Пуна выглядит пустой. Она не пустая.</span></span></a></div><div class="shot"><h3>Что осталось снять</h3>
+  <p class="lead2">Считается само: каждое имя без своего кадра попадает сюда. 13 позиций.</p>
+  <div class="shotlist"><span class="sl"><b>Утки</b><i>Животные</i></span><span class="sl"><b>Андская чайка</b><i>Животные</i></span><span class="sl"><b>Яна вико</b><i>Животные</i></span><span class="sl"><b>Вискача</b><i>Животные</i></span><span class="sl"><b>Дикий кролик</b><i>Животные</i></span><span class="sl"><b>Андская лиса</b><i>Животные</i></span><span class="sl"><b>Скунс</b><i>Животные</i></span><span class="sl"><b>Труча</b><i>Животные</i></span><span class="sl"><b>Осыпь</b><i>Камни</i></span><span class="sl"><b>Галька у воды</b><i>Камни</i></span><span class="sl"><b>Слоистость</b><i>Камни</i></span><span class="sl"><b>Портрет в своей одежде</b><i>Местные жители</i></span><span class="sl"><b>Руки за станком</b><i>Местные жители</i></span></div></div>
+</section>
+<section class="board air" id="g">
+  <div class="bhead"><span class="bno">Проба G · страница Атласа</span><h2>Обложка и список</h2><p>Одна крупная обложка сверху, остальные три строками. Больше похоже на оглавление книги.</p></div>
+  <div class="gG">
+  <a class="wideG"><span class="ph r219" style="background-image:url(img/d6ef38b0e923.webp)"></span><span class="cap"><b>Животные</b><span class="cnt">17 видов</span><span class="txt">Кто здесь живёт — и в каком порядке вы их встретите.</span></span></a>
+  <div class="listG"><a class="rowG"><span class="ph sq" style="background-image:url(img/0e8d559d084d.webp)"></span>
+      <span class="mid"><span class="no">02</span><b>Растения</b>
+        <span class="txt">Здесь всё носит шерсть. Даже кактусы.</span></span>
+      <span class="cnt">18 видов</span></a><a class="rowG"><span class="ph sq" style="background-image:url(img/ef1a9c9264d7.webp)"></span>
+      <span class="mid"><span class="no">03</span><b>Камни</b>
+        <span class="txt">Земли здесь почти нет. Сначала камень, потом всё остальное.</span></span>
+      <span class="cnt">12 кадров</span></a><a class="rowG"><span class="ph sq" style="background-image:url(img/ce8cb71d2747.webp)"></span>
+      <span class="mid"><span class="no">04</span><b>Местные жители</b>
+        <span class="txt">Пуна выглядит пустой. Она не пустая.</span></span>
+      <span class="cnt">33 кадров</span></a></div></div><div class="shot"><h3>Что осталось снять</h3>
+  <p class="lead2">Считается само: каждое имя без своего кадра попадает сюда. 13 позиций.</p>
+  <div class="shotlist"><span class="sl"><b>Утки</b><i>Животные</i></span><span class="sl"><b>Андская чайка</b><i>Животные</i></span><span class="sl"><b>Яна вико</b><i>Животные</i></span><span class="sl"><b>Вискача</b><i>Животные</i></span><span class="sl"><b>Дикий кролик</b><i>Животные</i></span><span class="sl"><b>Андская лиса</b><i>Животные</i></span><span class="sl"><b>Скунс</b><i>Животные</i></span><span class="sl"><b>Труча</b><i>Животные</i></span><span class="sl"><b>Осыпь</b><i>Камни</i></span><span class="sl"><b>Галька у воды</b><i>Камни</i></span><span class="sl"><b>Слоистость</b><i>Камни</i></span><span class="sl"><b>Портрет в своей одежде</b><i>Местные жители</i></span><span class="sl"><b>Руки за станком</b><i>Местные жители</i></span></div></div>
+</section>
+
+</body></html>
