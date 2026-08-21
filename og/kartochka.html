@@ -1,0 +1,167 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>Kinsacocha — карточки цен для своих</title>
+<style>
+@font-face{font-family:'PT Sans Narrow';font-weight:700;font-style:normal;src:url(../font/e1a5ebe74c.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'PT Sans Narrow';font-weight:700;font-style:normal;src:url(../font/a22f624597.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Spectral';font-weight:300;font-style:normal;src:url(../font/cd5fc5bfb0.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Spectral';font-weight:300;font-style:normal;src:url(../font/e6ddae60b9.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-weight:500;font-style:normal;src:url(../font/f0071a68d5.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'JetBrains Mono';font-weight:500;font-style:normal;src:url(../font/533c1157c0.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{--air:#E6E9E3;--crack:#15181B;--bloom:#E8B33A;--lt:#EFEFE6;--dk:#1D2119;
+      --disp:'PT Sans Narrow',sans-serif;--text:'Spectral',Georgia,serif;--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#4a4a4a;padding:40px;display:flex;flex-direction:column;gap:40px;align-items:flex-start;
+     -webkit-font-smoothing:antialiased}
+
+.k{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--air);
+   display:grid;grid-template-rows:200px 1fr auto;flex:none}
+
+/* ── узкая полоса кадра ─────────────────────────────── */
+.k .top{position:relative;overflow:hidden}
+.k .top .frame{position:absolute;inset:0;background-size:cover;background-repeat:no-repeat}
+.k .top .scrim{position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(21,24,27,.30) 0%,rgba(21,24,27,.44) 45%,rgba(21,24,27,.80) 100%)}
+.k .top .body{position:absolute;left:56px;right:56px;bottom:26px;display:flex;align-items:flex-end;
+  justify-content:space-between;gap:24px}
+.k .top h1{font-family:var(--disp);font-weight:700;font-size:56px;line-height:.9;
+  text-transform:uppercase;letter-spacing:-.005em;color:var(--lt)}
+.k .top .sub{font-family:var(--mono);font-weight:500;font-size:16px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(239,239,230,.88);margin-top:12px}
+.k .top .num{text-align:right;white-space:nowrap;padding-bottom:4px}
+.k .top .num i{display:block;font-style:normal;font-family:var(--mono);font-weight:500;font-size:16px;
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(239,239,230,.72);margin-bottom:9px}
+.k .top .num b{display:block;font-family:var(--disp);font-weight:700;font-size:38px;line-height:.92;
+  text-transform:uppercase;letter-spacing:.02em;color:var(--lt)}
+
+/* ── воздух: сами цены ──────────────────────────────── */
+.k .mid{padding:32px 56px 0;color:var(--dk)}
+
+.k .grp{margin-top:20px}
+.k .grp:first-of-type{margin-top:0}
+.k .grp>h3{font-family:var(--disp);font-weight:700;font-size:33px;line-height:1;
+  text-transform:uppercase;letter-spacing:.02em}
+.k .grp>.cond{font-family:var(--mono);font-weight:500;font-size:16px;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(29,33,25,.66);margin-top:9px}
+.k .grp>.list{margin-top:14px;border-top:2px solid rgba(29,33,25,.9)}
+
+.k .li{display:flex;align-items:baseline;gap:20px;padding:10px 0 11px;
+  border-bottom:1px solid rgba(29,33,25,.26)}
+.k .li .n{flex:1;font-family:var(--text);font-weight:300;font-size:28px;line-height:1.25}
+.k .li .n em{font-style:normal;font-family:var(--mono);font-weight:500;font-size:17px;
+  letter-spacing:.08em;text-transform:uppercase;color:rgba(29,33,25,.7);display:block;margin-top:6px}
+.k .li .v{flex:none;text-align:right;white-space:nowrap}
+.k .li .v b{font-family:var(--mono);font-weight:500;font-size:36px;line-height:1}
+.k .li .v b i{font-style:normal;font-size:20px;opacity:.5;margin-right:3px}
+.k .li .v u{display:block;text-decoration:none;font-family:var(--mono);font-weight:500;font-size:17px;
+  letter-spacing:.06em;color:rgba(29,33,25,.66);margin-top:7px}
+.k .note{font-family:var(--text);font-weight:300;font-size:20px;line-height:1.4;margin-top:12px;
+  color:rgba(29,33,25,.7)}
+
+/* ── порода: чьи это цены ───────────────────────────── */
+.k .foot{background:var(--crack);color:var(--lt);padding:30px 56px 32px;margin-top:24px}
+.k .foot b{display:inline-block;font-family:var(--mono);font-weight:500;font-size:22px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--dk);background:var(--bloom);padding:11px 15px}
+.k .foot p{font-family:var(--text);font-weight:300;font-size:22px;line-height:1.4;margin-top:13px;
+  color:rgba(239,239,230,.76);max-width:48ch}
+.k .foot .wa{font-family:var(--mono);font-weight:500;font-size:21px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(239,239,230,.68);margin-top:16px}
+</style></head><body>
+
+<!-- ══ 1 · ДОМ ══════════════════════════════════════ -->
+<div class="k" id="k1">
+  <div class="top">
+    <div class="frame" style="background-image:url(../img/0a0a14aeeb09.webp);background-position:center 44%"></div>
+    <div class="scrim"></div>
+    <div class="body">
+      <div><h1>Kinsacocha</h1><div class="sub">Дом у трёх озёр · 4200 м · Куско</div></div>
+      <div class="num"><i>1 из 2</i><b>Дом</b></div>
+    </div>
+  </div>
+
+  <div class="mid">
+    <div class="grp">
+      <h3>С ночёвкой</h3>
+      <div class="cond">цена за дом, а не с человека</div>
+      <div class="list">
+        <div class="li"><div class="n">Один гость</div><div class="v"><b><i>S/.</i>70</b></div></div>
+        <div class="li"><div class="n">Двое</div><div class="v"><b><i>S/.</i>120</b></div></div>
+        <div class="li"><div class="n">Трое</div><div class="v"><b><i>S/.</i>180</b></div></div>
+        <div class="li"><div class="n">Каждый следующий</div><div class="v"><b><i>S/.</i>+50</b></div></div>
+      </div>
+      <p class="note">Дети до семи лет в счёт не входят. Всего восемь мест: три кровати в комнате, пять в типи.</p>
+    </div>
+
+    <div class="grp">
+      <h3>На день, без ночёвки</h3>
+      <div class="list">
+        <div class="li"><div class="n">Дом, душ, кухня, типи<em>с человека</em></div><div class="v"><b><i>S/.</i>30</b></div></div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <h3>Одни на горе</h3>
+      <div class="list">
+        <div class="li"><div class="n">Весь дом только ваш<em>никого больше не подселяем · хозяин уезжает</em></div><div class="v"><b>+50%</b></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Цены для своих</b>
+    <p>Так считаем для друзей и тех, кого они привели. Сутки — от утра до утра. S/. — перуанский соль.</p>
+    <div class="wa">WhatsApp · +44 7916 693473</div>
+  </div>
+</div>
+
+<!-- ══ 2 · ТРОПЫ И ДОРОГА ═══════════════════════════ -->
+<div class="k" id="k2">
+  <div class="top">
+    <div class="frame" style="background-image:url(../img/6f5a07697f94.webp);background-position:center 52%"></div>
+    <div class="scrim"></div>
+    <div class="body">
+      <div><h1>Kinsacocha</h1><div class="sub">Дом у трёх озёр · 4200 м · Куско</div></div>
+      <div class="num"><i>2 из 2</i><b>Тропы<br>и дорога</b></div>
+    </div>
+  </div>
+
+  <div class="mid">
+    <div class="grp">
+      <h3>Тропы с хозяином</h3>
+      <div class="cond">за группу до трёх · мелким — за каждого следующего</div>
+      <div class="list">
+        <div class="li"><div class="n">Короткая<em>около двух часов</em></div><div class="v"><b><i>S/.</i>80</b><u>+20</u></div></div>
+        <div class="li"><div class="n">Полдня</div><div class="v"><b><i>S/.</i>150</b><u>+40</u></div></div>
+        <div class="li"><div class="n">Целый день</div><div class="v"><b><i>S/.</i>220</b><u>+50</u></div></div>
+        <div class="li"><div class="n">Тропа хозяина</div><div class="v"><b><i>S/.</i>350</b><u>+80</u></div></div>
+      </div>
+      <p class="note">Бывают только в те дни, когда хозяин наверху.</p>
+    </div>
+
+    <div class="grp">
+      <h3>Подъём пешком</h3>
+      <div class="cond">в одну сторону · за группу до трёх · мелким — за следующего</div>
+      <div class="list">
+        <div class="li"><div class="n">С проводником<em>2–3 часа вверх · 3–4 вниз</em></div><div class="v"><b><i>S/.</i>150</b><u>+30</u></div></div>
+      </div>
+      <p class="note">Тропа начинается там, где кончается асфальт: снизу дотуда довозят, дальше только пешком.</p>
+    </div>
+
+    <div class="grp">
+      <h3>Трансфер</h3>
+      <div class="list">
+        <div class="li"><div class="n">Машиной, в одну сторону</div><div class="v"><b><i>S/.</i>100</b></div></div>
+      </div>
+      <p class="note">Оплачивается отдельно от проживания. Договариваемся с водителем заранее.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Цены для своих</b>
+    <p>Так считаем для друзей и тех, кого они привели. Сутки — от утра до утра. S/. — перуанский соль.</p>
+    <div class="wa">WhatsApp · +44 7916 693473</div>
+  </div>
+</div>
+
+</body></html>
