@@ -1819,7 +1819,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
           <p class="muted">3 дня · 2 ночи</p>
           <p><span class="tag">дом</span><span class="tag">тропа на полдня</span><span class="tag">тропа на день</span><span class="tag">дрова</span><span class="tag">ужин</span></p>
           <div class="price">S/. <span data-p="all2">1100</span> <small>на двоих</small></div>
-          <p class="muted">одному — S/. <span data-p="all1">900</span> · по частям было бы <span data-p="all_parts">1460</span></p>
+          <p class="muted">одному — S/. <span data-p="all1">900</span><span class="parts"> · по частям было бы <span data-p="all_parts">1040</span></span></p>
           <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
         </div>
         <div class="card">
@@ -1828,7 +1828,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
           <p class="muted">2 дня · 1 ночь</p>
           <p><span class="tag">дом</span><span class="tag">короткая тропа</span><span class="tag">дрова</span></p>
           <div class="price">S/. <span data-p="night2">420</span> <small>на двоих</small></div>
-          <p class="muted">одному — S/. <span data-p="night1">350</span> · по частям было бы <span data-p="night_parts">460</span></p>
+          <p class="muted">одному — S/. <span data-p="night1">350</span><span class="parts"> · по частям было бы <span data-p="night_parts">310</span></span></p>
           <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Выбрать это</a>
         </div>
         <div class="card accent">
@@ -2468,7 +2468,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
       <div style="margin-top:10px">
         <a class="btn" href="#/kontakty">Telegram</a>
-        <a class="btn" href="#/kontakty">Instagram</a>
+        <a class="btn" href="https://www.instagram.com/kinsa.cocha" target="_blank" rel="noopener">Instagram</a>
         <a class="btn" href="mailto:hola@kinsacocha.com">Почта</a>
       </div>
       <p class="muted" style="max-width:48ch;margin:22px auto 0">Если я наверху, связь ловит не всегда.</p>
@@ -3159,7 +3159,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
       <div style="margin-top:10px">
         <a class="btn" href="#/kontakty">Telegram</a>
-        <a class="btn" href="#/kontakty">Instagram</a>
+        <a class="btn" href="https://www.instagram.com/kinsa.cocha" target="_blank" rel="noopener">Instagram</a>
         <a class="btn" href="mailto:hola@kinsacocha.com">hola@kinsacocha.com</a>
       </div>
       <p class="muted" style="max-width:48ch;margin:26px auto 0">Если я наверху, связь ловит не всегда.</p>
@@ -3208,7 +3208,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         <ul>
           <li><a href="https://wa.me/447916693473" target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a href="#/kontakty">Telegram</a></li>
-          <li><a href="#/kontakty">Instagram</a></li>
+          <li><a href="https://www.instagram.com/kinsa.cocha" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="mailto:hola@kinsacocha.com">hola@kinsacocha.com</a></li>
         </ul>
       </div>
@@ -4493,16 +4493,29 @@ var ATLAS = {
 (function () {
   var PRICES = {
     /* ключ:      [для своих, для всех] */
-    all2:       [550, 1100],   all1:      [450, 900],   all_parts:  [730, 1460],
-    night2:     [190, 420],    night1:    [150, 350],   night_parts:[230, 460],
+    all2:       [550, 1100],   all1:      [450, 900],
+    night2:     [190, 420],    night1:    [150, 350],
     day:        [30, 60],
-    dom1:       [60, 120],     dom2:      [110, 220],   dom3:       [150, 390],  dom_next: [50, 80],
+    dom1:       [60, 120],     dom2:      [110, 220],   dom3:       [150, 300],  dom_next: [50, 80],
+    ex_wood:    [30, 30],      ex_dinner: [30, 30],
     t_short:    [80, 160],     t_short_n: [20, 40],
     t_half:     [150, 300],    t_half_n:  [40, 80],
     t_day:      [220, 440],    t_day_n:   [50, 100],
     t_host:     [350, 700],    t_host_n:  [80, 160],
     climb:      [150, 300],    climb_n:   [30, 60]
   };
+  /* «По частям было бы» больше не вписывается руками: складываем ровно те
+     позиции, что перечислены в составе пакета. Вписанное число устаревает
+     молча — так и вышло, когда цену дома поменяли, а строку забыли, и сайт
+     обещал экономию на 220 солей больше настоящей. */
+  /* Считаем на одного: строка стоит рядом с ценой «одному», и складывать
+     в ней стоимость на двоих было бы враньём по соседству с правдой. */
+  var СОСТАВ = {
+    all_parts:   [["dom1", 2], ["t_half", 1], ["t_day", 1], ["ex_wood", 1], ["ex_dinner", 1]],
+    night_parts: [["dom1", 1], ["t_short", 1], ["ex_wood", 1]]
+  };
+  var ПАКЕТ = { all_parts: "all1", night_parts: "night1" };
+
   var KEY = "kc-svoi";
   function svoi() { try { return sessionStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
   function setSvoi(v) { try { v ? sessionStorage.setItem(KEY, "1") : sessionStorage.removeItem(KEY); } catch (e) {} }
@@ -4514,6 +4527,20 @@ var ATLAS = {
     for (var i = 0; i < nodes.length; i++) {
       var p = PRICES[nodes[i].getAttribute("data-p")];
       if (p) nodes[i].textContent = on ? p[0] : p[1];
+    }
+    var стол = on ? 0 : 1;
+    for (var k in СОСТАВ) {
+      var сумма = 0;
+      for (var c = 0; c < СОСТАВ[k].length; c++)
+        сумма += PRICES[СОСТАВ[k][c][0]][стол] * СОСТАВ[k][c][1];
+      var пакет = PRICES[ПАКЕТ[k]][стол];
+      var где = document.querySelectorAll('[data-p="' + k + '"]');
+      for (var m = 0; m < где.length; m++) {
+        где[m].textContent = сумма;
+        /* выгоды нет — и сравнение прячем целиком: обещать её было бы неправдой */
+        var обёртка = где[m].closest && где[m].closest(".parts");
+        if (обёртка) обёртка.style.display = сумма > пакет ? "" : "none";
+      }
     }
   }
   function check() {
