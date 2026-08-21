@@ -113,11 +113,11 @@
 body .friends-note { display: none; border-color: var(--accent); }
 body.svoi .friends-note { display: block; }
 </style>
-<!-- Google Analytics. Пока ID пустой, счётчик не грузится совсем: ни запроса,
-     ни куки. Заказчику достаточно вписать сюда свой G-XXXXXXXXXX. -->
+<!-- Google Analytics. Идентификатор пустой — счётчик не грузится совсем:
+     ни запроса, ни куки. Заполнен — работает. -->
 <script>
 (function () {
-  var GA = "";                       /* ← сюда идентификатор счётчика */
+  var GA = "G-8KWHYQZFG7";           /* счётчик заказчика, заведён 21 августа 2026 */
   if (!GA) return;
   var s = document.createElement("script");
   s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA;
@@ -128,14 +128,19 @@ body.svoi .friends-note { display: block; }
   /* маршруты у нас за решёткой, обычный отсчёт страниц их не видит —
      шлём просмотр сами на каждую смену адреса */
   gtag("config", GA, { send_page_view: false });
-  function hit() { gtag("event", "page_view", { page_location: location.href, page_path: location.hash || "#/" }); }
+  /* адрес выставляем через set, а не параметром события: события уходят
+     пачками, и параметр иногда терялся — один просмотр из пяти записывался
+     на главную вместо своего раздела. Проверено запросами к счётчику. */
+  function hit() {
+    gtag("set", { page_location: location.href, page_path: location.hash || "#/", page_title: document.title });
+    gtag("event", "page_view");
+  }
   hit();
   addEventListener("hashchange", function () { setTimeout(hit, 60); });
 })();
 </script>
 </head>
 <body>
-<title>Kinsacocha</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
 
