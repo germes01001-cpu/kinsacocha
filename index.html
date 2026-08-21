@@ -521,10 +521,14 @@ body.svoi .friends-note { display: block; }
 
   /* ─── Живое табло ───────────────────────────────────── */
   .wall {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
     gap: 3px; perspective: 900px; margin: 18px 0 10px;
   }
   .wall .tile { aspect-ratio: 1/1; }
+  /* на телефоне 118 px дают всего две колонки — плитка выходит огромной,
+     а табло на два экрана. Ниже 600 px берём мельче, но всё равно вдвое
+     крупнее прежних 58 px. */
+  @media (max-width: 600px) { .wall { grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); } }
   .wall .tile-inner {
     position: relative; width: 100%; height: 100%;
     transform-style: preserve-3d; transition: transform .65s cubic-bezier(.4,.05,.2,1);
@@ -1641,7 +1645,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         <div class="lake">
           <div class="lake-media">
             <div class="ph r219 sc-water" data-shot data-bg="img/6a691cc9da63.webp" style="background-size:cover;background-position:center"></div>
-            <div class="ph video r43 sc-water" data-shot><video data-src="vid/80f58941bd07.mp4" autoplay muted loop playsinline preload="metadata" preload="none"></video></div>
+            <div class="ph video r43 sc-water" data-shot><video data-src="vid/54d2adbd2c63.mp4" poster="img/54d2adbd2c63.webp" autoplay muted loop playsinline preload="metadata" preload="none"></video></div>
           </div>
           <div class="lake-cap">
             <span class="name">Kinsa qucha <em>· самое большое, у него стоит дом</em></span>
@@ -2684,17 +2688,8 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         <button class="tag" data-f="aug">август 2026</button>
         <button class="tag" data-f="nov">ноябрь 2025</button>
       </div>
-      <p class="muted" style="margin-top:14px">Темы</p>
-      <div id="filter-tag">
-        <button class="tag on" data-f="all">все</button>
-        <button class="tag" data-f="lake">озёра</button>
-        <button class="tag" data-f="mtn">горы</button>
-        <button class="tag" data-f="house">дом</button>
-        <button class="tag" data-f="animal">альпаки</button>
-        <button class="tag" data-f="night">ночь и звёзды</button>
-        <button class="tag" data-f="plant">растения</button>
-        <button class="tag" data-f="craft">ремёсла</button>
-      </div>
+      <!-- Фильтр по темам снят: у шестидесяти кадров тем пока нет,
+           а размечать их на глаз значит выдумывать. Вернуть после разметки. -->
       <p class="muted" style="margin-top:12px">Локации не подписаны намеренно.</p>
       <div class="masonry" id="masonry"></div>
       <p class="muted" id="gal-count" style="margin-top:16px"></p>
@@ -3465,8 +3460,7 @@ var ATLAS = {
       { ph:"078c31834f47", cap:"Крыша заросла",      note:"" },
       { ph:"6d4a33e02597", cap:"Картон вместо стекла", note:"" },
       { ph:"78a1fc2c5d4c", cap:"Роспись по дереву",  note:"" },
-      { ph:"",             cap:"Крыша из ичу",       note:"нужен кадр" },
-      { ph:"",             cap:"Дом хозяина снаружи", note:"нужен кадр" }
+      { ph:"",             cap:"Крыша из ичу",       note:"нужен кадр" }
     ],
     lyudi: [
       { ph:"55a412ff4582", cap:"", note:"" }, { ph:"9f2ab7f9db07", cap:"", note:"" },
@@ -3894,8 +3888,28 @@ var ATLAS = {
   /* ─── Живое табло ───────────────────────────────── */
   var TINTS = ["#16414F", "#4A2F1B", "#2E3A1E", "#3A2E1C", "#141C2E", "#5A2E0C", "#322E28", "#47330F"];
 
-  var WALLPICS=["img/ba9acb79bdfb.webp","img/7e49847b17ad.webp","img/6f2aa1756b3c.webp","img/ea032b32ac6c.webp","img/217166ab5725.webp","img/2b1b9e923108.webp","img/4b9a06c30d01.webp","img/40cf2b6a8afe.webp","img/40d123b55c88.webp","img/e123a4abef97.webp","img/b4cac063efdf.webp","img/60b87b9cfe81.webp","img/dcabef7c2909.webp","img/c3790668548f.webp","img/60651f0c879d.webp","img/f3a96228b930.webp","img/95e5ebdad3d7.webp","img/4b3c5c6393ae.webp","img/4d0c2570b389.webp","img/3b1f6ade3661.webp","img/5a7760e15992.webp","img/3960dfd38ed4.webp","img/484434f49d95.webp","img/bd453a504c89.webp","img/bc32dba8f983.webp","img/d6fb91bccc35.webp","img/f2047500a4a8.webp","img/7d12ab90a1b4.webp","img/f7faea3b3b4d.webp","img/90a40d6fa3c1.webp","img/286009d1bcc1.webp","img/79bd2f32de86.webp","img/a17b14c3b6e3.webp","img/6f2aa1756b3c.webp","img/eba516b2874c.webp","img/f02b6514a3dd.webp","img/9372f08c106d.webp","img/f807c04f93af.webp","img/f5012ed076ee.webp","img/7ab6f4fdf62a.webp","img/b459819ed4d0.webp","img/028e02ea7c6c.webp","img/ebbeeaed8b36.webp","img/5eef6c50e08a.webp","img/4afad581224b.webp","img/2e75d088bbda.webp","img/9173b3887389.webp","img/9bade658f7fa.webp","img/3d2f26bd457f.webp","img/ec90bf89f3a4.webp","img/dfefc2951ef8.webp","img/0755dcc1ab36.webp","img/afe752e3ab6d.webp","img/d300fbfefb12.webp","img/6a4b40c97e29.webp","img/403707033bfb.webp","img/ebb451881e17.webp","img/e7643e82be54.webp","img/ca5eb462a76c.webp","img/23b64896fafd.webp","img/d6a1b50c3256.webp","img/30615ad86390.webp","img/7619aa0037e1.webp","img/d4ec700a3149.webp","img/9ed0acd688d3.webp","img/e24c4a1d85d0.webp","img/7521a1f78fd6.webp","img/955a5b5c5192.webp","img/934f72015b11.webp","img/099c397fd648.webp","img/2cf01b632f9d.webp","img/8311fe248810.webp","img/92666fd7f86a.webp","img/053a9e9e9dc7.webp","img/33c6dd19a353.webp","img/90bf4b52c4bb.webp","img/d38a6187176b.webp","img/4dc32b03d6b2.webp","img/7ece2ecf6325.webp","img/d1c89936c643.webp","img/1fcb4c253860.webp","img/eb128c0e6a3c.webp"];
-  function makeFace(isVideo, isBack) {
+  var WALLPICS=["img/58bfcad344e1.webp","img/66c623d8117c.webp","img/8f73a5608e0b.webp","img/f2c1fb6c899c.webp","img/4833de9762a5.webp","img/02ee3c5564fc.webp","img/d92511c1fb2a.webp","img/31e68224e45b.webp","img/78d61a54058b.webp","img/eaf43fc522f5.webp","img/e397e8ce0e22.webp","img/cbb401f9c512.webp","img/6a37d134c8bd.webp","img/e4b06e470131.webp","img/dc9e83fbd949.webp","img/7a5de7e7dd32.webp","img/9fdf5645859b.webp","img/84c3d6d18b1a.webp","img/e1fc2b90568a.webp","img/b1ceca38ca5a.webp","img/617da345a03f.webp","img/d1dedaf70a88.webp","img/76fe7eb50471.webp","img/bf18857e9b20.webp","img/b722bc8bc4d9.webp","img/88673596c802.webp","img/492775e5fa1d.webp","img/e3190d08029b.webp","img/5dc86f34e8d3.webp","img/580395fc29e6.webp","img/d9aed797ac8a.webp","img/378356af4bc6.webp","img/e600a1455534.webp","img/fe17d328fe9a.webp","img/de62cdbbdbe1.webp","img/bf91e3c13f66.webp","img/bb86783017e4.webp","img/38c7235d0f9c.webp","img/fdfc11cdfc1f.webp","img/5a651d86c765.webp","img/7a03acced667.webp","img/8afa95bd4005.webp","img/20bf21edbdd4.webp","img/46bf9476ddde.webp","img/950717925baa.webp","img/6487a2f11bf1.webp","img/6d1a59a7624d.webp","img/0642c80e5942.webp","img/6d37960aeff2.webp","img/eeaf8057b214.webp","img/952ec8f9c55f.webp","img/0e157375e9a8.webp","img/b5809a4f9742.webp","img/962a73c6e80a.webp","img/92cf704e2413.webp","img/1ed3f47954c7.webp","img/881be31b30ad.webp","img/84ee402aef06.webp","img/da21ce2952e7.webp"];
+  /* Кадры сдаются из перетасованной колоды, а не берутся случайно каждый раз.
+     Пока плитка была 58 px, повтор не замечали; теперь она вдвое крупнее, и одна
+     и та же печь три раза в одном полотне бросается в глаза. Колода тасуется
+     заново, когда кончилась, — повтор возможен только после того, как показаны все. */
+  function shuffled(src) {
+    var d = src.slice();
+    for (var i = d.length - 1; i > 0; i--) {
+      var j = rand(0, i), t = d[i];
+      d[i] = d[j]; d[j] = t;
+    }
+    return d;
+  }
+  function makeDealer() {
+    var deck = shuffled(WALLPICS);
+    return function () {
+      if (!deck.length) deck = shuffled(WALLPICS);
+      return deck.pop();
+    };
+  }
+
+  function makeFace(isVideo, isBack, deal) {
     var f = document.createElement("div");
     f.className = "face" + (isVideo ? " video" : "") + (isBack ? " b" : "");
     if (isVideo) {
@@ -3905,7 +3919,7 @@ var ATLAS = {
     } else {
       f.style.setProperty("--tint", TINTS[rand(0, TINTS.length - 1)]);
       if (WALLPICS.length) {
-        f.style.backgroundImage = "url(" + WALLPICS[rand(0, WALLPICS.length - 1)] + ")";
+        f.style.backgroundImage = "url(" + (deal ? deal() : WALLPICS[rand(0, WALLPICS.length - 1)]) + ")";
         f.style.backgroundSize = "cover";
         f.style.backgroundPosition = "center";
       }
@@ -3921,13 +3935,14 @@ var ATLAS = {
     var gen = (wallGen[id] = (wallGen[id] || 0) + 1);
     function alive() { return wallGen[id] === gen; }
     root.innerHTML = "";
+    var deal = makeDealer();          /* своя колода на это табло */
     var tiles = [];
 
     for (var i = 0; i < count; i++) {
       var tile = document.createElement("div"); tile.className = "tile";
       var inner = document.createElement("div"); inner.className = "tile-inner";
-      var a = makeFace(false, false);
-      var b = makeFace(false, true);
+      var a = makeFace(false, false, deal);
+      var b = makeFace(false, true, deal);
       inner.appendChild(a); inner.appendChild(b);
       tile.appendChild(inner);
       root.appendChild(tile);
@@ -3938,7 +3953,7 @@ var ATLAS = {
     order.sort(function () { return Math.random() - 0.5; });
     for (var v = 0; v < videoCount; v++) {
       var t = tiles[order[v]];
-      var nv = makeFace(true, false);
+      var nv = makeFace(true, false, deal);
       t.front.replaceWith(nv);
       t.front = nv;
     }
@@ -3956,7 +3971,7 @@ var ATLAS = {
     function flipOne(t) {
       var hidden = t.shown === 0 ? t.back : t.front;
       var makeVideo = false;   /* в ячейке табло петля слишком мелкая */
-      var next = makeFace(makeVideo, t.shown === 0);
+      var next = makeFace(makeVideo, t.shown === 0, deal);
       hidden.replaceWith(next);
       if (t.shown === 0) t.back = next; else t.front = next;
       t.shown = t.shown === 0 ? 1 : 0;
@@ -4000,7 +4015,9 @@ var ATLAS = {
     var cols = getComputedStyle(root).gridTemplateColumns.split(" ").filter(Boolean).length;
     if (cols < 1 || cols === bigCols) return;
     bigCols = cols;
-    var rows = cols < 8 ? 9 : 7;
+    /* плитка вдвое крупнее прежней, поэтому и рядов вдвое меньше:
+       иначе табло вырастает на два экрана и перестаёт читаться как одно полотно */
+    var rows = cols < 5 ? 5 : 4;
     var total = cols * rows;
     buildWall("wall-big", total, 0);
   }
@@ -4056,21 +4073,71 @@ var ATLAS = {
   })();
 
   /* ─── Галерея ───────────────────────────────────── */
-  var SHOTS = [];
-  (function () {
-    var months = ["jul", "aug", "nov"];
-    var tags = ["lake", "mtn", "house", "animal", "night", "plant", "craft"];
-    var names = ["Озеро", "Склон", "Дом", "Альпаки", "Ночное небо", "Растение", "Ткань", "Туман", "Вода", "Камни", "Печь", "Тропа"];
-    var heights = [150, 200, 175, 230, 160, 190, 210, 165];
-    for (var i = 0; i < 48; i++) {
-      SHOTS.push({
-        m: months[i % 3],
-        t: tags[i % tags.length],
-        label: names[i % names.length],
-        h: heights[i % heights.length]
-      });
-    }
-  })();
+  /* Галерея: 60 кадров, снятых хозяином. Месяц берётся из даты файла —
+     это единственное, что мы про кадр знаем наверняка. Тем пока нет:
+     размечать шестьдесят кадров на глаз значит выдумывать. */
+  var SHOTS = [
+    {f:"img/58bfcad344e1g.webp",w:1000,h:750,m:"jul"},
+    {f:"img/66c623d8117cg.webp",w:1000,h:563,m:"jul"},
+    {f:"img/8f73a5608e0bg.webp",w:1000,h:563,m:"jul"},
+    {f:"img/f2c1fb6c899cg.webp",w:1000,h:563,m:"jul"},
+    {f:"img/4833de9762a5g.webp",w:1000,h:563,m:"jul"},
+    {f:"img/02ee3c5564fcg.webp",w:1000,h:563,m:"jul"},
+    {f:"img/d92511c1fb2ag.webp",w:1000,h:563,m:"aug"},
+    {f:"img/31e68224e45bg.webp",w:1000,h:563,m:"aug"},
+    {f:"img/78d61a54058bg.webp",w:1000,h:563,m:"aug"},
+    {f:"img/eaf43fc522f5g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/e397e8ce0e22g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/cbb401f9c512g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/6a37d134c8bdg.webp",w:1000,h:563,m:"aug"},
+    {f:"img/e4b06e470131g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/dc9e83fbd949g.webp",w:563,h:1000,m:"aug"},
+    {f:"img/7a5de7e7dd32g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/9fdf5645859bg.webp",w:1000,h:563,m:"aug"},
+    {f:"img/84c3d6d18b1ag.webp",w:1000,h:563,m:"aug"},
+    {f:"img/e1fc2b90568ag.webp",w:1000,h:563,m:"aug"},
+    {f:"img/b1ceca38ca5ag.webp",w:1000,h:563,m:"aug"},
+    {f:"img/617da345a03fg.webp",w:1000,h:563,m:"aug"},
+    {f:"img/d1dedaf70a88g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/76fe7eb50471g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/bf18857e9b20g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/b722bc8bc4d9g.webp",w:563,h:1000,m:"aug"},
+    {f:"img/88673596c802g.webp",w:563,h:1000,m:"aug"},
+    {f:"img/492775e5fa1dg.webp",w:1000,h:563,m:"aug"},
+    {f:"img/e3190d08029bg.webp",w:563,h:1000,m:"aug"},
+    {f:"img/5dc86f34e8d3g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/580395fc29e6g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/d9aed797ac8ag.webp",w:563,h:1000,m:"aug"},
+    {f:"img/378356af4bc6g.webp",w:563,h:1000,m:"aug"},
+    {f:"img/e600a1455534g.webp",w:563,h:1000,m:"aug"},
+    {f:"img/fe17d328fe9ag.webp",w:563,h:1000,m:"aug"},
+    {f:"img/de62cdbbdbe1g.webp",w:563,h:1000,m:"aug"},
+    {f:"img/bf91e3c13f66g.webp",w:1000,h:563,m:"aug"},
+    {f:"img/bb86783017e4g.webp",w:563,h:1000,m:"aug"},
+    {f:"img/38c7235d0f9cg.webp",w:563,h:1000,m:"aug"},
+    {f:"img/fdfc11cdfc1fg.webp",w:1000,h:563,m:"aug"},
+    {f:"img/5a651d86c765g.webp",w:1000,h:750,m:"aug"},
+    {f:"img/d05cce72449dg.webp",w:1000,h:750,m:"aug"},
+    {f:"img/7a03acced667g.webp",w:750,h:1000,m:"aug"},
+    {f:"img/8afa95bd4005g.webp",w:1000,h:750,m:"aug"},
+    {f:"img/20bf21edbdd4g.webp",w:1000,h:750,m:"aug"},
+    {f:"img/46bf9476dddeg.webp",w:1000,h:750,m:"aug"},
+    {f:"img/950717925baag.webp",w:750,h:1000,m:"aug"},
+    {f:"img/6487a2f11bf1g.webp",w:750,h:1000,m:"aug"},
+    {f:"img/6d1a59a7624dg.webp",w:1000,h:750,m:"aug"},
+    {f:"img/0642c80e5942g.webp",w:1000,h:750,m:"aug"},
+    {f:"img/6d37960aeff2g.webp",w:750,h:1000,m:"aug"},
+    {f:"img/eeaf8057b214g.webp",w:1000,h:750,m:"aug"},
+    {f:"img/952ec8f9c55fg.webp",w:1000,h:750,m:"aug"},
+    {f:"img/0e157375e9a8g.webp",w:750,h:1000,m:"aug"},
+    {f:"img/b5809a4f9742g.webp",w:1000,h:750,m:"aug"},
+    {f:"img/962a73c6e80ag.webp",w:1000,h:563,m:"aug"},
+    {f:"img/92cf704e2413g.webp",w:750,h:1000,m:"aug"},
+    {f:"img/1ed3f47954c7g.webp",w:750,h:1000,m:"aug"},
+    {f:"img/881be31b30adg.webp",w:1000,h:750,m:"aug"},
+    {f:"img/84ee402aef06g.webp",w:1000,h:750,m:"aug"},
+    {f:"img/da21ce2952e7g.webp",w:1000,h:750,m:"aug"}
+  ];
 
   var masonry = document.getElementById("masonry");
   var galCount = document.getElementById("gal-count");
@@ -4081,7 +4148,7 @@ var ATLAS = {
     if (!masonry) return;
     masonry.innerHTML = "";
     visible = SHOTS.filter(function (s) {
-      return (fMonth === "all" || s.m === fMonth) && (fTag === "all" || s.t === fTag);
+      return (fMonth === "all" || s.m === fMonth) && true;
     });
     visible.forEach(function (s, idx) {
       var d = document.createElement("div");
@@ -4089,10 +4156,13 @@ var ATLAS = {
       d.dataset.i = idx;
       var ph = document.createElement("div");
       ph.className = "ph";
-      ph.style.height = s.h + "px";
-      var sp = document.createElement("span");
-      sp.textContent = s.label;
-      ph.appendChild(sp);
+      /* высота — из настоящей пропорции кадра, чтобы кладка не прыгала */
+      ph.style.aspectRatio = s.w + " / " + s.h;
+      ph.setAttribute("role", "img");
+      ph.setAttribute("aria-label", "Фотография " + (idx + 1));
+      ph.style.backgroundImage = "url(" + s.f + ")";
+      ph.style.backgroundSize = "cover";
+      ph.style.backgroundPosition = "center";
       d.appendChild(ph);
       masonry.appendChild(d);
     });
