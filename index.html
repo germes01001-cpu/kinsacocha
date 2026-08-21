@@ -2207,22 +2207,16 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
 
   <section class="ground-ember">
     <div class="wrap wide">
-      <div class="eyebrow"><i></i><span>17</span><b>Стены</b></div>
+      <div class="eyebrow"><i></i><span>17</span><b>Архитектура</b></div>
       <h2>Дома из земли</h2>
       <p class="lead">Кирпич, который не обжигают. Его сушит солнце.</p>
       <p style="max-width:68ch">Дома здесь складывают из адобе: глину месят с песком и рубленой соломой — наверху в неё идёт ичу, та самая трава пуны, — набивают в деревянную форму и оставляют сохнуть на солнце, переворачивая день за днём. Солома держит блок и не даёт ему растрескаться, пока он сохнет. Стена выходит толстой, и в этом весь смысл: за день она набирает тепло, а ночью отдаёт его обратно в комнату, когда снаружи подходит к нулю. Тем же способом строили Моче и Чан-Чан, и тем же строят сейчас — не из бедности, а потому что на четырёх тысячах это работает лучше кирпича.</p>
 
-      <div class="jM frames" style="margin-top:26px">
-        <div class="card"><div class="ph r34 sc-house" data-shot data-bg="img/78a1fc2c5d4c.webp" style="background-size:cover;background-position:center"></div></div>
-        <div class="card"><div class="ph r43 sc-house" data-shot data-bg="img/3e914ead5db3.webp" style="background-size:cover;background-position:center"></div></div>
-        <div class="card"><div class="ph r43 sc-house" data-shot data-bg="img/6d4a33e02597.webp" style="background-size:cover;background-position:center"></div></div>
-        <div class="card"><div class="ph r34 sc-house" data-shot data-bg="img/057161b2ba5a.webp" style="background-size:cover;background-position:center"></div></div>
-        <div class="card"><div class="ph r43 sc-house" data-shot data-bg="img/7fae11cfce1f.webp" style="background-size:cover;background-position:center"></div></div>
-        <div class="card"><div class="ph r34 sc-house" data-shot data-bg="img/1cc5d6bdb16e.webp" style="background-size:cover;background-position:center"></div></div>
-        <div class="card"><div class="ph r43 sc-house" data-shot data-bg="img/078c31834f47.webp" style="background-size:cover;background-position:center"></div></div>
+      <div data-atlas-preview="arhitektura"></div>
       </div>
 
       <p class="muted" style="margin-top:20px;max-width:68ch">Само слово пришло сюда с испанцами, а к ним — из арабского: al-tub, «кирпич». Технология при этом местная и старше любого из этих языков.</p>
+      <p style="margin-top:14px"><a href="#/atlas/arhitektura">Все кадры стен — в Атласе →</a></p>
     </div>
   </section>
 
@@ -3232,6 +3226,9 @@ var ATLAS = {
     { slug: "kamni",     eyebrow: "Камни",    title: "Камни",          kicker: "Земли здесь почти нет. Сначала камень, потом всё остальное.",
       loop: "vid/d7a4b16c8e35.mp4", tone: "",
       intro: "Порода лежит открыто: её не прикрывает ни лес, ни толстая почва. Разбитая морозом, вылизанная водой, раскрашенная лишайником. Растения селятся не в земле, а в трещинах между камнями." },
+    { slug: "arhitektura", eyebrow: "Архитектура", title: "Архитектура", kicker: "Дом из той же земли, на которой стоит.",
+      loop: "", tone: "",
+      intro: "Стены здесь складывают из адобе — кирпича, который не обжигают: глину месят с песком и соломой, формуют и сушат на солнце. Материал берут там же, где ставят дом, поэтому стена всегда цвета своего склона. Сверху черепица или ичу, внутри дерево, привезённое снизу. Ничего лишнего сюда не поднимали." },
     { slug: "lyudi",     eyebrow: "Люди",     title: "Местные жители", kicker: "Пуна выглядит пустой. Она не пустая.",
       loop: "vid/f0c93e7ab521.mp4", tone: "ground-ember",
       intro: "На этих высотах люди живут не веками, а тысячелетиями. Здесь вывели картошку, научились сушить её морозом, приручили альпаку и построили жизнь там, где у приезжего в первый день болит голова. Общину Пару-Пару держат не туристы, а картошка, рыба и то, что соткано руками." }
@@ -3460,6 +3457,17 @@ var ATLAS = {
       { ph:"",             cap:"Галька у воды",      note:"обкатанная до гладкости" },
       { ph:"",             cap:"Слоистость",         note:"порода лежит пластами" }
     ],
+    arhitektura: [
+      { ph:"1cc5d6bdb16e", cap:"Кладка",             note:"кирпич, который не обжигают — видно каждый шов" },
+      { ph:"3e914ead5db3", cap:"Черепица и синие окна", note:"" },
+      { ph:"057161b2ba5a", cap:"Второй этаж",        note:"камень внизу, адобе выше, балкон из дерева" },
+      { ph:"7fae11cfce1f", cap:"Глухая стена",       note:"одна дверь и ничего больше" },
+      { ph:"078c31834f47", cap:"Крыша заросла",      note:"" },
+      { ph:"6d4a33e02597", cap:"Картон вместо стекла", note:"" },
+      { ph:"78a1fc2c5d4c", cap:"Роспись по дереву",  note:"" },
+      { ph:"",             cap:"Крыша из ичу",       note:"нужен кадр" },
+      { ph:"",             cap:"Дом хозяина снаружи", note:"нужен кадр" }
+    ],
     lyudi: [
       { ph:"55a412ff4582", cap:"", note:"" }, { ph:"9f2ab7f9db07", cap:"", note:"" },
       { ph:"a6c06c210a90", cap:"", note:"" }, { ph:"130a4287f4d2", cap:"", note:"" },
@@ -3663,7 +3671,7 @@ var ATLAS = {
       '<p class="lead">' + esc(c.kicker) + '</p>' +
       chapNav(slug) +
       '<p style="max-width:68ch">' + esc(c.intro) + '</p>' +
-      loopBox(c.loop, "sc-" + (slug === "zveri" ? "fauna" : slug === "rasteniya" ? "moss" : slug === "kamni" ? "stone" : "people")) +
+      (c.loop ? loopBox(c.loop, "sc-" + (slug === "zveri" ? "fauna" : slug === "rasteniya" ? "moss" : slug === "kamni" ? "stone" : "people")) : "") +
       '<div style="margin-top:18px">' + body + '</div>' + extra +
       '</div></section>';
     return true;
@@ -3704,7 +3712,7 @@ var ATLAS = {
     var slots = document.querySelectorAll("[data-atlas-preview]");
     for (var i = 0; i < slots.length; i++) {
       var ch = slots[i].getAttribute("data-atlas-preview");
-      if (ch === "kamni" || ch === "lyudi") {
+      if (ATLAS.frames[ch]) {
         var frames = ATLAS.frames[ch].slice(0, 7), out = "";
         for (var k = 0; k < frames.length; k++) {
           var f = frames[k];
@@ -3726,9 +3734,11 @@ var ATLAS = {
     var cards = "";
     /* ⚠ обложкой «Камней» стояло открытое озеро с уткой — не камень вообще.
        Заменено на «Клык в тумане» из самой главы, 20 августа 2026. */
-    var covers = { zveri: "d6ef38b0e923", rasteniya: "0e8d559d084d", kamni: "380a67ce3009", lyudi: "ce8cb71d2747" };
+    var covers = { zveri: "d6ef38b0e923", rasteniya: "0e8d559d084d", kamni: "380a67ce3009", arhitektura: "1cc5d6bdb16e", lyudi: "ce8cb71d2747" };
     var counts = { zveri: speciesOf("zveri").length + " видов", rasteniya: speciesOf("rasteniya").length + " видов",
-                   kamni: ATLAS.frames.kamni.length + " кадров", lyudi: ATLAS.frames.lyudi.length + " кадров" };
+                   kamni: ATLAS.frames.kamni.length + " кадров",
+                   arhitektura: ATLAS.frames.arhitektura.length + " кадров",
+                   lyudi: ATLAS.frames.lyudi.length + " кадров" };
     for (var i = 0; i < ATLAS.chapters.length; i++) {
       var c = ATLAS.chapters[i];
       cards += '<a class="card ent" href="#/atlas/' + c.slug + '">' +
@@ -3742,7 +3752,7 @@ var ATLAS = {
       var sp = ATLAS.species[j];
       if (!sp.ph.length && sp.st !== "never") need.push({ n: sp.name, c: chapterBy(sp.ch).title });
     }
-    ["kamni", "lyudi"].forEach(function (k) {
+    ["kamni", "arhitektura", "lyudi"].forEach(function (k) {
       ATLAS.frames[k].forEach(function (f) { if (!f.ph) need.push({ n: f.cap, c: chapterBy(k).title }); });
     });
     var rows = "";
@@ -4436,7 +4446,8 @@ var ATLAS = {
   /* четыре главы Атласа проходят тот же спуск, что и глава «Растения» */
   /* Четыре главы больше не проходят спуск: они устроены одинаково,
      значит и стоят на одной ступени. Атлас — одна тёмная комната. */
-  var CHAPTER_GROUND = { zveri: "crack", rasteniya: "crack", kamni: "crack", lyudi: "crack" };
+  var CHAPTER_GROUND = { zveri: "crack", rasteniya: "crack", kamni: "crack",
+                         arhitektura: "crack", lyudi: "crack" };
   var STEPS = ["air","ichu","moss","slate","crack"];
 
   var KEY = "kc-oblik";
