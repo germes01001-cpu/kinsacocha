@@ -1,6 +1,6 @@
 # Kinsacocha
-# ⚠ Пока в index.html стоит <meta name="robots" content="noindex,nofollow">,
-# сайт всё равно не индексируется. Метка снимается в день переезда на домен.
+# Сайт открыт для поиска с 22 августа 2026 — в день переезда на kinsacocha.com.
+# Метка noindex снята из index.html тогда же.
 
 User-agent: *
 Allow: /
