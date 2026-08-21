@@ -18,6 +18,10 @@
   --lift-ink: var(--k-text); --lift-dim: rgba(38,35,31,.28);
 }
 .lift.on { display: flex; }
+/* Лифт — колонка засечек, но контейнер растянут по ширине самой длинной подписи
+   и перехватывал клики по ссылкам у левого края: «Написать в WhatsApp», «Вся глава →»
+   и ещё четыре просто не нажимались. Пустое место теперь клики пропускает. */
+.lift { pointer-events: none; }
 .lift.dark { --lift-ink: #EDE6DA; --lift-dim: rgba(237,230,218,.32); }
 .lift button { all: unset; cursor: pointer; display: flex; align-items: center; gap: 9px; height: 14px; }
 .lift .mark { display: block; width: 11px; height: 2px; background: var(--lift-dim); transition: all .35s ease; }
@@ -27,7 +31,7 @@
   transition: opacity .3s ease, transform .3s ease; pointer-events: none;
 }
 .lift button:hover .mark, .lift button:focus-visible .mark { background: var(--lift-ink); }
-.lift button:hover .lbl, .lift button:focus-visible .lbl { opacity: .85; transform: none; }
+.lift button:hover .lbl, .lift button:focus-visible .lbl { opacity: .85; }
 .lift .is-on .mark { width: 24px; background: var(--lift-ink); }
 /* подпись показываем только при наведении: на прокрутке она лезла на кадры */
 .lift .gap { height: 16px; }
@@ -38,6 +42,13 @@
   transition: opacity .3s ease;
 }
 .lift .grp:hover, .lift .grp:focus-visible { opacity: .9; }
+/* ⚠ Ставить строго ПОСЛЕ `all: unset` у кнопки и у .grp: unset стирает и
+   pointer-events, а оно наследуется, поэтому кнопки перенимали `none` у лифта
+   и переставали нажиматься совсем. На этом уже обожглись. */
+.lift button, .lift .grp { pointer-events: auto; }
+.lift button { position: relative; width: 24px; }
+.lift .lbl { position: absolute; left: 33px; top: 50%; transform: translate(-4px, -50%); }
+.lift button:hover .lbl, .lift button:focus-visible .lbl { transform: translate(0, -50%); }
 .lift .grp.is-here { opacity: 1; font-weight: 600; }
 
 .m-pill, .m-sheet { display: none; }
@@ -2217,7 +2228,6 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p style="max-width:68ch">Дома здесь складывают из адобе: глину месят с песком и рубленой соломой — наверху в неё идёт ичу, та самая трава пуны, — набивают в деревянную форму и оставляют сохнуть на солнце, переворачивая день за днём. Солома держит блок и не даёт ему растрескаться, пока он сохнет. Стена выходит толстой, и в этом весь смысл: за день она набирает тепло, а ночью отдаёт его обратно в комнату, когда снаружи подходит к нулю. Тем же способом строили Моче и Чан-Чан, и тем же строят сейчас — не из бедности, а потому что на четырёх тысячах это работает лучше кирпича.</p>
 
       <div data-atlas-preview="arhitektura"></div>
-      </div>
 
       <p class="muted" style="margin-top:20px;max-width:68ch">Само слово пришло сюда с испанцами, а к ним — из арабского: al-tub, «кирпич». Технология при этом местная и старше любого из этих языков.</p>
       <p style="margin-top:14px"><a href="#/atlas/arhitektura">Все кадры стен — в Атласе →</a></p>
@@ -2686,7 +2696,6 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         <button class="tag on" data-f="all">все</button>
         <button class="tag" data-f="jul">июль 2026</button>
         <button class="tag" data-f="aug">август 2026</button>
-        <button class="tag" data-f="nov">ноябрь 2025</button>
       </div>
       <!-- Фильтр по темам снят: у шестидесяти кадров тем пока нет,
            а размечать их на глаз значит выдумывать. Вернуть после разметки. -->
@@ -3757,7 +3766,7 @@ var ATLAS = {
       '<section class="dark"><div class="wrap wide"><a class="backlink" href="#/">← на главную</a>' +
       '<h1>Атлас</h1>' +
       '<p class="lead">Кто здесь живёт, что здесь растёт, из чего это сложено.</p>' +
-      '<p style="max-width:68ch">Четыре главы. В каждой сначала кадры, потом имена — и честный статус у каждого имени: подтверждено нашим снимком, определён только род, или имени пока нет. Латынь ставим там, где уверены.</p>' +
+      '<p style="max-width:68ch">Пять глав. В каждой сначала кадры, потом имена — и честный статус у каждого имени: подтверждено нашим снимком, определён только род, или имени пока нет. Латынь ставим там, где уверены.</p>' +
       '<p class="muted" style="max-width:68ch">Пустая плитка — это не недоделка. Своего кадра нет, и мы говорим об этом вслух, вместо того чтобы подставить чужой.</p>' +
       '<div class="gEnt">' + cards + '</div>' +
       '<h3 style="margin-top:44px">Что осталось снять</h3>' +
