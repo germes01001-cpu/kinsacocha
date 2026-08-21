@@ -1318,6 +1318,17 @@ body.ob .amen-t p,body.ob .pair .no,body.ob .ph span,body.ob .ph,
 body.ob .mos-note,body.ob .frefusal,body.ob .fbottom,body.ob .opts .or{color:var(--dim)}
 body.ob .opts .pill{color:var(--dim);border-color:var(--rule)}
 body.ob .opts .pill.on,body.ob .trail .pill.on{color:var(--fg);border-color:var(--fg);background:none}
+
+/* Плита на тропе лежит поверх кадра, а не на ступени секции. Её цвета не должны
+   зависеть от того, светлая под блоком ступень или тёмная: под плитой всегда
+   тёмная подложка-градиент. На светлой ступени --fg тёмный, и заголовок ложился
+   тёмным по тёмному — замер по пикселям дал контраст 1.0, то есть текста не
+   видно вовсе. Ставим свет явно и не через переменные ступени. */
+body.ob .trail .plate h3,body.ob .trail .num{color:#F2F4F0}
+body.ob .trail .plate p{color:rgba(242,244,240,.82)}
+body.ob .trail .row,body.ob .trail .row a{color:#F2F4F0}
+body.ob .trail .pill{color:#F2F4F0;border-color:rgba(242,244,240,.42);background:none}
+body.ob .trail .pill.on{color:var(--ob-crack);background:#F2F4F0;border-color:#F2F4F0}
 body.ob .lvl .n{background:var(--fg);color:var(--ground);border-color:var(--fg)}
 body.ob footer.site .fclaim{color:#E7E9E6}
 body.ob footer.site .frefusal,body.ob footer.site .fbottom{color:rgba(231,233,230,.5)}
@@ -2057,7 +2068,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <div style="margin-top:24px">
         <div class="trail">
           <div class="media">
-            <video data-src="vid/loop-t1.mp4" poster="img/loop-t1.webp" autoplay muted loop playsinline preload="none" disablepictureinpicture></video>
+            <video data-src="vid/393e22e0a462.mp4" poster="img/393e22e0a462.webp" autoplay muted loop playsinline preload="none" disablepictureinpicture></video>
             <div class="num">1</div>
             <div class="plate">
               <h3>Короткая · около двух часов</h3>
@@ -2069,7 +2080,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         </div>
         <div class="trail">
           <div class="media">
-            <video data-src="vid/loop-t2.mp4" poster="img/loop-t2.webp" autoplay muted loop playsinline preload="none" disablepictureinpicture></video>
+            <video data-src="vid/6c5fe191f2fe.mp4" poster="img/6c5fe191f2fe.webp" autoplay muted loop playsinline preload="none" disablepictureinpicture></video>
             <div class="num">2</div>
             <div class="plate">
               <h3>Полдня</h3>
@@ -2081,7 +2092,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         </div>
         <div class="trail">
           <div class="media">
-            <video data-src="vid/loop-t3.mp4" poster="img/loop-t3.webp" autoplay muted loop playsinline preload="none" disablepictureinpicture></video>
+            <video data-src="vid/cfebc92d897f.mp4" poster="img/cfebc92d897f.webp" autoplay muted loop playsinline preload="none" disablepictureinpicture></video>
             <div class="num">3</div>
             <div class="plate">
               <h3>Целый день</h3>
@@ -2093,7 +2104,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         </div>
         <div class="trail">
           <div class="media">
-            <video data-src="vid/loop-t4.mp4" poster="img/loop-t4.webp" autoplay muted loop playsinline preload="none" disablepictureinpicture></video>
+            <video data-src="vid/c0e53cd2241d.mp4" poster="img/c0e53cd2241d.webp" autoplay muted loop playsinline preload="none" disablepictureinpicture></video>
             <div class="num">4</div>
             <div class="plate">
               <h3>Тропа хозяина</h3>
