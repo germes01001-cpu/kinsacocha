@@ -1,0 +1,9 @@
+<style>body{background:#222;margin:0;font:12px monospace;color:#ddd}
+.g{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.i{aspect-ratio:16/9;background-size:cover;background-position:center;position:relative}
+.i b{position:absolute;left:0;bottom:0;background:#000c;padding:3px 7px;font-weight:400}</style>
+<div class="g" id="g"></div>
+<script>
+var L=["fa9738c91487","d69525d97753","c46b37ec7629","f96df5622fce","ff6a85f3f5a6","b26e2d9d3ccb","0751edd19a13","2a11127f0885"];
+document.getElementById('g').innerHTML=L.map(function(x){return '<div class="i" style="background-image:url(img/'+x+'.webp)"><b>'+x+'</b></div>'}).join('');
+</script>

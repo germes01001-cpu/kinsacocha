@@ -1538,6 +1538,26 @@ body.ob .oz-facts{font-family:var(--ob-mono);font-weight:500;font-size:11px;lett
     grid-template-areas:"a a" "b c" "d e" "f f" "g h" "i j" "k k" "l l"}
 }
 
+/* обложка «Озёра»: три больших входа вместо мелких карточек */
+body.ob .oz-ports{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(10px,1.4vw,18px);margin-top:28px}
+body.ob .oz-port{position:relative;display:block;text-decoration:none;color:inherit;
+  overflow:hidden;aspect-ratio:3/4}
+body.ob .oz-port .pb{position:absolute;inset:0;background-size:cover;background-position:center;
+  transition:transform .7s ease}
+body.ob .oz-port:hover .pb,body.ob .oz-port:focus-visible .pb{transform:scale(1.045)}
+body.ob .oz-port .pt{position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:clamp(14px,1.7vw,24px);
+  background:linear-gradient(180deg,rgba(21,24,27,0) 0%,rgba(21,24,27,.70) 60%,rgba(21,24,27,.92) 100%)}
+body.ob .oz-port h3{font-family:var(--ob-disp);font-weight:700;text-transform:uppercase;
+  color:#E7E9E6;margin:0;font-size:clamp(17px,2.2vw,27px);letter-spacing:.01em}
+body.ob .oz-port .pf{font-family:var(--ob-mono);font-weight:500;font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(231,233,230,.74);margin-top:8px}
+@media (max-width:760px){
+  body.ob .oz-ports{grid-template-columns:1fr}
+  body.ob .oz-port{aspect-ratio:16/10}
+}
+
 /* соседние озёра: текущее подсвечено, как переключатель глав в Атласе */
 body.ob .oz-near{display:grid;grid-template-columns:repeat(3,1fr);
   gap:clamp(10px,1.5vw,20px);margin-top:10px}
@@ -1799,12 +1819,12 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
 
       <div class="g2" style="margin-top:22px">
         <div class="card">
-          <div class="ph r169 sc-water" data-shot data-bg="img/8f745f8107f0.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
+          <div class="ph r169 sc-water" role="img" aria-label="Четвёртое озеро: дальше и выше остальных" data-shot data-bg="img/8f745f8107f0.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
           <h3>Четвёртое</h3>
           <p class="muted">дальше всех и выше. Дойти можно, но только если вы уже наверху и никуда не спешите</p>
         </div>
         <div class="card">
-          <div class="ph r169 sc-water" data-shot data-bg="img/dee93c57365c.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
+          <div class="ph r169 sc-water" role="img" aria-label="Пятое озеро: имени и стороны света мы не называем" data-shot data-bg="img/dee93c57365c.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
           <h3>Пятое</h3>
           <p class="muted">о нём знают немногие даже здесь. Мы не пишем ни имени, ни стороны света</p>
         </div>
@@ -2631,34 +2651,58 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
 
 <!-- ══════════════════ ОЗЁРА ══════════════════ -->
 <div class="page" id="p-ozera">
+  <section class="oz">
+    <div class="oz-bg" role="img" aria-label="Озеро в долине пуны выше четырёх тысяч метров" data-shot data-bg="img/d69525d97753.webp"></div>
+    <div class="oz-scrim"></div>
+    <div class="oz-plate"><div class="oz-in">
+      <a class="oz-back" href="#/">← на главную</a>
+      <h1>Озёра</h1>
+      <p class="oz-ru">Kinsa qucha — «три озера»</p>
+      <div class="oz-facts"><span>место названо счётом</span><span>выше 4200 м</span><span>воды больше трёх</span></div>
+    </div></div>
+  </section>
+
   <section>
     <div class="wrap wide">
-      <a class="backlink" href="#/">← на главную</a>
-      <h2>Озёра</h2>
-      <p class="lead">Kinsa qucha на кечуа — «три озера». Место названо счётом.</p>
-      <p style="max-width:68ch">Они лежат ступенями выше четырёх тысяч метров. Их питают талая вода и дожди, а цвет им даёт высота: вода холодная, чистая, почти без органики, и света здесь больше, чем внизу.</p><div class="g3" style="margin:22px 0 4px">
-        <a class="note-link card" href="#/ozera/pumakocha"><div class="ph r169 sc-water" data-shot data-bg="img/33202bafb99b.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div><h3>Пума Коча</h3><p class="muted">4325 м · самое высокое</p></a>
-        <a class="note-link card" href="#/ozera/azulkocha"><div class="ph r169 sc-water" data-shot data-bg="img/cdcfad5f3313.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div><h3>Асуль Коча</h3><p class="muted">4243 м · самое синее</p></a>
-        <a class="note-link card" href="#/ozera/kinsakocha"><div class="ph r169 sc-water" data-shot data-bg="img/6a691cc9da63.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div><h3>Кинса Коча</h3><p class="muted">самое большое · у него стоит дом</p></a>
-      </div><div class="mosaic"><div class="mos mA" style="background-image:url(img/e941f22c2650.webp)"><video src="vid/087dfd792ba7.mp4" poster="img/e941f22c2650.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mB" data-slot style="background-image:url(img/26d11e647b00.webp)"></div><div class="mos mC" data-slot style="background-image:url(img/a6f9d164548f.webp)"></div><div class="mos mD" style="background-image:url(img/91620ca035b8.webp)"><video src="vid/1a9126d64654.mp4" poster="img/91620ca035b8.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mE" data-slot style="background-image:url(img/098f64fe5d93.webp)"></div><div class="mos mF" data-slot style="background-image:url(img/6884c8a658df.webp)"></div><div class="mos mG" style="background-image:url(img/bb2e98f01acb.webp)"><video src="vid/fc51b4213f0f.mp4" poster="img/bb2e98f01acb.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mH" data-slot style="background-image:url(img/c24ea42547e6.webp)"></div><div class="mos mI" data-slot style="background-image:url(img/ca8c53eb3cf7.webp)"></div><div class="mos mJ" style="background-image:url(img/2ec428921b9a.webp)"><video src="vid/f4e4c1a24ec1.mp4" poster="img/2ec428921b9a.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mK" data-slot style="background-image:url(img/29c37fd1e269.webp)"></div><div class="mos mL" data-slot style="background-image:url(img/3caa68d3457e.webp)"></div><div class="mos mM" style="background-image:url(img/4caedca7943f.webp)"><video src="vid/7319f4f5f6c3.mp4" poster="img/4caedca7943f.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div></div><p class="mos-note">Вода трёх озёр. Снимки сменяются сами.</p>
+      <p class="lead" style="max-width:56ch">Они лежат ступенями выше четырёх тысяч метров.</p>
+      <p style="max-width:68ch">Их питают талая вода и дожди, а цвет им даёт высота: вода холодная, чистая, почти без органики, и света здесь больше, чем внизу. Три названы и дали имя месту. Ниже — каждое по отдельности.</p>
+      <div class="oz-ports">
+        <a class="oz-port" href="#/ozera/pumakocha"><div class="pb" data-shot data-bg="img/33202bafb99b.webp"></div><div class="pt"><h3>Пума Коча</h3><div class="pf">4325 м · самое высокое</div></div></a>
+        <a class="oz-port" href="#/ozera/azulkocha"><div class="pb" data-shot data-bg="img/cdcfad5f3313.webp"></div><div class="pt"><h3>Асуль Коча</h3><div class="pf">4243 м · самое синее</div></div></a>
+        <a class="oz-port" href="#/ozera/kinsakocha"><div class="pb" data-shot data-bg="img/f96df5622fce.webp"></div><div class="pt"><h3>Кинса Коча</h3><div class="pf">самое большое · у него стоит дом</div></div></a>
+      </div>
+    </div>
+  </section>
 
+  <section>
+    <div class="wrap wide">
+      <div class="eyebrow"><i></i><span>Вода</span><b>Три озера</b></div>
+      <h2>Одна вода, разные дни</h2>
+      <p class="muted" style="max-width:60ch">Ни один кадр не подписан озером. С близкого расстояния они и не различаются — цвет им даёт свет, а не дно.</p>
+      <div class="mosaic"><div class="mos mA" style="background-image:url(img/e941f22c2650.webp)"><video src="vid/087dfd792ba7.mp4" poster="img/e941f22c2650.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mB" data-slot style="background-image:url(img/26d11e647b00.webp)"></div><div class="mos mC" data-slot style="background-image:url(img/a6f9d164548f.webp)"></div><div class="mos mD" style="background-image:url(img/91620ca035b8.webp)"><video src="vid/1a9126d64654.mp4" poster="img/91620ca035b8.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mE" data-slot style="background-image:url(img/098f64fe5d93.webp)"></div><div class="mos mF" data-slot style="background-image:url(img/6884c8a658df.webp)"></div><div class="mos mG" style="background-image:url(img/bb2e98f01acb.webp)"><video src="vid/fc51b4213f0f.mp4" poster="img/bb2e98f01acb.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mH" data-slot style="background-image:url(img/c24ea42547e6.webp)"></div><div class="mos mI" data-slot style="background-image:url(img/ca8c53eb3cf7.webp)"></div><div class="mos mJ" style="background-image:url(img/2ec428921b9a.webp)"><video src="vid/f4e4c1a24ec1.mp4" poster="img/2ec428921b9a.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div><div class="mos mK" data-slot style="background-image:url(img/29c37fd1e269.webp)"></div><div class="mos mL" data-slot style="background-image:url(img/3caa68d3457e.webp)"></div><div class="mos mM" style="background-image:url(img/4caedca7943f.webp)"><video src="vid/7319f4f5f6c3.mp4" poster="img/4caedca7943f.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video></div></div><p class="mos-note">Вода трёх озёр. Снимки сменяются сами.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
       <h3 style="margin-top:38px">Четвёртое и пятое</h3>
       <p class="lead">Три озера дали месту имя. Но воды здесь больше трёх.</p>
       <p style="max-width:68ch">Следующие два лежат дальше — настолько, что за один день до них не дойти и вернуться. Их не прячут и не охраняют. До них просто не доходят: обычный маршрут из Куско рассчитан на светлое время, а дорога туда начинается позже, чем этот день заканчивается.</p>
       <div class="g2" style="margin-top:18px">
         <div class="card">
-          <div class="ph r169 sc-water" data-shot data-bg="img/8f745f8107f0.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
+          <div class="ph r169 sc-water" role="img" aria-label="Четвёртое озеро: дальше и выше остальных" data-shot data-bg="img/8f745f8107f0.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
           <h3>Четвёртое</h3>
           <p class="muted">дальше всех и выше. Дойти можно, но только если вы уже наверху и никуда не спешите</p>
         </div>
         <div class="card">
-          <div class="ph r169 sc-water" data-shot data-bg="img/dee93c57365c.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
+          <div class="ph r169 sc-water" role="img" aria-label="Пятое озеро: имени и стороны света мы не называем" data-shot data-bg="img/dee93c57365c.webp" style="margin-bottom:12px;background-size:cover;background-position:center"></div>
           <h3>Пятое</h3>
           <p class="muted">о нём знают немногие даже здесь. Мы не пишем ни имени, ни стороны света</p>
         </div>
       </div>
       <p class="kick" style="margin-top:20px">Чтобы увидеть эти два, нужно остаться на ночь. Другого способа нет.</p>
       
+    
     </div>
   </section>
 </div>
@@ -4845,7 +4889,8 @@ var ATLAS = {
     "p-atlas":            ["air"],                                  /* обложка раздела */
     "p-artefakty":        ["air","ichu","slate","crack","crack"],   /* звук → оригиналы → отпечаток → тканое */
     "p-tseny":            ["air"],
-    "p-ozera":            ["air"],
+    /* обложка озёр: тот же спуск, что и у страниц самих озёр */
+    "p-ozera":            ["crack","air","slate","crack"],
     /* озеро: тёмная комната кадра → свет текста → мокрый сланец воды → тень */
     "p-ozera-pumakocha":  ["crack","air","slate","crack"],
     "p-ozera-azulkocha":  ["crack","air","slate","crack"],
