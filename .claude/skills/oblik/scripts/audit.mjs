@@ -1,5 +1,7 @@
 // Автоматическая часть ревью: переполнение, размеры целей, alt, фокус, перекрытия
-const routes = ["","tseny","ozera","atlas","atlas/zveri","atlas/rasteniya","atlas/rasteniya/kaktus","gallery","blog","dnevnik","artefakty","kontakty"];
+const DEFAULT_ROUTES = ["","tseny","ozera","atlas","atlas/zveri","atlas/rasteniya","atlas/rasteniya/kaktus","gallery","blog","dnevnik","artefakty","kontakty"];
+// маршруты можно передать аргументом через запятую, пустая строка — главная
+const routes = process.argv[2] ? process.argv[2].split(',') : DEFAULT_ROUTES;
 const VPS = [[375,2,true],[768,2,true],[1280,1,false],[1920,1,false]];
 const list = await (await fetch('http://localhost:9222/json/list')).json();
 const page = list.find(t => t.type === 'page');

@@ -1,5 +1,7 @@
 // Ищет остатки старого облика: чужие шрифты и старые акцентные цвета
-const routes = ["","tseny","ozera","atlas","atlas/zveri","atlas/rasteniya","gallery","blog","dnevnik","artefakty","kontakty","pravila"];
+const DEFAULT_ROUTES = ["","tseny","ozera","atlas","atlas/zveri","atlas/rasteniya","gallery","blog","dnevnik","artefakty","kontakty","pravila"];
+// маршруты можно передать аргументом через запятую, пустая строка — главная
+const routes = process.argv[2] ? process.argv[2].split(',') : DEFAULT_ROUTES;
 const list = await (await fetch('http://localhost:9222/json/list')).json();
 const page = list.find(t => t.type === 'page');
 const ws = new WebSocket(page.webSocketDebuggerUrl); await new Promise(r=>ws.onopen=r);

@@ -14,6 +14,32 @@
       "sourceType": "well-known",
       "computedHash": "4a05e32553a1dc916ee4f68f709d478c17de6b8ce184932f56f2b8646f3d4986",
       "wellKnownDigest": "sha256:0c4ebfcb8ab5fefb7d1c95ad4ea65bd098c33a0fd547205a70cba38b44e4ae38"
+    },
+    "canvas-design": {
+      "source": "smithery.ai",
+      "sourceUrl": "https://smithery.ai/skills/anthropics/canvas-design",
+      "sourceType": "github",
+      "repo": "anthropics/skills",
+      "path": "skills/canvas-design",
+      "commit": "b9e19e6f44773509fbdd7001d77ff41a49a486c1",
+      "files": {
+        "SKILL.md": "sha256:a1f288079624402f30682753c1d43920b6664785698d21d3e7aa197450a6448b",
+        "LICENSE.txt": "sha256:bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362"
+      },
+      "note": "Папка canvas-fonts (4 МБ ttf) не ставилась: облик «Спуск» разрешает только три своих шрифта из font/."
+    },
+    "skill-creator": {
+      "source": "smithery.ai",
+      "sourceUrl": "https://smithery.ai/skills/anthropics/skill-creator",
+      "sourceType": "github",
+      "repo": "anthropics/skills",
+      "path": "skills/skill-creator",
+      "commit": "main@2026-08-20",
+      "files": {
+        "SKILL.md": "sha256:dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf",
+        "LICENSE.txt": "sha256:bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362"
+      },
+      "note": "Поставлен целиком, 18 файлов: agents/, scripts/, eval-viewer/. Скрипты требуют pyyaml — ставить в venv, системный python его не даёт (PEP 668)."
     }
   }
 }
