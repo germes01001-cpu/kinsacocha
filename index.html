@@ -234,8 +234,19 @@ body.svoi .friends-note { display: block; }
   @media (max-width: 900px) {
     .burger { display: block; }
     nav.main {
-      display: none; position: fixed; inset: 57px 0 0 0;
-      background: var(--bg); flex-direction: column; gap: 0;
+      /* ⚠ Два подвоха разом, и вместе они складывали меню в одну слипшуюся строку.
+         Первый: у header.site стоит backdrop-filter, а он делает шапку containing
+         block для потомков с position:fixed. Из-за этого `inset: 57px 0 0 0`
+         считался не от окна, а от шапки, и высота выходила 52 px вместо экрана.
+         Второй: базовое правило nav.main несёт flex-wrap:wrap, а мобильное меняло
+         только направление. Колоночный flex с переносом и высотой в 52 px
+         раскладывает пункты в колонки бок о бок — ровно то, что было на экране.
+         Поэтому здесь высота задана явно, а перенос запрещён.
+         Ловится только замером: класс open стоит, пункты находятся, ссылки
+         работают — а на экране каша. */
+      display: none; position: fixed; top: 57px; left: 0; right: 0;
+      height: calc(100vh - 57px); height: calc(100dvh - 57px);
+      background: var(--bg); flex-direction: column; flex-wrap: nowrap; gap: 0;
       padding: 12px clamp(16px, 4vw, 24px) 40px; overflow-y: auto; z-index: 39;
     }
     nav.main.open { display: flex; }
@@ -312,12 +323,6 @@ body.svoi .friends-note { display: block; }
   section.dark .ph span { background: var(--dark-surface); }
   .ph.video { border-color: var(--accent); }
   section.dark .ph.video { border-color: var(--accent-soft); }
-  .ph.video::after {
-    content: "видео-петля"; position: absolute; left: 8px; top: 8px;
-    font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase;
-    background: var(--accent); color: #fff; padding: 2px 7px;
-  }
-  section.dark .ph.video::after { background: var(--accent-soft); color: #08211f; }
   .r219 { aspect-ratio: 21/9; } .r169 { aspect-ratio: 16/9; }
   .r43 { aspect-ratio: 4/3; } .r11 { aspect-ratio: 1/1; } .r34 { aspect-ratio: 3/4; } .r45 { aspect-ratio: 4/5; }
 
@@ -348,7 +353,6 @@ body.svoi .friends-note { display: block; }
     content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
     background: linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.3) 55%, rgba(0,0,0,.06) 100%);
   }
-  .amen > .ph.video::after { z-index: 3; }
   .amen-t { position: relative; z-index: 2; padding: clamp(12px, 1.8vw, 17px); }
   .amen-t h3 { color: #fff; margin-bottom: 3px; font-size: clamp(16px, 2vw, 18px); }
   .amen-t p { color: #d8d8d8; font-size: 13.5px; line-height: 1.45; margin: 0; }
@@ -702,6 +706,14 @@ body.svoi .friends-note { display: block; }
   .frames .card:hover .ph { filter: brightness(1.1); }
 
   /* M — мозаика: кадры как есть, разного формата, колонками */
+  /* Мозаика кадров на странице озера. Пропорции у снимков разные — широкие,
+     вертикальные, почти квадратные, — поэтому колонки, а не сетка: каждый кадр
+     стоит целиком в своей пропорции, под общий формат ничего не режется.
+     Высота плитки задана в разметке через aspect-ratio настоящего кадра. */
+  .ozgal { column-count: 3; column-gap: clamp(8px, 1vw, 12px); margin-top: 4px; }
+  .ozgal .ph { break-inside: avoid; margin: 0 0 clamp(8px, 1vw, 12px);
+    min-height: 0; padding: 0; }
+  @media (max-width: 760px) { .ozgal { column-count: 2; } }
   .jM { column-count: 3; column-gap: clamp(8px, 1.1vw, 14px); }
   .jM > .card { break-inside: avoid; margin-bottom: clamp(8px, 1.1vw, 14px); display: block; }
   @media (max-width: 900px) { .jM { column-count: 2; } }
@@ -852,9 +864,6 @@ body.svoi .friends-note { display: block; }
       linear-gradient(to top left, transparent calc(50% - .5px), rgba(255,255,255,.07) 50%, transparent calc(50% + .5px)); }
   /* пометка видео-петли — служебная, поэтому тихая: стекло и волосяная рамка */
   .card.accent, .ph.video { border-color: rgba(168,137,35,.42); }
-  .ph.video::after { background: var(--k-glass); color: var(--k-accent); border: 1px solid rgba(168,137,35,.35);
-    letter-spacing: .14em; font-size: 9.5px; padding: 3px 8px; backdrop-filter: blur(4px); }
-  section.dark .ph.video::after { background: var(--k-glass); color: var(--k-accent); }
   /* имена озёр — серифом, как заголовки */
   .lake-cap .name { font-family: var(--font-serif); font-weight: 500; font-size: clamp(20px,2.6vw,27px); letter-spacing: .04em; }
   .lake-cap .name em { font-family: var(--font-sans); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
@@ -2604,6 +2613,26 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p class="navrow" style="margin-top:22px"><a href="#/ozera/azulkocha">Асуль Коча →</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
     </div>
   </section>
+
+  <section>
+    <div class="wrap wide">
+      <div class="ozgal">
+        <div class="ph" data-shot data-bg="img/e6ac95b67191.webp" style="aspect-ratio:3500/1969;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/0751edd19a13.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/fa9738c91487.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/2a11127f0885.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/2e707d861fb7.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/f9c8b2417cc4.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/11433e6707fb.webp" style="aspect-ratio:2448/3264;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/fdedafb1a44d.webp" style="aspect-ratio:3264/2448;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/1daef864e56c.webp" style="aspect-ratio:3072/4096;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/0f650b99b6e0.webp" style="aspect-ratio:3072/4096;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/2d3eac6d92ba.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/d2ebeca2656a.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
+      </div>
+      <p class="muted" style="margin-top:16px">Одно озеро, разные дни. Снято между июлем и августом.</p>
+    </div>
+  </section>
 </div>
 
 <div class="page" id="p-ozera-azulkocha">
@@ -2621,6 +2650,25 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p class="navrow" style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/kinsakocha">Кинса Коча →</a></p>
     </div>
   </section>
+
+  <section>
+    <div class="wrap wide">
+      <div class="ozgal">
+        <div class="ph" data-shot data-bg="img/2a6147bf14dd.webp" style="aspect-ratio:3500/2625;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/4f9252494f26.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/d3cf20d79fe1.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/828bdacb4d5f.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/8c7ec587998e.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/756e66432d61.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/b26e2d9d3ccb.webp" style="aspect-ratio:2448/3264;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/ff61491e845f.webp" style="aspect-ratio:3072/4096;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/502ed1c56636.webp" style="aspect-ratio:3264/2448;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/e1b84a628045.webp" style="aspect-ratio:3264/2448;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/b1658e5e7dee.webp" style="aspect-ratio:3264/2448;background-size:cover;background-position:center"></div>
+      </div>
+      <p class="muted" style="margin-top:16px">Одно озеро, разные дни. Снято между июлем и августом.</p>
+    </div>
+  </section>
 </div>
 
 <div class="page" id="p-ozera-kinsakocha">
@@ -2635,6 +2683,26 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p class="muted">Маршрута и координат на этой странице нет — мы описываем, что вы увидите, а не как дойти.</p>
       <a class="btn primary" href="https://wa.me/447916693473" target="_blank" rel="noopener">Написать в WhatsApp</a>
       <p class="navrow" style="margin-top:22px"><a href="#/ozera/pumakocha">← Пума Коча</a> &nbsp;·&nbsp; <a href="#/ozera/azulkocha">← Асуль Коча</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wide">
+      <div class="ozgal">
+        <div class="ph" data-shot data-bg="img/d69525d97753.webp" style="aspect-ratio:3500/1969;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/5b69d9787764.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/c46b37ec7629.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/843f8db6bd1b.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/5c4af0dba440.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/132b626f6adf.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/f96df5622fce.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/f551cb64705b.webp" style="aspect-ratio:3264/1836;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/61a6a0bbc0d8.webp" style="aspect-ratio:2304/4096;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/1fbd25cab362.webp" style="aspect-ratio:4096/2304;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/7e736ba77644.webp" style="aspect-ratio:4096/3072;background-size:cover;background-position:center"></div>
+        <div class="ph" data-shot data-bg="img/ff6a85f3f5a6.webp" style="aspect-ratio:1836/3264;background-size:cover;background-position:center"></div>
+      </div>
+      <p class="muted" style="margin-top:16px">Одно озеро, разные дни. Снято между июлем и августом.</p>
     </div>
   </section>
 </div>
