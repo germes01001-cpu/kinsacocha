@@ -1,0 +1,12 @@
+# Kinsacocha
+# ⚠ Пока в index.html стоит <meta name="robots" content="noindex,nofollow">,
+# сайт всё равно не индексируется. Снять эту метку в день переезда на домен.
+
+User-agent: *
+Allow: /
+
+# оригиналы и служебное в поиск не нужны
+Disallow: /og/
+Disallow: /.claude/
+
+Sitemap: https://kinsacocha.com/sitemap.xml

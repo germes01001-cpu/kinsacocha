@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Сайт живёт на маршрутах за решёткой: #/tseny, #/ozera, #/atlas и так далее.
+  Поисковики отбрасывают всё после решётки — для них это один и тот же адрес.
+  Поэтому в карте честно стоит одна страница, а не двадцать выдуманных.
+  Чтобы разделы попали в поиск по отдельности, им нужны настоящие файлы —
+  это отдельная работа, и до неё сначала должен появиться трафик.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://kinsacocha.com/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

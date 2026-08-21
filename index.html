@@ -6,8 +6,27 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Kinsacocha — дом у трёх озёр</title>
 <meta name="description" content="Частный дом на 4200 метров в Андах, община Пару-Пару, Писак, Куско.">
+<link rel="canonical" href="https://kinsacocha.com/">
+
+<!-- Как ссылка выглядит, когда её отправляют в WhatsApp, телеграм или инстаграм.
+     Адрес обязан быть полным: относительный путь превью не подтянет.
+     ⚠ При смене домена поправить здесь все четыре строки и в sitemap.xml. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kinsacocha">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://kinsacocha.com/">
+<meta property="og:title" content="Kinsacocha — дом у трёх озёр">
+<meta property="og:description" content="Частный дом на 4200 метров в Андах. Община Пару-Пару, Писак, Куско. Три озера, печь, горячая вода и никакого вайфая.">
+<meta property="og:image" content="https://kinsacocha.com/og/kadr.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Озеро на высоте 4200 метров, вокруг склоны пуны">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%23A88923'%3E%3Cpath d='M24 6 44.8 42 3.2 42Z' fill='none' stroke='%23A88923' stroke-width='2'/%3E%3Ccircle cx='24' cy='6' r='3'/%3E%3Ccircle cx='44.8' cy='42' r='3'/%3E%3Ccircle cx='3.2' cy='42' r='3'/%3E%3C/g%3E%3C/svg%3E">
-<style>*{box-sizing:border-box}html,body{margin:0;padding:0}</style><style>.mos{position:relative;overflow:hidden;background:var(--k-sunken);background-size:cover;background-position:center}.mos video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}</style>
+<style>*{box-sizing:border-box}html,body{margin:0;padding:0}
+/* Спрятано до запуска: «Полевые заметки», «Блог», «Артефакты».
+   Разметка цела, дороги к ней нет. Вернуть — снять этот класс. */
+.skryto{display:none!important}</style><style>.mos{position:relative;overflow:hidden;background:var(--k-sunken);background-size:cover;background-position:center}.mos video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}</style>
 <style>
 /* ─── Лифт: где мы на странице и как уехать к блоку ─────
    На компьютере — засечки слева, собранные в пять разделов.
@@ -76,6 +95,9 @@
     all: unset; display: block; width: 100%; cursor: pointer;
     margin: 16px 0 2px; padding: 6px 0; font: 500 11px/1 var(--font-sans, Inter, sans-serif);
     letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+    /* заголовок раздела в шторке — тоже кнопка, и по ней целятся пальцем:
+       текст мелкий, а область нажатия должна быть человеческой */
+    min-height: 44px; display: flex; align-items: flex-end; padding-bottom: 8px;
   }
   .m-sheet button.row {
     all: unset; display: block; width: 100%; padding: 11px 0; font-size: 16px;
@@ -91,6 +113,26 @@
 body .friends-note { display: none; border-color: var(--accent); }
 body.svoi .friends-note { display: block; }
 </style>
+<!-- Google Analytics. Пока ID пустой, счётчик не грузится совсем: ни запроса,
+     ни куки. Заказчику достаточно вписать сюда свой G-XXXXXXXXXX. -->
+<script>
+(function () {
+  var GA = "";                       /* ← сюда идентификатор счётчика */
+  if (!GA) return;
+  var s = document.createElement("script");
+  s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag("js", new Date());
+  /* маршруты у нас за решёткой, обычный отсчёт страниц их не видит —
+     шлём просмотр сами на каждую смену адреса */
+  gtag("config", GA, { send_page_view: false });
+  function hit() { gtag("event", "page_view", { page_location: location.href, page_path: location.hash || "#/" }); }
+  hit();
+  addEventListener("hashchange", function () { setTimeout(hit, 60); });
+})();
+</script>
 </head>
 <body>
 <title>Kinsacocha</title>
@@ -1095,9 +1137,9 @@ body.svoi .friends-note { display: block; }
   }
 
 /* ═══ Облик «Спуск» ═════════════════════════════════════════════
-   Сквозной облик сайта. Включается скрытой ссылкой #/novyy,
-   выключается #/staryy, держится в сессии. Глава «Растения» живёт
-   в нём всегда. Правила и раскладка — в .claude/skills/oblik/ */
+   Единственный вид сайта. Прежний снят 21 августа 2026 — правила
+   `body:not(.ob)` ниже уже ни на что не влияют и вычищаются отдельно.
+   Правила и раскладка — в .claude/skills/oblik/ */
 @font-face { font-family: 'PT Sans Narrow'; font-style: normal; font-weight: 700; font-display: swap; src: url(font/e1a5ebe74c.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
 @font-face { font-family: 'PT Sans Narrow'; font-style: normal; font-weight: 700; font-display: swap; src: url(font/a22f624597.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'Spectral'; font-style: italic; font-weight: 300; font-display: swap; src: url(font/2925118d5a.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
@@ -1517,11 +1559,11 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
     <nav class="main" id="nav">
       <a href="#/ozera">Озёра</a>
       <a href="#/tseny">Цены</a>
-      <a href="#/dnevnik">Заметки</a>
+      <a class="skryto" href="#/dnevnik">Заметки</a>
       <a href="#/atlas">Атлас</a>
       <a href="#/gallery">Фотографии</a>
-      <a href="#/blog">Блог</a>
-      <a href="#/artefakty">Артефакты</a>
+      <a class="skryto" href="#/blog">Блог</a>
+      <a class="skryto" href="#/artefakty">Артефакты</a>
       <a href="#/kontakty">Контакты</a>
     </nav>
   </div>
@@ -1640,7 +1682,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
           </div>
           <div class="lake-cap">
             <span class="name">Puma qucha <em>· 4325 м, самое высокое</em></span>
-            <a href="#/ozera/pumakocha">Открыть →</a>
+            <a class="navrow" href="#/ozera/pumakocha">Открыть →</a>
           </div>
         </div>
         <div class="lake flip">
@@ -1650,7 +1692,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
           </div>
           <div class="lake-cap">
             <span class="name">Asul qucha <em>· 4247 м, самое синее</em></span>
-            <a href="#/ozera/azulkocha">Открыть →</a>
+            <a class="navrow" href="#/ozera/azulkocha">Открыть →</a>
           </div>
         </div>
         <div class="lake">
@@ -1660,7 +1702,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
           </div>
           <div class="lake-cap">
             <span class="name">Kinsa qucha <em>· самое большое, у него стоит дом</em></span>
-            <a href="#/ozera/kinsakocha">Открыть →</a>
+            <a class="navrow" href="#/ozera/kinsakocha">Открыть →</a>
           </div>
         </div>
       </div>
@@ -1754,7 +1796,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p style="max-width:68ch">В доме есть аптечка: таблетки от высоты и кислород. Если нужно спускаться — мы звоним водителям, их номера у нас есть. Днём машина приходит скоро. Ночью её надо ждать: она идёт снизу.</p>
       <p class="kick">Поэтому здесь работает не аптечка, а подготовка.</p>
       <p>Мы предпочтём отговорить вас от неудачной даты, чем принять и смотреть, как вам плохо.</p>
-      <a class="btn" href="#/blog/gornaya-bolezn">Про горную болезнь →</a>
+      <a class="btn skryto" href="#/blog/gornaya-bolezn">Про горную болезнь →</a>
     </div>
   </section>
 
@@ -2087,12 +2129,12 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       </div>
 
       <div class="quote">Напишите, сколько у вас времени и кто идёт. Тропу выберу утром — по погоде и по тому, как вы дышите.</div>
-      <p><b>Троп больше, чем три.</b> Остальные — в заметках: куда ходил, что видел, в какой день.</p>
-      <a class="btn" href="#/dnevnik">Полевые заметки →</a>
+      <p class="skryto"><b>Троп больше, чем три.</b> Остальные — в заметках: куда ходил, что видел, в какой день.</p>
+      <a class="btn skryto" href="#/dnevnik">Полевые заметки →</a>
     </div>
   </section>
 
-  <section>
+  <section class="skryto">
     <div class="wrap wide">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px">
         <h2 style="margin:0">Полевые заметки</h2>
@@ -2230,7 +2272,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <div data-atlas-preview="arhitektura"></div>
 
       <p class="muted" style="margin-top:20px;max-width:68ch">Само слово пришло сюда с испанцами, а к ним — из арабского: al-tub, «кирпич». Технология при этом местная и старше любого из этих языков.</p>
-      <p style="margin-top:14px"><a href="#/atlas/arhitektura">Все кадры стен — в Атласе →</a></p>
+      <p class="navrow" style="margin-top:14px"><a href="#/atlas/arhitektura">Все кадры стен — в Атласе →</a></p>
     </div>
   </section>
 
@@ -2276,7 +2318,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         <p style="margin-bottom:0"><b>На рынке в Писаке вы купите дешевле. Мы не делаем вид, что это не так.</b></p>
       </div>
 
-      <a class="btn" href="#/artefakty" style="margin-top:22px">Артефакты — что отсюда можно унести →</a>
+      <a class="btn skryto" href="#/artefakty" style="margin-top:22px">Артефакты — что отсюда можно унести →</a>
     </div>
   </section>
 
@@ -3148,11 +3190,11 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
         <h4>Разделы</h4>
         <ul>
           <li><a href="#/tseny">Цены</a></li>
-          <li><a href="#/dnevnik">Полевые заметки</a></li>
+          <li class="skryto"><a href="#/dnevnik">Полевые заметки</a></li>
           <li><a href="#/atlas">Атлас</a></li>
           <li><a href="#/gallery">Фотографии</a></li>
-          <li><a href="#/blog">Блог</a></li>
-          <li><a href="#/artefakty">Артефакты</a></li>
+          <li class="skryto"><a href="#/blog">Блог</a></li>
+          <li class="skryto"><a href="#/artefakty">Артефакты</a></li>
           <li><a href="#/pravila">Правила дома</a></li>
         </ul>
       </div>
@@ -3213,6 +3255,16 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
     "pravila": "p-pravila",
     "kontakty": "p-kontakty"
   };
+
+  /* Спрятано до запуска: «Полевые заметки», «Блог», «Артефакты».
+     Страницы целы и лежат в файле, но дороги к ним нет — ни в шапке,
+     ни в подвале, ни с главной. Старая ссылка ведёт на главную,
+     а не в пустоту. Вернуть — убрать этот блок и класс .skryto. */
+  ["dnevnik", "blog", "artefakty"].forEach(function (h) {
+    Object.keys(ROUTES).forEach(function (k) {
+      if (k === h || k.indexOf(h + "/") === 0) ROUTES[k] = "p-home";
+    });
+  });
 
 
 /* ─── Атлас: данные ──────────────────────────────────────────
@@ -4290,7 +4342,11 @@ var ATLAS = {
   var home = document.getElementById("p-home");
   if (!home) return;
   var secs = [], kids = home.children;
-  for (var i = 0; i < kids.length; i++) if (kids[i].tagName === "SECTION") secs.push(kids[i]);
+  /* спрятанные до запуска блоки в лифт не берём — иначе останется засечка,
+     которая ведёт в пустоту. У облика свой список секций, и он считает
+     по порядку детей #p-home: там фильтровать нельзя. */
+  for (var i = 0; i < kids.length; i++)
+    if (kids[i].tagName === "SECTION" && !kids[i].classList.contains("skryto")) secs.push(kids[i]);
   /* раздел начинается на блоке с этим номером */
   var GROUPS = { "": "Место", "05": "Приезд", "10": "Быт", "13": "Атлас", "17": "Дальше" };
 
@@ -4469,7 +4525,7 @@ var ATLAS = {
 })();
 </script>
 <script>
-/* ─── Облик «Спуск» на главной: скрытая ссылка #/novyy ───────
+/* ─── Облик «Спуск» — единственный вид сайта ─────────────────
    Раскладка блоков по ступеням палитры. Карта и обоснование —
    в .claude/skills/oblik/. Порядок строго по секциям #p-home. */
 (function () {
@@ -4529,9 +4585,10 @@ var ATLAS = {
                          arhitektura: "crack", lyudi: "crack" };
   var STEPS = ["air","ichu","moss","slate","crack"];
 
-  var KEY = "kc-oblik";
-  function on() { try { return sessionStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
-  function set(v) { try { v ? sessionStorage.setItem(KEY, "1") : sessionStorage.removeItem(KEY); } catch (e) {} }
+  /* Облик «Спуск» — единственный. Прежний вид снят 21 августа 2026 по решению
+     заказчика: переключателя нет, ссылки #/novyy, #/staryy и #/shapka* больше
+     ничего не переключают и просто ведут на главную. */
+  function on() { return true; }
 
   var home = document.getElementById("p-home");
   var secs = [].slice.call(home.children).filter(function (e) { return e.tagName === "SECTION"; });
@@ -4583,11 +4640,6 @@ var ATLAS = {
 
   function check() {
     var h = location.hash.replace(/^#\/?/, "");
-    if (h === "novyy" || /(\?|&)novyy\b/.test(location.search)) set(true);
-    if (h === "staryy") set(false);
-    /* ссылки на снятые пробы первого экрана могли где-то остаться —
-       пусть ведут в новый облик, а не выбрасывают на старый сайт */
-    if (h.indexOf("shapka") === 0) set(true);
     paint();
     hdr();
   }
