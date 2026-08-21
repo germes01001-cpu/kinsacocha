@@ -1575,6 +1575,7 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
     <nav class="main" id="nav">
       <a href="#/ozera">Озёра</a>
       <a href="#/tseny">Цены</a>
+      <a href="#tropy">Тропы</a>
       <a class="skryto" href="#/dnevnik">Заметки</a>
       <a href="#/atlas">Атлас</a>
       <a href="#/gallery">Фотографии</a>
@@ -3860,8 +3861,22 @@ var ATLAS = {
     // якорь внутри главной (#dom, #tropy) — не маршрут
     if (raw && !ROUTES.hasOwnProperty(raw) && document.getElementById(raw)) {
       show("p-home");
+      if (window.__oblik) window.__oblik();
       var target = document.getElementById(raw);
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      /* Главную могли показать только что: даём разметке встать, иначе
+         прокрутка считается по нулевой высоте и уезжает не туда.
+         Прыгаем, а не едем плавно: до «Троп» от начала девятнадцать тысяч
+         пикселей, и плавная прокрутка туда занимает секунды — по пункту
+         меню ждут попадания, а не поездки. Остальные пункты так же
+         прыгают на верх своей страницы. */
+      setTimeout(function () {
+        var y = target.getBoundingClientRect().top + window.pageYOffset;
+        var hdr = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--hdr")) || 0;
+        window.scrollTo(0, Math.max(0, y - hdr - 8));
+        if (window.__scan) window.__scan();
+      }, 40);
+      markNav(raw);
+      closeMenu();
       return;
     }
     var id = ROUTES.hasOwnProperty(raw) ? ROUTES[raw] : "p-home";
@@ -3885,12 +3900,16 @@ var ATLAS = {
     if (window.__oblik) window.__oblik();
     if (window.__scan) setTimeout(window.__scan, 30);
     window.scrollTo(0, 0);
+    markNav(raw);
+    closeMenu();
+  }
+
+  function markNav(raw) {
     for (var i = 0; i < navLinks.length; i++) {
       var h = navLinks[i].getAttribute("href").replace(/^#\/?/, "");
       // подсвечиваем раздел и на его внутренних страницах: blog → blog/tri-ozera
       navLinks[i].classList.toggle("on", h === raw || (h !== "" && raw.indexOf(h + "/") === 0));
     }
-    closeMenu();
   }
 
   function show(id) {
