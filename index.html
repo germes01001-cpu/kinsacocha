@@ -108,9 +108,41 @@
   .m-pill { transition: none; } .m-pill.away { transform: none; opacity: 1; pointer-events: auto; } }
 </style>
 <style>
-/* цены для своих: плашка видна только в этом режиме */
-body .friends-note { display: none; border-color: var(--accent); }
+/* Цены для своих: рамка видна только в этом режиме.
+   Стоит НАД ценами, а не под ними — иначе гость читает числа
+   раньше объяснения и не знает, что они особые.
+   Жёлтый здесь по поводу: метка, а не украшение. Заливкой под тёмным
+   текстом он даёт 8.5 — набирать жёлтым по светлому нельзя, это 1.57. */
+body .friends-note { display: none; }
 body.svoi .friends-note { display: block; }
+body.svoi .friends-note {
+  /* ⚠️ рамка тёмная, а не жёлтая: --ob-bloom против ичу даёт 1.12,
+     против воздуха 1.53 — жёлтой рамки на светлой ступени просто не видно.
+     Жёлтый остаётся там, где он работает: заливкой под тёмным текстом метки. */
+  border: 2px solid var(--fg, #1D2119);
+  padding: clamp(16px, 2.6vw, 24px);
+  margin: 22px 0 4px;
+  background: transparent;
+}
+body.svoi .friends-note .fr-tag {
+  display: inline-block;
+  background: var(--ob-bloom, #E8B33A);
+  color: #1D2119;
+  font-family: var(--ob-mono, ui-monospace, monospace);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: 5px 9px; margin-bottom: 12px;
+}
+body.svoi .friends-note h3 {
+  font-family: var(--ob-disp, sans-serif);
+  font-weight: 700; text-transform: uppercase; letter-spacing: .02em;
+  font-size: clamp(23px, 3.6vw, 33px);
+  line-height: 1.1;
+  margin: 0 0 12px;
+  color: var(--fg, #1D2119);
+}
+body.svoi .friends-note p { margin: 0 0 8px; max-width: 60ch; }
+body.svoi .friends-note p:last-child { margin-bottom: 0; }
 </style>
 <!-- Google Analytics. Идентификатор пустой — счётчик не грузится совсем:
      ни запроса, ни куки. Заполнен — работает. -->
@@ -1913,6 +1945,13 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <p class="lead">Три готовых решения — или те же цены по отдельности.</p>
       <p class="muted">Цена за дом, а не с человека, если не написано иначе. Сутки — от утра до утра. Оплата на месте или переводом.</p>
 
+      <div class="friends-note">
+        <span class="fr-tag">Цены для своих</span>
+        <h3>Эти цены — только для своих</h3>
+        <p>Так я считаю для друзей, знакомых и тех, кого они привели.</p>
+        <p>В открытый доступ они не идут. По обычному адресу сайта числа другие — <a href="#/tseny" data-price-public>вот они</a>.</p>
+      </div>
+
       <div class="g3" style="margin-top:24px">
         <div class="card">
           <div class="ph r219 sc-dawn" data-shot data-bg="img/5393e8e26284.webp" style="margin-bottom:12px;;background-size:cover;background-position:center"></div>
@@ -1977,9 +2016,6 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       </div>
 
 
-      <div class="friends-note card" style="margin-top:18px">
-        <p style="margin:0"><b>Вы смотрите цены для своих.</b> Так мы считаем для друзей, знакомых и тех, кого они привели. Для всех остальных цены другие — <a href="#/tseny" data-price-public>вот они</a>.</p>
-      </div>
       <div class="card" style="margin-top:18px;border-color:var(--accent)">
         <h3>Коммерческие мероприятия — отдельно</h3>
         <p>Ретрит, съёмка, семинар, выезд с группой, любое событие, на котором вы зарабатываете, — считается не по этим ценам. Дом закрывается под вас целиком, и условия обсуждаются заранее.</p>
@@ -2596,6 +2632,13 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <h2>Цены</h2>
       <p class="lead">Три готовых решения — или те же цены по отдельности. Цена за дом, а не с человека, если не написано иначе. Сутки — от утра до утра.</p>
 
+      <div class="friends-note">
+        <span class="fr-tag">Цены для своих</span>
+        <h3>Эти цены — только для своих</h3>
+        <p>Так я считаю для друзей, знакомых и тех, кого они привели.</p>
+        <p>В открытый доступ они не идут. По обычному адресу сайта числа другие — <a href="#/tseny" data-price-public>вот они</a>.</p>
+      </div>
+
       <div class="g3" style="margin-top:24px">
         <div class="card">
           <h3>Кинсакоча целиком</h3>
@@ -2638,9 +2681,6 @@ body.ob .hero-body .lead,body.ob .ob-hero-kick{text-shadow:0 1px 12px rgba(12,14
       <h3 style="margin-top:28px">Дополнения</h3>
       
       <p><span class="tag">одни на горе · +50%</span><span class="tag">дрова · связка S/. 30</span><span class="tag">трансфер · S/. 100 в одну сторону</span><span class="tag">ужин · S/. 30</span></p>
-<div class="friends-note card" style="margin-top:18px">
-        <p style="margin:0"><b>Вы смотрите цены для своих.</b> Так мы считаем для друзей, знакомых и тех, кого они привели. Для всех остальных цены другие — <a href="#/tseny" data-price-public>вот они</a>.</p>
-      </div>
       <div class="card" style="margin-top:18px;border-color:var(--accent)">
         <h3>Коммерческие мероприятия — отдельно</h3>
         <p>Ретрит, съёмка, семинар, выезд с группой, любое событие, на котором вы зарабатываете, — считается не по этим ценам. Дом закрывается под вас целиком, и условия обсуждаются заранее.</p>
