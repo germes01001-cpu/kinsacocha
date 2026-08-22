@@ -815,13 +815,19 @@ body.svoi .friends-note p:last-child { margin-bottom: 0; }
   .masonry { columns: 4 190px; column-gap: 12px; margin-top: 18px; }
   .masonry .shot { break-inside: avoid; margin-bottom: 12px; cursor: pointer; }
   .masonry .shot .ph { min-height: 0; }
+  /* Общая заглушка ожидающего кадра тёмная — она рассчитана на главы Атласа.
+     Галерея лежит на бумаге, и тёмные прямоугольники читались как дыры. */
+  .masonry .shot .ph[data-bg] { background-color: var(--ob-air, #E6E9E3); background-image: none; }
 
   .lightbox {
     display: none; position: fixed; inset: 0; z-index: 60;
     background: rgba(0,0,0,.93); place-items: center; padding: 20px;
   }
   .lightbox.on { display: grid; }
-  .lightbox .frame { width: min(94vw, 1000px); aspect-ratio: 3/2; background: #262626; border: 1px solid #444; display: grid; place-items: center; color: #999; }
+  /* сцена фиксированного размера, кадр вписывается внутрь целиком.
+     Ни рамки, ни подложки: на тёмной подложке лайтбокса виден только снимок */
+  .lightbox .frame { width: min(94vw, 1000px); height: 84vh; display: grid; place-items: center; color: #999; }
+  .lightbox .frame img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
   .lightbox .lb-close { position: absolute; top: 14px; right: 18px; font-size: 30px; color: #fff; background: none; border: 0; cursor: pointer; line-height: 1; }
   .lightbox .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); font-size: 34px; color: #fff; background: none; border: 0; cursor: pointer; padding: 10px 16px; }
   .lightbox .lb-prev { left: 4px; } .lightbox .lb-next { right: 4px; }
@@ -4700,13 +4706,19 @@ var ATLAS = {
       ph.style.aspectRatio = s.w + " / " + s.h;
       ph.setAttribute("role", "img");
       ph.setAttribute("aria-label", "Фотография " + (idx + 1));
-      ph.style.backgroundImage = "url(" + s.f + ")";
+      /* ⚠️ было backgroundImage сразу — страница тянула все 60 кадров разом,
+         почти 7 МБ на открытие. Отдаём их общему ленивому загрузчику:
+         тот же data-bg, что и везде на сайте, и то же мягкое проявление */
+      ph.setAttribute("data-bg", s.f);
       ph.style.backgroundSize = "cover";
       ph.style.backgroundPosition = "center";
       d.appendChild(ph);
       masonry.appendChild(d);
     });
-    galCount.textContent = visible.length + " из " + SHOTS.length + " фотографий. Дальше подгружается по мере прокрутки.";
+    galCount.textContent = visible.length === SHOTS.length
+      ? SHOTS.length + " фотографий."
+      : visible.length + " из " + SHOTS.length + " фотографий.";
+    if (window.__scan) window.__scan();
   }
 
   function bindFilter(wrapId, setter) {
@@ -4739,8 +4751,22 @@ var ATLAS = {
   }
   function paintLb() {
     if (!visible.length) return;
-    lbFrame.textContent = visible[lbIdx].label;
+    var s = visible[lbIdx];
+    /* ⚠️ прежде сюда писали visible[lbIdx].label. Такого поля в SHOTS нет —
+       там только f, w, h, m. textContent = undefined даёт пустую строку,
+       поэтому лайтбокс открывался чёрным прямоугольником со счётчиком. */
+    lbFrame.textContent = "";
+    var im = new Image();
+    im.alt = "Фотография " + (lbIdx + 1) + " из " + visible.length;
+    im.decoding = "async";
+    im.src = s.f;
+    lbFrame.appendChild(im);
     lbCount.textContent = (lbIdx + 1) + " / " + visible.length;
+    /* соседей тянем заранее, иначе стрелка ждёт сеть */
+    [1, -1].forEach(function (d) {
+      var nx = visible[(lbIdx + d + visible.length) % visible.length];
+      if (nx) (new Image()).src = nx.f;
+    });
   }
   function step(d) {
     lbIdx = (lbIdx + d + visible.length) % visible.length;
@@ -4762,6 +4788,16 @@ var ATLAS = {
     if (e.key === "ArrowLeft") step(-1);
     if (e.key === "ArrowRight") step(1);
   });
+  /* Свайп: на телефоне стрелки мелкие и лежат поверх кадра.
+     Порог 45 px, вертикальные движения пропускаем — иначе не прокрутить. */
+  var tx = 0, ty = 0;
+  lb.addEventListener("touchstart", function (e) {
+    tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+  }, { passive: true });
+  lb.addEventListener("touchend", function (e) {
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+  }, { passive: true });
 
   /* ─── Старт ─────────────────────────────────────── */
 
@@ -4792,7 +4828,14 @@ var ATLAS = {
 
 
 <script>(function(){
-  function near(el){var r=el.getBoundingClientRect();return r.top<innerHeight*1.5&&r.bottom>-innerHeight*0.5;}
+  /* ⚠️ У элемента на скрытой странице (display:none) прямоугольник нулевой:
+     top=0, bottom=0 — и прежнее условие отвечало «в поле зрения». Сайт — один
+     файл со всеми страницами сразу, поэтому открытие главной тянуло кадры
+     галереи, блога и дневника: 113 файлов и 16,9 МБ до первой прокрутки.
+     Нулевой размер значит «не отрисован», а не «рядом». */
+  function near(el){var r=el.getBoundingClientRect();
+    if(!r.width&&!r.height)return false;
+    return r.top<innerHeight*1.5&&r.bottom>-innerHeight*0.5;}
   function loadBg(el){var p=el.getAttribute("data-bg");if(!p)return;
     var im=new Image();im.onload=function(){el.style.backgroundImage="url("+p+")";el.classList.add("bg-in");};
     im.src=p;el.removeAttribute("data-bg");}
